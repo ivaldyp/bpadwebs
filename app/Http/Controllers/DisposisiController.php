@@ -45,8 +45,6 @@ class DisposisiController extends Controller
 
 	public function log(Request $request)
 	{
-		// if (file_exists("C:/xampp/htdocs/portal/public/publicfile/disp/1.20.512.20102228/disp19.pdf" )) {
-
 		$dispmaster = DB::select( DB::raw("SELECT TOP (100) [ids]
 												  ,[sts]
 												  ,[uname]

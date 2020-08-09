@@ -7,7 +7,7 @@
 	<link href="https://cdn.datatables.net/buttons/1.2.2/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
 	<!-- Menu CSS -->
 	<link href="{{ ('/portal/public/ample/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css') }}" rel="stylesheet">
-		<!-- animation CSS -->
+	<!-- animation CSS -->
 	<link href="{{ ('/portal/public/ample/css/animate.css') }}" rel="stylesheet">
 	<!-- Custom CSS -->
 	<link href="{{ ('/portal/public/ample/css/style.css') }}" rel="stylesheet">
@@ -231,7 +231,7 @@
 																	@if ($access['zupd'] == 'y')
 																	<input type="hidden" name="ids" value="{{ $inbox['ids'] }}">
 																	<input type="hidden" name="no_form" value="{{ $inbox['no_form'] }}">
-																	<button type="submit" class="btn btn-info btn-outline btn-circle m-r-5 btn-update"><i class="ti-pencil-alt"></i></button>
+																	<button formtarget="_blank" type="submit" class="btn btn-info btn-outline btn-circle m-r-5 btn-update"><i class="ti-pencil-alt"></i></button>
 																	@endif
 																	@if ($access['zdel'] == 'y')
 																	<button type="button" class="btn btn-danger btn-delete btn-delete-inbox btn-outline btn-circle m-r-5" data-toggle="modal" data-target="#modal-delete" data-ids="{{ $inbox['ids'] }}" data-no_form="{{ $inbox['no_form'] }}" data-idtop="{{ $inbox['idtop'] }}"
