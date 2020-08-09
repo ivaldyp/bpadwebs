@@ -91,6 +91,8 @@ class SecurityController extends Controller
 	public function grupubah(Request $request)
 	{
 		$this->checkSessionTime();
+		$access = json_decode('{"sts":"1","uname":"qnoy","tgl":"2019-08-16 08:51:44.000","ip":"10.192.153.42","logbuat":null,"idgroup":"SUPERUSER","idtop":"4.0","zviw":"y","zadd":"y","zupd":"y","zdel":"y","zapr":"y","zprint":null,"zdwd":null,"zfor":null,"zint":null}');
+		$access = json_decode(json_encode($access), true);
 
 		$groups = Sec_access::
 					distinct('idgroup')
@@ -105,6 +107,7 @@ class SecurityController extends Controller
 		return view('pages.bpadsecurity.ubahgrup')
 				->with('pagename', $pagename)
 				->with('menus', $menus)
+				->with('access', $access)
 				->with('groups', $groups);
 	}
 
