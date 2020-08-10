@@ -61,8 +61,12 @@ Route::group(['prefix' => 'booking'], function () {
 
 Route::group(['prefix' => 'notulen'], function () {
 	Route::get('tambah notulen', 'NotulenController@tambahnotulen');
+	Route::post('ubah notulen', 'NotulenController@ubahnotulen');
 	Route::get('notulen', 'NotulenController@notulenall');
+	Route::get('mynotulen', 'NotulenController@mynotulen');
 	Route::post('form/tambahnotulen', 'NotulenController@forminsertnotulen');
+	Route::post('form/ubahnotulen', 'NotulenController@formupdatenotulen');
+	Route::post('form/hapusnotulen', 'NotulenController@formdeletenotulen');
 });
 
 Route::group(['prefix' => 'disposisi'], function () {

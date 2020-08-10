@@ -69,7 +69,7 @@
 			</div>
 			<div class="row ">
 				<div class="col-md-12">
-					<form class="form-horizontal" method="POST" action="/portal/notulen/form/tambahnotulen" data-toggle="validator" enctype="multipart/form-data">
+					<form class="form-horizontal" method="POST" action="/portal/notulen/form/ubahnotulen" data-toggle="validator" enctype="multipart/form-data">
 					@csrf
 						<div class="panel panel-info">
 							<div class="panel-heading"> Buat Notulen Baru </div>
@@ -79,14 +79,14 @@
 									<div class="form-group">
 										<label for="nm_emp" class="col-md-2 control-label"> NIP<span style="color: red">*</span> </label>
 										<div class="col-md-8">
-											<input autocomplete="off" type="text" name="nip_emp" class="form-control" value="{{ $_SESSION['user_data']['nip_emp'] ?? '' }}" required="">
+											<input autocomplete="off" type="text" name="nip_emp" class="form-control" value="{{ $notulen['nip_emp'] }}" required="">
 										</div>
 									</div>
 
 									<div class="form-group">
 										<label for="nm_emp" class="col-md-2 control-label"> Nama<span style="color: red">*</span> </label>
 										<div class="col-md-8">
-											<input autocomplete="off" type="text" name="nm_emp" class="form-control" value="{{ Auth::user()->id_emp ? $_SESSION['user_data']['nm_emp'] : '' }}" required="">
+											<input autocomplete="off" type="text" name="nm_emp" class="form-control" value="{{ $notulen['nm_emp'] }}" required="">
 										</div>
 									</div>
 
@@ -100,7 +100,7 @@
 														$new_nm = str_replace('KEPALA SUB', 'SUB', $new_nm);
 													?>
 
-													<option <?php if(strpos($_SESSION['user_data']['idunit'], $unit['kd_unit']) !== 		false): ?> selected <?php endif ?>
+													<option <?php if($notulen['unit_emp'] == $unit['kd_unit']): ?> selected <?php endif ?>
 															<?php if(strlen($unit['kd_unit']) == 6): ?> disabled <?php endif ?>
 															 value="{{ $unit['kd_unit'] }}"> {{ $unit['kd_unit'] }}::{{ $new_nm }} </option>
 												@endforeach
@@ -113,14 +113,14 @@
 									<div class="form-group">
 										<label for="not_dasar" class="col-md-2 control-label"> Dasar </label>
 										<div class="col-md-8">
-											<input autocomplete="off" type="text" name="not_dasar" class="form-control">
+											<input autocomplete="off" type="text" name="not_dasar" class="form-control" value="{{ $notulen['not_dasar'] }}">
 										</div>
 									</div>
 									
 									<div class="form-group">
 										<label for="not_tempat" class="col-md-2 control-label"> Tempat<span style="color: red">*</span> </label>
 										<div class="col-md-8">
-											<input autocomplete="off" type="text" name="not_tempat" class="form-control" required="">
+											<input autocomplete="off" type="text" name="not_tempat" class="form-control" required="" value="{{ $notulen['not_tempat'] }}">
 										</div>
 									</div>
 
@@ -128,7 +128,7 @@
 										<label for="not_tanggal" class="col-md-2 control-label"> Tanggal </label>
 										<div class="col-md-8">
 											<?php date_default_timezone_set('Asia/Jakarta'); ?>
-											<input type="text" class="form-control datepicker-autoclose" id="not_tanggal" name="not_tanggal" autocomplete="off" value="{{ date('d/m/Y') }}" required="">
+											<input type="text" class="form-control datepicker-autoclose" id="not_tanggal" name="not_tanggal" autocomplete="off" value="{{ date('d/m/Y', strtotime($notulen['not_tanggal'])) }}" required="">
 										</div>
 									</div>
 
@@ -136,13 +136,13 @@
 										<label for="tgl_masuk" class="col-md-2 control-label"> Mulai </label>
 										<div class="col-md-3">
 											<div class="input-group clockpicker" data-placement="bottom" data-align="top" data-autoclose="true">
-												<input type="text" class="form-control" value="00:00" name="not_mulai" id="not_mulai"> <span class="input-group-addon"> <span class="glyphicon glyphicon-time"></span> </span>
+												<input type="text" class="form-control" name="not_mulai" id="not_mulai" value="{{ date('H:i', strtotime($notulen['not_mulai'])) }}"> <span class="input-group-addon"> <span class="glyphicon glyphicon-time"></span> </span>
 											</div>
 										</div>
 										<label for="tgl_masuk" class="col-md-2 control-label"> Selesai </label>
 										<div class="col-md-3">
 											<div class="input-group clockpicker" data-placement="bottom" data-align="top" data-autoclose="true">
-												<input type="text" class="form-control" value="00:00" name="not_selesai" id="not_selesai"> <span class="input-group-addon"> <span class="glyphicon glyphicon-time"></span> </span>
+												<input type="text" class="form-control" name="not_selesai" id="not_selesai" value="{{ date('H:i', strtotime($notulen['not_selesai'])) }}"> <span class="input-group-addon"> <span class="glyphicon glyphicon-time"></span> </span>
 											</div>
 										</div>
 									</div>
@@ -150,28 +150,28 @@
 									<div class="form-group">
 										<label for="not_acara" class="col-md-2 control-label"> Kegiatan<span style="color: red">*</span> </label>
 										<div class="col-md-8">
-											<input autocomplete="off" type="text" name="not_acara" class="form-control" required="">
+											<input autocomplete="off" type="text" name="not_acara" class="form-control" required="" value="{{ $notulen['not_acara'] }}">
 										</div>
 									</div>
 
 									<div class="form-group">
 										<label for="not_pimpinan" class="col-md-2 control-label"> Pemimpin Rapat<span style="color: red">*</span> </label>
 										<div class="col-md-8">
-											<input autocomplete="off" type="text" name="not_pimpinan" class="form-control" required="">
+											<input autocomplete="off" type="text" name="not_pimpinan" class="form-control" required="" value="{{ $notulen['not_pimpinan'] }}">
 										</div>
 									</div>
 
 									<div class="form-group">
 										<label for="not_undangan" class="col-md-2 control-label"> Daftar Undangan </label>
 										<div class="col-sm-8">
-											<textarea class="summernote form-control" rows="5" placeholder="Enter text ..." name="not_undangan"></textarea>
+											<textarea class="summernote form-control" rows="5" placeholder="Enter text ..." name="not_undangan">{!! $notulen['not_undangan'] !!}</textarea>
 										</div>
 									</div>
 
 									<div class="form-group">
 										<label for="not_tidakhadir" class="col-md-2 control-label"> Tidak Hadir </label>
 										<div class="col-sm-8">
-											<textarea class="summernote form-control" rows="5" placeholder="Enter text ..." name="not_tidakhadir"></textarea>
+											<textarea class="summernote form-control" rows="5" placeholder="Enter text ..." name="not_tidakhadir">{!! $notulen['not_tidakhadir'] !!}</textarea>
 										</div>
 									</div>
 
@@ -180,42 +180,42 @@
 									<div class="form-group">
 										<label for="not_latar" class="col-md-2 control-label"> Latar Belakang </label>
 										<div class="col-sm-8">
-											<textarea class="summernote form-control" rows="5" placeholder="Enter text ..." name="not_latar"></textarea>
+											<textarea class="summernote form-control" rows="5" placeholder="Enter text ..." name="not_latar">{!! $notulen['not_latar'] !!}</textarea>
 										</div>
 									</div>
 
 									<div class="form-group">
 										<label for="not_agenda" class="col-md-2 control-label"> Poin Agenda Rapat </label>
 										<div class="col-sm-8">
-											<textarea class="summernote form-control" rows="5" placeholder="Enter text ..." name="not_agenda"></textarea>
+											<textarea class="summernote form-control" rows="5" placeholder="Enter text ..." name="not_agenda">{!! $notulen['not_agenda'] !!}</textarea>
 										</div>
 									</div>
 
 									<div class="form-group">
 										<label for="not_pembahasan" class="col-md-2 control-label"> Pembahasan Rapat </label>
 										<div class="col-sm-8">
-											<textarea class="summernote form-control" rows="5" placeholder="Enter text ..." name="not_pembahasan"></textarea>
+											<textarea class="summernote form-control" rows="5" placeholder="Enter text ..." name="not_pembahasan">{!! $notulen['not_pembahasan'] !!}</textarea>
 										</div>
 									</div>
 									
 									<div class="form-group">
 										<label for="not_catatan" class="col-md-2 control-label"> Catatan Rapat </label>
 										<div class="col-sm-8">
-											<textarea class="summernote form-control" rows="5" placeholder="Enter text ..." name="not_catatan"></textarea>
+											<textarea class="summernote form-control" rows="5" placeholder="Enter text ..." name="not_catatan">{!! $notulen['not_catatan'] !!}</textarea>
 										</div>
 									</div>
 
 									<div class="form-group">
 										<label for="not_kesimpulan" class="col-md-2 control-label"> Kesimpulan Rapat </label>
 										<div class="col-sm-8">
-											<textarea class="summernote form-control" rows="5" placeholder="Enter text ..." name="not_kesimpulan"></textarea>
+											<textarea class="summernote form-control" rows="5" placeholder="Enter text ..." name="not_kesimpulan">{!! $notulen['not_kesimpulan'] !!}</textarea>
 										</div>
 									</div>
 
 									<div class="form-group">
 										<label for="not_disppimpinan" class="col-md-2 control-label"> Disposisi Pimpinan </label>
 										<div class="col-sm-8">
-											<textarea class="summernote form-control" rows="5" placeholder="Enter text ..." name="not_disppimpinan"></textarea>
+											<textarea class="summernote form-control" rows="5" placeholder="Enter text ..." name="not_disppimpinan">{!! $notulen['notdisppimpinan'] !!}</textarea>
 										</div>
 									</div>
 
@@ -231,8 +231,7 @@
                                     <div class="form-group">
 										<label for="createdby" class="col-md-2 control-label"> Created By </label>
 										<div class="col-md-8">
-											<input disabled="" type="text" class="form-control" value="{{ Auth::user()->id_emp ? $_SESSION['user_data']['nm_emp'] : Auth::user()->usname }}">
-											<input type="hidden" name="createdby" class="form-control" value="{{ Auth::user()->id_emp ?? Auth::user()->usname }}">
+											<input disabled="" type="text" class="form-control" value="{{ $notulen['createdby'] }}">
 										</div>
 									</div>
 								</div>

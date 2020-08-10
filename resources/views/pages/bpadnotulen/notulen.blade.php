@@ -157,7 +157,7 @@
 													
 													@if($access['zupd'] == 'y' || $access['zdel'] == 'y')
 														<td class="col-md-1">
-															<form method="POST" action="/portal/internal/notulen ubah">
+															<form method="POST" action="/portal/notulen/ubah notulen">
 																@csrf
 																@if($access['zupd'] == 'y')
 																
@@ -186,15 +186,14 @@
 			<div id="modal-delete" class="modal fade" role="dialog">
 				<div class="modal-dialog">
 					<div class="modal-content">
-						<form method="POST" action="/portal/internal/form/hapusagenda" class="form-horizontal">
+						<form method="POST" action="/portal/notulen/form/hapusnotulen" class="form-horizontal">
 						@csrf
 							<div class="modal-header">
-								<h4 class="modal-title"><b>Hapus Agenda</b></h4>
+								<h4 class="modal-title"><b>Hapus Notulen</b></h4>
 							</div>
 							<div class="modal-body">
 								<h4 id="label_delete"></h4>
 								<input type="hidden" name="ids" id="modal_delete_ids" value="">
-								<input type="hidden" name="dfile" id="modal_delete_dfile" value="">
 							</div>
 							<div class="modal-footer">
 								<button type="submit" class="btn btn-danger pull-right">Hapus</button>
@@ -234,9 +233,8 @@
 			$('.btn-delete').on('click', function () {
 				var $el = $(this);
 
-				$("#label_delete").append('Apakah anda yakin ingin menghapus agenda tersebut?');
+				$("#label_delete").append('Apakah anda yakin ingin menghapus notulen tersebut?');
 				$("#modal_delete_ids").val($el.data('ids'));
-				$("#modal_delete_dfile").val($el.data('dfile'));
 			});
 
 			$("#modal-delete").on("hidden.bs.modal", function () {
