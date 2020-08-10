@@ -132,7 +132,7 @@ class ContentController extends Controller
 					->where('appr', 'Y')
 					->where('sts', 1)
 					->whereRaw("judul like '%".$cari."%'")
-					->orderBy('tanggal', 'desc')
+					->orderBy('tgl', 'desc')
 					->paginate(10);
 		} else {
 			$foto_list = Content_tb::
@@ -141,7 +141,7 @@ class ContentController extends Controller
 					->where('subkat', $subkat)
 					->where('appr', 'Y')
 					->whereRaw("judul like '%".$cari."%'")
-					->orderBy('tanggal', 'desc')
+					->orderBy('tgl', 'desc')
 					->paginate(10);
 		}
 		$foto_list->appends($request->only('cari'));
@@ -155,7 +155,7 @@ class ContentController extends Controller
 							->where('appr', 'Y')
 							->where('sts', 1)
 							->where('idkat', 5)
-							->orderBy('tanggal', 'desc')
+							->orderBy('tgl', 'desc')
 							->get();
 
 		return view('pages.foto.foto')

@@ -59,6 +59,12 @@ Route::group(['prefix' => 'booking'], function () {
 	Route::get('request', 'BookingController@requestpinjam');
 });
 
+Route::group(['prefix' => 'notulen'], function () {
+	Route::get('tambah notulen', 'NotulenController@tambahnotulen');
+	Route::get('notulen', 'NotulenController@notulenall');
+	Route::post('form/tambahnotulen', 'NotulenController@forminsertnotulen');
+});
+
 Route::group(['prefix' => 'disposisi'], function () {
 	Route::get('/formdisposisi', 'DisposisiController@formdisposisi');
 	Route::get('/hapusfiledisposisi', 'DisposisiController@disposisihapusfile');

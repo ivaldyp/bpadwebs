@@ -159,7 +159,7 @@ class LandingController extends Controller
 					where('idkat', 5)
 					->where('appr', 'Y')
 					->where('sts', 1)
-					->orderBy('tanggal', 'desc')
+					->orderBy('tgl', 'desc')
 					->take(4)
 					->get();
 
