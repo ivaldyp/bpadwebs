@@ -184,7 +184,7 @@
 
 														<tr>
 															<td>{{ $key + 1 }}</td>
-															<td class="col-sm-1">{{ strtoupper($sent['nm_emp']) }}</td>
+															<td class="col-sm-2">{{ strtoupper($sent['nm_emp']) }}</td>
 															<td class="col-sm-2">{{ date('d-M-Y', strtotime($sent['not_tanggal'])) }}<br>
 																<span class="text-muted">
 																	{{ date('H:i', strtotime($sent['not_mulai'])) }} - {{ date('H:i', strtotime($sent['not_selesai'])) }}
