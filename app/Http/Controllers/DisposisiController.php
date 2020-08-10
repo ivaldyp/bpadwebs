@@ -1031,6 +1031,12 @@ class DisposisiController extends Controller
 					->with('msg_num', 2);
 		}
 
+		if (is_null($request->jabatans)) {
+			return redirect('/disposisi/ubah disposisi?ids='.$request->ids)
+						->with('message', 'Tujuan disposisi tidak boleh kosong')
+						->with('msg_num', 2);
+		}
+
 		if (isset($request->btnDraft)) {
 			$status_surat = 'd';
 			$selesai = 'Y';
