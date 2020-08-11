@@ -121,6 +121,7 @@
 													<th>Headline</th>
 													@endif
 													<th>Approved</th>
+													<th>Create Date</th>
 													@if($access['zupd'] == 'y' || $access['zdel'] == 'y')
 													<th class="col-md-1">Action</th>
 													@endif
@@ -171,6 +172,9 @@
 														{!! ($content['appr']) == 'Y' ? 
 															'<i style="color:green;" class="fa fa-check"></i><br><span style="color: white;">1</span>' : 
 															'<i style="color:red;" class="fa fa-times"></i><br><span style="color: white;">0</span>' !!}
+													</td>
+													<td>
+														{{ date('d/M/Y', strtotime(str_replace('/', '-', $content['tgl']))) }}
 													</td>
 													@if($access['zupd'] == 'y' || $access['zdel'] == 'y')
 														<td>
