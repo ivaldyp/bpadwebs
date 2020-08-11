@@ -1546,9 +1546,14 @@ class DisposisiController extends Controller
 			$qid = "d.from_pm = '".$idgroup."'";
 			$or = "or (d.to_pm = '".$idgroup."' and d.selesai = 'Y')";
 			// $rd = "(d.rd like 'N' or d.rd like 'Y')";
-		} else {
-			$rd = "d.rd like 'S'";
+		} elseif (strlen($_SESSION['user_data']['idunit']) == 10) {
+			$qid = "(d.to_pm = '".$idgroup."' and d.selesai = 'Y')";
+			$rd = "";
 			$or = "";
+		} else {
+			$rd = "";
+			$or = "or (d.to_pm = '".$idgroup."' and d.selesai = 'Y' and d.child = 0)";
+			$qid = "d.from_pm = '".$idgroup."'";
 		}
 
 		$dispsentundangan = DB::select( DB::raw("SELECT TOP (1000) d.[ids]
@@ -1565,6 +1570,9 @@ class DisposisiController extends Controller
 												  ,m.[kd_surat]
 												  ,d.[status_surat]
 												  ,d.[idtop]
+												  ,t.ids as parent
+												  ,t.penanganan as penanganantop
+												  ,t.catatan as catatantop
 												  ,d.[tgl_masuk]
 												  ,d.[usr_input]
 												  ,d.[tgl_input]
@@ -1599,6 +1607,7 @@ class DisposisiController extends Controller
 												  FROM [bpaddtfake].[dbo].[fr_disposisi] d
 												  left join bpaddtfake.dbo.emp_data as emp1 on emp1.id_emp = d.from_pm
 												  left join bpaddtfake.dbo.emp_data as emp2 on emp2.id_emp = d.to_pm
+												  left join bpaddtfake.dbo.fr_disposisi as t on t.ids = d.idtop
 												  left join bpaddtfake.dbo.fr_disposisi as m on m.no_form = d.no_form and m.idtop = 0
 												  where month(m.tgl_masuk) $signnow $monthnow
 												  and year(m.tgl_masuk) = $yearnow
@@ -1626,6 +1635,9 @@ class DisposisiController extends Controller
 												  ,m.[kd_surat]
 												  ,d.[status_surat]
 												  ,d.[idtop]
+												  ,t.ids as parent
+												  ,t.penanganan as penanganantop
+												  ,t.catatan as catatantop
 												  ,d.[tgl_masuk]
 												  ,d.[usr_input]
 												  ,d.[tgl_input]
@@ -1660,6 +1672,7 @@ class DisposisiController extends Controller
 												  FROM [bpaddtfake].[dbo].[fr_disposisi] d
 												  left join bpaddtfake.dbo.emp_data as emp1 on emp1.id_emp = d.from_pm
 												  left join bpaddtfake.dbo.emp_data as emp2 on emp2.id_emp = d.to_pm
+												  left join bpaddtfake.dbo.fr_disposisi as t on t.ids = d.idtop
 												  left join bpaddtfake.dbo.fr_disposisi as m on m.no_form = d.no_form and m.idtop = 0
 												  where month(m.tgl_masuk) $signnow $monthnow
 												  and year(m.tgl_masuk) = $yearnow

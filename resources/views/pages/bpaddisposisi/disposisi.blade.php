@@ -129,7 +129,7 @@
 														<th class="col-sm-1">Dari</th>
 														<th class="">Ke</th>
 														<th class="">Penanganan</th>
-														<th class="">Catatan</th>
+														<!-- <th class="">Catatan</th> -->
 														@if($access['zupd'] == 'y' || $access['zdel'] == 'y')
 														<th>Action</th>
 														@endif
@@ -222,8 +222,8 @@
 															</td>
 															<td>{{ $thisdari ? $thisdari : $inbox['from_pm'] }}</td>
 															<td>{{ $thiske }}</td>
-															<td>{{ $thispenanganan }}</td>
-															<td>{{ $thiscatatan }}</td>
+															<td>{{ $thispenanganan }}<br><span class="text-muted">{{ $thiscatatan }}</span></td>
+															<!-- <td>{{ $thiscatatan }}</td> -->
 															<td style="vertical-align: middle;">
 																
 																<form method="GET" action="/portal/disposisi/lihat disposisi">
@@ -262,7 +262,8 @@
 														<th class="col-sm-1">Dari</th>
 														<th class="">Ke</th>
 														<th class="">Penanganan</th>
-														<th class="">Catatan</th>
+														<!-- <th class="">Catatan</th> -->
+														<th>TL</th>
 														@if($access['zupd'] == 'y' || $access['zdel'] == 'y')
 														<th>Action</th>
 														@endif
@@ -283,23 +284,42 @@
 														$thisusrinput = $sent['usr_input'];
 														$thistglinput = $sent['tgl_input'];
 														$thisrd = $sent['rddisp'];
+														$thisselesai = $sent['selesai'];
 
+														// if (isset($_SESSION['user_data']['idunit'])) {
+														// 	if (strlen($_SESSION['user_data']['idunit']) == 8) {
+														// 		$thisdarisent = $sent['from_nm'];
+														// 		$thiskesent = $sent['to_nm'];
+														// 		$thispenanganan = $sent['penanganantop'];
+														// 		$thiscatatan = $sent['catatantop'];
+														// 	} else {
+														// 		$thisdarisent = $sent['to_nm'];
+														// 		$thiskesent = ($sent['kepada'] ? $sent['kepada'] : $sent['noid']);
+														// 		$thispenanganan = $sent['penanganan'];
+														// 		$thiscatatan = $sent['catatan'];
+														// 	}
+														// } else {
+														// 	$thisdarisent = $sent['to_nm'];
+														// 	$thiskesent = ($sent['kepada'] ? $sent['kepada'] : $sent['noid']);
+														// 	$thispenanganan = $sent['penanganan'];
+														// 	$thiscatatan = $sent['catatan'];
+														// }
+
+														$thisdarisent = $sent['from_nm'];
+														$thiskesent = $sent['to_nm'];
 														if (isset($_SESSION['user_data']['idunit'])) {
-															if (strlen($_SESSION['user_data']['idunit']) == 8) {
-																$thisdarisent = $sent['from_nm'];
-																$thiskesent = $sent['to_nm'];
-															} else {
+															if (strlen($_SESSION['user_data']['idunit']) == 10) {
+																$thiskesent = $sent['kepada'];
 																$thisdarisent = $sent['to_nm'];
-																$thiskesent = ($sent['kepada'] ? $sent['kepada'] : $sent['noid']);
 															}
-														} else {
-															$thisdarisent = $sent['to_nm'];
-															$thiskesent = ($sent['kepada'] ? $sent['kepada'] : $sent['noid']);
 														}
+														$thispenanganan = $sent['penanganantop'];
+														$thiscatatan = $sent['catatantop'];
+														$thispenanganannow = $sent['penanganan'];
+														$thiscatatannow = $sent['catatan'];
+
 															
 														$thiskepada = str_replace("::", "; ", $sent['kepada']);
-														$thispenanganan = $sent['penanganan'];
-														$thiscatatan = $sent['catatan'];
 														?>
 
 														<tr>
@@ -362,8 +382,17 @@
 															</td>
 															<td>{{ $thisdarisent }}</td>
 															<td>{{ $thiskesent }}</td>
-															<td>{{ $thispenanganan }}</td>
-															<td>{{ $thiscatatan }}</td>
+															<td>{{ $_SESSION['user_data']['idunit'] && strlen($_SESSION['user_data']['idunit']) == 10 ? $thispenanganannow : $thispenanganan }}<br>
+																<span class="text-muted">{{ $_SESSION['user_data']['idunit'] && strlen($_SESSION['user_data']['idunit']) == 10 ? $thiscatatannow : $thiscatatan }}</span>
+															</td>
+															<!-- <td>{{ $_SESSION['user_data']['idunit'] && strlen($_SESSION['user_data']['idunit']) == 10 ? $thiscatatannow : $thiscatatan }}</td> -->
+															<td>
+																@if($thisrd == 'S')
+																	<i class="fa fa-check" style="color: green" data-toggle='tooltip' title='Sudah ditindaklanjut: {!! $thiscatatannow !!}'></i>
+																@else
+																	<i class="fa fa-close" style="color: red" data-toggle='tooltip' title='Belum ditindaklanjut'></i>
+																@endif
+															</td>
 															<td style="vertical-align: middle;">
 																
 																<form method="GET" action="/portal/disposisi/lihat disposisi">
@@ -402,7 +431,7 @@
 														<th class="col-sm-1">Dari</th>
 														<th class="">Ke</th>
 														<th class="">Penanganan</th>
-														<th class="">Catatan</th>
+														<!-- <th class="">Catatan</th> -->
 														@if($access['zupd'] == 'y' || $access['zdel'] == 'y')
 														<th>Action</th>
 														@endif
@@ -495,8 +524,8 @@
 															</td>
 															<td>{{ $thisdari ? $thisdari : $inbox['from_pm'] }}</td>
 															<td>{{ $thiske }}</td>
-															<td>{{ $thispenanganan }}</td>
-															<td>{{ $thiscatatan }}</td>
+															<td>{{ $thispenanganan }}<br><span class="text-muted">{{ $thiscatatan }}</span></td>
+															<!-- <td>{{ $thiscatatan }}</td> -->
 															<td style="vertical-align: middle;">
 																
 																<form method="GET" action="/portal/disposisi/lihat disposisi">
@@ -535,7 +564,8 @@
 														<th class="col-sm-1">Dari</th>
 														<th class="">Ke</th>
 														<th class="">Penanganan</th>
-														<th class="">Catatan</th>
+														<!-- <th class="">Catatan</th> -->
+														<th>TL</th>
 														@if($access['zupd'] == 'y' || $access['zdel'] == 'y')
 														<th>Action</th>
 														@endif
@@ -557,22 +587,40 @@
 														$thistglinput = $sent['tgl_input'];
 														$thisrd = $sent['rddisp'];
 
+														// if (isset($_SESSION['user_data']['idunit'])) {
+														// 	if (strlen($_SESSION['user_data']['idunit']) == 8) {
+														// 		$thisdarisent = $sent['from_nm'];
+														// 		$thiskesent = $sent['to_nm'];
+														// 		$thispenanganan = $sent['penanganantop'];
+														// 		$thiscatatan = $sent['catatantop'];
+														// 	} else {
+														// 		$thisdarisent = $sent['to_nm'];
+														// 		$thiskesent = ($sent['kepada'] ? $sent['kepada'] : $sent['noid']);
+														// 		$thispenanganan = $sent['penanganan'];
+														// 		$thiscatatan = $sent['catatan'];
+														// 	}
+														// } else {
+														// 	$thisdarisent = $sent['to_nm'];
+														// 	$thiskesent = ($sent['kepada'] ? $sent['kepada'] : $sent['noid']);
+														// 	$thispenanganan = $sent['penanganan'];
+														// 	$thiscatatan = $sent['catatan'];
+														// }
+
+														$thisdarisent = $sent['from_nm'];
+														$thiskesent = $sent['to_nm'];
 														if (isset($_SESSION['user_data']['idunit'])) {
-															if (strlen($_SESSION['user_data']['idunit']) == 8) {
-																$thisdarisent = $sent['from_nm'];
-																$thiskesent = $sent['to_nm'];
-															} else {
+															if (strlen($_SESSION['user_data']['idunit']) == 10) {
+																$thiskesent = $sent['kepada'];
 																$thisdarisent = $sent['to_nm'];
-																$thiskesent = ($sent['kepada'] ? $sent['kepada'] : $sent['noid']);
 															}
-														} else {
-															$thisdarisent = $sent['to_nm'];
-															$thiskesent = ($sent['kepada'] ? $sent['kepada'] : $sent['noid']);
 														}
+														$thispenanganan = $sent['penanganantop'];
+														$thiscatatan = $sent['catatantop'];
+														$thispenanganannow = $sent['penanganan'];
+														$thiscatatannow = $sent['catatan'];
 															
 														$thiskepada = str_replace("::", "; ", $sent['kepada']);
-														$thispenanganan = $sent['penanganan'];
-														$thiscatatan = $sent['catatan'];
+														
 														?>
 
 														<tr>
@@ -635,8 +683,17 @@
 															</td>
 															<td>{{ $thisdarisent }}</td>
 															<td>{{ $thiskesent }}</td>
-															<td>{{ $thispenanganan }}</td>
-															<td>{{ $thiscatatan }}</td>
+															<td>{{ $_SESSION['user_data']['idunit'] && strlen($_SESSION['user_data']['idunit']) == 10 ? $thispenanganannow : $thispenanganan }}<br>
+																<span class="text-muted">{{ $_SESSION['user_data']['idunit'] && strlen($_SESSION['user_data']['idunit']) == 10 ? $thiscatatannow : $thiscatatan }}</span>
+															</td>
+															<!-- <td>{{ $_SESSION['user_data']['idunit'] && strlen($_SESSION['user_data']['idunit']) == 10 ? $thiscatatannow : $thiscatatan }}</td> -->
+															<td>
+																@if($thisrd == 'S')
+																	<i class="fa fa-check" style="color: green" data-toggle='tooltip' title='Sudah ditindaklanjut: {!! $thiscatatannow !!}'></i>
+																@else
+																	<i class="fa fa-close" style="color: red" data-toggle='tooltip' title='Belum ditindaklanjut'></i>
+																@endif
+															</td>
 															<td style="vertical-align: middle;">
 																
 																<form method="GET" action="/portal/disposisi/lihat disposisi">
@@ -675,7 +732,7 @@
 														<th class="col-sm-1">Dari</th>
 														<th class="">Ke</th>
 														<th class="">Penanganan</th>
-														<th class="">Catatan</th>
+														<!-- <th class="">Catatan</th> -->
 														@if($access['zupd'] == 'y' || $access['zdel'] == 'y')
 														<th>Action</th>
 														@endif
@@ -761,8 +818,8 @@
 															</td>
 															<td>{{ $thisdari ? $thisdari : $draft['from_pm'] }}</td>
 															<td>{{ $thiske }}</td>
-															<td>{{ $thispenanganan }}</td>
-															<td>{{ $thiscatatan }}</td>
+															<td>{{ $thispenanganan }}<br><span class="text-muted">{{ $thiscatatan }}</span></td>
+															<!-- <td>{{ $thiscatatan }}</td> -->
 															<td style="vertical-align: middle;">
 																
 																<form method="GET" action="/portal/disposisi/lihat disposisi">
@@ -877,26 +934,41 @@
 			$('#myTable').DataTable({
 				"ordering" : false,
 				"searching": false,
+				drawCallback: function() {
+			    	$('[data-toggle="tooltip"]').tooltip();
+			  	} 
 			});
 
 			$('#myTable2').DataTable({
 				"ordering" : false,
 				"searching": false,
+				drawCallback: function() {
+			    	$('[data-toggle="tooltip"]').tooltip();
+			  	} 
 			});
 
 			$('#myTable3').DataTable({
 				"ordering" : false,
 				"searching": false,
+				drawCallback: function() {
+			    	$('[data-toggle="tooltip"]').tooltip();
+			  	} 
 			});
 
 			$('#myTable4').DataTable({
 				"ordering" : false,
 				"searching": false,
+				drawCallback: function() {
+			    	$('[data-toggle="tooltip"]').tooltip();
+			  	}  
 			});
 
 			$('#myTable5').DataTable({
 				"ordering" : false,
 				"searching": false,
+				drawCallback: function() {
+			    	$('[data-toggle="tooltip"]').tooltip();
+			  	} 
 			});
 		});
 	</script>
