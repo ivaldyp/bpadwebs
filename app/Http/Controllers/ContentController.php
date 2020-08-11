@@ -91,15 +91,14 @@ class ContentController extends Controller
 	{
 		$lelang_id = Glo_kategori::
 						where('nmkat', 'lelang')
-						->where('appr', 'Y')
 						->where('sts', 1)
-						->where('tipe', 'H,')
 						->first();
 
 		$lelang = Content_tb::
 					where('idkat', $lelang_id['ids'])
-					// ->where('appr', 'Y')
+					->where('appr', 'Y')
 					->where('sts', 1)
+					->where('tipe', 'H,')
 					->orderBy('tanggal', 'desc')
 					->first();
 
