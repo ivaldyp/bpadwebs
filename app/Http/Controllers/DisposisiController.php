@@ -40,7 +40,7 @@ class DisposisiController extends Controller
 	public function __construct()
 	{
 		$this->middleware('auth');
-		set_time_limit(300);
+		set_time_limit(600);
 	}
 
 	public function log(Request $request)
