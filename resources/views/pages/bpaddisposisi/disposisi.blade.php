@@ -231,7 +231,8 @@
 																	@if ($access['zupd'] == 'y')
 																	<input type="hidden" name="ids" value="{{ $inbox['ids'] }}">
 																	<input type="hidden" name="no_form" value="{{ $inbox['no_form'] }}">
-																	<button formtarget="_blank" type="submit" class="btn btn-info btn-outline btn-circle m-r-5 btn-update"><i class="ti-pencil-alt"></i></button>
+																	<input type="hidden" name="signdate" value="{{$yearnow}}::{{$signnow}}::{{$monthnow}}">
+																	<button type="submit" class="btn btn-info btn-outline btn-circle m-r-5 btn-update"><i class="ti-pencil-alt"></i></button>
 																	@endif
 																	@if ($access['zdel'] == 'y')
 																	<button type="button" class="btn btn-danger btn-delete btn-delete-inbox btn-outline btn-circle m-r-5" data-toggle="modal" data-target="#modal-delete" data-ids="{{ $inbox['ids'] }}" data-no_form="{{ $inbox['no_form'] }}" data-idtop="{{ $inbox['idtop'] }}"
@@ -400,7 +401,8 @@
 																	@if ($access['zupd'] == 'y')
 																	<input type="hidden" name="ids" value="{{ $sent['ids'] }}">
 																	<input type="hidden" name="no_form" value="{{ $sent['no_form'] }}">
-																	<button formtarget="_blank" type="submit" class="btn btn-info btn-outline btn-circle m-r-5 btn-update"><i class="ti-pencil-alt"></i></button>
+																	<input type="hidden" name="signdate" value="{{$yearnow}}::{{$signnow}}::{{$monthnow}}">
+																	<button type="submit" class="btn btn-info btn-outline btn-circle m-r-5 btn-update"><i class="ti-pencil-alt"></i></button>
 																	@endif
 																	@if ($access['zdel'] == 'y')
 																	<!-- <button type="button" class="btn btn-danger btn-delete-sent btn-outline btn-circle m-r-5" data-toggle="modal" data-target="#modal-delete-{{ $sent['ids'] }}" data-ids="{{ $sent['ids'] }}" data-no_form="{{ $sent['no_form'] }}"
@@ -533,7 +535,8 @@
 																	@if ($access['zupd'] == 'y')
 																	<input type="hidden" name="ids" value="{{ $inbox['ids'] }}">
 																	<input type="hidden" name="no_form" value="{{ $inbox['no_form'] }}">
-																	<button formtarget="_blank" type="submit" class="btn btn-info btn-outline btn-circle m-r-5 btn-update"><i class="ti-pencil-alt"></i></button>
+																	<input type="hidden" name="signdate" value="{{$yearnow}}::{{$signnow}}::{{$monthnow}}">
+																	<button type="submit" class="btn btn-info btn-outline btn-circle m-r-5 btn-update"><i class="ti-pencil-alt"></i></button>
 																	@endif
 																	@if ($access['zdel'] == 'y')
 																	<button type="button" class="btn btn-danger btn-delete btn-delete-inbox btn-outline btn-circle m-r-5" data-toggle="modal" data-target="#modal-delete" data-ids="{{ $inbox['ids'] }}" data-no_form="{{ $inbox['no_form'] }}" data-idtop="{{ $inbox['idtop'] }}"
@@ -701,7 +704,8 @@
 																	@if ($access['zupd'] == 'y')
 																	<input type="hidden" name="ids" value="{{ $sent['ids'] }}">
 																	<input type="hidden" name="no_form" value="{{ $sent['no_form'] }}">
-																	<button formtarget="_blank" type="submit" class="btn btn-info btn-outline btn-circle m-r-5 btn-update"><i class="ti-pencil-alt"></i></button>
+																	<input type="hidden" name="signdate" value="{{$yearnow}}::{{$signnow}}::{{$monthnow}}">
+																	<button type="submit" class="btn btn-info btn-outline btn-circle m-r-5 btn-update"><i class="ti-pencil-alt"></i></button>
 																	@endif
 																	@if ($access['zdel'] == 'y')
 																	<!-- <button type="button" class="btn btn-danger btn-delete-sent btn-outline btn-circle m-r-5" data-toggle="modal" data-target="#modal-delete-{{ $sent['ids'] }}" data-ids="{{ $sent['ids'] }}" data-no_form="{{ $sent['no_form'] }}"
@@ -827,6 +831,7 @@
 																	@if ($access['zupd'] == 'y')
 																	<input type="hidden" name="ids" value="{{ $draft['ids'] }}">
 																	<input type="hidden" name="no_form" value="{{ $draft['no_form'] }}">
+																	<input type="hidden" name="signdate" value="{{$yearnow}}::{{$signnow}}::{{$monthnow}}">
 																	<button type="submit" class="btn btn-info btn-outline btn-circle m-r-5 btn-update"><i class="ti-pencil-alt"></i></button>
 																	@endif
 																	@if ($access['zdel'] == 'y')

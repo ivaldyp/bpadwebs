@@ -215,10 +215,10 @@
 															<td style="vertical-align: middle;">
 																
 																<form method="GET" action="/portal/disposisi/ubah disposisi">
-																	@csrf
 																	@if ($access['zupd'] == 'y')
 																	<input type="hidden" name="ids" value="{{ $sent['ids'] }}">
 																	<input type="hidden" name="no_form" value="{{ $sent['no_form'] }}">
+																	<input type="hidden" name="signdate" value="{{$yearnow}}::{{$signnow}}::{{$monthnow}}">
 																	<button type="submit" class="btn btn-info btn-outline btn-circle m-r-5 btn-update"><i class="ti-pencil-alt"></i></button>
 																	@endif
 																	<!-- @if ($access['zdel'] == 'y' && isset($_SESSION['user_data']['usname']))
@@ -335,10 +335,10 @@
 															<td style="vertical-align: middle;">
 																
 																<form method="GET" action="/portal/disposisi/ubah disposisi">
-																	@csrf
 																	@if ($access['zupd'] == 'y')
 																	<input type="hidden" name="ids" value="{{ $draft['ids'] }}">
 																	<input type="hidden" name="no_form" value="{{ $draft['no_form'] }}">
+																	<input type="hidden" name="signdate" value="{{$yearnow}}::{{$signnow}}::{{$monthnow}}">
 																	<button type="submit" class="btn btn-info btn-outline btn-circle m-r-5 btn-update"><i class="ti-pencil-alt"></i></button>
 																	@endif
 																	<!-- @if ($access['zdel'] == 'y' && isset($_SESSION['user_data']['usname']))
@@ -455,10 +455,10 @@
 															<td style="vertical-align: middle;">
 																
 																<form method="GET" action="/portal/disposisi/ubah disposisi">
-																	@csrf
 																	@if ($access['zupd'] == 'y')
 																	<input type="hidden" name="ids" value="{{ $draft['ids'] }}">
 																	<input type="hidden" name="no_form" value="{{ $draft['no_form'] }}">
+																	<input type="hidden" name="signdate" value="{{$yearnow}}::{{$signnow}}::{{$monthnow}}">
 																	<button type="submit" class="btn btn-info btn-outline btn-circle m-r-5 btn-update"><i class="ti-pencil-alt"></i></button>
 																	@endif
 																	@if ($access['zdel'] == 'y' && isset($_SESSION['user_data']['usname']))

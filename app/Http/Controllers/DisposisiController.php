@@ -695,6 +695,7 @@ class DisposisiController extends Controller
 		$treedisp .= $this->display_disposisi($dispmaster['no_form'], $dispmaster['ids']);
 
 		return view('pages.bpaddisposisi.disposisiubah')
+				->with('signdate', $request->signdate)
 				->with('dispmaster', $dispmaster)
 				->with('treedisp', $treedisp)
 				->with('kepada', $dispmaster['kepada'])
@@ -1034,12 +1035,14 @@ class DisposisiController extends Controller
 		if (isset($request->jabatans) && isset($request->stafs)) {
 			return redirect('/disposisi/ubah disposisi?ids='.$request->ids)
 					->with('message', 'Tidak boleh memilih jabatan & staf bersamaan')
+					->with('signdate', $request->signdate)
 					->with('msg_num', 2);
 		}
 
 		if (is_null($request->jabatans)) {
 			return redirect('/disposisi/ubah disposisi?ids='.$request->ids)
 						->with('message', 'Tujuan disposisi tidak boleh kosong')
+						->with('signdate', $request->signdate)
 						->with('msg_num', 2);
 		}
 
@@ -1051,6 +1054,7 @@ class DisposisiController extends Controller
 			if (count($request->jabatans) > 1 || strpos(strtolower($request->jabatans[0]),"kepala badan") === false ) {
 				return redirect('/disposisi/ubah disposisi?ids='.$request->ids)
 						->with('message', 'Hanya boleh memilh Kepala Badan untuk memulai alur disposisi')
+						->with('signdate', $request->signdate)
 						->with('msg_num', 2);
 			}
 			$status_surat = 's';
@@ -1069,6 +1073,7 @@ class DisposisiController extends Controller
 		if ($status_surat == 's' && is_null($request->jabatans) && is_null($request->stafs)) {
 			return redirect('/disposisi/ubah disposisi?ids='.$request->ids)
 					->with('message', 'Harus memilih untuk melanjutkan disposisi')
+					->with('signdate', $request->signdate)
 					->with('msg_num', 2);
 		}
 
@@ -1083,7 +1088,10 @@ class DisposisiController extends Controller
 			if (count($file) == 1) {
 				
 				if ($file[0]->getSize() > 52222222) {
-					return redirect('/disposisi/ubah disposisi?ids='.$request->ids)->with('message', 'Ukuran file terlalu besar');     
+					return redirect('/disposisi/ubah disposisi?ids='.$request->ids)
+						->with('message', 'Ukuran file terlalu besar') 
+						->with('signdate', $request->signdate)
+						->with('msg_num', 2);
 				} 
 
 				if ($filedispo != '') {
@@ -1110,7 +1118,10 @@ class DisposisiController extends Controller
 				foreach ($file as $key => $data) {
 
 					if ($data->getSize() > 52222222) {
-						return redirect('/disposisi/ubah disposisi?ids='.$request->ids)->with('message', 'Ukuran file terlalu besar');     
+						return redirect('/disposisi/ubah disposisi?ids='.$request->ids)
+							->with('message', 'Ukuran file terlalu besar') 
+							->with('signdate', $request->signdate)
+							->with('msg_num', 2);   
 					} 
 
 					$filenow = 'disp';
@@ -1177,7 +1188,11 @@ class DisposisiController extends Controller
 		$idnew = $request->ids;
 
 		if ($request->btnDraft) {
-			return redirect('/disposisi/formdisposisi')
+			$splitsigndate = explode("::", $request->signdate);
+			$yearnow = $splitsigndate[0];
+			$signnow = $splitsigndate[1];
+			$monthnow = $splitsigndate[2];
+			return redirect('/disposisi/formdisposisi?yearnow='.$yearnow.'&signnow='.$signnow.'&monthnow='.$monthnow)
 					->with('message', 'Disposisi berhasil diubah')
 					->with('msg_num', 1);
 		}
@@ -1298,7 +1313,11 @@ class DisposisiController extends Controller
 			// }
 		}
 
-		return redirect('/disposisi/formdisposisi')
+		$splitsigndate = explode("::", $request->signdate);
+		$yearnow = $splitsigndate[0];
+		$signnow = $splitsigndate[1];
+		$monthnow = $splitsigndate[2];
+		return redirect('/disposisi/formdisposisi?yearnow='.$yearnow.'&signnow='.$signnow.'&monthnow='.$monthnow)
 					->with('message', 'Disposisi berhasil dikirim')
 					->with('msg_num', 1);
 	}
@@ -1841,6 +1860,7 @@ class DisposisiController extends Controller
 		
 
 		return view('pages.bpaddisposisi.disposisilihat')
+				->with('signdate', $request->signdate)
 				->with('dispmaster', $dispmaster)
 				->with('treedisp', $treedisp)
 				->with('stafs', $stafs)
@@ -1858,6 +1878,7 @@ class DisposisiController extends Controller
 		if (isset($request->jabatans) && isset($request->stafs)) {
 			return redirect('/disposisi/lihat disposisi?ids='.$request->ids)
 					->with('message', 'Tidak boleh memilih jabatan & staf bersamaan')
+					->with('signdate', $request->signdate)
 					->with('msg_num', 2);
 		}
 
@@ -1887,7 +1908,10 @@ class DisposisiController extends Controller
 			if (count($file) == 1) {
 				
 				if ($file[0]->getSize() > 52222222) {
-					return redirect('/disposisi/lihat disposisi?ids='.$request->ids)->with('message', 'Ukuran file terlalu besar');     
+					return redirect('/disposisi/lihat disposisi?ids='.$request->ids)
+							->with('message', 'Ukuran file terlalu besar')
+							->with('signdate', $request->signdate)
+							->with('msg_num', 2);    
 				} 
 
 				if ($filedispo != '') {
@@ -1914,7 +1938,10 @@ class DisposisiController extends Controller
 				foreach ($file as $key => $data) {
 
 					if ($data->getSize() > 52222222) {
-						return redirect('/disposisi/lihat disposisi?ids='.$request->ids)->with('message', 'Ukuran file terlalu besar');     
+						return redirect('/disposisi/lihat disposisi?ids='.$request->ids)
+								->with('message', 'Ukuran file terlalu besar')
+								->with('signdate', $request->signdate)
+								->with('msg_num', 2);      
 					} 
 
 					$filenow = 'disp';
@@ -1974,7 +2001,11 @@ class DisposisiController extends Controller
 				'rd' => 'D',
 			]);
 
-			return redirect('/disposisi/disposisi')
+			$splitsigndate = explode("::", $request->signdate);
+			$yearnow = $splitsigndate[0];
+			$signnow = $splitsigndate[1];
+			$monthnow = $splitsigndate[2];
+			return redirect('/disposisi/disposisi?yearnow='.$yearnow.'&signnow='.$signnow.'&monthnow='.$monthnow)
 					->with('message', 'Disposisi berhasil diubah')
 					->with('msg_num', 1);
 		}
@@ -2122,7 +2153,11 @@ class DisposisiController extends Controller
 				}
 			}
 
-			return redirect('/disposisi/disposisi')
+			$splitsigndate = explode("::", $request->signdate);
+			$yearnow = $splitsigndate[0];
+			$signnow = $splitsigndate[1];
+			$monthnow = $splitsigndate[2];
+			return redirect('/disposisi/disposisi?yearnow='.$yearnow.'&signnow='.$signnow.'&monthnow='.$monthnow)
 					->with('message', 'Disposisi berhasil')
 					->with('msg_num', 1);
 		}
