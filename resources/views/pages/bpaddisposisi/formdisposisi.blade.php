@@ -125,6 +125,7 @@
 														<th>No. Form</th>
 														<th>Kode Surat</th>
 														<th>Tanggal masuk</th>
+														<th>Perihal</th>
 														<th>Isi</th>
 														<th>Sifat</th>
 														<th>User input</th>
@@ -153,10 +154,11 @@
 														<tr>
 															<td>{{ $thisnoform }}</td>
 															<td>{{ $thiskdsurat }}</td>
-															<td class="col-md-2">{{ date('d-M-Y',strtotime($thistanggal)) }}</td>
+															<td class="col-sm-2">{{ date('d-M-Y',strtotime($thistanggal)) }}</td>
+															<td class="col-sm-2">{{ $thisperihal ?? '-' }}</td>
 															<td>
 																<span class="mytooltip tooltip-effect-1"> 
-																	<span class="tooltip-item">Lihat Isi</span> 
+																	<span class="tooltip-item">Detail</span> 
 																	<span class="tooltip-content clearfix"> 
 																		<table class="table table-bordered">
 																			<tbody>
@@ -167,10 +169,6 @@
 																				<tr>
 																					<td><strong>No Surat</strong></td>
 																					<td>{{ $thisnosurat ?? '-' }}</td>
-																				</tr>
-																				<tr>
-																					<td><strong>Perihal</strong></td>
-																					<td>{{ $thisperihal ?? '-' }}</td>
 																				</tr>
 																				<tr>
 																					<td><strong>Asal Surat</strong></td>
@@ -245,6 +243,7 @@
 														<th>No. Form</th>
 														<th>Kode Surat</th>
 														<th>Tanggal masuk</th>
+														<th>Perihal</th>
 														<th>Isi</th>
 														<th>Sifat</th>
 														<th>User input</th>
@@ -273,10 +272,11 @@
 														<tr>
 															<td>{{ $thisnoform }}</td>
 															<td>{{ $thiskdsurat }}</td>
-															<td class="col-md-2">{{ date('d-M-Y',strtotime($thistanggal)) }}</td>
+															<td class="col-sm-2">{{ date('d-M-Y',strtotime($thistanggal)) }}</td>
+															<td class="col-sm-2">{{ $thisperihal ?? '-' }}</td>
 															<td>
 																<span class="mytooltip tooltip-effect-1"> 
-																	<span class="tooltip-item">Lihat Isi</span> 
+																	<span class="tooltip-item">Detail</span> 
 																	<span class="tooltip-content clearfix"> 
 																		<table class="table table-bordered">
 																			<tbody>
@@ -287,10 +287,6 @@
 																				<tr>
 																					<td><strong>No Surat</strong></td>
 																					<td>{{ $thisnosurat ?? '-' }}</td>
-																				</tr>
-																				<tr>
-																					<td><strong>Perihal</strong></td>
-																					<td>{{ $thisperihal ?? '-' }}</td>
 																				</tr>
 																				<tr>
 																					<td><strong>Asal Surat</strong></td>
@@ -365,6 +361,7 @@
 														<th>No. Form</th>
 														<th>Kode Surat</th>
 														<th>Tanggal masuk</th>
+														<th>Perihal</th>
 														<th>Isi</th>
 														<th>Sifat</th>
 														<th>User input</th>
@@ -393,10 +390,11 @@
 														<tr>
 															<td>{{ $thisnoform }}</td>
 															<td>{{ $thiskdsurat }}</td>
-															<td class="col-md-2">{{ date('d-M-Y',strtotime($thistanggal)) }}</td>
+															<td class="col-sm-2">{{ date('d-M-Y',strtotime($thistanggal)) }}</td>
+															<td class="col-sm-2">{{ $thisperihal ?? '-' }}</td>
 															<td>
 																<span class="mytooltip tooltip-effect-1"> 
-																	<span class="tooltip-item">Lihat Isi</span> 
+																	<span class="tooltip-item">Detail</span> 
 																	<span class="tooltip-content clearfix"> 
 																		<table class="table table-bordered">
 																			<tbody>
@@ -407,10 +405,6 @@
 																				<tr>
 																					<td><strong>No Surat</strong></td>
 																					<td>{{ $thisnosurat ?? '-' }}</td>
-																				</tr>
-																				<tr>
-																					<td><strong>Perihal</strong></td>
-																					<td>{{ $thisperihal ?? '-' }}</td>
 																				</tr>
 																				<tr>
 																					<td><strong>Asal Surat</strong></td>
