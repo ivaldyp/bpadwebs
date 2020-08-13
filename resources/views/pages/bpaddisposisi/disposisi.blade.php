@@ -166,7 +166,7 @@
 																
 															</td>
 															<td>{{ $thiskdsurat }}</td>
-															<td class="col-md-2">{{ date('d-M-Y',strtotime($thistanggal)) }}</td>
+															<td>{{ date('d-M-Y',strtotime($thistanggal)) }}</td>
 															<td>{{ $thisperihal ?? '-' }}</td>
 															<td>
 																<span class="mytooltip tooltip-effect-1"> 
@@ -325,7 +325,7 @@
 														<tr>
 															<td>{{ $thisnoform }}</td>
 															<td>{{ $thiskdsurat }}</td>
-															<td class="col-md-2">{{ date('d-M-Y',strtotime($thistanggal)) }}</td>
+															<td>{{ date('d-M-Y',strtotime($thistanggal)) }}</td>
 															<td>{{ $thisperihal ?? '-' }}</td>
 															<td>
 																<span class="mytooltip tooltip-effect-1"> 
@@ -466,7 +466,7 @@
 																
 															</td>
 															<td>{{ $thiskdsurat }}</td>
-															<td class="col-md-2">{{ date('d-M-Y',strtotime($thistanggal)) }}</td>
+															<td>{{ date('d-M-Y',strtotime($thistanggal)) }}</td>
 															<td>{{ $thisperihal ?? '-' }}</td>
 															<td>
 																<span class="mytooltip tooltip-effect-1"> 
@@ -624,7 +624,7 @@
 														<tr>
 															<td>{{ $thisnoform }}</td>
 															<td>{{ $thiskdsurat }}</td>
-															<td class="col-md-2">{{ date('d-M-Y',strtotime($thistanggal)) }}</td>
+															<td>{{ date('d-M-Y',strtotime($thistanggal)) }}</td>
 															<td>{{ $thisperihal ?? '-' }}</td>
 															<td>
 																<span class="mytooltip tooltip-effect-1"> 
@@ -758,7 +758,7 @@
 														<tr>
 															<td>{{ $thisnoform }}</td>
 															<td>{{ $thiskdsurat }}</td>
-															<td class="col-md-2">{{ date('d-M-Y',strtotime($thistanggal)) }}</td>
+															<td>{{ date('d-M-Y',strtotime($thistanggal)) }}</td>
 															<td>{{ $thisperihal ?? '-' }}</td>
 															<td>
 																<span class="mytooltip tooltip-effect-1"> 
