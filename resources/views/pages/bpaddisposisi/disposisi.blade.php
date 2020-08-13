@@ -121,13 +121,13 @@
 											<table id="myTable" class="table table-hover table-striped" style="z-index: 99999;">
 												<thead>
 													<tr>
-														<th class="col-sm-1">No. Form</th>
-														<th class="col-sm-1">Kode Surat</th>
+														<th class="">No. Form</th>
+														<th class="">Kode Surat</th>
 														<th class="col-sm-1">Tanggal masuk</th>
 														<th class="col-sm-2">Perihal</th>
-														<th class="col-sm-1">Isi</th>
-														<th class="col-sm-1">Sifat</th>
-														<th class="col-sm-1">Dari</th>
+														<th class="">Isi</th>
+														<th class="">Sifat</th>
+														<th class="">Dari</th>
 														<th class="">Ke</th>
 														<th class="">Penanganan</th>
 														<!-- <th class="">Catatan</th> -->
@@ -166,8 +166,8 @@
 																
 															</td>
 															<td>{{ $thiskdsurat }}</td>
-															<td>{{ date('d-M-Y',strtotime($thistanggal)) }}</td>
-															<td>{{ $thisperihal ?? '-' }}</td>
+															<td class="col-sm-2">{{ date('d-M-Y',strtotime($thistanggal)) }}</td>
+															<td class="col-sm-2">{{ $thisperihal ?? '-' }}</td>
 															<td>
 																<span class="mytooltip tooltip-effect-1"> 
 																	<span class="tooltip-item">Detail</span> 
@@ -220,7 +220,7 @@
 															</td>
 															<td>{{ $thisdari ? $thisdari : $inbox['from_pm'] }}</td>
 															<td>{{ $thiske }}</td>
-															<td>{{ $thispenanganan }}<br><span class="text-muted">{{ $thiscatatan }}</span></td>
+															<td class="col-sm-2">{{ $thispenanganan }}<br><span class="text-muted">{{ $thiscatatan }}</span></td>
 															<!-- <td>{{ $thiscatatan }}</td> -->
 															<td style="vertical-align: middle;">
 																
@@ -253,13 +253,13 @@
 											<table id="myTable2" class="table table-hover table-striped" style="z-index: 99999;">
 												<thead>
 													<tr>
-														<th class="col-sm-1">No. Form</th>
-														<th class="col-sm-1">Kode Surat</th>
+														<th class="">No. Form</th>
+														<th class="">Kode Surat</th>
 														<th class="col-sm-1">Tanggal masuk</th>
 														<th class="col-sm-2">Perihal</th>
-														<th class="col-sm-1">Isi</th>
-														<th class="col-sm-1">Sifat</th>
-														<th class="col-sm-1">Dari</th>
+														<th class="">Isi</th>
+														<th class="">Sifat</th>
+														<th class="">Dari</th>
 														<th class="">Ke</th>
 														<th class="">Penanganan</th>
 														<!-- <th class="">Catatan</th> -->
@@ -325,8 +325,8 @@
 														<tr>
 															<td>{{ $thisnoform }}</td>
 															<td>{{ $thiskdsurat }}</td>
-															<td>{{ date('d-M-Y',strtotime($thistanggal)) }}</td>
-															<td>{{ $thisperihal ?? '-' }}</td>
+															<td class="col-sm-2">{{ date('d-M-Y',strtotime($thistanggal)) }}</td>
+															<td class="col-sm-2">{{ $thisperihal ?? '-' }}</td>
 															<td>
 																<span class="mytooltip tooltip-effect-1"> 
 																	<span class="tooltip-item">Detail</span> 
@@ -379,7 +379,7 @@
 															</td>
 															<td>{{ $thisdarisent }}</td>
 															<td>{{ $thiskesent }}</td>
-															<td>{{ $_SESSION['user_data']['idunit'] && strlen($_SESSION['user_data']['idunit']) == 10 ? $thispenanganannow : $thispenanganan }}<br>
+															<td class="col-sm-2">{{ $_SESSION['user_data']['idunit'] && strlen($_SESSION['user_data']['idunit']) == 10 ? $thispenanganannow : $thispenanganan }}<br>
 																<span class="text-muted">{{ $_SESSION['user_data']['idunit'] && strlen($_SESSION['user_data']['idunit']) == 10 ? $thiscatatannow : $thiscatatan }}</span>
 															</td>
 															<!-- <td>{{ $_SESSION['user_data']['idunit'] && strlen($_SESSION['user_data']['idunit']) == 10 ? $thiscatatannow : $thiscatatan }}</td> -->
@@ -421,13 +421,13 @@
 											<table id="myTable3" class="table table-hover table-striped" style="z-index: 99999;">
 												<thead>
 													<tr>
-														<th class="col-sm-1">No. Form</th>
-														<th class="col-sm-1">Kode Surat</th>
+														<th class="">No. Form</th>
+														<th class="">Kode Surat</th>
 														<th class="col-sm-1">Tanggal masuk</th>
 														<th class="col-sm-2">Perihal</th>
-														<th class="col-sm-1">Isi</th>
-														<th class="col-sm-1">Sifat</th>
-														<th class="col-sm-1">Dari</th>
+														<th class="">Isi</th>
+														<th class="">Sifat</th>
+														<th class="">Dari</th>
 														<th class="">Ke</th>
 														<th class="">Penanganan</th>
 														<!-- <th class="">Catatan</th> -->
@@ -466,8 +466,8 @@
 																
 															</td>
 															<td>{{ $thiskdsurat }}</td>
-															<td>{{ date('d-M-Y',strtotime($thistanggal)) }}</td>
-															<td>{{ $thisperihal ?? '-' }}</td>
+															<td class="col-sm-2">{{ date('d-M-Y',strtotime($thistanggal)) }}</td>
+															<td class="col-sm-2">{{ $thisperihal ?? '-' }}</td>
 															<td>
 																<span class="mytooltip tooltip-effect-1"> 
 																	<span class="tooltip-item">Detail</span> 
@@ -520,7 +520,7 @@
 															</td>
 															<td>{{ $thisdari ? $thisdari : $inbox['from_pm'] }}</td>
 															<td>{{ $thiske }}</td>
-															<td>{{ $thispenanganan }}<br><span class="text-muted">{{ $thiscatatan }}</span></td>
+															<td class="col-sm-2">{{ $thispenanganan }}<br><span class="text-muted">{{ $thiscatatan }}</span></td>
 															<!-- <td>{{ $thiscatatan }}</td> -->
 															<td style="vertical-align: middle;">
 																
@@ -553,13 +553,13 @@
 											<table id="myTable4" class="table table-hover table-striped" style="z-index: 99999;">
 												<thead>
 													<tr>
-														<th class="col-sm-1">No. Form</th>
-														<th class="col-sm-1">Kode Surat</th>
+														<th class="">No. Form</th>
+														<th class="">Kode Surat</th>
 														<th class="col-sm-1">Tanggal masuk</th>
 														<th class="col-sm-2">Perihal</th>
-														<th class="col-sm-1">Isi</th>
-														<th class="col-sm-1">Sifat</th>
-														<th class="col-sm-1">Dari</th>
+														<th class="">Isi</th>
+														<th class="">Sifat</th>
+														<th class="">Dari</th>
 														<th class="">Ke</th>
 														<th class="">Penanganan</th>
 														<!-- <th class="">Catatan</th> -->
@@ -624,8 +624,8 @@
 														<tr>
 															<td>{{ $thisnoform }}</td>
 															<td>{{ $thiskdsurat }}</td>
-															<td>{{ date('d-M-Y',strtotime($thistanggal)) }}</td>
-															<td>{{ $thisperihal ?? '-' }}</td>
+															<td class="col-sm-2">{{ date('d-M-Y',strtotime($thistanggal)) }}</td>
+															<td class="col-sm-2">{{ $thisperihal ?? '-' }}</td>
 															<td>
 																<span class="mytooltip tooltip-effect-1"> 
 																	<span class="tooltip-item">Detail</span> 
@@ -678,7 +678,7 @@
 															</td>
 															<td>{{ $thisdarisent }}</td>
 															<td>{{ $thiskesent }}</td>
-															<td>{{ $_SESSION['user_data']['idunit'] && strlen($_SESSION['user_data']['idunit']) == 10 ? $thispenanganannow : $thispenanganan }}<br>
+															<td class="col-sm-2">{{ $_SESSION['user_data']['idunit'] && strlen($_SESSION['user_data']['idunit']) == 10 ? $thispenanganannow : $thispenanganan }}<br>
 																<span class="text-muted">{{ $_SESSION['user_data']['idunit'] && strlen($_SESSION['user_data']['idunit']) == 10 ? $thiscatatannow : $thiscatatan }}</span>
 															</td>
 															<!-- <td>{{ $_SESSION['user_data']['idunit'] && strlen($_SESSION['user_data']['idunit']) == 10 ? $thiscatatannow : $thiscatatan }}</td> -->
@@ -720,13 +720,13 @@
 											<table id="myTable5" class="table table-hover table-striped" style="z-index: 99999;">
 												<thead>
 													<tr>
-														<th class="col-sm-1">No. Form</th>
-														<th class="col-sm-1">Kode Surat</th>
+														<th class="">No. Form</th>
+														<th class="">Kode Surat</th>
 														<th class="col-sm-1">Tanggal masuk</th>
 														<th class="col-sm-2">Perihal</th>
-														<th class="col-sm-1">Isi</th>
-														<th class="col-sm-1">Sifat</th>
-														<th class="col-sm-1">Dari</th>
+														<th class="">Isi</th>
+														<th class="">Sifat</th>
+														<th class="">Dari</th>
 														<th class="">Ke</th>
 														<th class="">Penanganan</th>
 														<!-- <th class="">Catatan</th> -->
@@ -758,8 +758,8 @@
 														<tr>
 															<td>{{ $thisnoform }}</td>
 															<td>{{ $thiskdsurat }}</td>
-															<td>{{ date('d-M-Y',strtotime($thistanggal)) }}</td>
-															<td>{{ $thisperihal ?? '-' }}</td>
+															<td class="col-sm-2">{{ date('d-M-Y',strtotime($thistanggal)) }}</td>
+															<td class="col-sm-2">{{ $thisperihal ?? '-' }}</td>
 															<td>
 																<span class="mytooltip tooltip-effect-1"> 
 																	<span class="tooltip-item">Detail</span> 
@@ -812,7 +812,7 @@
 															</td>
 															<td>{{ $thisdari ? $thisdari : $draft['from_pm'] }}</td>
 															<td>{{ $thiske }}</td>
-															<td>{{ $thispenanganan }}<br><span class="text-muted">{{ $thiscatatan }}</span></td>
+															<td class="col-sm-2">{{ $thispenanganan }}<br><span class="text-muted">{{ $thiscatatan }}</span></td>
 															<!-- <td>{{ $thiscatatan }}</td> -->
 															<td style="vertical-align: middle;">
 																

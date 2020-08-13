@@ -219,7 +219,9 @@
 														<table class="table table-hover">
 															@if($jabatans != 0)
 															<tr>
-																<td class="col-md-6 p-l-30"><h4>Disposisi ke</h4></td>
+																<td class="col-md-6 p-l-30"><h4>Disposisi ke</h4><br>
+																	<span class="text-muted">*Refresh halaman apabila yang dicari tidak ditemukan</span>
+																</td>
 																<td class="col-md-6 data-input">
 																	<select class="select2 m-b-10 select2-multiple" multiple="multiple" name="jabatans[]" id="jabatans">
 																		@foreach($jabatans as $key => $jabatan)
@@ -232,7 +234,9 @@
 
 															@if($stafs != 0)
 															<tr>
-																<td class="col-md-6 p-l-30"><h4>Staf</h4></td>
+																<td class="col-md-6 p-l-30"><h4>Staf</h4><br>
+																	<span class="text-muted">*Refresh halaman apabila yang dicari tidak ditemukan</span>
+																</td>
 																<td class="col-md-6 data-input">
 																	<select class="select2 m-b-10 select2-multiple" multiple="multiple" name="stafs[]" id="stafs" required>
 																		@foreach($stafs as $staf)
