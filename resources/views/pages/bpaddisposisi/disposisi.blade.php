@@ -123,7 +123,7 @@
 													<tr>
 														<th class="col-sm-1">No. Form</th>
 														<th class="col-sm-1">Kode Surat</th>
-														<th class="col-sm-2">Tanggal masuk</th>
+														<th class="col-sm-1">Tanggal masuk</th>
 														<th class="col-sm-2">Perihal</th>
 														<th class="col-sm-1">Isi</th>
 														<th class="col-sm-1">Sifat</th>
@@ -255,7 +255,7 @@
 													<tr>
 														<th class="col-sm-1">No. Form</th>
 														<th class="col-sm-1">Kode Surat</th>
-														<th class="col-sm-2">Tanggal masuk</th>
+														<th class="col-sm-1">Tanggal masuk</th>
 														<th class="col-sm-2">Perihal</th>
 														<th class="col-sm-1">Isi</th>
 														<th class="col-sm-1">Sifat</th>
@@ -423,7 +423,7 @@
 													<tr>
 														<th class="col-sm-1">No. Form</th>
 														<th class="col-sm-1">Kode Surat</th>
-														<th class="col-sm-2">Tanggal masuk</th>
+														<th class="col-sm-1">Tanggal masuk</th>
 														<th class="col-sm-2">Perihal</th>
 														<th class="col-sm-1">Isi</th>
 														<th class="col-sm-1">Sifat</th>
@@ -555,7 +555,7 @@
 													<tr>
 														<th class="col-sm-1">No. Form</th>
 														<th class="col-sm-1">Kode Surat</th>
-														<th class="col-sm-2">Tanggal masuk</th>
+														<th class="col-sm-1">Tanggal masuk</th>
 														<th class="col-sm-2">Perihal</th>
 														<th class="col-sm-1">Isi</th>
 														<th class="col-sm-1">Sifat</th>
@@ -722,7 +722,7 @@
 													<tr>
 														<th class="col-sm-1">No. Form</th>
 														<th class="col-sm-1">Kode Surat</th>
-														<th class="col-sm-2">Tanggal masuk</th>
+														<th class="col-sm-1">Tanggal masuk</th>
 														<th class="col-sm-2">Perihal</th>
 														<th class="col-sm-1">Isi</th>
 														<th class="col-sm-1">Sifat</th>
