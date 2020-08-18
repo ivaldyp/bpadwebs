@@ -95,6 +95,19 @@ class LandingController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
+
+	public function kkrekon(Request $request)
+	{
+		return view('kkrekon');
+	}
+
+	public function kertaskerja(Request $request)
+	{
+		$segment = collect(request()->segments())->last();
+		return view('kertaskerja')
+				->with('area', $segment);
+	}
+
 	public function index()
 	{
 		// if (PHP_SESSION_ACTIVE) {

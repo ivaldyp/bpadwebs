@@ -25,6 +25,15 @@ Route::POST('/home/password', 'HomeController@password');
 Route::get('/ceksurat', 'LandingController@ceksurat');
 Route::post('/mail', 'LandingController@feedback');
 Route::get('/logout', 'LandingController@logout');
+Route::get('/kkrekon', 'LandingController@kkrekon');
+Route::get('/kkrekon/{pusat}', 'LandingController@kertaskerja');
+Route::get('/kkrekon/{utara}', 'LandingController@kertaskerja');
+Route::get('/kkrekon/{barat}', 'LandingController@kertaskerja');
+Route::get('/kkrekon/{timur}', 'LandingController@kertaskerja');
+Route::get('/kkrekon/{selatan}', 'LandingController@kertaskerja');
+Route::get('/kkrekon/{seribu}', 'LandingController@kertaskerja');
+Route::get('/kkrekon/{provinsi}', 'LandingController@kertaskerja');
+
 
 // ------------- BPAD CMS -------------
 
