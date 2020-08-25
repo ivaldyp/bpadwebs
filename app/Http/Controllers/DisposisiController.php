@@ -180,7 +180,7 @@ class DisposisiController extends Controller
 		}
 
 		if ($request->searchnow) {
-			$qsearchnow = "and (kd_surat = '".$request->searchnow."' or no_form = '".$request->searchnow."' or perihal like '%".$request->searchnow."%' or asal_surat like '%".$request->searchnow."%')";
+			$qsearchnow = "and (kd_surat = '".$request->searchnow."' or no_form = '".$request->searchnow."' or perihal like '%".$request->searchnow."%' or asal_surat like '%".$request->searchnow."%' or no_surat like '%".$request->searchnow."%' or kode_disposisi like '%".$request->searchnow."%' or no_surat + '/' + kode_disposisi like '%".$request->searchnow."%')";
 		} else {
 			$qsearchnow = "";
 		}
@@ -1023,6 +1023,36 @@ class DisposisiController extends Controller
 			// }
 		}
 
+		// DB::statement("
+		// 					WITH cte AS (
+		// 					SELECT 
+		// 					        ids, 
+		// 					        no_form, 
+		// 					        from_pm, 
+		// 					        to_pm, 
+		// 							penanganan,
+		// 							catatan,
+		// 					        ROW_NUMBER() OVER (
+		// 					            PARTITION BY 
+		// 					        no_form, 
+		// 					        from_pm, 
+		// 					        to_pm,
+		// 							penanganan,
+		// 							catatan
+		// 					            ORDER BY 
+		// 					                ids, 
+		// 					        no_form, 
+		// 					        from_pm, 
+		// 					        to_pm
+		// 					        ) row_num
+		// 					     FROM 
+		// 					        bpaddtfake.dbo.fr_disposisi
+
+		// 							where no_form = '$maxnoform'
+		// 					)
+		// 					DELETE FROM cte
+		// 					WHERE row_num > 1;" );
+
 		return redirect('/disposisi/formdisposisi')
 					->with('message', 'Disposisi berhasil dibuat')
 					->with('msg_num', 1);
@@ -1363,7 +1393,7 @@ class DisposisiController extends Controller
 		}
 
 		if ($request->searchnow) {
-			$qsearchnow = "and (m.kd_surat = '".$request->searchnow."' or m.no_form = '".$request->searchnow."' or m.perihal like '%".$request->searchnow."%' or m.asal_surat like '%".$request->searchnow."%')";
+			$qsearchnow = "and (m.kd_surat = '".$request->searchnow."' or m.no_form = '".$request->searchnow."' or m.perihal like '%".$request->searchnow."%' or m.asal_surat like '%".$request->searchnow."%' or m.no_surat like '%".$request->searchnow."%' or m.kode_disposisi like '%".$request->searchnow."%' or m.no_surat + '/' + m.kode_disposisi like '%".$request->searchnow."%')";
 		} else {
 			$qsearchnow = "";
 		}
@@ -2151,6 +2181,37 @@ class DisposisiController extends Controller
 			$yearnow = $splitsigndate[0];
 			$signnow = $splitsigndate[1];
 			$monthnow = $splitsigndate[2];
+
+			// DB::statement("
+			// 				WITH cte AS (
+			// 				SELECT 
+			// 				        ids, 
+			// 				        no_form, 
+			// 				        from_pm, 
+			// 				        to_pm, 
+			// 						penanganan,
+			// 						catatan,
+			// 				        ROW_NUMBER() OVER (
+			// 				            PARTITION BY 
+			// 				        no_form, 
+			// 				        from_pm, 
+			// 				        to_pm,
+			// 						penanganan,
+			// 						catatan
+			// 				            ORDER BY 
+			// 				                ids, 
+			// 				        no_form, 
+			// 				        from_pm, 
+			// 				        to_pm
+			// 				        ) row_num
+			// 				     FROM 
+			// 				        bpaddtfake.dbo.fr_disposisi
+
+			// 						where no_form = '$request->no_form'
+			// 				)
+			// 				DELETE FROM cte
+			// 				WHERE row_num > 1;" );
+
 			return redirect('/disposisi/disposisi?yearnow='.$yearnow.'&signnow='.$signnow.'&monthnow='.$monthnow)
 					->with('message', 'Disposisi berhasil')
 					->with('msg_num', 1);
