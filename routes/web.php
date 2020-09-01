@@ -162,6 +162,7 @@ Route::group(['prefix' => 'internal'], function () {
 	Route::post('/form/hapusberita', 'InternalController@formdeleteberita');
 
 	Route::get('/saran', 'InternalController@saran');
+	// Route::post('/form/reply', 'InternalController@formmailsaran');
 	Route::post('/form/apprsaran', 'InternalController@formapprsaran');
 });
 

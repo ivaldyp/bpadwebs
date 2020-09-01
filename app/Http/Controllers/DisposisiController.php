@@ -971,6 +971,7 @@ class DisposisiController extends Controller
 							WITH cte AS (
 							SELECT 
 							        ids, 
+							        idtop,
 							        no_form, 
 							        from_pm, 
 							        to_pm, 
@@ -978,6 +979,7 @@ class DisposisiController extends Controller
 									catatan,
 							        ROW_NUMBER() OVER (
 							            PARTITION BY 
+							        idtop,
 							        no_form, 
 							        from_pm, 
 							        to_pm,
@@ -2130,6 +2132,7 @@ class DisposisiController extends Controller
 							WITH cte AS (
 							SELECT 
 							        ids, 
+							        idtop,
 							        no_form, 
 							        from_pm, 
 							        to_pm, 
@@ -2137,6 +2140,7 @@ class DisposisiController extends Controller
 									catatan,
 							        ROW_NUMBER() OVER (
 							            PARTITION BY 
+							        idtop,
 							        no_form, 
 							        from_pm, 
 							        to_pm,

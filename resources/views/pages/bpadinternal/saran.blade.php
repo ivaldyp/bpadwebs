@@ -76,6 +76,7 @@
 													<th>Pengirim</th>
 													<th>Isi</th>
 													<th class="text-center">Dibalas</th>
+													<!-- <th>Reply</th> -->
 													@if($access['zupd'] == 'y' || $access['zdel'] == 'y')
 													<th class="col-md-1 text-center">Action</th>
 													@endif
@@ -89,7 +90,10 @@
 														{{ date('d/m/Y', strtotime(str_replace('/', '-', $saran['tanggal']))) }}
 													</td>
 													<td>{{ strtolower($saran['sender']) }}</td>
-													<th>{{ $saran['isi'] }}</th>
+													<td>{{ $saran['isi'] }}</td>
+													<!-- <td>
+														<button class="btn btn-circle m-r-5 btn-warning btn-reply" data-toggle="modal" data-target="#modal-reply" data-sender="{{ $saran['sender'] }}"><i class="ti-back-left"></i></button>
+													</td> -->
 													<td class="text-center" >
 														{!! 
 															($saran['read']) == 1 ? 
@@ -123,6 +127,38 @@
 					</div>
 				</div>
 			</div>
+			<div class="modal fade" id="modal-reply">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+						<form method="POST" action="/portal/internal/form/reply" class="form-horizontal" data-toggle="validator">
+						@csrf
+							<div class="modal-header">
+								<h4 class="modal-title"><b>Balasan</b></h4>
+							</div>
+							<div class="modal-body">
+
+								<div class="form-group">
+									<label for="modal_update_sender" class="col-md-2 control-label"> Kirim Ke </label>
+									<div class="col-md-8">
+										<input type="text" name="sender" id="modal_update_sender" class="form-control" autocomplete="off">
+									</div>
+								</div>
+
+								<div class="form-group">
+                                    <label for="body" class="col-md-2 control-label"> Body </label>
+                                    <div class="col-md-8">
+                                        <textarea class="summernote form-control" rows="15" placeholder="Enter text ..." name="body"></textarea>
+                                    </div>
+                                </div>
+							</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-success pull-right">Kirim</button>
+								<button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 @endsection
@@ -145,6 +181,11 @@
 
 	<script>
 		$(function () {
+
+			$('.btn-reply').on('click', function () {
+				var $el = $(this);      
+				$("#modal_update_sender").val($el.data('sender'));
+			});
 
 			$('.myTable').DataTable();
 		});

@@ -122,7 +122,7 @@
 										<div class="form-group">
 											<label for="tgl_masuk" class="col-md-2 control-label"> Tgl Masuk<span style="color: red">*</span> </label>
 											<div class="col-md-8">
-												<input type="text" name="tgl_masuk" class="form-control" id="datepicker-autoclose" autocomplete="off" placeholder="dd/mm/yyyy" required="" data-error="Isi tanggal masuk surat">
+												<input type="text" name="tgl_masuk" class="form-control" id="datepicker-autoclose" autocomplete="off" placeholder="dd/mm/yyyy" required="" data-error="Isi tanggal masuk surat" value="{{ date('d/m/Y') }}">
 												<div class="help-block with-errors"></div>
 											</div>
 										</div>
