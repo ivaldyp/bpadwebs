@@ -176,7 +176,7 @@ class DisposisiController extends Controller
 		if ($request->signnow) {
 			$signnow = $request->signnow;
 		} else {
-			$signnow = "=";
+			$signnow = "<=";
 		}
 
 		if ($request->searchnow) {
@@ -1335,7 +1335,7 @@ class DisposisiController extends Controller
 		if ($request->signnow) {
 			$signnow = $request->signnow;
 		} else {
-			$signnow = "=";
+			$signnow = "<=";
 		}
 
 		if ($request->searchnow) {
