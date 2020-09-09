@@ -44,7 +44,7 @@
 				<div class="navbar-header">
 					<!-- Logo -->
 					<div class="navbar-brand">
-						<a  href="{{ url('/') }}"><img src="{{ ('/portal/public/img/photo/bpad-logo-04b.png') }}" alt="logo" height="85"></a>
+						<a  href="{{ url('/') }}"><img src="/portal/public/img/photo/bpad-logo-04b.png" alt="logo" height="85"></a>
 					</div>
 					<!-- Logo -->
 
