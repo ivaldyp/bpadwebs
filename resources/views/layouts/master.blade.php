@@ -44,7 +44,7 @@
 				<div class="navbar-header">
 					<!-- Logo -->
 					<div class="navbar-brand">
-						<a  href="{{ url('/') }}"><img src="/portal/public/img/photo/bpad-logo-04b.png" alt="logo" height="85"></a>
+						<a  href="{{ url('/') }}"><img src="/portal/public/img/photo/bpad-logo-04b.png32" alt="logo" height="85"></a>
 					</div>
 					<!-- Logo -->
 
@@ -138,7 +138,7 @@
 				<div class="col-md-4">
 					<div class="footer">
 						<div class="footer-logo" style="margin-top: 20px">
-							<a href="#"><img src="{{ ('/portal/public/img/photo/plusjakartalogo2.png') }}" alt="" height="70"></a>
+							<a href="#"><img src="{{ ('/portal/public/img/photo/plusjakartalogo2.png32') }}" alt="" height="70"></a>
 						</div>
 						<address>
 							<span style="font-weight: bold;">Gedung Dinas Teknis</span><br>

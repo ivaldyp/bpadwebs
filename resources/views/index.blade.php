@@ -218,7 +218,7 @@
 						<div class="article-img">
 							<a href="JavaScript:void(0);">
 								<span class="text-test" style="">
-									<img style="width: 50px" src="{{ ('/portal/public/img/photo/bpad-logo-00.png') }}">
+									<img style="width: 50px" src="{{ ('/portal/public/img/photo/bpad-logo-00.png32') }}">
 									<hr>
 									<h4 style="color: white">{{ $photo['judul'] }}</h4>
 								</span>

@@ -36,7 +36,7 @@
                     <!-- Logo -->
                     <a class="logo" href="/portal/home">
                         <span class="hidden-sm hidden-md hidden-lg"><img width="50%" src="/portal/public/img/photo/bpad-logo-05.png"></span>
-                        <span class="hidden-xs"><img width="20%" src="/portal/public/img/photo/bpad-logo-000.png"><strong>BPAD</strong>
+                        <span class="hidden-xs"><img width="20%" src="/portal/public/img/photo/bpad-logo-000.png32"><strong>BPAD</strong>
                         </span>
                     </a>
                 </div>

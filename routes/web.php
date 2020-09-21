@@ -167,6 +167,11 @@ Route::group(['prefix' => 'internal'], function () {
 });
 
 Route::group(['prefix' => 'kepegawaian'], function () {
+	Route::get('/setup/unit', 'KepegawaianSetupController@unitall');
+	Route::post('/form/tambahunit', 'KepegawaianSetupController@forminsertunit');
+	Route::post('/form/ubahunit', 'KepegawaianSetupController@formupdateunit');
+	Route::post('/form/hapusunit', 'KepegawaianSetupController@formdeleteunit');
+
 	Route::get('/excel', 'KepegawaianController@printexcel');
 	Route::get('/excelpegawai', 'KepegawaianController@printexcelpegawai');
 
