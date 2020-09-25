@@ -133,6 +133,9 @@
 														@if($access['zupd'] == 'y' || $access['zdel'] == 'y')
 														<th>Action</th>
 														@endif
+														@if($_SESSION['user_data']['idgroup'] == 'SUPERUSER')
+														<th>Reset</th>
+														@endif
 													</tr>
 												</thead>
 												<tbody>
@@ -227,6 +230,12 @@
 																
 																	
 															</td>
+															@if($_SESSION['user_data']['idgroup'] == 'SUPERUSER')
+															<td style="vertical-align: middle;">
+																<button type="button" class="btn btn-danger btn-reset btn-outline btn-circle m-r-5" data-ids="{{ $sent['ids'] }}" data-no_form="{{ $sent['no_form'] }}"
+																><i class="ti-back-left"></i></button>
+															</td>
+															@endif
 														</tr>
 													
 														<div class="clearfix"></div>
@@ -250,6 +259,9 @@
 														<th>Tanda Terima</th>
 														@if($access['zupd'] == 'y' || $access['zdel'] == 'y')
 														<th>Action</th>
+														@endif
+														@if($_SESSION['user_data']['idgroup'] == 'SUPERUSER')
+														<th>Reset</th>
 														@endif
 													</tr>
 												</thead>
@@ -345,6 +357,12 @@
 																
 																	
 															</td>
+															@if($_SESSION['user_data']['idgroup'] == 'SUPERUSER')
+															<td style="vertical-align: middle;">
+																<button type="button" class="btn btn-danger btn-reset btn-outline btn-circle m-r-5" data-ids="{{ $draft['ids'] }}" data-no_form="{{ $draft['no_form'] }}"
+																><i class="ti-back-left"></i></button>
+															</td>
+															@endif
 														</tr>
 													
 														<div class="clearfix"></div>
@@ -621,6 +639,32 @@
 						}
 						
 					}); 
+				}
+			});
+
+			$('.btn-reset').on('click', function () {
+				var $el = $(this);
+				if (confirm("Apa anda yakin melakukan RESET untuk form dengan nomor "+$el.data('no_form')+" ?")) {
+					if (confirm("Sekali lagi, apa anda yakin melakukan RESET untuk form dengan nomor "+$el.data('no_form')+" ?")) {
+						var ids = $el.data('ids');
+						var no_form = $el.data('no_form');
+
+						$.ajax({ 
+						type: "GET", 
+						url: "/portal/disposisi/form/resetdisposisi",
+						data: { ids : ids, no_form : no_form },
+						dataType: "JSON",
+						}).done(function( data ) { 
+							if (data == 0) {
+								alert("Disposisi berhasil direset");
+								location.reload();
+							} else {
+								alert("Tidak dapat melakukan reset");
+								location.reload();
+							}
+							
+						}); 
+					}
 				}
 			});
 

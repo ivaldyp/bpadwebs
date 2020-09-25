@@ -1308,6 +1308,28 @@ class DisposisiController extends Controller
 		return 0;
 	}
 
+	public function formresetdisposisi(Request $request)
+	{
+		$thisdisp = Fr_disposisi::where('no_form', $request->no_form)->get();
+		foreach ($thisdisp as $key => $dis) {
+			if ($dis['status_surat'] == 's') {
+				Fr_disposisi::where('ids', $dis['ids'])
+				->update([
+					'status_surat' => 'd',
+					'selesai' => 'Y',
+					'child' => 0,
+				]);
+			} else {
+				Fr_disposisi::where('ids', $dis['ids'])
+				->update([
+					'sts' => 0,
+				]);
+			}
+		}
+
+		return 0;
+	}
+
 	// ---------/ADMIN----------- //
 
 	// ---------EMPLOYEE----------- //

@@ -86,6 +86,7 @@ Route::group(['prefix' => 'disposisi'], function () {
 	Route::post('form/tambahdisposisi', 'DisposisiController@forminsertdisposisi');
 	Route::post('form/ubahdisposisi', 'DisposisiController@formupdatedisposisi');
 	Route::get('form/hapusdisposisi', 'DisposisiController@formdeletedisposisi');
+	Route::get('form/resetdisposisi', 'DisposisiController@formresetdisposisi');
 
 	Route::get('/disposisi', 'DisposisiController@disposisi');
 	Route::get('/lihat disposisi', 'DisposisiController@disposisilihat');
