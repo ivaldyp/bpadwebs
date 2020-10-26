@@ -2283,15 +2283,15 @@ class DisposisiController extends Controller
 								CROSS APPLY (SELECT TOP 1 * FROM bpaddtfake.dbo.glo_org_unitkerja WHERE glo_org_unitkerja.kd_unit = tbjab.idunit) tbunit
 								CROSS APPLY (
 									select  count(disp.rd) as 'notread' from bpaddtfake.dbo.fr_disposisi disp
-									  where rd = 'N'
+									  where rd = 'N' and sts = 1
 									  and disp.to_pm = a.id_emp) notread
 								CROSS APPLY (
 									select  count(disp.rd) as 'yesread' from bpaddtfake.dbo.fr_disposisi disp
-									  where rd = 'Y'
+									  where rd = 'Y' and sts = 1
 									  and disp.to_pm = a.id_emp) yesread
 								CROSS APPLY (
 									select  count(disp.rd) as 'lanjut' from bpaddtfake.dbo.fr_disposisi disp
-									  where rd = 'S'
+									  where rd = 'S' and sts = 1
 									  and disp.to_pm = a.id_emp) lanjut
 								,bpaddtfake.dbo.glo_skpd as b,bpaddtfake.dbo.glo_org_unitkerja as c,bpaddtfake.dbo.glo_org_lokasi as d WHERE tbjab.idskpd=b.skpd AND tbjab.idskpd+'::'+tbjab.idunit=c.kd_skpd+'::'+c.kd_unit AND tbjab.idskpd+'::'+tbjab.idlok=d.kd_skpd+'::'+d.kd_lok AND a.sts='1' AND b.sts='1' AND c.sts='1' AND d.sts='1' 
 								and id_emp like '$ids'
@@ -2303,15 +2303,15 @@ class DisposisiController extends Controller
 								CROSS APPLY (SELECT TOP 1 * FROM bpaddtfake.dbo.glo_org_unitkerja WHERE glo_org_unitkerja.kd_unit = tbjab.idunit) tbunit
 								CROSS APPLY (
 									select  count(disp.rd) as 'notread' from bpaddtfake.dbo.fr_disposisi disp
-									  where rd = 'N'
+									  where rd = 'N' and sts = 1
 									  and disp.to_pm = a.id_emp) notread
 								CROSS APPLY (
 									select  count(disp.rd) as 'yesread' from bpaddtfake.dbo.fr_disposisi disp
-									  where rd = 'Y'
+									  where rd = 'Y' and sts = 1
 									  and disp.to_pm = a.id_emp) yesread
 								CROSS APPLY (
 									select  count(disp.rd) as 'lanjut' from bpaddtfake.dbo.fr_disposisi disp
-									  where rd = 'S'
+									  where rd = 'S' and sts = 1
 									  and disp.to_pm = a.id_emp) lanjut
 								,bpaddtfake.dbo.glo_skpd as b,bpaddtfake.dbo.glo_org_unitkerja as c,bpaddtfake.dbo.glo_org_lokasi as d WHERE tbjab.idskpd=b.skpd AND tbjab.idskpd+'::'+tbjab.idunit=c.kd_skpd+'::'+c.kd_unit AND tbjab.idskpd+'::'+tbjab.idlok=d.kd_skpd+'::'+d.kd_lok AND a.sts='1' AND b.sts='1' AND c.sts='1' AND d.sts='1' 
 								and idunit like '01' and ked_emp = 'aktif'
