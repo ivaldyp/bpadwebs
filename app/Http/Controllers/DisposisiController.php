@@ -2221,7 +2221,7 @@ class DisposisiController extends Controller
 
 		$spreadsheet = new Spreadsheet();
 		$sheet = $spreadsheet->getActiveSheet();
-		$sheet->mergeCells('A1:I1');
+		$sheet->mergeCells('A1:J1');
 		$sheet->setCellValue('A1', 'STATUS DISPOSISI');
 		$sheet->getStyle('A1')->getFont()->setBold( true );
 		$sheet->getStyle('A1')->getAlignment()->setHorizontal('center');
@@ -2232,17 +2232,22 @@ class DisposisiController extends Controller
 		        'name' => 'Trebuchet MS',
 		    ]
 		];
-		$sheet->getStyle('A1:I1')->applyFromArray($styleArray);
+		$sheet->getStyle('A1:J1')->applyFromArray($styleArray);
 
 		$sheet->setCellValue('A3', 'ID');
 		$sheet->setCellValue('b3', 'NRK');
 		$sheet->setCellValue('c3', 'NAMA');
 		$sheet->setCellValue('d3', 'JABATAN');
 		$sheet->setCellValue('e3', 'UNIT');
-		$sheet->setCellValue('f3', 'BELUM DIBACA');
-		$sheet->setCellValue('g3', 'DIBACA');
-		$sheet->setCellValue('h3', 'DITINDAKLANJUTI');
-		$sheet->setCellValue('i3', 'TOTAL');
+		$sheet->setCellValue('f3', 'TOTAL SURAT');
+		$sheet->setCellValue('g3', 'BELUM DIBACA');
+		$sheet->setCellValue('h3', 'HANYA DIBACA');
+		$sheet->setCellValue('i3', 'SUDAH DI-TL');
+		$sheet->setCellValue('j3', '% TL');
+		// $sheet->setCellValue('f3', 'BELUM DIBACA');
+		// $sheet->setCellValue('g3', 'DIBACA');
+		// $sheet->setCellValue('h3', 'DITINDAKLANJUTI');
+		// $sheet->setCellValue('i3', 'TOTAL');
 		
 		$sheet->getStyle('A3')->getFont()->setBold( true );
 		$sheet->getStyle('B3')->getFont()->setBold( true );
@@ -2253,6 +2258,7 @@ class DisposisiController extends Controller
 		$sheet->getStyle('G3')->getFont()->setBold( true );
 		$sheet->getStyle('H3')->getFont()->setBold( true );
 		$sheet->getStyle('I3')->getFont()->setBold( true );
+		$sheet->getStyle('J3')->getFont()->setBold( true );
 
 		$sheet->getStyle('A3')->getAlignment()->setHorizontal('center');
 		$sheet->getStyle('B3')->getAlignment()->setHorizontal('center');
@@ -2263,6 +2269,7 @@ class DisposisiController extends Controller
 		$sheet->getStyle('G3')->getAlignment()->setHorizontal('center');
 		$sheet->getStyle('H3')->getAlignment()->setHorizontal('center');
 		$sheet->getStyle('I3')->getAlignment()->setHorizontal('center');
+		$sheet->getStyle('J3')->getAlignment()->setHorizontal('center');
 
 		$nowrow = 4;
 		$rowstart = $nowrow - 1;
@@ -2319,11 +2326,13 @@ class DisposisiController extends Controller
 		$sheet->setCellValue('c'.$nowrow, $data_self['nm_emp']);
 		$sheet->setCellValue('d'.$nowrow, $data_self['idjab']);
 		$sheet->setCellValue('e'.$nowrow, $data_self['nm_unit']);
-		$sheet->setCellValue('f'.$nowrow, $data_self['notread']);
-		$sheet->setCellValue('g'.$nowrow, $data_self['yesread']);
-		$sheet->setCellValue('h'.$nowrow, $data_self['lanjut']);
-		$sheet->setCellValue('i'.$nowrow, $total);
-		
+		$sheet->setCellValue('f'.$nowrow, $total);
+		$sheet->setCellValue('g'.$nowrow, $data_self['notread']);
+		$sheet->setCellValue('h'.$nowrow, $data_self['yesread']);
+		$sheet->setCellValue('i'.$nowrow, $data_self['lanjut']);
+		$sheet->setCellValue('j'.$nowrow, $total != 0 ? number_format((float)($data_self['lanjut']/$total*100), 2, '.', '') . '%' : 0 );
+
+		$sheet->getStyle('a'.$nowrow.':j'.$nowrow)->getNumberFormat()->setFormatCode('#,##0');
 
 		if (strlen($data_self['idunit']) < 10) {
 			$sheet->getStyle('a'.$nowrow.':i'.$nowrow)->getFont()->setBold( true );
@@ -2363,10 +2372,13 @@ class DisposisiController extends Controller
 				$sheet->setCellValue('c'.$nowrow, $staf['nm_emp']);
 				$sheet->setCellValue('d'.$nowrow, $staf['idjab']);
 				$sheet->setCellValue('e'.$nowrow, $staf['nm_unit']);
-				$sheet->setCellValue('f'.$nowrow, $staf['notread']);
-				$sheet->setCellValue('g'.$nowrow, $staf['yesread']);
-				$sheet->setCellValue('h'.$nowrow, $staf['lanjut']);
-				$sheet->setCellValue('i'.$nowrow, $total);
+				$sheet->setCellValue('f'.$nowrow, $total);
+				$sheet->setCellValue('g'.$nowrow, $staf['notread']);
+				$sheet->setCellValue('h'.$nowrow, $staf['yesread']);
+				$sheet->setCellValue('i'.$nowrow, $staf['lanjut']);
+				$sheet->setCellValue('j'.$nowrow, $total != 0 ? number_format((float)($staf['lanjut']/$total*100), 2, '.', '') . '%' : 0  );
+				$sheet->getStyle('a'.$nowrow.':j'.$nowrow)->getNumberFormat()->setFormatCode('#,##0');
+				
 				if (strlen($staf['idunit']) < 10) {
 					$sheet->getStyle('a'.$nowrow.':i'.$nowrow)->getFont()->setBold( true );
 				}
