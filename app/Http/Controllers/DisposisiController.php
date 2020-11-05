@@ -2244,32 +2244,19 @@ class DisposisiController extends Controller
 		$sheet->setCellValue('h3', 'HANYA DIBACA');
 		$sheet->setCellValue('i3', 'SUDAH DI-TL');
 		$sheet->setCellValue('j3', '% TL');
-		// $sheet->setCellValue('f3', 'BELUM DIBACA');
-		// $sheet->setCellValue('g3', 'DIBACA');
-		// $sheet->setCellValue('h3', 'DITINDAKLANJUTI');
-		// $sheet->setCellValue('i3', 'TOTAL');
-		
-		$sheet->getStyle('A3')->getFont()->setBold( true );
-		$sheet->getStyle('B3')->getFont()->setBold( true );
-		$sheet->getStyle('C3')->getFont()->setBold( true );
-		$sheet->getStyle('D3')->getFont()->setBold( true );
-		$sheet->getStyle('E3')->getFont()->setBold( true );
-		$sheet->getStyle('F3')->getFont()->setBold( true );
-		$sheet->getStyle('G3')->getFont()->setBold( true );
-		$sheet->getStyle('H3')->getFont()->setBold( true );
-		$sheet->getStyle('I3')->getFont()->setBold( true );
-		$sheet->getStyle('J3')->getFont()->setBold( true );
 
-		$sheet->getStyle('A3')->getAlignment()->setHorizontal('center');
-		$sheet->getStyle('B3')->getAlignment()->setHorizontal('center');
-		$sheet->getStyle('C3')->getAlignment()->setHorizontal('center');
-		$sheet->getStyle('D3')->getAlignment()->setHorizontal('center');
-		$sheet->getStyle('E3')->getAlignment()->setHorizontal('center');
-		$sheet->getStyle('F3')->getAlignment()->setHorizontal('center');
-		$sheet->getStyle('G3')->getAlignment()->setHorizontal('center');
-		$sheet->getStyle('H3')->getAlignment()->setHorizontal('center');
-		$sheet->getStyle('I3')->getAlignment()->setHorizontal('center');
-		$sheet->getStyle('J3')->getAlignment()->setHorizontal('center');
+		$sheet->getStyle('A3:J3')->getFont()->setBold( true );
+		$sheet->getStyle('A3:J3')->getAlignment()->setHorizontal('center');
+
+		$colorArrayhead = [
+			'fill' => [
+				'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+				'startColor' => [
+					'rgb' => 'F79646',
+				],
+			],
+		];
+		$sheet->getStyle('A3:J3')->applyFromArray($colorArrayhead);
 
 		$nowrow = 4;
 		$rowstart = $nowrow - 1;
@@ -2323,6 +2310,7 @@ class DisposisiController extends Controller
 
 		$sheet->setCellValue('A'.$nowrow, $data_self['id_emp']);
 		$sheet->setCellValue('B'.$nowrow, $data_self['nrk_emp']);
+		$sheet->getStyle('B'.$nowrow)->getAlignment()->setHorizontal('right');
 		$sheet->setCellValue('c'.$nowrow, $data_self['nm_emp']);
 		$sheet->setCellValue('d'.$nowrow, $data_self['idjab']);
 		$sheet->setCellValue('e'.$nowrow, $data_self['nm_unit']);
@@ -2332,10 +2320,20 @@ class DisposisiController extends Controller
 		$sheet->setCellValue('i'.$nowrow, $data_self['lanjut']);
 		$sheet->setCellValue('j'.$nowrow, $total != 0 ? number_format((float)($data_self['lanjut']/$total*100), 2, '.', '') . '%' : 0 );
 
-		$sheet->getStyle('a'.$nowrow.':j'.$nowrow)->getNumberFormat()->setFormatCode('#,##0');
+		$sheet->getStyle('f'.$nowrow.':j'.$nowrow)->getNumberFormat()->setFormatCode('#,##0');
+
+		$colorArrayV1 = [
+			'fill' => [
+				'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+				'startColor' => [
+					'rgb' => 'FDE9D9',
+				],
+			],
+		];
+		$sheet->getStyle('a'.$nowrow.':j'.$nowrow)->applyFromArray($colorArrayV1);
 
 		if (strlen($data_self['idunit']) < 10) {
-			$sheet->getStyle('a'.$nowrow.':i'.$nowrow)->getFont()->setBold( true );
+			$sheet->getStyle('a'.$nowrow.':j'.$nowrow)->getFont()->setBold( true );
 		}
 		$nowrow++;
 
@@ -2369,6 +2367,7 @@ class DisposisiController extends Controller
 
 				$sheet->setCellValue('A'.$nowrow, $staf['id_emp']);
 				$sheet->setCellValue('B'.$nowrow, $staf['nrk_emp']);
+				$sheet->getStyle('B'.$nowrow)->getAlignment()->setHorizontal('right');
 				$sheet->setCellValue('c'.$nowrow, $staf['nm_emp']);
 				$sheet->setCellValue('d'.$nowrow, $staf['idjab']);
 				$sheet->setCellValue('e'.$nowrow, $staf['nm_unit']);
@@ -2377,16 +2376,25 @@ class DisposisiController extends Controller
 				$sheet->setCellValue('h'.$nowrow, $staf['yesread']);
 				$sheet->setCellValue('i'.$nowrow, $staf['lanjut']);
 				$sheet->setCellValue('j'.$nowrow, $total != 0 ? number_format((float)($staf['lanjut']/$total*100), 2, '.', '') . '%' : 0  );
-				$sheet->getStyle('a'.$nowrow.':j'.$nowrow)->getNumberFormat()->setFormatCode('#,##0');
+				$sheet->getStyle('f'.$nowrow.':j'.$nowrow)->getNumberFormat()->setFormatCode('#,##0');
+
+				if ($key%2 == 1) {
+					$sheet->getStyle('a'.$nowrow.':j'.$nowrow)->applyFromArray($colorArrayV1);
+				}
 				
 				if (strlen($staf['idunit']) < 10) {
-					$sheet->getStyle('a'.$nowrow.':i'.$nowrow)->getFont()->setBold( true );
+					$sheet->getStyle('a'.$nowrow.':j'.$nowrow)->getFont()->setBold( true );
 				}
 				$nowrow++;
 			}
 		}
 
-		$filename = 'STATDISP.xlsx';
+		foreach(range('A','J') as $columnID) {
+		    $sheet->getColumnDimension($columnID)
+		        ->setAutoSize(true);
+		}
+
+		$filename = date('dmy').'_STATDISP.xlsx';
 
 		// Redirect output to a client's web browser (Xlsx)
 		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
