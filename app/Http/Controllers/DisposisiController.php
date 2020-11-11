@@ -2222,17 +2222,19 @@ class DisposisiController extends Controller
 		$spreadsheet = new Spreadsheet();
 		$sheet = $spreadsheet->getActiveSheet();
 		$sheet->mergeCells('A1:J1');
-		$sheet->setCellValue('A1', 'STATUS DISPOSISI');
+		$sheet->setCellValue('A1', 'STATUS DISPOSISI BPAD');
 		$sheet->getStyle('A1')->getFont()->setBold( true );
-		$sheet->getStyle('A1')->getAlignment()->setHorizontal('center');
+		$sheet->getStyle('A1')->getAlignment()->setHorizontal('left');
 
 		$styleArray = [
 		    'font' => [
-		        'size' => 12,
+		        'size' => 16,
 		        'name' => 'Trebuchet MS',
 		    ]
 		];
 		$sheet->getStyle('A1:J1')->applyFromArray($styleArray);
+
+		$sheet->setCellValue('A2', date('d/m/Y H:i', strtotime('+7 hours')));
 
 		$sheet->setCellValue('A3', 'ID');
 		$sheet->setCellValue('b3', 'NRK');
@@ -2388,6 +2390,8 @@ class DisposisiController extends Controller
 				$nowrow++;
 			}
 		}
+
+		$sheet->setShowGridlines(false);
 
 		foreach(range('A','J') as $columnID) {
 		    $sheet->getColumnDimension($columnID)
