@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Content_tb extends Model
 {
-	protected $connection = 'sqlsrv3';
+	protected $connection = 'sqlsrv2';
     // protected $primaryKey = "ids"; 
     protected $table = "fr_disposisi";
 

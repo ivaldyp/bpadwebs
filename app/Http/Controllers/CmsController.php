@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Traits\SessionCheckTraits;
 
-use App\Content_tb;
+use App\Contenttb as Content_tb;
 use App\Glo_kategori;
 use App\Glo_subkategori;
 use App\New_icon_produk;
@@ -787,7 +787,8 @@ class CmsController extends Controller
 				return redirect('/cms/content?katnow='.$request->idkat)->with('message', 'File yang diunggah harus berbentuk JPG / JPEG / PNG');     
 			} 
 
-			$file_name = "cms" . preg_replace("/[^0-9]/", "", $request->tanggal);
+			// $file_name = "cms" . preg_replace("/[^0-9]/", "", $request->tanggal);
+			$file_name = "cms" . date('dmyHis');
 			$file_name .= $_SESSION['user_data']['nrk_emp'];
 			$file_name .= ".". $file->getClientOriginalExtension();
 

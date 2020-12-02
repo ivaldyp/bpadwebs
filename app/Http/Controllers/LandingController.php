@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Session;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
-use App\Content_tb;
+use App\Contenttb as Content_tb;
 use App\Glo_kategori;
 use App\Help;
 use App\Produk_aset;

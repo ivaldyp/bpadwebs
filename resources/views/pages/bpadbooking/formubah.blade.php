@@ -68,23 +68,23 @@
 			<div class="row ">
 				<div class="col-md-2"></div>
 				<div class="col-md-8">
-					<form class="form-horizontal" method="POST" action="/portal/booking/form/tambahpinjam" data-toggle="validator" enctype="multipart/form-data">
+					<form class="form-horizontal" method="POST" action="/portal/booking/form/ubahpinjam" data-toggle="validator" enctype="multipart/form-data">
 					@csrf
 						<div class="panel panel-info">
-							<div class="panel-heading"> Buat Pinjaman Baru </div>
+							<div class="panel-heading"> Ubah Pinjaman </div>
 							<div class="panel-wrapper collapse in" aria-expanded="true">
 								<div class="panel-body">
 									<div class="form-group">
 										<label for="nm_emp" class="col-md-2 control-label"> Nama Peminjam </label>
 										<div class="col-md-8">
-											<input autocomplete="off" type="text" name="nm_emp" class="form-control" value="{{ Auth::user()->id_emp ? $_SESSION['user_data']['nm_emp'] : $_SESSION['user_data']['nama_user'] }}" required="">
+											<input autocomplete="off" type="text" name="nm_emp" class="form-control" value="{{ strtoupper($booking['nm_emp']) }}">
 										</div>
 									</div>
 
 									<div class="form-group">
 										<label for="id_emp" class="col-md-2 control-label"> ID Peminjam </label>
 										<div class="col-md-8">
-											<input autocomplete="off" type="text" name="id_emp" class="form-control" value="{{ Auth::user()->id_emp ? $_SESSION['user_data']['id_emp'] : $_SESSION['user_data']['usname'] }}" required="">
+											<input autocomplete="off" type="text" name="id_emp" class="form-control" value="{{ $booking['id_emp'] }}">
 										</div>
 									</div>
 
@@ -93,7 +93,7 @@
 										<div class="col-md-8">
 											<select class="form-control select2" name="unit" id="unit">
 												@foreach($units as $unit)
-													<option <?php if(strpos($_SESSION['user_data']['idunit'], $unit['kd_unit']) !== false): ?> selected <?php endif ?> value="{{ $unit['kd_unit'] }}::{{ $unit['nm_unit'] }}"> {{ $unit['kd_unit'] }}::{{ $unit['nm_unit'] }} </option>
+													<option <?php if($booking['unit_emp'] == $unit['kd_unit'] ): ?> selected <?php endif ?> value="{{ $unit['kd_unit'] }}::{{ $unit['nm_unit'] }}"> {{ $unit['kd_unit'] }}::{{ $unit['nm_unit'] }} </option>
 												@endforeach
 											</select>
 										</div>
@@ -104,7 +104,7 @@
 										<div class="col-md-8">
 											<select class="form-control select2" name="ruang" id="ruang">
 												@foreach($ruangs as $ruang)
-													<option value="{{ $ruang['ids'] }}"> [{{ $ruang['nm_ruang'] }}] - [{{ $ruang['lokasi'] }}, Lantai {{ $ruang['lantai'] }}] </option>
+													<option <?php if($booking['ruang'] == $ruang['ids'] ): ?> selected <?php endif ?> value="{{ $ruang['ids'] }}"> [{{ $ruang['nm_ruang'] }}] - [{{ $ruang['lokasi'] }}, Lantai {{ $ruang['lantai'] }}] </option>
 												@endforeach
 											</select>
 										</div>
@@ -113,14 +113,14 @@
 									<div class="form-group">
 										<label for="tujuan" class="col-md-2 control-label"> Kegiatan </label>
 										<div class="col-md-8">
-											<input autocomplete="off" type="text" name="tujuan" id="tujuan" class="form-control" required="">
+											<input autocomplete="off" type="text" name="tujuan" id="tujuan" class="form-control" required="" value="{{ $booking['tujuan'] }}">
 										</div>
 									</div>
 
 									<div class="form-group">
 										<label for="peserta" class="col-md-2 control-label"> Jumlah Peserta </label>
 										<div class="col-md-3">
-											<input autocomplete="off" type="text" name="peserta" id="peserta" class="form-control" placeholder="contoh: 10 / 20 / 30">
+											<input autocomplete="off" type="text" name="peserta" id="peserta" class="form-control" placeholder="contoh: 10 / 20 / 30" value="{{ $booking['peserta'] }}">
 										</div>
 									</div>
 
@@ -128,29 +128,38 @@
 										<label for="tgl_pinjam" class="col-md-2 control-label"> Tanggal </label>
 										<div class="col-md-8">
 											<?php date_default_timezone_set('Asia/Jakarta'); ?>
-											<input type="text" class="form-control datepicker-autoclose" id="tgl_pinjam" name="tgl_pinjam" autocomplete="off" value="{{ date('d/m/Y') }}" required="">
+											<input type="text" class="form-control datepicker-autoclose" id="tgl_pinjam" name="tgl_pinjam" autocomplete="off" value="{{ date('d/m/Y',strtotime($booking['tgl_pinjam'])) }}">
 										</div>
 									</div>
+
+									<?php 
+										$splitmulai = explode(":", $booking['jam_mulai']);
+										$splitselesai = explode(":", $booking['jam_selesai']);
+									?>
 
 									<div class="form-group">
 										<label for="tgl_masuk" class="col-md-2 control-label"> Mulai </label>
 										<div class="col-md-3">
 											<div class="input-group clockpicker" data-placement="bottom" data-align="top" data-autoclose="true">
-												<input type="text" class="form-control" value="00:00" name="time1" id="time1"> <span class="input-group-addon"> <span class="glyphicon glyphicon-time"></span> </span>
+												<input type="text" class="form-control" value="{{ $splitmulai[0] }}:{{ $splitmulai[1] }}" name="time1" id="time1"> <span class="input-group-addon"> <span class="glyphicon glyphicon-time"></span> </span>
 											</div>
 										</div>
 										<label for="tgl_masuk" class="col-md-2 control-label"> Selesai </label>
 										<div class="col-md-3">
 											<div class="input-group clockpicker" data-placement="bottom" data-align="top" data-autoclose="true">
-												<input type="text" class="form-control" value="00:00" name="time2" id="time2"> <span class="input-group-addon"> <span class="glyphicon glyphicon-time"></span> </span>
+												<input type="text" class="form-control" value="{{ $splitselesai[0] }}:{{ $splitselesai[1] }}" name="time2" id="time2"> <span class="input-group-addon"> <span class="glyphicon glyphicon-time"></span> </span>
 											</div>
 										</div>
 									</div>
 
+									<?php 
+										$namafolder = $booking['ruang'] . date('H',strtotime($booking['jam_mulai'])) . date('dmY',strtotime($booking['tgl_pinjam']));
+									?>
+
 									<div class="form-group">
                                         <label for="nm_file" class="col-md-2 control-label"> File</label>
                                         <div class="col-md-8">
-                                            <input type="file" class="form-control" id="nm_file" name="nm_file" required>
+                                        	<p class="form-control-static"><a target="_blank" href="{{ config('app.openfilebooking') }}/{{$namafolder}}/{{ $booking['nm_file'] }}">{{ $booking['nm_file'] }}</a></p>
                                         </div>
                                     </div>
 								</div>
@@ -165,9 +174,6 @@
 								
 							</div>
 						</div>	
-						<div class="panel panel-info">
-							
-						</div>
 					</form>
 				</div>
 			</div>

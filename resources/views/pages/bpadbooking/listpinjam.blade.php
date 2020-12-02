@@ -80,14 +80,14 @@
 												<option <?php if ($yearnow == (int)date('Y') - 4): ?> selected <?php endif ?> value="{{ (int)date('Y') - 4 }}">{{ (int)date('Y') - 4 }}</option>
 											</select>
 										</div>
-										<div class=" col-md-1">
+										<div class=" col-md-2">
 											<select class="form-control" name="signnow" id="signnow" onchange="this.form.submit()">
 												<option <?php if ($signnow == "="): ?> selected <?php endif ?> value="=">=</option>
 												<option <?php if ($signnow == ">="): ?> selected <?php endif ?> value=">=">>=</option>
 												<option <?php if ($signnow == "<="): ?> selected <?php endif ?> value="<="><=</option>
 											</select>
 										</div>
-										<div class=" col-md-1">
+										<div class=" col-md-2">
 											<select class="form-control" name="monthnow" id="monthnow" onchange="this.form.submit()">
 												@php
 												$months = 1
@@ -102,7 +102,7 @@
 												@endfor
 											</select>
 										</div>
-										<div class=" col-md-3">
+										<div class=" col-md-2">
 											<input type="text" name="searchnow" class="form-control" placeholder="Cari" value="{{ $searchnow }}" autocomplete="off">
 										</div>
 										<button type="submit" class="btn btn-primary">Cari</button>
@@ -161,8 +161,13 @@
 															
 															<td style="vertical-align: middle;">
 																
-																<button type="button" class="btn btn-danger btn-delete-sent btn-outline btn-circle m-r-5" data-toggle="modal" data-target="#modal-delete-{{ $yes['ids'] }}" data-ids="{{ $yes['ids'] }}"
-																	><i class="ti-trash"></i></button>
+																<form method="POST" action="/portal/booking/lihat">
+																	@csrf
+																	<input type="hidden" name="ids" value="{{ $yes['ids'] }}">
+																	<input type="hidden" name="hal" value="list">
+																	<button type="submit" class="btn btn-info btn-outline btn-circle m-r-5"><i class="ti-eye"></i></button>
+																	<button type="button" class="btn btn-danger btn-delete btn-outline btn-circle m-r-5" data-toggle="modal" data-target="#modal-delete" data-ids="{{ $yes['ids'] }}" data-hal="list"><i class="ti-trash"></i></button>
+																</form>
 
 															</td>
 														</tr>
@@ -224,11 +229,11 @@
 																	@csrf
 																	@if ($access['zupd'] == 'y')
 																	<input type="hidden" name="ids" value="{{ $wait['ids'] }}">
+																	<input type="hidden" name="hal" value="list">
 																	<button type="submit" class="btn btn-info btn-outline btn-circle m-r-5 btn-update"><i class="ti-pencil-alt"></i></button>
 																	@endif
 																	@if ($access['zdel'] == 'y' )
-																	<button type="button" class="btn btn-danger btn-delete-sent btn-outline btn-circle m-r-5" data-toggle="modal" data-target="#modal-delete-{{ $wait['ids'] }}" data-ids="{{ $wait['ids'] }}"
-																	><i class="ti-trash"></i></button>
+																	<button type="button" class="btn btn-danger btn-delete btn-outline btn-circle m-r-5" data-toggle="modal" data-target="#modal-delete" data-ids="{{ $wait['ids'] }}" data-hal="list"><i class="ti-trash"></i></button>
 																	@endif
 																</form>
 																
@@ -253,6 +258,7 @@
 														<th>Tujuan</th>
 														<th>Ruang</th>
 														<th>File</th>
+														<th>Action</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -283,6 +289,14 @@
 																<?php $namafolder = $thisidruang . date('H',strtotime($thismulai)) . date('dmY',strtotime($thistgl)); ?>
 																<a target="_blank" href="{{ config('app.openfilebooking') }}/{{$namafolder}}/{{ $thisfile }}">{{ $thisfile }}</a>
 															</td>
+															<td>
+																<form method="POST" action="/portal/booking/lihat">
+																	@csrf
+																	<input type="hidden" name="ids" value="{{ $no['ids'] }}">
+																	<input type="hidden" name="hal" value="list">
+																	<button type="submit" class="btn btn-info btn-outline btn-circle m-r-5"><i class="ti-eye"></i></button>
+																</form>
+															</td>
 															
 														</tr>
 													
@@ -301,15 +315,15 @@
 			<div id="modal-delete" class="modal fade" role="dialog">
 				<div class="modal-dialog">
 					<div class="modal-content">
-						<form method="POST" action="/portal/disposisi/form/hapusdisposisiadmin" class="form-horizontal">
+						<form method="POST" action="/portal/booking/form/hapuspinjam" class="form-horizontal">
 						@csrf
 							<div class="modal-header">
-								<h4 class="modal-title"><b>Hapus Disposisi</b></h4>
+								<h4 class="modal-title"><b>Hapus Pinjaman</b></h4>
 							</div>
 							<div class="modal-body">
-								<h4 id="label-delete"></h4>
-								<input type="hidden" name="ids" value="">
-								<input type="hidden" name="no_form" value="">
+								<h4 id="label_delete"></h4>
+								<input type="hidden" name="ids" value="" id="modal_delete_ids">
+								<input type="hidden" name="hal" value="" id="modal_delete_hal">
 								
 							</div>
 							<div class="modal-footer">
@@ -347,55 +361,67 @@
 	<script>
 		$(function () {
 
-			$('.btn-delete-sent').on('click', function () {
+			$('.btn-delete').on('click', function () {
 				var $el = $(this);
-				if(confirm("Menghapus disposisi yang sudah berjalan akan menghapus seluruh disposisi dengan nomor form yang sama, lanjutkan?")){
-					if (confirm("Apa anda yakin menghapus form dengan nomor "+$el.data('no_form')+" ?")) {
-						var ids = $el.data('ids');
-						var no_form = $el.data('no_form');
 
-						$.ajax({ 
-						type: "GET", 
-						url: "/portal/disposisi/form/hapusdisposisi",
-						data: { ids : ids, no_form : no_form },
-						dataType: "JSON",
-						}).done(function( data ) { 
-							if (data == 0) {
-								alert("Disposisi berhasil dihapus");
-								location.reload();
-							} else {
-								alert("Tidak dapat menghapus");
-								location.reload();
-							}
+				$("#label_delete").append('Apakah anda yakin ingin menghapus pinjaman ini?');
+				$("#modal_delete_ids").val($el.data('ids'));
+				$("#modal_delete_hal").val($el.data('hal'));
+			});
+
+			$("#modal-delete").on("hidden.bs.modal", function () {
+				$("#label_delete").empty();
+			});
+
+			// $('.btn-delete-sent').on('click', function () {
+			// 	var $el = $(this);
+			// 	if(confirm("Menghapus disposisi yang sudah berjalan akan menghapus seluruh disposisi dengan nomor form yang sama, lanjutkan?")){
+			// 		if (confirm("Apa anda yakin menghapus form dengan nomor "+$el.data('no_form')+" ?")) {
+			// 			var ids = $el.data('ids');
+			// 			var no_form = $el.data('no_form');
+
+			// 			$.ajax({ 
+			// 			type: "GET", 
+			// 			url: "/portal/disposisi/form/hapusdisposisi",
+			// 			data: { ids : ids, no_form : no_form },
+			// 			dataType: "JSON",
+			// 			}).done(function( data ) { 
+			// 				if (data == 0) {
+			// 					alert("Disposisi berhasil dihapus");
+			// 					location.reload();
+			// 				} else {
+			// 					alert("Tidak dapat menghapus");
+			// 					location.reload();
+			// 				}
 							
-						}); 
-					}
-				}
-			});
+			// 			}); 
+			// 		}
+			// 	}
+			// });
 
-			$('.btn-delete-draft').on('click', function () {
-				var $el = $(this);
-				if (confirm("Apa anda yakin menghapus form dengan nomor "+$el.data('no_form')+" ?")) {
-					var ids = $el.data('ids');
-					var no_form = $el.data('no_form');
+			// $('.btn-delete-draft').on('click', function () {
+			// 	var $el = $(this);
+			// 	if (confirm("Apa anda yakin menghapus form dengan nomor "+$el.data('no_form')+" ?")) {
+			// 		var ids = $el.data('ids');
+			// 		var no_form = $el.data('no_form');
 
-					$.ajax({ 
-					type: "GET", 
-					url: "/portal/disposisi/form/hapusdisposisi",
-					data: { ids : ids, no_form : no_form },
-					dataType: "JSON",
-					}).done(function( data ) { 
-						if (data == 0) {
-							alert("Disposisi berhasil dihapus");
-							location.reload();
-						} else {
-							alert("Tidak dapat menghapus");
-							location.reload();
-						}
+			// 		$.ajax({ 
+			// 		type: "GET", 
+			// 		url: "/portal/disposisi/form/hapusdisposisi",
+			// 		data: { ids : ids, no_form : no_form },
+			// 		dataType: "JSON",
+			// 		}).done(function( data ) { 
+			// 			if (data == 0) {
+			// 				alert("Disposisi berhasil dihapus");
+			// 				location.reload();
+			// 			} else {
+			// 				alert("Tidak dapat menghapus");
+			// 				location.reload();
+			// 			}
 						
-					}); 
-				}
-			});
+			// 		}); 
+			// 	}
+			// });
 
 			$('#myTable').DataTable({
 				"ordering" : false,

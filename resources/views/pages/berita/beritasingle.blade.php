@@ -22,6 +22,13 @@
 	$newDate = date("d F Y", strtotime($originalDate[0]));
 ?>
 
+<style type="text/css">
+	.article-content a {
+		color: blue;
+		text-decoration: underline;
+	}
+</style>
+
 <!-- SECTION -->
 <div class="section">
 	<!-- container -->

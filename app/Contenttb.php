@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Content_tb extends Model
+class Contenttb extends Model
 {
 	protected $connection = 'sqlsrv';
     protected $primaryKey = "ids"; 

@@ -131,6 +131,28 @@ class BookingController extends Controller
 				->with('msg_num', 1);
 	}
 
+	public function lihatpinjam(Request $request)
+	{
+		$booking = Book_transact::
+					where('ids', $request->ids)
+					->first();
+
+		$ruangs = Book_ruang::
+					where('sts', 1)
+					->where('ids', $booking['ruang'])
+					->first();
+
+		$units = GLo_org_unitkerja::
+						whereRaw('LEN(kd_unit) = 6')
+						->orderBy('kd_unit')
+						->get();
+
+		return view('pages.bpadbooking.lihat')
+				->with('booking', $booking)
+				->with('ruangs', $ruangs)
+				->with('units', $units);
+	}
+
 	public function formpinjam(Request $request)
 	{
 		$this->checkSessionTime();
@@ -163,21 +185,21 @@ class BookingController extends Controller
 		$jam_mulai = $request->time1;
 		$jam_selesai = $request->time2;
 
-		$findbooking = DB::select( DB::raw("
-							SELECT ids
-							FROM bpaddtfake.dbo.book_transact
-							WHERE ruang = '$request->ruang'
-							and tgl_pinjam = '$tgl_pinjam'
-							and (jam_mulai <= '$jam_mulai' 
-							and jam_selesai > '$jam_mulai')
-						") );
-		$findbooking = json_decode(json_encode($findbooking), true);
+		// $findbooking = DB::select( DB::raw("
+		// 					SELECT ids
+		// 					FROM bpaddtfake.dbo.book_transact
+		// 					WHERE ruang = '$request->ruang'
+		// 					and tgl_pinjam = '$tgl_pinjam'
+		// 					and (jam_mulai <= '$jam_mulai' 
+		// 					and jam_selesai > '$jam_mulai')
+		// 				") );
+		// $findbooking = json_decode(json_encode($findbooking), true);
 
-		if (count($findbooking) > 0) {
-			return redirect('/booking/pinjam')
-					->with('message', 'Jadwal yang dipilih telah terisi')
-					->with('msg_num', 2);
-		} 
+		// if (count($findbooking) > 0) {
+		// 	return redirect('/booking/pinjam')
+		// 			->with('message', 'Jadwal yang dipilih telah terisi')
+		// 			->with('msg_num', 2);
+		// } 
 
 		$filebook = '';
 
@@ -240,6 +262,44 @@ class BookingController extends Controller
 				->with('msg_num', 1);
 	}
 
+	public function ubahpinjam(Request $request)
+	{
+		$booking = Book_transact::
+					where('ids', $request->ids)
+					->first();
+
+		$ruangs = Book_ruang::
+					where('sts', 1)
+					->get();
+
+		$units = GLo_org_unitkerja::
+						whereRaw('LEN(kd_unit) = 6')
+						->orderBy('kd_unit')
+						->get();
+
+		return view('pages.bpadbooking.formubah')
+				->with('booking', $booking)
+				->with('ruangs', $ruangs)
+				->with('units', $units);
+	}
+
+	public function formupdatepinjam(Request $request)
+	{
+		
+	}
+
+	public function formdeletepinjam(Request $request)
+	{
+		Book_transact::where('ids', $request->ids)
+			->update([
+				'status' => 'N',
+			]);
+
+		return redirect('/booking/'.$request->hal)
+				->with('message', 'Pinjaman tersebut berhasil dihapus')
+				->with('msg_num', 1);
+	}
+
 	public function listpinjam(Request $request)
 	{
 		$this->checkSessionTime();
@@ -264,7 +324,7 @@ class BookingController extends Controller
 		if ($request->signnow) {
 			$signnow = $request->signnow;
 		} else {
-			$signnow = "=";
+			$signnow = "<=";
 		}
 
 		if ($request->searchnow) {
@@ -315,6 +375,7 @@ class BookingController extends Controller
 						  		and month(tgl_pinjam) $signnow $monthnow
 								and year(tgl_pinjam) = $yearnow
 								and tr.sts = 1
+							order by tgl_pinjam desc, jam_mulai desc, jam_selesai desc
 						") );
 
 		$bookingno = DB::select( DB::raw("
@@ -346,6 +407,7 @@ class BookingController extends Controller
 						  		and month(tgl_pinjam) $signnow $monthnow
 								and year(tgl_pinjam) = $yearnow
 								and tr.sts = 1
+							order by tgl_pinjam desc, jam_mulai desc, jam_selesai desc
 						") );
 		$bookingwait = DB::select( DB::raw("
 							SELECT TOP (1000) tr.[ids]
@@ -376,6 +438,7 @@ class BookingController extends Controller
 						  		and month(tgl_pinjam) $signnow $monthnow
 								and year(tgl_pinjam) = $yearnow
 								and tr.sts = 1
+							order by tgl_pinjam desc, jam_mulai desc, jam_selesai desc
 						") );
 
 
@@ -418,7 +481,7 @@ class BookingController extends Controller
 		if ($request->signnow) {
 			$signnow = $request->signnow;
 		} else {
-			$signnow = "=";
+			$signnow = "<=";
 		}
 
 		if ($request->searchnow) {
@@ -470,6 +533,7 @@ class BookingController extends Controller
 						  		and month(tgl_pinjam) $signnow $monthnow
 								and year(tgl_pinjam) = $yearnow
 								and tr.sts = 1
+							order by tgl_pinjam desc, jam_mulai desc, jam_selesai desc
 						") );
 
 		$bookingno = DB::select( DB::raw("
@@ -502,6 +566,7 @@ class BookingController extends Controller
 						  		and month(tgl_pinjam) $signnow $monthnow
 								and year(tgl_pinjam) = $yearnow
 								and tr.sts = 1
+							order by tgl_pinjam desc, jam_mulai desc, jam_selesai desc
 						") );
 		$bookingwait = DB::select( DB::raw("
 							SELECT TOP (1000) tr.[ids]
@@ -533,6 +598,7 @@ class BookingController extends Controller
 						  		and month(tgl_pinjam) $signnow $monthnow
 								and year(tgl_pinjam) = $yearnow
 								and tr.sts = 1
+							order by tgl_pinjam desc, jam_mulai desc, jam_selesai desc
 						") );
 
 		$bookingyes = json_decode(json_encode($bookingyes), true);

@@ -80,14 +80,14 @@
 												<option <?php if ($yearnow == (int)date('Y') - 4): ?> selected <?php endif ?> value="{{ (int)date('Y') - 4 }}">{{ (int)date('Y') - 4 }}</option>
 											</select>
 										</div>
-										<div class=" col-md-1">
+										<div class=" col-md-2">
 											<select class="form-control" name="signnow" id="signnow" onchange="this.form.submit()">
 												<option <?php if ($signnow == "="): ?> selected <?php endif ?> value="=">=</option>
 												<option <?php if ($signnow == ">="): ?> selected <?php endif ?> value=">=">>=</option>
 												<option <?php if ($signnow == "<="): ?> selected <?php endif ?> value="<="><=</option>
 											</select>
 										</div>
-										<div class=" col-md-1">
+										<div class=" col-md-2">
 											<select class="form-control" name="monthnow" id="monthnow" onchange="this.form.submit()">
 												@php
 												$months = 1
@@ -102,7 +102,7 @@
 												@endfor
 											</select>
 										</div>
-										<div class=" col-md-3">
+										<div class=" col-md-2">
 											<input type="text" name="searchnow" class="form-control" placeholder="Cari" value="{{ $searchnow }}" autocomplete="off">
 										</div>
 										<button type="submit" class="btn btn-primary">Cari</button>
@@ -161,9 +161,13 @@
 															
 															<td style="vertical-align: middle;">
 																
-																<button type="button" class="btn btn-danger btn-delete-sent btn-outline btn-circle m-r-5" data-toggle="modal" data-target="#modal-delete-{{ $yes['ids'] }}" data-ids="{{ $yes['ids'] }}"
-																	><i class="ti-trash"></i></button>
-
+																<form method="POST" action="/portal/booking/lihat">
+																	@csrf
+																	<input type="hidden" name="ids" value="{{ $yes['ids'] }}">
+																	<input type="hidden" name="hal" value="request">
+																	<button type="submit" class="btn btn-info btn-outline btn-circle m-r-5"><i class="ti-eye"></i></button>
+																	<button type="button" class="btn btn-danger btn-delete btn-outline btn-circle m-r-5" data-toggle="modal" data-target="#modal-delete" data-ids="{{ $yes['ids'] }}" data-hal="request"><i class="ti-trash"></i></button>
+																</form>
 															</td>
 														</tr>
 													
@@ -187,6 +191,7 @@
 														@if($access['zupd'] == 'y' || $access['zdel'] == 'y')
 														<th>Action</th>
 														@endif
+														<th>Approve</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -224,15 +229,18 @@
 																	@csrf
 																	@if ($access['zupd'] == 'y')
 																	<input type="hidden" name="ids" value="{{ $wait['ids'] }}">
+																	<input type="hidden" name="hal" value="request">
 																	<button type="submit" class="btn btn-info btn-outline btn-circle m-r-5 btn-update"><i class="ti-pencil-alt"></i></button>
 																	@endif
 																	@if ($access['zdel'] == 'y' )
-																	<button type="button" class="btn btn-danger btn-delete-sent btn-outline btn-circle m-r-5" data-toggle="modal" data-target="#modal-delete-{{ $wait['ids'] }}" data-ids="{{ $wait['ids'] }}"
-																	><i class="ti-trash"></i></button>
+																	<button type="button" class="btn btn-danger btn-delete btn-outline btn-circle m-r-5" data-toggle="modal" data-target="#modal-delete" data-ids="{{ $wait['ids'] }}" data-hal="request"><i class="ti-trash"></i></button>
 																	@endif
 																</form>
 																
-																	
+															</td>
+															<td style="vertical-align: middle;"> 
+
+																<button type="button" class="btn btn-success btn-approve btn-outline btn-circle m-r-5" data-ids="{{ $wait['ids'] }}" data-hal="request"><i class="ti-check"></i></button>
 															</td>
 														</tr>
 													
@@ -253,6 +261,7 @@
 														<th>Tujuan</th>
 														<th>Ruang</th>
 														<th>File</th>
+														<th>Action</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -283,6 +292,15 @@
 																<?php $namafolder = $thisidruang . date('H',strtotime($thismulai)) . date('dmY',strtotime($thistgl)); ?>
 																<a target="_blank" href="{{ config('app.openfilebooking') }}/{{$namafolder}}/{{ $thisfile }}">{{ $thisfile }}</a>
 															</td>
+															<td>
+																<form method="POST" action="/portal/booking/lihat">
+																	@csrf
+																	<input type="hidden" name="ids" value="{{ $no['ids'] }}">
+																	<input type="hidden" name="hal" value="request">
+																	<button type="submit" class="btn btn-info btn-outline btn-circle m-r-5"><i class="ti-eye"></i></button>
+																</form>
+																
+															</td>
 															
 														</tr>
 													
@@ -301,15 +319,64 @@
 			<div id="modal-delete" class="modal fade" role="dialog">
 				<div class="modal-dialog">
 					<div class="modal-content">
-						<form method="POST" action="/portal/disposisi/form/hapusdisposisiadmin" class="form-horizontal">
+						<form method="POST" action="/portal/booking/form/hapuspinjam" class="form-horizontal">
 						@csrf
 							<div class="modal-header">
-								<h4 class="modal-title"><b>Hapus Disposisi</b></h4>
+								<h4 class="modal-title"><b>Hapus Pinjaman</b></h4>
 							</div>
 							<div class="modal-body">
-								<h4 id="label-delete"></h4>
-								<input type="hidden" name="ids" value="">
-								<input type="hidden" name="no_form" value="">
+								<h4 id="label_delete"></h4>
+								<input type="hidden" name="ids" value="" id="modal_delete_ids">
+								<input type="hidden" name="hal" value="" id="modal_delete_hal">
+								
+							</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-danger pull-right">Hapus</button>
+								<button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
+			<div id="modal-approve" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<form method="POST" action="/portal/booking/form/approvepinjam" class="form-horizontal">
+						@csrf
+							<div class="modal-header">
+								<h4 class="modal-title"><b>Approve Pinjaman</b></h4>
+							</div>
+							<div class="modal-body">
+								<input type="hidden" name="ids" id="modal_approve_ids">
+								<input type="hidden" name="hal" id="modal_approve_hal">
+								
+								<div class="form-group">
+									<label class="col-md-2 control-label"> Approve? </label>
+									<div class="radio-list col-md-8">
+										<label class="radio-inline">
+											<div class="radio radio-info">
+												<input type="radio" name="status" id="status1" value="S" data-error="Pilih salah satu" required="">
+												<label for="status1">Ya</label> 
+											</div>
+										</label>
+										<label class="radio-inline">
+											<div class="radio radio-info">
+												<input type="radio" name="status" id="status2" value="N" checked>
+												<label for="status2">Tidak</label>
+											</div>
+										</label>
+										<div class="help-block with-errors"></div>  
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="nmkat" class="col-md-2 control-label"><span style="color: red">*</span> Kategori </label>
+									<div class="col-md-8">
+										<input type="text" name="nmkat" id="modal_insert_nmkat" class="form-control" data-error="Masukkan nama kategori" autocomplete="off" required>
+										<div class="help-block with-errors"></div>
+									</div>
+								</div>
 								
 							</div>
 							<div class="modal-footer">
@@ -347,55 +414,80 @@
 	<script>
 		$(function () {
 
-			$('.btn-delete-sent').on('click', function () {
+			$('.btn-delete').on('click', function () {
 				var $el = $(this);
-				if(confirm("Menghapus disposisi yang sudah berjalan akan menghapus seluruh disposisi dengan nomor form yang sama, lanjutkan?")){
-					if (confirm("Apa anda yakin menghapus form dengan nomor "+$el.data('no_form')+" ?")) {
-						var ids = $el.data('ids');
-						var no_form = $el.data('no_form');
 
-						$.ajax({ 
-						type: "GET", 
-						url: "/portal/disposisi/form/hapusdisposisi",
-						data: { ids : ids, no_form : no_form },
-						dataType: "JSON",
-						}).done(function( data ) { 
-							if (data == 0) {
-								alert("Disposisi berhasil dihapus");
-								location.reload();
-							} else {
-								alert("Tidak dapat menghapus");
-								location.reload();
-							}
+				$("#label_delete").append('Apakah anda yakin ingin menghapus pinjaman ini?');
+				$("#modal_delete_ids").val($el.data('ids'));
+				$("#modal_delete_hal").val($el.data('hal'));
+			});
+
+			$("#modal-delete").on("hidden.bs.modal", function () {
+				$("#label_delete").empty();
+			});
+
+
+			$('.btn-approve').on('click', function () {
+				var $el = $(this);
+
+				$("#modal_approve_ids").val($el.data('ids'));
+				$("#modal_approve_hal").val($el.data('hal'));
+			});
+
+			// $("#modal-approve").on("hidden.bs.modal", function () {
+			// 	$("#label_delete").empty();
+			// });
+
+
+			// $('.btn-delete-sent').on('click', function () {
+			// 	var $el = $(this);
+			// 	if(confirm("Menghapus disposisi yang sudah berjalan akan menghapus seluruh disposisi dengan nomor form yang sama, lanjutkan?")){
+			// 		if (confirm("Apa anda yakin menghapus form dengan nomor "+$el.data('no_form')+" ?")) {
+			// 			var ids = $el.data('ids');
+			// 			var no_form = $el.data('no_form');
+
+			// 			$.ajax({ 
+			// 			type: "GET", 
+			// 			url: "/portal/disposisi/form/hapusdisposisi",
+			// 			data: { ids : ids, no_form : no_form },
+			// 			dataType: "JSON",
+			// 			}).done(function( data ) { 
+			// 				if (data == 0) {
+			// 					alert("Disposisi berhasil dihapus");
+			// 					location.reload();
+			// 				} else {
+			// 					alert("Tidak dapat menghapus");
+			// 					location.reload();
+			// 				}
 							
-						}); 
-					}
-				}
-			});
+			// 			}); 
+			// 		}
+			// 	}
+			// });
 
-			$('.btn-delete-draft').on('click', function () {
-				var $el = $(this);
-				if (confirm("Apa anda yakin menghapus form dengan nomor "+$el.data('no_form')+" ?")) {
-					var ids = $el.data('ids');
-					var no_form = $el.data('no_form');
+			// $('.btn-delete-draft').on('click', function () {
+			// 	var $el = $(this);
+			// 	if (confirm("Apa anda yakin menghapus form dengan nomor "+$el.data('no_form')+" ?")) {
+			// 		var ids = $el.data('ids');
+			// 		var no_form = $el.data('no_form');
 
-					$.ajax({ 
-					type: "GET", 
-					url: "/portal/disposisi/form/hapusdisposisi",
-					data: { ids : ids, no_form : no_form },
-					dataType: "JSON",
-					}).done(function( data ) { 
-						if (data == 0) {
-							alert("Disposisi berhasil dihapus");
-							location.reload();
-						} else {
-							alert("Tidak dapat menghapus");
-							location.reload();
-						}
+			// 		$.ajax({ 
+			// 		type: "GET", 
+			// 		url: "/portal/disposisi/form/hapusdisposisi",
+			// 		data: { ids : ids, no_form : no_form },
+			// 		dataType: "JSON",
+			// 		}).done(function( data ) { 
+			// 			if (data == 0) {
+			// 				alert("Disposisi berhasil dihapus");
+			// 				location.reload();
+			// 			} else {
+			// 				alert("Tidak dapat menghapus");
+			// 				location.reload();
+			// 			}
 						
-					}); 
-				}
-			});
+			// 		}); 
+			// 	}
+			// });
 
 			$('#myTable').DataTable({
 				"ordering" : false,

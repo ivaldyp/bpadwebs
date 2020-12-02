@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
-use App\Content_tb;
+use App\Contenttb as Content_tb;
 use App\Glo_kategori;
 use App\Glo_subkategori;
 
