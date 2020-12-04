@@ -131,7 +131,7 @@
 												@foreach($contents as $key => $content)
 												<tr>
 													<td>{{ $key + 1 }}</td>
-													<td>{!! ($content['sts']) == 0 ? '<i style="color:green;" class="fa fa-check"></i>' : '<i style="color:red;" class="fa fa-times"></i>' !!}</td>
+													<td>{!! ($content['suspend']) == 'Y' ? '<i style="color:green;" class="fa fa-check"></i>' : '<i style="color:red;" class="fa fa-times"></i>' !!}</td>
 													<td>
 														{{ date('d/M/Y', strtotime(str_replace('/', '-', $content['tanggal']))) }}
 														<!-- <br>
