@@ -709,7 +709,9 @@ class DisposisiController extends Controller
 
 	public function disposisihapusfile(Request $request)
 	{
-		unlink(config('app.savefiledisposisi') . "/" . $request->no_form . "/" . $request->nm_file );
+		$splittahun = explode(".", $request->no_form)[3];
+		$splittahun = substr($splittahun, 0, 2);
+		unlink(config('app.savefiledisposisi') . "/20" . $splittahun . "/" . $request->no_form . "/" . $request->nm_file );
 		$nmfilebefore = Fr_disposisi::where('ids', $request->ids)->get();
 		$nmfilenew = '';
 		
