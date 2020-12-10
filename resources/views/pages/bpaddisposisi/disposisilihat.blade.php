@@ -351,11 +351,12 @@
 								<a href="/portal/disposisi/disposisi?yearnow={{$yearnow}}&signnow={{$signnow}}&monthnow={{$monthnow}}"><button type="button" class="btn btn-default pull-right m-r-10" onclick="goBack()">Kembali</button></a>
 								<div class="clearfix"></div>
 							</div>
-						</div>	
-						<div class="panel panel-info">
 							<div class="panel-heading">  
 								
 							</div>
+						</div>	
+						<div class="panel panel-info">
+							
 						</div>
 					</form>
 				</div>
