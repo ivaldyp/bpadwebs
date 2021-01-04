@@ -89,6 +89,7 @@ class DisposisiController extends Controller
 												  FROM [bpaddtfake].[dbo].[fr_disposisi]
 												  where no_form like '$request->form'
 												  and sts = 1
+												  and (status_surat = 'd' or status_surat = 's') 
 												  order by no_form desc, ids asc"))[0];
 		$dispmaster = json_decode(json_encode($dispmaster), true);
 
@@ -185,7 +186,12 @@ class DisposisiController extends Controller
 			$qsearchnow = "";
 		}
 
-		$tglnow = (int)date('d');
+		// $tglnow = (int)date('d');
+		// $tgllengkap = $yearnow . "-" . $monthnow . "-" . $tglnow;
+
+		$dateofmonth = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+		$tglnow = $dateofmonth[$monthnow];
+
 		$tgllengkap = $yearnow . "-" . $monthnow . "-" . $tglnow;
 
 		$idgroup = $_SESSION['user_data']['id_emp'];
