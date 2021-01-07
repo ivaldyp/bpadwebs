@@ -520,6 +520,8 @@
 		</div>
 	</div>
 
+	<img style="visibility: hidden;" id='printBarcode' />
+
 @endsection
 
 <!-- /////////////////////////////////////////////////////////////// -->
@@ -542,6 +544,8 @@
 	<script src="{{ ('/portal/public/ample/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
 	<!-- JsPDF -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
+	<!-- JsBarcode -->
+	<script src="{{ ('/portal/public/js/JsBarcode.all.js') }}"></script>
 
 	<script>
 		$(function () {
@@ -587,6 +591,13 @@
 				doc.setFontSize(12);
 				doc.text(43, 123, full['kd_surat']);
 				doc.text(144, 123, full['kd_surat']);
+
+				//buat gambar barcode
+				JsBarcode("#printBarcode", full['kd_surat']);
+				const imgBarcode = document.querySelector('img#printBarcode');
+    
+			    doc.addImage(imgBarcode, 'JPEG', 5, 112, 34, 14);
+			    doc.addImage(imgBarcode, 'JPEG', 107, 112, 34, 14);
 
 				// window.open(URL.createObjectURL(doc.output("blob")));
 				doc.save('tandaterima-'+full['no_form']+'.pdf');
