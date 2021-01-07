@@ -521,6 +521,8 @@
 	</div>
 
 	<img style="visibility: hidden;" id='printBarcode' />
+	<img id="qrcode" style="visibility: hidden;"/>
+	<div id="placehereqrcode"></div>
 
 @endsection
 
@@ -542,9 +544,10 @@
 	<script src="{{ ('/portal/public/ample/plugins/bower_components/datatables/jquery.dataTables.min.js') }}"></script>
 	<!-- Date Picker Plugin JavaScript -->
 	<script src="{{ ('/portal/public/ample/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
+	<script src="{{ ('/portal/public/js/qrcode/qrcode.js') }}"></script>
 	<!-- JsPDF -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
-	<!-- JsBarcode -->
+	<!-- JsBarcode & QR Code -->
 	<script src="{{ ('/portal/public/js/JsBarcode.all.js') }}"></script>
 
 	<script>
@@ -592,12 +595,42 @@
 				doc.text(43, 123, full['kd_surat']);
 				doc.text(144, 123, full['kd_surat']);
 
-				//buat gambar barcode
-				JsBarcode("#printBarcode", full['kd_surat']);
-				const imgBarcode = document.querySelector('img#printBarcode');
-    
-			    doc.addImage(imgBarcode, 'JPEG', 5, 112, 34, 14);
-			    doc.addImage(imgBarcode, 'JPEG', 107, 112, 34, 14);
+				var urlBarcode = "https://bpad.jakarta.go.id/portal/ceksurat?ceksurat="+full['kd_surat'];
+
+				// BUAT GAMBAR QRCODE
+				var newqrcode = new QRCode(document.getElementById("qrcode"), urlBarcode, {
+					width: 64,
+					height: 64,
+				});
+				console.log(newqrcode);
+				var canvas = $('#qrcode canvas');
+				var img = canvas.get(0).toDataURL("image/png");
+				//or
+				//var img = $(canvas)[0].toDataURL("image/png");
+				// document.write('<img id="qrcodeimage" src="'+img+'"/>');
+
+				var elem = document.createElement("img");
+				elem.setAttribute("src", img);
+				elem.setAttribute("id", "myqrcodeplease");
+				document.getElementById("placehereqrcode").appendChild(elem);
+				const imgQrcode = document.querySelector('img#myqrcodeplease');
+
+				doc.addImage(imgQrcode, 'JPEG', 9, 112, 30, 30);
+				doc.addImage(imgQrcode, 'JPEG', 109, 112, 30, 30);
+
+				$("#placehereqrcode").empty();
+
+
+				// BUAT GAMBAR BARCODE
+				// JsBarcode("#printBarcode", urlBarcode, {
+				// 	text: "BPAD",
+				// });
+				// const imgBarcode = document.querySelector('img#printBarcode');
+
+				// doc.addImage(imgBarcode, 'JPEG', 5, 150, 98, 20);
+				// doc.addImage(imgBarcode, 'JPEG', 107, 150, 98, 20);
+
+				// $("#printBarcode").empty();
 
 				// window.open(URL.createObjectURL(doc.output("blob")));
 				doc.save('tandaterima-'+full['no_form']+'.pdf');
