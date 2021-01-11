@@ -20,6 +20,8 @@
 	$originalDate = explode(" ", $berita['tanggal']);
 	$newTime = explode(":", $originalDate[1]);
 	$newDate = date("d F Y", strtotime($originalDate[0]));
+
+	$newfulltime = date("d F Y | H:i", strtotime($berita['tanggal']));
 ?>
 
 <style type="text/css">
@@ -45,7 +47,7 @@
 					<hr>
 					<!-- article meta -->
 					<ul style="list-style: none; padding: 0;" class="article-meta">
-						<i class="fa fa-user"></i> oleh {{ $berita['editor'] }}, {{ $newDate }}
+						<i class="fa fa-user"></i> oleh {{ $berita['editor'] }}, {{ $newfulltime }} WIB
 						<span class="pull-right">
 							<i class="fa fa-eye"></i> {{ $berita['thits'] }} views
 						</span>
