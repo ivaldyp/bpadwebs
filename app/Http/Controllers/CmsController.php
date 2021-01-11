@@ -1187,13 +1187,14 @@ class CmsController extends Controller
 	public function formsaveapprove (Request $request)
 	{
 		$approve = '';
+
 		if ($request->approve) {
 			foreach ($request->approve as $key => $data) {
 				$approve .= $data . "::";
 			}
 		}
 
-		Setup_can_approve::where('can_approve', '<>', '')->delete();
+		Setup_can_approve::where('can_approve', 'like', '%%')->delete();
 
 		$query = [
 				'updated_at'	=> date('Y-m-d H:i:s'),
