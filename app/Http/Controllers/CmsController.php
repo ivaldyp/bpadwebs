@@ -7,14 +7,18 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Collection;
 use App\Traits\SessionCheckTraits;
 
 use App\Contenttb as Content_tb;
+use App\Emp_data;
 use App\Glo_kategori;
 use App\Glo_subkategori;
 use App\New_icon_produk;
 use App\Sec_access;
 use App\Sec_menu;
+use App\Sec_logins;
+use App\Setup_can_approve;
 
 session_start();
 
@@ -627,12 +631,31 @@ class CmsController extends Controller
 					where('ids', $idkat)
 					->first();
 
+		$approve = Setup_can_approve::first();
+		$splitappr = explode("::", $approve['can_approve']);
+
+		if ($_SESSION['user_data']['id_emp']) {
+			$thisid = $_SESSION['user_data']['id_emp'];
+		} else {
+			$thisid = $_SESSION['user_data']['usname'];
+		}	
+
+		foreach ($splitappr as $key => $data) {
+			if ($thisid == $data) {
+				$flagapprove = 1;
+				break;
+			} else {
+				$flagapprove = 0;
+			}
+		}
+
 		return view('pages.bpadcms.contentubah')
 				->with('ids', $ids)
 				->with('idkat', $idkat)
 				->with('kat', $kat)
 				->with('subkats', $subkats)
-				->with('content', $content);
+				->with('content', $content)
+				->with('flagapprove', $flagapprove);
 	}
 
 	public function forminsertcontent(Request $request)
@@ -646,7 +669,7 @@ class CmsController extends Controller
 		if (isset($request->tfile)) {
 			$file = $request->tfile;
 
-			if ($file->getSize() > 1000000) {
+			if ($file->getSize() > 1024000) {
 				return redirect('/cms/content?katnow='.$request->idkat)->with('message', 'Ukuran file terlalu besar (Maksimal 1MB)');     
 			} 
 			if (strtolower($file->getClientOriginalExtension()) != "png" && strtolower($file->getClientOriginalExtension()) != "jpg" && strtolower($file->getClientOriginalExtension()) != "jpeg") {
@@ -1142,6 +1165,49 @@ class CmsController extends Controller
 	}
 
 	// ---------------- PRODUK ------------------- //
+
+	// ---------------- APPROVE ------------------- //
+
+	public function approve (Request $request)
+	{
+		$this->checkSessionTime();
+
+		$approveds = Setup_can_approve::first();
+		if (is_null($approveds)) {
+			$approveds = '';
+		}
+
+		$pegawai1 = Emp_data::where('ked_emp', 'AKTIF')->orderBy('nm_emp')->get();
+
+		$pegawai2 = Sec_logins::orderBy('idgroup')->orderBy('usname')->get();
+
+		return view('pages.bpadcms.approve')
+				->with('approveds', $approveds)
+				->with('pegawai1', $pegawai1)
+				->with('pegawai2', $pegawai2);
+	}
+
+	public function formsaveapprove (Request $request)
+	{
+		$approve = '';
+		foreach ($request->approve as $key => $data) {
+			$approve .= $data . "::";
+		}
+
+		Setup_can_approve::where('can_approve', '<>', '')->delete();
+
+		$query = [
+				'updated_at'	=> date('Y-m-d H:i:s'),
+				'can_approve'	=> $approve,
+			];
+		Setup_can_approve::insert($query);
+
+		return redirect('/cms/approve')
+					->with('message', 'Pegawai approval berhasil diubah')
+					->with('msg_num', 1);
+	}
+
+	// ---------------- APPROVE ------------------- //
 
 }
 

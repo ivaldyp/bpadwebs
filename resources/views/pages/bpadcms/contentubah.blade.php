@@ -251,10 +251,12 @@
 								<div class="panel-footer">
 									<input type="submit" name="btnSimpan" class="btn btn-info pull-right m-r-10" value="Simpan">
 									
-									@if($content['appr'] == 'N')
-									<input type="submit" name="btnAppr" class="btn btn-success pull-right m-r-10" value="Setuju">
-									@else
-									<input type="submit" name="btnAppr" class="btn btn-danger pull-right m-r-10" value="Batal Setuju">
+									@if($flagapprove == 1)
+										@if($content['appr'] == 'N')
+										<input type="submit" name="btnAppr" class="btn btn-success pull-right m-r-10" value="Setuju">
+										@else
+										<input type="submit" name="btnAppr" class="btn btn-danger pull-right m-r-10" value="Batal Setuju">
+										@endif
 									@endif
 									<button type="button" class="btn btn-default pull-right m-r-10" onclick="goBack()">Kembali</button>
 									<div class="clearfix"></div>

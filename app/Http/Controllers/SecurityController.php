@@ -133,7 +133,7 @@ class SecurityController extends Controller
 
 		$result = array();
 		foreach ($query as $key => $data) {
-			array_push($result, [
+			Sec_access::insert([
 				'sts' => 1,
 				'uname'     => (Auth::user()->usname ? Auth::user()->usname : Auth::user()->id_emp),
 				'tgl'       => date('Y-m-d H:i:s'),
@@ -144,15 +144,9 @@ class SecurityController extends Controller
 			]);
 		}
 
-		if (Sec_access::insert($result)) {
-			return redirect('/security/group user')
+		return redirect('/security/group user')
 					->with('message', 'Grup user '.$request->idgroup.' berhasil ditambah')
 					->with('msg_num', 1);
-		} else {
-			return redirect('/security/group user')
-					->with('message', 'Grup user '.$request->idgroup.' gagal ditambah')
-					->with('msg_num', 2);
-		}	
 	}
 
 	public function formupdategrup(Request $request)

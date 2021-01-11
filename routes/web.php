@@ -143,6 +143,9 @@ Route::group(['prefix' => 'cms'], function () {
 	Route::post('/form/ubahcontent', 'CmsController@formupdatecontent');
 	Route::post('/form/hapuscontent', 'CmsController@formdeletecontent');
 
+	Route::get('/approve', 'CmsController@approve');
+	Route::post('/form/approve', 'CmsController@formsaveapprove');
+
 	Route::get('/produk', 'CmsController@produkall');
 	Route::post('/form/tambahproduk', 'CmsController@forminsertproduk');
 	Route::post('/form/ubahproduk', 'CmsController@formupdateproduk');
