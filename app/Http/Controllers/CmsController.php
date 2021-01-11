@@ -1173,9 +1173,6 @@ class CmsController extends Controller
 		$this->checkSessionTime();
 
 		$approveds = Setup_can_approve::first();
-		if (is_null($approveds)) {
-			$approveds = '';
-		}
 
 		$pegawai1 = Emp_data::where('ked_emp', 'AKTIF')->orderBy('nm_emp')->get();
 
@@ -1190,8 +1187,10 @@ class CmsController extends Controller
 	public function formsaveapprove (Request $request)
 	{
 		$approve = '';
-		foreach ($request->approve as $key => $data) {
-			$approve .= $data . "::";
+		if ($request->approve) {
+			foreach ($request->approve as $key => $data) {
+				$approve .= $data . "::";
+			}
 		}
 
 		Setup_can_approve::where('can_approve', '<>', '')->delete();

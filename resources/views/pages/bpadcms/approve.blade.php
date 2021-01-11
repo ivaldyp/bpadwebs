@@ -69,7 +69,11 @@
                         <div class="panel-heading">Approval Konten</div>
                     	<div class="panel-wrapper collapse in">
                             <div class="panel-body">
-								<p style="color: red">Approved By: {{ $approveds['can_approve'] }}</p>
+								<p style="color: red">Approved By: 
+								@if(!(is_null($approveds)))
+								{{ $approveds['can_approve'] }}
+								@endif
+								</p>
 								<form method="POST" action="/portal/cms/form/approve" class="form-horizontal">
 								@csrf
 									<td class="col-md-6 p-l-30"><h4>Pegawai</h4><br>
