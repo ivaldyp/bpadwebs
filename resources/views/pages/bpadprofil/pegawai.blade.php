@@ -68,18 +68,12 @@
 						<div class="user-bg bg-default"> 
 							<div class="overlay-box">
 								<div class="user-content">
-									<!-- <?php if ($emp_data['foto'] && $emp_data['foto'] != '') : ?>
-										<?php if ($emp_data['tampilnew'] == 1) : ?>
-											<img src="/portal/public/publicimg/{{ $emp_data['foto'] }}" style="height: 150%" class="thumb-lg img-circle" alt="img">
-										<?php else : ?>
-											<img src="http://bpad.jakarta.go.id/images/emp/{{ $emp_data['foto'] }}" style="height: 150%" class="thumb-lg img-circle" alt="img">
-										<?php endif ?>
-									<?php endif ?> -->
-									<?php if ($emp_data	['foto'] && $emp_data['foto'] != '') : ?>
-										<img src="{{ config('app.openfileimg') }}/{{ $emp_data['foto'] }}" style="height: 100%; width: 20%" class="thumb-lg img-circle" alt="img">
+									<?php if (file_exists(config('app.savefileimg') . "\\" . $emp_data['id_emp'] . "\\profil\\" . $emp_data['foto'])) : ?>
+										<img src="{{ config('app.openfileimg') }}/{{ $emp_data['id_emp'] }}/profil/{{ $emp_data['foto'] }}" style="height: 100%; width: 20%" class="thumb-lg img-circle" alt="img">
+
 									<?php else : ?>
 										<img src="{{ config('app.openfileimgdefault') }}" style="height: 100%; width: 30%" class="thumb-lg img-circle" alt="img">
-									<?php endif ?>
+									<?php endif ?> 
 								</div>
 							</div>
 						</div>

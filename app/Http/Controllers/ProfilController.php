@@ -45,6 +45,8 @@ class ProfilController extends Controller
 		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
 		$access = $this->checkAccess($_SESSION['user_data']['idgroup'], $thismenu['ids']);
 
+
+
 		$accessid = $this->checkAccess($_SESSION['user_data']['idgroup'], 37);
 		$accessdik = $this->checkAccess($_SESSION['user_data']['idgroup'], 65);
 		$accessgol = $this->checkAccess($_SESSION['user_data']['idgroup'], 71);
@@ -105,11 +107,30 @@ class ProfilController extends Controller
 
 			if ($file->getSize() > 2222222) {
 				return redirect('/profil/pegawai')->with('message', 'Ukuran file foto pegawai terlalu besar (Maksimal 2MB)');     
-			} 
+			}
+
+			if (strtolower($file->getClientOriginalExtension()) != "png" && strtolower($file->getClientOriginalExtension()) != "jpg" && strtolower($file->getClientOriginalExtension()) != "jpeg") {
+				return redirect('/profil/pegawai')->with('message', 'File yang diunggah harus berbentuk JPG / JPEG / PNG');     
+			}
 
 			$filefoto .= $id_emp . ".". $file->getClientOriginalExtension();
 
 			$tujuan_upload = config('app.savefileimg');
+			$tujuan_upload .= "\\" . $id_emp . "\\profil";
+
+			// List of name of files inside 
+			// specified folder 
+			$allfiles = glob($tujuan_upload.'/*');  
+			   
+			// Deleting all the files in the list 
+			foreach($allfiles as $all) { 
+			   
+			    if(is_file($all))  
+			    
+			        // Delete the given file 
+			        unlink($all);  
+			} 
+
 			$file->move($tujuan_upload, $filefoto);
 		}
 			
@@ -159,7 +180,7 @@ class ProfilController extends Controller
 		if ($filefoto != '') {
 			Emp_data::where('id_emp', $id_emp)
 			->update([
-				'tampilnew' => 1,
+				// 'tampilnew' => 1,
 				'foto' => $filefoto,
 			]);
 		}
