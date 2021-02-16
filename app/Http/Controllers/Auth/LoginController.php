@@ -70,7 +70,6 @@ class LoginController extends Controller
             } else {
                 $user = \App\User::where([
                     'usname' => $request->name,
-                    'sts'    => 1,
                 ])->first();
             }
         } else {
@@ -98,7 +97,6 @@ class LoginController extends Controller
             } else {
                 $user = \App\User::where([
                     'usname' => $request->name,
-                    'sts'    => 1,
                     'passmd5' => md5($request->password),
                 ])->first();
             }
