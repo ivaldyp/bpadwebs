@@ -115,6 +115,16 @@ Route::group(['prefix' => 'profil'], function () {
 	Route::post('/form/tambahdikpegawai', 'ProfilController@forminsertdikpegawai');
 	Route::post('/form/ubahdikpegawai', 'ProfilController@formupdatedikpegawai');
 	Route::post('/form/hapusdikpegawai', 'ProfilController@formdeletedikpegawai');
+
+	// Route::post('/form/ubahidpegawai', 'ProfilController@formupdateidpegawai');
+	Route::post('/form/tambahgolpegawai', 'ProfilController@forminsertgolpegawai');
+	Route::post('/form/ubahgolpegawai', 'ProfilController@formupdategolpegawai');
+	Route::post('/form/hapusgolpegawai', 'ProfilController@formdeletegolpegawai');
+
+	// Route::post('/form/ubahidpegawai', 'ProfilController@formupdateidpegawai');
+	Route::post('/form/tambahjabpegawai', 'ProfilController@forminsertjabpegawai');
+	Route::post('/form/ubahjabpegawai', 'ProfilController@formupdatejabpegawai');
+	Route::post('/form/hapusjabpegawai', 'ProfilController@formdeletejabpegawai');
 });
 
 Route::group(['prefix' => 'cms'], function () {
