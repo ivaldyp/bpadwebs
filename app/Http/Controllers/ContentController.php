@@ -25,6 +25,7 @@ class ContentController extends Controller
 		$berita_list = Content_tb::
 					where('idkat', 1)
 					->where('appr', 'Y')
+					->where('suspend', '')
 					->where('sts', 1)
 					->whereRaw("judul like '%".$cari."%'")
 					->orderBy('tanggal', 'desc')
@@ -34,6 +35,7 @@ class ContentController extends Controller
 		$aside_top_view = Content_tb::take(3)
 							->where('appr', 'Y')
 							->where('sts', 1)
+							->where('suspend', '')
 							->where('idkat', 1)
 							->orderBy('thits', 'desc')
 							->get();
@@ -41,6 +43,7 @@ class ContentController extends Controller
 		$aside_recent = Content_tb::take(3)
 							->where('appr', 'Y')
 							->where('sts', 1)
+							->where('suspend', '')
 							->where('idkat', 1)
 							->orderBy('tanggal', 'desc')
 							->get();
@@ -69,6 +72,7 @@ class ContentController extends Controller
 
 		$aside_top_view = Content_tb::take(3)
 							->where('appr', 'Y')
+							->where('suspend', '')
 							->where('idkat', 1)
 							->where('sts', 1)
 							->orderBy('thits', 'desc')
@@ -76,6 +80,7 @@ class ContentController extends Controller
 
 		$aside_recent = Content_tb::take(3)
 							->where('appr', 'Y')
+							->where('suspend', '')
 							->where('idkat', 1)
 							->where('sts', 1)
 							->orderBy('tanggal', 'desc')
@@ -131,6 +136,7 @@ class ContentController extends Controller
 			$foto_list = Content_tb::
 					where('idkat', 5)
 					->where('appr', 'Y')
+					->where('suspend', '')
 					->where('sts', 1)
 					->whereRaw("judul like '%".$cari."%'")
 					->orderBy('tgl', 'desc')
@@ -141,6 +147,7 @@ class ContentController extends Controller
 					->where('sts', 1)
 					->where('subkat', $subkat)
 					->where('appr', 'Y')
+					->where('suspend', '')
 					->whereRaw("judul like '%".$cari."%'")
 					->orderBy('tgl', 'desc')
 					->paginate(10);
@@ -154,6 +161,7 @@ class ContentController extends Controller
 
 		$aside_recent = Content_tb::take(3)
 							->where('appr', 'Y')
+							->where('suspend', '')
 							->where('sts', 1)
 							->where('idkat', 5)
 							->orderBy('tgl', 'desc')

@@ -143,6 +143,7 @@ class LandingController extends Controller
 		$hot_content = Content_tb::
 					where('idkat', 1)
 					->where('appr', 'Y')
+					->where('suspend', '')
 					->where('sts', 1)
 					->where('tipe', 'H,')
 					->orderBy('tanggal', 'desc')
@@ -163,6 +164,7 @@ class LandingController extends Controller
 					From bpadcmsfake.dbo.Content_tb
 					where idkat = 1
 					and appr = 'Y'
+					and suspend = ''
 					and sts = 1
 					and ids not in $excludeid
 					order by tanggal desc") );
@@ -171,6 +173,7 @@ class LandingController extends Controller
 		$photo_content = Content_tb::
 					where('idkat', 5)
 					->where('appr', 'Y')
+					->where('suspend', '')
 					->where('sts', 1)
 					->orderBy('tgl', 'desc')
 					->take(4)
