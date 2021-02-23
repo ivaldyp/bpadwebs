@@ -1200,7 +1200,7 @@
 								<div class="form-group col-md-12">
 									<label for="idjab" class="col-md-2 control-label"> Jabatan </label>
 									<div class="col-md-8">
-										<select class="form-control select2" name="idjab" id="modal_update_idjab">
+										<select class="form-control select2 modal_update_idjab" name="idjab" id="">
 											@foreach($jabatans as $jabatan)
 												<option value="{{ $jabatan['jabatan'] }}"> {{ $jabatan['jabatan'] }} </option>
 											@endforeach
@@ -1513,7 +1513,7 @@
 				$("#modal_update_jab_noid").val($el.data('noid'));
 				$("#modal_update_jab_jns_jab").select2("val", $el.data('jns_jab'));
 				// $("#modal_update_jab_idjab").select2("val", $el.data('idjab'));
-				$("#modal_update_idjab").select2().select2('val', $el.data('idjab'));;
+				$(".modal_update_idjab").select2().select2('val', $el.data('idjab'));;
 				$("#modal_update_jab_idunit").select2("val", $el.data('idunit'));
 				$("#modal_update_jab_idlok").val($el.data('idlok'));
 				$("#modal_update_jab_eselon").select2("val", $el.data('eselon'));
