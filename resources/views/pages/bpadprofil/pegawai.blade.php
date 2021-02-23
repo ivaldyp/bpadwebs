@@ -1190,7 +1190,7 @@
 								<div class="form-group col-md-12">
 									<label for="jns_jab" class="col-md-2 control-label"> Jenis Jabatan </label>
 									<div class="col-md-8">
-										<select class="form-control select2" name="jns_jab" id="modal_update_jab_jns_jab">
+										<select class="form-control" name="jns_jab" id="modal_update_jab_jns_jab">
 											<option value="STRUKTURAL">STRUKTURAL</option>
 											<option value="FUNGSIONAL">FUNGSIONAL</option>
 										</select>
@@ -1512,7 +1512,8 @@
 				$("#modal_update_jab_ids").val($el.data('ids'));
 				$("#modal_update_jab_noid").val($el.data('noid'));
 				$("#modal_update_jab_jns_jab").select2("val", $el.data('jns_jab'));
-				$("#modal_update_jab_idjab").select2("val", $el.data('idjab'));
+				// $("#modal_update_jab_idjab").select2("val", $el.data('idjab'));
+				$("#modal_update_jab_idjab").select2().select2('val', $el.data('idjab'));
 				$("#modal_update_jab_idunit").select2("val", $el.data('idunit'));
 				$("#modal_update_jab_idlok").val($el.data('idlok'));
 				$("#modal_update_jab_eselon").select2("val", $el.data('eselon'));
