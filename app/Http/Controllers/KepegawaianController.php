@@ -2506,12 +2506,12 @@ class KepegawaianController extends Controller
 
 			$sheet->setCellValue('R'.$nowrow, $employee['idgol'] ?? '-' );
 			$sheet->setCellValue('S'.$nowrow, $employee['nm_pangkat'] ? strtoupper($employee['nm_pangkat']) : '-' );
-			$sheet->setCellValue('T'.$nowrow, date('d/M/Y', strtotime(str_replace('/', '-', $employee['tmt_gol']))) ?? '-');
+			$sheet->setCellValue('T'.$nowrow, date('d-M-Y', strtotime(str_replace('/', '-', $employee['tmt_gol']))) ?? '-');
 
 			$sheet->getStyle('U'.$nowrow.':U'.$nowrow)->applyFromArray($colorArrayhead);
 
 			$sheet->setCellValue('V'.$nowrow, $employee['idjab'] ? strtoupper($employee['idjab']) : '-' );
-			$sheet->setCellValue('W'.$nowrow, date('d/M/Y', strtotime(str_replace('/', '-', $employee['tmt_jab']))) ?? '-');
+			$sheet->setCellValue('W'.$nowrow, date('d-M-Y', strtotime(str_replace('/', '-', $employee['tmt_jab']))) ?? '-');
 
 			if (strlen($employee['idunit']) < 10) {
 				$sheet->getStyle('A'.$nowrow.':W'.$nowrow)->getFont()->setBold( true );
