@@ -161,10 +161,17 @@ class KepegawaianController extends Controller
 						->get();
 
 		$emp_gol = Emp_gol::
-						where('noid', $id_emp)
-						->where('sts', 1)
-						->orderBy('tmt_gol', 'desc')
+						join('bpaddtfake.dbo.glo_org_golongan', 'bpaddtfake.dbo.glo_org_golongan.gol', '=', 'bpaddtfake.dbo.emp_gol.idgol')
+						->where('bpaddtfake.dbo.emp_gol.noid', $id_emp)
+						->where('bpaddtfake.dbo.emp_gol.sts', 1)
+						->orderBy('bpaddtfake.dbo.emp_gol.tmt_gol', 'desc')
 						->get();
+
+		// $emp_gol = Emp_gol::
+		// 				where('noid', $id_emp)
+		// 				->where('sts', 1)
+		// 				->orderBy('tmt_gol', 'desc')
+		// 				->get();
 
 		$emp_jab = Emp_jab::
 						with('lokasi')
@@ -338,6 +345,7 @@ class KepegawaianController extends Controller
 				'nip_emp' => ($request->nip_emp ? $request->nip_emp : ''),
 				'nrk_emp' => ($request->nrk_emp ? $request->nrk_emp : ''),
 				'nm_emp' => ($request->nm_emp ? $request->nm_emp : ''),
+				'nik_emp' => ($request->nik_emp ? $request->nik_emp : ''),
 				'gelar_dpn' => ($request->gelar_dpn ? $request->gelar_dpn : ''),
 				'gelar_blk' => ($request->gelar_blk ? $request->gelar_blk : ''),
 				'jnkel_emp' => $request->jnkel_emp,
@@ -403,8 +411,8 @@ class KepegawaianController extends Controller
 				'ip'        => '',
 				'logbuat'   => '',
 				'noid' => $new_id_emp,
-				'tmt_gol' => (isset($request->tmt_gol) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_gol))) : null),
-				'tmt_sk_gol' => (isset($request->tmt_sk_gol) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_sk_gol))) : null),
+				'tmt_gol' => (isset($request->tmt_gol) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_gol))) : date('Y-m-d')),
+				'tmt_sk_gol' => (isset($request->tmt_sk_gol) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_sk_gol))) : date('Y-m-d')),
 				'no_sk_gol' => ($request->no_sk_gol ? $request->no_sk_gol : ''),
 				'idgol' => $request->idgol,
 				'jns_kp' => $request->jns_kp,
@@ -413,9 +421,9 @@ class KepegawaianController extends Controller
 				// 'tampilnew' => 1,
 			];
 
-		$jabatan = explode("||", $request->jabatan);
-		$jns_jab = $jabatan[0];
-		$idjab = $jabatan[1];
+		// $jabatan = explode("||", $request->jabatan);
+		// $jns_jab = $jabatan[0];
+		// $idjab = $jabatan[1];
 		$insert_emp_jab = [
 				// JABATAN
 				'sts' => 1,
@@ -424,14 +432,14 @@ class KepegawaianController extends Controller
 				'ip'        => '',
 				'logbuat'   => '',
 				'noid' => $new_id_emp,
-				'tmt_jab' => (isset($request->tmt_jab) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_jab))) : null),
+				'tmt_jab' => (isset($request->tmt_jab) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_jab))) : date('Y-m-d')),
 				'idskpd' => '1.20.512',
 				'idunit' => $request->idunit,
 				'idlok' => $request->idlok,
-				'tmt_sk_jab' => (isset($request->tmt_sk_jab) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_sk_jab))) : null),
+				'tmt_sk_jab' => (isset($request->tmt_sk_jab) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_sk_jab))) : date('Y-m-d')),
 				'no_sk_jab' => ($request->no_sk_jab ? $request->no_sk_jab : ''),
-				'jns_jab' => $jns_jab,
-				'idjab' => $idjab,
+				'jns_jab' => $request->jns_jab,
+				'idjab' => $request->idjab,
 				'eselon' => $request->eselon,
 				// 'tampilnew' => 1,
 			];
@@ -595,6 +603,7 @@ class KepegawaianController extends Controller
 				'nip_emp' => ($request->nip_emp ? $request->nip_emp : ''),
 				'nrk_emp' => ($request->nrk_emp ? $request->nrk_emp : ''),
 				'nm_emp' => ($request->nm_emp ? strtoupper($request->nm_emp) : ''),
+				'nik_emp' => ($request->nik_emp ? $request->nik_emp : ''),
 				'gelar_dpn' => ($request->gelar_dpn ? $request->gelar_dpn : ''),
 				'gelar_blk' => ($request->gelar_blk ? $request->gelar_blk : ''),
 				'jnkel_emp' => $request->jnkel_emp,
@@ -840,8 +849,8 @@ class KepegawaianController extends Controller
 				'ip'        => '',
 				'logbuat'   => '',
 				'noid' => $request->noid,
-				'tmt_gol' => (isset($request->tmt_gol) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_gol))) : null),
-				'tmt_sk_gol' => (isset($request->tmt_sk_gol) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_sk_gol))) : null),
+				'tmt_gol' => (isset($request->tmt_gol) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_gol))) : date('Y-m-d H:i:s')),
+				'tmt_sk_gol' => (isset($request->tmt_sk_gol) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_sk_gol))) : date('Y-m-d H:i:s')),
 				'no_sk_gol' => ($request->no_sk_gol ? $request->no_sk_gol : ''),
 				'idgol' => $request->idgol,
 				'jns_kp' => $request->jns_kp,
@@ -864,8 +873,8 @@ class KepegawaianController extends Controller
 		Emp_gol::where('noid', $request->noid)
 			->where('ids', $request->ids)
 			->update([
-				'tmt_gol' => (isset($request->tmt_gol) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_gol))) : null),
-				'tmt_sk_gol' => (isset($request->tmt_sk_gol) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_sk_gol))) : null),
+				'tmt_gol' => (isset($request->tmt_gol) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_gol))) : date('Y-m-d H:i:s')),
+				'tmt_sk_gol' => (isset($request->tmt_sk_gol) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_sk_gol))) : date('Y-m-d H:i:s')),
 				'no_sk_gol' => ($request->no_sk_gol ? $request->no_sk_gol : ''),
 				'idgol' => $request->idgol,
 				'jns_kp' => $request->jns_kp,
@@ -881,6 +890,11 @@ class KepegawaianController extends Controller
 	public function formdeletegolpegawai(Request $request)
 	{
 		$this->checkSessionTime();
+
+		$cekcountgol = Emp_gol::where('noid', $request->noid)->where('sts', 1)->count();
+		if ($cekcountgol == 1) {
+			return redirect('/kepegawaian/ubah pegawai?id_emp='.$request->noid)->with('message', 'Tidak dapat menghapus habis golongan pegawai');
+		}
 
 		Emp_gol::where('noid', $request->noid)
 			->where('ids', $request->ids)
@@ -899,9 +913,9 @@ class KepegawaianController extends Controller
 	{
 		$this->checkSessionTime();
 
-		$jabatan = explode("||", $request->jabatan);
-		$jns_jab = $jabatan[0];
-		$idjab = $jabatan[1];
+		// $jabatan = explode("||", $request->jabatan);
+		// $jns_jab = $jabatan[0];
+		// $idjab = $jabatan[1];
 		$insert_emp_jab = [
 				// JABATAN
 				'sts' => 1,
@@ -916,8 +930,8 @@ class KepegawaianController extends Controller
 				'idlok' => $request->idlok,
 				'tmt_sk_jab' => (isset($request->tmt_sk_jab) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_sk_jab))) : null),
 				'no_sk_jab' => ($request->no_sk_jab ? $request->no_sk_jab : ''),
-				'jns_jab' => $jns_jab,
-				'idjab' => $idjab,
+				'jns_jab' => $request->jns_jab,
+				'idjab' => $request->idjab,
 				'eselon' => $request->eselon,
 				// 'tampilnew' => 1,
 			];
@@ -933,9 +947,9 @@ class KepegawaianController extends Controller
 	{
 		$this->checkSessionTime();
 
-		$jabatan = explode("||", $request->jabatan);
-		$jns_jab = $jabatan[0];
-		$idjab = $jabatan[1];
+		// $jabatan = explode("||", $request->jabatan);
+		// $jns_jab = $jabatan[0];
+		// $idjab = $jabatan[1];
 
 		Emp_jab::where('noid', $request->noid)
 			->where('ids', $request->ids)
@@ -945,8 +959,8 @@ class KepegawaianController extends Controller
 				'idlok' => $request->idlok,
 				'tmt_sk_jab' => (isset($request->tmt_sk_jab) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_sk_jab))) : null),
 				'no_sk_jab' => ($request->no_sk_jab ? $request->no_sk_jab : ''),
-				'jns_jab' => $jns_jab,
-				'idjab' => $idjab,
+				'jns_jab' => $request->jns_jab,
+				'idjab' => $request->idjab,
 				'eselon' => $request->eselon,
 				// 'tampilnew' => 1,
 			]);
@@ -959,6 +973,11 @@ class KepegawaianController extends Controller
 	public function formdeletejabpegawai(Request $request)
 	{
 		$this->checkSessionTime();
+
+		$cekcountjab = Emp_jab::where('noid', $request->noid)->where('sts', 1)->count();
+		if ($cekcountjab == 1) {
+			return redirect('/kepegawaian/ubah pegawai?id_emp='.$request->noid)->with('message', 'Tidak dapat menghapus habis jabatan pegawai');
+		}
 
 		Emp_jab::where('noid', $request->noid)
 			->where('ids', $request->ids)
@@ -979,7 +998,19 @@ class KepegawaianController extends Controller
 	{
 		$this->checkSessionTime();
 
-		return view('pages.bpadkepegawaian.struktur');
+		$employees = DB::select( DB::raw("  
+						SELECT id_emp, nm_emp, foto, tbjab.idjab, tbjab.idunit, tbunit.child, tbunit.sao, tbunit.nm_unit from bpaddtfake.dbo.emp_data as a
+						CROSS APPLY (SELECT TOP 1 tmt_gol,tmt_sk_gol,no_sk_gol,idgol,jns_kp,mk_thn,mk_bln,gambar,nm_pangkat FROM  bpaddtfake.dbo.emp_gol,bpaddtfake.dbo.glo_org_golongan WHERE a.id_emp = emp_gol.noid AND emp_gol.idgol=glo_org_golongan.gol AND emp_gol.sts='1' AND glo_org_golongan.sts='1' ORDER BY tmt_gol DESC) tbgol
+						CROSS APPLY (SELECT TOP 1 tmt_jab,idskpd,idunit,idlok,tmt_sk_jab,no_sk_jab,jns_jab,replace(idjab,'NA::','') as idjab,eselon,gambar FROM  bpaddtfake.dbo.emp_jab WHERE a.id_emp=emp_jab.noid AND emp_jab.sts='1' ORDER BY tmt_jab DESC) tbjab
+						CROSS APPLY (SELECT TOP 1 iddik,prog_sek,no_sek,th_sek,nm_sek,gelar_dpn_sek,gelar_blk_sek,ijz_cpns,gambar,nm_dik FROM  bpaddtfake.dbo.emp_dik,bpaddtfake.dbo.glo_dik WHERE a.id_emp = emp_dik.noid AND emp_dik.iddik=glo_dik.dik AND emp_dik.sts='1' AND glo_dik.sts='1' ORDER BY th_sek DESC) tbdik
+						CROSS APPLY (SELECT TOP 1 * FROM bpaddtfake.dbo.glo_org_unitkerja WHERE glo_org_unitkerja.kd_unit = tbjab.idunit) tbunit
+						,bpaddtfake.dbo.glo_skpd as b,bpaddtfake.dbo.glo_org_unitkerja as c,bpaddtfake.dbo.glo_org_lokasi as d WHERE tbjab.idskpd=b.skpd AND tbjab.idskpd+'::'+tbjab.idunit=c.kd_skpd+'::'+c.kd_unit AND tbjab.idskpd+'::'+tbjab.idlok=d.kd_skpd+'::'+d.kd_lok AND a.sts='1' AND b.sts='1' AND c.sts='1' AND d.sts='1'
+						and idunit like '01%' AND LEN(idunit) < 10 AND ked_emp = 'AKTIF'
+						ORDER BY idunit ASC, idjab ASC") );
+		$employees = json_decode(json_encode($employees), true);
+
+		return view('pages.bpadkepegawaian.struktur')
+				->with('employees', $employees);
 	}
 
 	// --------------- STRUKTUR ORGANISASI --------------- //

@@ -60,11 +60,13 @@ class ProfilController extends Controller
 		$emp_dik = Emp_dik::with('dik')
 						->where('noid', Auth::user()->id_emp)
 						->where('sts', 1)
+						->orderBy('th_sek', 'desc')
 						->get();
 
 		$emp_gol = Emp_gol::with('gol')
 						->where('noid', Auth::user()->id_emp)
 						->where('sts', 1)
+						->orderBy('tmt_gol', 'desc')
 						->get();
 
 		$emp_jab = Emp_jab::with('jabatan')
@@ -72,12 +74,29 @@ class ProfilController extends Controller
 						->with('unit')
 						->where('noid', Auth::user()->id_emp)
 						->where('sts', 1)
+						->orderBy('tmt_jab', 'desc')
 						->get();
 
 		$statuses = Glo_org_statusemp::get();
 		$pendidikans = Glo_dik::
 						orderBy('urut')
 						->get();
+
+		$golongans = Glo_org_golongan::
+					orderBy('gol')
+					->get();
+
+		$jabatans = Glo_org_jabatan::
+					orderBy('jabatan')
+					->get();
+
+		$lokasis = Glo_org_lokasi::
+					orderBy('kd_lok')
+					->get();
+
+		$kedudukans = Glo_org_kedemp::get();
+
+		$units = glo_org_unitkerja::orderBy('kd_unit', 'asc')->get();
 
 		return view('pages.bpadprofil.pegawai')
 				->with('id_emp', Auth::user()->id_emp)
@@ -91,7 +110,12 @@ class ProfilController extends Controller
 				->with('accessgol', $accessgol)
 				->with('accessjab', $accessjab)
 				->with('statuses', $statuses)
-				->with('pendidikans', $pendidikans);	
+				->with('pendidikans', $pendidikans)
+				->with('golongans', $golongans)
+				->with('jabatans', $jabatans)
+				->with('lokasis', $lokasis)
+				->with('kedudukans', $kedudukans)
+				->with('units', $units);	
 	}
 
 	public function formupdateidpegawai(Request $request)
@@ -156,6 +180,7 @@ class ProfilController extends Controller
 				'status_emp' => $request->status_emp,
 				'nrk_emp' => ($request->nrk_emp ? $request->nrk_emp : ''),
 				'nm_emp' => ($request->nm_emp ? $request->nm_emp : ''),
+				'nik_emp' => ($request->nik_emp ? $request->nik_emp : ''),
 				'gelar_dpn' => ($request->gelar_dpn ? $request->gelar_dpn : ''),
 				'gelar_blk' => ($request->gelar_blk ? $request->gelar_blk : ''),
 				'jnkel_emp' => $request->jnkel_emp,
@@ -197,18 +222,26 @@ class ProfilController extends Controller
 		$id_emp = $_SESSION['user_data']['id_emp'];
 		$fileijazah = '';
 
-		// (PENDIDIKAN) cek dan set variabel untuk file foto ijazah
+		// (IDENTITAS) cek dan set variabel untuk file foto pegawai
 		if (isset($request->fileijazah)) {
 			$file = $request->fileijazah;
 
-			if ($file->getSize() > 2222222) {
-				return redirect('/profil/pegawai')->with('message', 'Ukuran file foto ijazah terlalu besar (Maksimal 2MB)');     
-			} 
+			if ($file->getSize() > 5555555) {
+				return redirect('/profil/pegawai')->with('message', 'Ukuran file ijazah terlalu besar (Maksimal 5MB)');     
+			}
 
-			$fileijazah .= "dik_" . $request->iddik . "_" . $id_emp . ".". $file->getClientOriginalExtension();
+			if (strtolower($file->getClientOriginalExtension()) != "png" && strtolower($file->getClientOriginalExtension()) != "jpg" && strtolower($file->getClientOriginalExtension()) != "jpeg" && strtolower($file->getClientOriginalExtension()) != "pdf") {
+				return redirect('/profil/pegawai')->with('message', 'File yang diunggah harus berbentuk PDF / JPG / JPEG / PNG');     
+			}
+
+			$fileijazah .= $request->iddik . "_" . $id_emp . ".". $file->getClientOriginalExtension();
 
 			$tujuan_upload = config('app.savefileimg');
-			$tujuan_upload .= "/" . $id_emp;
+			$tujuan_upload .= "\\" . $id_emp . "\\dik\\";
+
+			if (file_exists($tujuan_upload . $fileijazah )) {
+				unlink($tujuan_upload . $fileijazah);
+			}
 
 			$file->move($tujuan_upload, $fileijazah);
 		}
@@ -251,25 +284,26 @@ class ProfilController extends Controller
 		$id_emp = $_SESSION['user_data']['id_emp'];
 		$fileijazah = '';
 
-		$nm_ijazah = Emp_dik::where('ids', $request->ids)->first();
-
-		// (PENDIDIKAN) cek dan set variabel untuk file foto ijazah
+		// (IDENTITAS) cek dan set variabel untuk file foto pegawai
 		if (isset($request->fileijazah)) {
 			$file = $request->fileijazah;
 
-			if ($file->getSize() > 2222222) {
-				return redirect('/profil/pegawai')->with('message', 'Ukuran file foto ijazah terlalu besar (Maksimal 2MB)')->with('msg_num', 2);     
-			} 
-
-			$fileijazah .= "dik_" . $request->iddik . "_" . $id_emp . ".". $file->getClientOriginalExtension();
-
-			$tujuan_upload = config('app.savefileimg');
-			$tujuan_upload .= "/" . $id_emp;
-			if ($request->fileijazah) {
-				$filepath = $tujuan_upload . "/" . $nm_ijazah['gambar'];
-				unlink($filepath);
+			if ($file->getSize() > 5555555) {
+				return redirect('/profil/pegawai')->with('message', 'Ukuran file ijazah terlalu besar (Maksimal 5MB)');     
 			}
 
+			if (strtolower($file->getClientOriginalExtension()) != "png" && strtolower($file->getClientOriginalExtension()) != "jpg" && strtolower($file->getClientOriginalExtension()) != "jpeg" && strtolower($file->getClientOriginalExtension()) != "pdf") {
+				return redirect('/profil/pegawai')->with('message', 'File yang diunggah harus berbentuk PDF / JPG / JPEG / PNG');     
+			}
+
+			$fileijazah .= $request->iddik . "_" . $id_emp . ".". $file->getClientOriginalExtension();
+
+			$tujuan_upload = config('app.savefileimg');
+			$tujuan_upload .= "\\" . $id_emp . "\\dik\\";
+
+			if (file_exists($tujuan_upload . $fileijazah )) {
+				unlink($tujuan_upload . $fileijazah);
+			}
 
 			$file->move($tujuan_upload, $fileijazah);
 		}
@@ -322,6 +356,312 @@ class ProfilController extends Controller
 					->with('message', 'Data pendidikan pegawai berhasil dihapus')
 					->with('msg_num', 1);
 	}
+
+	// ------------------------------------------------------------------------------- //
+	// ------------------------------------------------------------------------------- //
+	// ------------------------------------------------------------------------------- //
+
+	public function forminsertgolpegawai (Request $request)
+	{
+		$this->checkSessionTime();
+
+		$id_emp = $_SESSION['user_data']['id_emp'];
+		$filegol = '';
+
+		// (IDENTITAS) cek dan set variabel untuk file foto pegawai
+		if (isset($request->filegol)) {
+			$file = $request->filegol;
+
+			if ($file->getSize() > 5555555) {
+				return redirect('/profil/pegawai')->with('message', 'Ukuran file terlalu besar (Maksimal 5MB)');     
+			}
+
+			if (strtolower($file->getClientOriginalExtension()) != "png" && strtolower($file->getClientOriginalExtension()) != "jpg" && strtolower($file->getClientOriginalExtension()) != "jpeg" && strtolower($file->getClientOriginalExtension()) != "pdf") {
+				return redirect('/profil/pegawai')->with('message', 'File yang diunggah harus berbentuk PDF / JPG / JPEG / PNG');     
+			}
+
+			$filegol .= str_replace("/","",$request->idgol) . "_" . $id_emp . ".". $file->getClientOriginalExtension();
+
+			$tujuan_upload = config('app.savefileimg');
+			$tujuan_upload .= "\\" . $id_emp . "\\gol\\";
+
+			if (file_exists($tujuan_upload . $filegol )) {
+				unlink($tujuan_upload . $filegol);
+			}
+
+			$file->move($tujuan_upload, $filegol);
+		}
+			
+		if (!(isset($filegol))) {
+			$filegol = '';
+		}
+
+		$insert_emp_gol = [
+				// GOLONGAN
+				'sts' => 1,
+				'uname'     => (Auth::user()->usname ? Auth::user()->usname : Auth::user()->id_emp),
+				'tgl'       => date('Y-m-d H:i:s'),
+				'ip'        => '',
+				'logbuat'   => '',
+				'noid' => $request->noid,
+				'tmt_gol' => (isset($request->tmt_gol) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_gol))) : null),
+				'tmt_sk_gol' => (isset($request->tmt_sk_gol) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_sk_gol))) : null),
+				'no_sk_gol' => ($request->no_sk_gol ? $request->no_sk_gol : ''),
+				'idgol' => $request->idgol,
+				'jns_kp' => $request->jns_kp,
+				'mk_thn' => ($request->mk_thn ? $request->mk_thn : 0),
+				'mk_bln' => ($request->mk_bln ? $request->mk_bln : 0),
+				'gambar' => $filegol,
+				'tampilnew' => 1,
+			];
+
+		Emp_gol::insert($insert_emp_gol);
+
+		return redirect('/profil/pegawai')
+					->with('message', 'Data golongan pegawai berhasil ditambah')
+					->with('msg_num', 1);
+	}
+
+	public function formupdategolpegawai (Request $request)
+	{
+		$this->checkSessionTime();
+
+		$id_emp = $_SESSION['user_data']['id_emp'];
+		$filegol = '';
+
+		// (IDENTITAS) cek dan set variabel untuk file foto pegawai
+		if (isset($request->filegol)) {
+			$file = $request->filegol;
+
+			if ($file->getSize() > 5555555) {
+				return redirect('/profil/pegawai')->with('message', 'Ukuran file terlalu besar (Maksimal 5MB)');     
+			}
+
+			if (strtolower($file->getClientOriginalExtension()) != "png" && strtolower($file->getClientOriginalExtension()) != "jpg" && strtolower($file->getClientOriginalExtension()) != "jpeg" && strtolower($file->getClientOriginalExtension()) != "pdf") {
+				return redirect('/profil/pegawai')->with('message', 'File yang diunggah harus berbentuk PDF / JPG / JPEG / PNG');     
+			}
+
+			$filegol .= str_replace("/","",$request->idgol) . "_" . $id_emp . ".". $file->getClientOriginalExtension();
+
+			$tujuan_upload = config('app.savefileimg');
+			$tujuan_upload .= "\\" . $id_emp . "\\gol\\";
+
+			if (file_exists($tujuan_upload . $filegol )) {
+				unlink($tujuan_upload . $filegol);
+			}
+
+			$file->move($tujuan_upload, $filegol);
+		}
+			
+		if (!(isset($filegol))) {
+			$filegol = '';
+		}
+
+		Emp_gol::where('noid', $id_emp)
+			->where('ids', $request->ids)
+			->update([
+				'tmt_gol' => (isset($request->tmt_gol) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_gol))) : null),
+				'tmt_sk_gol' => (isset($request->tmt_sk_gol) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_sk_gol))) : null),
+				'no_sk_gol' => ($request->no_sk_gol ? $request->no_sk_gol : ''),
+				'idgol' => $request->idgol,
+				'jns_kp' => $request->jns_kp,
+				'mk_thn' => ($request->mk_thn ? $request->mk_thn : 0),
+				'mk_bln' => ($request->mk_bln ? $request->mk_bln : 0),
+			]);
+
+		if ($filegol != '') {
+			Emp_gol::where('noid', $id_emp)
+			->where('ids', $request->ids)
+			->update([
+				'tampilnew' => 1,
+				'gambar' => $filegol,
+			]);
+		}
+
+		return redirect('/profil/pegawai')
+					->with('message', 'Data golongan pegawai berhasil diubah')
+					->with('msg_num', 1);
+	}
+
+	public function formdeletegolpegawai(Request $request)
+	{
+		$this->checkSessionTime();
+
+		$id_emp = $_SESSION['user_data']['id_emp'];
+
+		$cekcountgol = Emp_gol::where('noid', $id_emp)->where('sts', 1)->count();
+		if ($cekcountgol == 1) {
+			return redirect('/profil/pegawai')->with('message', 'Tidak dapat menghapus habis golongan pegawai');
+		}
+
+		Emp_gol::where('noid', $id_emp)
+		->where('ids', $request->ids)
+		->update([
+			'sts' => 0,
+		]);
+
+		return redirect('/profil/pegawai')
+					->with('message', 'Data golongan pegawai berhasil dihapus')
+					->with('msg_num', 1);
+	}
+
+	// ------------------------------------------------------------------------------- //
+	// ------------------------------------------------------------------------------- //
+	// ------------------------------------------------------------------------------- //
+
+	public function forminsertjabpegawai (Request $request)
+	{
+		$this->checkSessionTime();
+
+		$id_emp = $_SESSION['user_data']['id_emp'];
+		$filejab = '';
+
+		// $jabatan = explode("||", $request->jabatan);
+		// $jns_jab = $jabatan[0];
+		// $idjab = $jabatan[1];
+
+		// (IDENTITAS) cek dan set variabel untuk file foto pegawai
+		if (isset($request->filejab)) {
+			$file = $request->filejab;
+
+			if ($file->getSize() > 5555555) {
+				return redirect('/profil/pegawai')->with('message', 'Ukuran file terlalu besar (Maksimal 5MB)');     
+			}
+
+			if (strtolower($file->getClientOriginalExtension()) != "png" && strtolower($file->getClientOriginalExtension()) != "jpg" && strtolower($file->getClientOriginalExtension()) != "jpeg" && strtolower($file->getClientOriginalExtension()) != "pdf") {
+				return redirect('/profil/pegawai')->with('message', 'File yang diunggah harus berbentuk PDF / JPG / JPEG / PNG');     
+			}
+
+			$filejab .= str_replace(" ", "", str_replace("/","",strtolower($request->idjab))) . "_" . $request->idunit . "_" . $id_emp . ".". $file->getClientOriginalExtension();
+
+			$tujuan_upload = config('app.savefileimg');
+			$tujuan_upload .= "\\" . $id_emp . "\\jab\\";
+
+			if (file_exists($tujuan_upload . $filejab )) {
+				unlink($tujuan_upload . $filejab);
+			}
+
+			$file->move($tujuan_upload, $filejab);
+		}
+			
+		if (!(isset($filejab))) {
+			$filejab = '';
+		}
+
+		$insert_emp_jab = [
+				// JABATAN
+				'sts' => 1,
+				'uname'     => (Auth::user()->usname ? Auth::user()->usname : Auth::user()->id_emp),
+				'tgl'       => date('Y-m-d H:i:s'),
+				'ip'        => '',
+				'logbuat'   => '',
+				'noid' => $request->noid,
+				'tmt_jab' => (isset($request->tmt_jab) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_jab))) : null),
+				'idskpd' => '1.20.512',
+				'idunit' => $request->idunit,
+				'idlok' => $request->idlok,
+				'tmt_sk_jab' => (isset($request->tmt_sk_jab) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_sk_jab))) : null),
+				'no_sk_jab' => ($request->no_sk_jab ? $request->no_sk_jab : ''),
+				'jns_jab' => $request->jns_jab,
+				'idjab' => $request->idjab,
+				'eselon' => $request->eselon,
+				'gambar' => $filejab,
+			];
+
+		Emp_jab::insert($insert_emp_jab);
+
+		return redirect('/profil/pegawai')
+					->with('message', 'Data jabatan pegawai berhasil ditambah')
+					->with('msg_num', 1);
+	}
+
+	public function formupdatejabpegawai(Request $request)
+	{
+		$this->checkSessionTime();
+
+		$id_emp = $_SESSION['user_data']['id_emp'];
+		$filejab = '';
+
+		// (IDENTITAS) cek dan set variabel untuk file foto pegawai
+		if (isset($request->filejab)) {
+			$file = $request->filejab;
+
+			if ($file->getSize() > 5555555) {
+				return redirect('/profil/pegawai')->with('message', 'Ukuran file terlalu besar (Maksimal 5MB)');     
+			}
+
+			if (strtolower($file->getClientOriginalExtension()) != "png" && strtolower($file->getClientOriginalExtension()) != "jpg" && strtolower($file->getClientOriginalExtension()) != "jpeg" && strtolower($file->getClientOriginalExtension()) != "pdf") {
+				return redirect('/profil/pegawai')->with('message', 'File yang diunggah harus berbentuk PDF / JPG / JPEG / PNG');     
+			}
+
+			$filejab .= str_replace(" ", "", str_replace("/","",strtolower($request->idjab))) . "_" . $request->idunit . "_" . $id_emp . ".". $file->getClientOriginalExtension();
+
+			$tujuan_upload = config('app.savefileimg');
+			$tujuan_upload .= "\\" . $id_emp . "\\jab\\";
+
+			if (file_exists($tujuan_upload . $filejab )) {
+				unlink($tujuan_upload . $filejab);
+			}
+
+			$file->move($tujuan_upload, $filejab);
+		}
+			
+		if (!(isset($filejab))) {
+			$filejab = '';
+		}
+
+		Emp_jab::where('noid', $request->noid)
+			->where('ids', $request->ids)
+			->update([
+				'tmt_jab' => (isset($request->tmt_jab) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_jab))) : null),
+				'idunit' => $request->idunit,
+				'idlok' => $request->idlok,
+				'tmt_sk_jab' => (isset($request->tmt_sk_jab) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_sk_jab))) : null),
+				'no_sk_jab' => ($request->no_sk_jab ? $request->no_sk_jab : ''),
+				'jns_jab' => $request->jns_jab,
+				'idjab' => $request->idjab,
+				'eselon' => $request->eselon,
+				// 'tampilnew' => 1,
+			]);
+
+		if ($filejab != '') {
+			Emp_jab::where('noid', $id_emp)
+			->where('ids', $request->ids)
+			->update([
+				'gambar' => $filejab,
+			]);
+		}
+
+		return redirect('/profil/pegawai')
+					->with('message', 'Data jabatan pegawai berhasil diubah')
+					->with('msg_num', 1);
+	}
+
+	public function formdeletejabpegawai(Request $request)
+	{
+		$this->checkSessionTime();
+
+		$id_emp = $_SESSION['user_data']['id_emp'];
+
+		$cekcountjab = Emp_jab::where('noid', $id_emp)->where('sts', 1)->count();
+		if ($cekcountjab == 1) {
+			return redirect('/profil/pegawai')->with('message', 'Tidak dapat menghapus habis jabatan pegawai');
+		}
+
+		Emp_jab::where('noid', $id_emp)
+		->where('ids', $request->ids)
+		->update([
+			'sts' => 0,
+		]);
+
+		return redirect('/profil/pegawai')
+					->with('message', 'Data jabatan pegawai berhasil dihapus')
+					->with('msg_num', 1);
+	}
+
+	// ------------------------------------------------------------------------------- //
+	// ------------------------------------------------------------------------------- //
+	// ------------------------------------------------------------------------------- //
 
 	public function disposisi(Request $request)
 	{

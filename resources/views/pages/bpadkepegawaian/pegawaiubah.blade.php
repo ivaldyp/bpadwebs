@@ -94,9 +94,9 @@
 												</div>
 
 												<div class="form-group">
-													<label for="tgl_join" class="col-md-2 control-label"> TMT </label>
+													<label for="tgl_join" class="col-md-2 control-label"> TMT <span style="color: red; font-size: 20px;"> *</span></label>
 													<div class="col-md-8">
-														<input type="text" name="tgl_join" class="form-control" id="datepicker-autoclose" autocomplete="off" placeholder="dd/mm/yyyy" value="{{ date('d/m/Y', strtotime($emp_data['tgl_join'])) }}">
+														<input type="text" name="tgl_join" class="form-control" id="datepicker-autoclose" autocomplete="off" placeholder="dd/mm/yyyy" value="{{ date('d/m/Y', strtotime($emp_data['tgl_join'])) }}" required="">
 													</div>
 												</div>
 
@@ -130,10 +130,17 @@
 												</div>
 												
 												<div class="form-group">
-													<label for="nm_emp" class="col-md-2 control-label"> Nama </label>
+													<label for="nm_emp" class="col-md-2 control-label"> Nama <span style="color: red; font-size: 20px;"> *</span></label>
 													<div class="col-md-8">
-														<input autocomplete="off" type="text" name="nm_emp" class="form-control" id="nm_emp" value="{{ $emp_data['nm_emp'] }}">
+														<input autocomplete="off" type="text" name="nm_emp" class="form-control" id="nm_emp" value="{{ $emp_data['nm_emp'] }}" required="">
 														<div class="help-block with-errors"></div>
+													</div>
+												</div>
+
+												<div class="form-group">
+													<label for="nik_emp" class="col-md-2 control-label"> NIK KTP </label>
+													<div class="col-md-8">
+														<input autocomplete="off" type="text" name="nik_emp" class="form-control" id="nik_emp" value="{{ $emp_data['nik_emp'] }}">
 													</div>
 												</div>
 
@@ -301,9 +308,7 @@
 													<label for="idgroup" class="col-md-2 control-label"> Grup User </label>
 													<div class="col-md-8">
 														<select class="form-control select2" name="idgroup" id="idgroup">
-															@foreach($idgroups as $idgroup)
-																<option value="{{ $idgroup['idgroup'] }}" <?php if ($emp_data['idgroup'] == $idgroup['idgroup']): ?> selected <?php endif ?> > {{ $idgroup['idgroup'] }} </option>
-															@endforeach
+															<option value="EMPLOYEE"> EMPLOYEE </option>
 														</select>
 													</div>
 												</div>
@@ -336,6 +341,8 @@
 										</section>
 										<section id="section-underline-2">
 											<button class="btn btn-info m-b-20" type="button" data-toggle="modal" data-target="#modal-insert-dik">Tambah</button>
+
+											@if(count($emp_dik) > 0)
 											<div class="table-responsive">
 												<table class="table table-hover table-bordered">
 													<thead>
@@ -404,7 +411,9 @@
 																					<div class="col-md-9">
 																						<select class="form-control" name="iddik">
 																							@foreach($pendidikans as $pendidikan)
+																								@if($pendidikan['urut'] != '0')
 																								<option value="{{ $pendidikan['dik'] }}" <?php if ($dik['iddik'] == $pendidikan['dik'] ): ?> selected <?php endif ?> > {{ $pendidikan['nm_dik'] }} </option>
+																								@endif
 																							@endforeach
 																						</select>
 																					</div>
@@ -459,6 +468,8 @@
 													</tbody>
 												</table>
 											</div>
+											@endif
+
 											<a href="/portal/kepegawaian/data pegawai"><button type="button" class="btn btn-default pull-right m-b-20 m-t-10"> Kembali </button></a>	
 										</section>
 										<div id="modal-insert-dik" class="modal fade" role="dialog">
@@ -478,7 +489,9 @@
 																<div class="col-md-8">
 																	<select class="form-control" name="iddik" id="modal_insert_dik_iddik">
 																		@foreach($pendidikans as $pendidikan)
+																			@if($pendidikan['urut'] != '0')
 																			<option value="{{ $pendidikan['dik'] }}"> {{ $pendidikan['nm_dik'] }} </option>
+																			@endif
 																		@endforeach
 																	</select>
 																</div>
@@ -529,6 +542,8 @@
 										</div>
 										<section id="section-underline-3">
 											<button class="btn btn-info m-b-20" type="button" data-toggle="modal" data-target="#modal-insert-gol">Tambah</button>
+
+											@if(count($emp_gol) > 0)
 											<div class="table-responsive">
 												<table class="table table-hover table-bordered">
 													<thead>
@@ -537,6 +552,7 @@
 															<th>TMT</th>
 															<th>No SK</th>
 															<th>Golongan</th>
+															<th>File</th>
 															<th>Action</th>
 														</tr>
 													</thead>
@@ -545,41 +561,44 @@
 														<tr>
 															<td>{{ $key+1 }}</td>
 															<td>{{ date('d/M/Y', strtotime(str_replace('/', '-', $gol['tmt_gol']))) }}</td>
-															<td>{{ $gol['no_sk_gol'] }}
-															</td>
-															<td>{{ $gol['idgol'] }}
+															<td>{{ $gol['no_sk_gol'] }}</td>
+															<td>{{ $gol['idgol'] }} - {{ $gol['nm_pangkat'] }}</td>
+															<td>
+																<?php if ($gol['gambar'] && $gol['gambar'] != '') : ?> 
+																	<a target="_blank" href="{{ config('app.openfileimg') }}/{{ $id_emp }}/gol/{{ $gol['gambar'] }}">[File SK]</a>
+																<?php else : ?>
+																	[Tidak ada SK Gol]
+																<?php endif ?>
 															</td>
 															<td>
-																
-																	<button type="button" class="btn btn-info btn-outline btn-circle m-r-5 btn-update-gol" data-toggle="modal" data-target="#modal-update-gol-{{$key}}" ><i class="ti-pencil-alt"></i></button>
-																	<button type="button" class="btn btn-danger btn-delete-gol btn-outline btn-circle m-r-5" data-toggle="modal" data-target="#modal-delete-gol-{{$key}}"><i class="ti-trash"></i></button>
-																	<div id="modal-delete-gol-{{$key}}" class="modal fade" role="dialog">
-																		<div class="modal-dialog">
-																			<div class="modal-content">
-																				<form method="POST" action="/portal/kepegawaian/form/hapusgolpegawai" class="form-horizontal">
-																				@csrf
-																					<div class="modal-header">
-																						<h4 class="modal-title"><b>Hapus Golongan</b></h4>
-																					</div>
-																					<div class="modal-body">
-																						<h4>Apa anda yakin ingin menghapus golongan {{$gol['idgol']}} </h4>
-																						<input type="hidden" name="ids" value="{{$gol['ids']}}">
-																						<input type="hidden" name="noid" value="{{$gol['noid']}}">
-																						<input type="hidden" name="idgol" value="{{$gol['idgol']}}">
-																					</div>
-																					<div class="modal-footer">
-																						<button type="submit" class="btn btn-danger pull-right">Hapus</button>
-																						<button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
-																					</div>
-																				</form>
-																			</div>
+																<button type="button" class="btn btn-info btn-outline btn-circle m-r-5 btn-update-gol" data-toggle="modal" data-target="#modal-update-gol-{{$key}}" ><i class="ti-pencil-alt"></i></button>
+																<button type="button" class="btn btn-danger btn-delete-gol btn-outline btn-circle m-r-5" data-toggle="modal" data-target="#modal-delete-gol-{{$key}}"><i class="ti-trash"></i></button>
+																<div id="modal-delete-gol-{{$key}}" class="modal fade" role="dialog">
+																	<div class="modal-dialog">
+																		<div class="modal-content">
+																			<form method="POST" action="/portal/kepegawaian/form/hapusgolpegawai" class="form-horizontal">
+																			@csrf
+																				<div class="modal-header">
+																					<h4 class="modal-title"><b>Hapus Golongan</b></h4>
+																				</div>
+																				<div class="modal-body">
+																					<h4>Apa anda yakin ingin menghapus golongan {{$gol['idgol']}} </h4>
+																					<input type="hidden" name="ids" value="{{$gol['ids']}}">
+																					<input type="hidden" name="noid" value="{{$gol['noid']}}">
+																					<input type="hidden" name="idgol" value="{{$gol['idgol']}}">
+																				</div>
+																				<div class="modal-footer">
+																					<button type="submit" class="btn btn-danger pull-right">Hapus</button>
+																					<button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
+																				</div>
+																			</form>
 																		</div>
 																	</div>
-																
+																</div>
 															</td>
 															<div id="modal-update-gol-{{$key}}" class="modal fade" role="dialog">
 																<div class="modal-dialog">
-																	<div class="modal-content">
+																	<div class="modal-content modal-lg">
 																		<form method="POST" action="/portal/kepegawaian/form/ubahgolpegawai" class="form-horizontal" enctype="multipart/form-data">
 																		@csrf
 																			<div class="modal-header">
@@ -591,9 +610,9 @@
 																				<input type="hidden" name="noid" value="{{$gol['noid']}}">
 
 																				<div class="form-group col-md-12">
-																					<label class="col-md-2 control-label"> TMT Golongan </label>
+																					<label class="col-md-2 control-label"> TMT Golongan <span style="color: red; font-size: 20px;"> *</span></label>
 																					<div class="col-md-8">
-																						<input type="text" name="tmt_gol" class="form-control" id="datepicker-autoclose3" autocomplete="off" placeholder="dd/mm/yyyy" value="{{ date('d/m/Y', strtotime(str_replace('/', '-', $gol['tmt_gol']))) }}">
+																						<input type="text" name="tmt_gol" class="form-control" id="datepicker-autoclose3" autocomplete="off" placeholder="dd/mm/yyyy" value="{{ date('d/m/Y', strtotime(str_replace('/', '-', $gol['tmt_gol']))) }}" required="">
 																					</div>
 																				</div>
 
@@ -605,9 +624,9 @@
 																				</div>
 
 																				<div class="form-group col-md-12">
-																					<label for="tmt_sk_gol" class="col-md-2 control-label"> Tanggal SK </label>
+																					<label for="tmt_sk_gol" class="col-md-2 control-label"> Tanggal SK <span style="color: red; font-size: 20px;"> *</span></label>
 																					<div class="col-md-8">
-																						<input type="text" name="tmt_sk_gol" class="form-control" id="datepicker-autoclose4" autocomplete="off" placeholder="dd/mm/yyyy" value="{{ date('d/m/Y', strtotime(str_replace('/', '-', $gol['tmt_sk_gol']))) }}">
+																						<input type="text" name="tmt_sk_gol" class="form-control" id="datepicker-autoclose4" autocomplete="off" placeholder="dd/mm/yyyy" value="{{ date('d/m/Y', strtotime(str_replace('/', '-', $gol['tmt_sk_gol']))) }}" required="">
 																					</div>
 																				</div>
 
@@ -626,7 +645,10 @@
 																					<label for="jns_kp" class="col-md-2 control-label"> Jenis KP <br> <span style="font-size: 10px">KP (Kenaikan Pangkat)</span> </label>
 																					<div class="col-md-8">
 																						<select class="form-control" name="jns_kp">
-																							<option value="Reguler"> Reguler </option>
+																							<option <?php if ($gol['jns_kp'] == "Reguler" ): ?> selected <?php endif ?> value="Reguler"> Reguler </option>
+																							<option <?php if ($gol['jns_kp'] == "Pilihan" ): ?> selected <?php endif ?> value="Pilihan"> Pilihan </option>
+																							<option <?php if ($gol['jns_kp'] == "Penghargaan" ): ?> selected <?php endif ?> value="Penghargaan"> Penghargaan </option>
+																							<option <?php if ($gol['jns_kp'] == "Istimewa" ): ?> selected <?php endif ?> value="Istimewa"> Istimewa </option>
 																						</select>
 																					</div>
 																				</div>
@@ -658,11 +680,12 @@
 													</tbody>
 												</table>
 											</div>
+											@endif
 											<a href="/portal/kepegawaian/data pegawai"><button type="button" class="btn btn-default pull-right m-b-20 m-t-10"> Kembali </button></a>
 										</section>
 										<div id="modal-insert-gol" class="modal fade" role="dialog">
 											<div class="modal-dialog">
-												<div class="modal-content">
+												<div class="modal-content modal-lg">
 													<form method="POST" action="/portal/kepegawaian/form/tambahgolpegawai" class="form-horizontal" enctype="multipart/form-data">
 													@csrf
 														<div class="modal-header">
@@ -673,9 +696,9 @@
 															<input type="hidden" name="noid" value="{{$id_emp}}">
 
 															<div class="form-group">
-																<label class="col-md-3 control-label"> TMT Golongan </label>
+																<label class="col-md-3 control-label"> TMT Golongan <span style="color: red; font-size: 20px;"> *</span></label>
 																<div class="col-md-8">
-																	<input type="text" name="tmt_gol" class="form-control" id="datepicker-autoclose8" autocomplete="off" placeholder="dd/mm/yyyy">
+																	<input type="text" name="tmt_gol" class="form-control" id="datepicker-autoclose8" autocomplete="off" placeholder="dd/mm/yyyy" required="">
 																</div>
 															</div>
 
@@ -687,9 +710,9 @@
 															</div>
 
 															<div class="form-group">
-																<label for="tmt_sk_gol" class="col-md-3 control-label"> Tanggal SK </label>
+																<label for="tmt_sk_gol" class="col-md-3 control-label"> Tanggal SK <span style="color: red; font-size: 20px;"> *</span></label>
 																<div class="col-md-8">
-																	<input type="text" name="tmt_sk_gol" class="form-control" id="datepicker-autoclose9" autocomplete="off" placeholder="dd/mm/yyyy" >
+																	<input type="text" name="tmt_sk_gol" class="form-control" id="datepicker-autoclose9" autocomplete="off" placeholder="dd/mm/yyyy" required="">
 																</div>
 															</div>
 
@@ -736,16 +759,21 @@
 										</div>
 										<section id="section-underline-4">
 											<button class="btn btn-info m-b-20" type="button" data-toggle="modal" data-target="#modal-insert-jab">Tambah</button>
+
+
+											@if(count($emp_jab) > 0)
 											<div class="table-responsive">
 												<table class="table table-hover table-bordered">
 													<thead>
 														<tr>
 															<th>No</th>
 															<th>TMT</th>
+															<th>No SK</th>
 															<th>Unit</th>
 															<th>Lokasi</th>
 															<th>Jenis</th>
 															<th>Jabatan</th>
+															<th>File</th>
 															<th>Action</th>
 														</tr>
 													</thead>
@@ -754,10 +782,17 @@
 														<tr>
 															<td>{{ $key+1 }}</td>
 															<td>{{ date('d/M/Y', strtotime(str_replace('/', '-', $jab['tmt_jab']))) }}</td>
+															<td>{{ $jab['no_sk_jab'] }}</td>
 															<td>{{ $jab['unit']['nm_unit'] }}</td>
 															<td>{{ $jab['lokasi']['nm_lok'] }}</td>
 															<td>{{ $jab['jns_jab'] }}</td>
 															<td>{{ $jab['idjab'] }}</td>
+															<td>
+																<?php if ($jab['gambar'] && $jab['gambar'] != '') : ?> 
+																	<a target="_blank" href="{{ config('app.openfileimg') }}/{{ $id_emp }}/jab/{{ $jab['gambar'] }}">[File SK]</a>
+																<?php else : ?>
+																	[Tidak ada SK Jab]
+																<?php endif ?>
 															</td>
 															<td>
 																
@@ -789,7 +824,7 @@
 															</td>
 															<div id="modal-update-jab-{{$key}}" class="modal fade" role="dialog">
 																<div class="modal-dialog">
-																	<div class="modal-content">
+																	<div class="modal-content modal-lg">
 																		<form method="POST" action="/portal/kepegawaian/form/ubahjabpegawai" class="form-horizontal" enctype="multipart/form-data">
 																		@csrf
 																			<div class="modal-header">
@@ -801,18 +836,28 @@
 																				<input type="hidden" name="noid" value="{{$jab['noid']}}">
 
 																				<div class="form-group col-md-12">
-																					<label for="jabatan" class="col-md-2 control-label"> Jabatan </label>
+																					<label for="jns_jab" class="col-md-2 control-label"> Jenis Jabatan </label>
 																					<div class="col-md-8">
-																						<select class="form-control select2" name="jabatan" id="jabatan">
+																						<select class="form-control select2" name="jns_jab" id="jns_jab">
+																							<option <?php if ($jab['jns_jab'] == "STRUKTURAL" ): ?> selected <?php endif ?> value="STRUKTURAL">STRUKTURAL</option>
+																							<option <?php if ($jab['jns_jab'] == "FUNGSIONAL" ): ?> selected <?php endif ?> value="FUNGSIONAL">FUNGSIONAL</option>
+																						</select>
+																					</div>
+																				</div>
+
+																				<div class="form-group col-md-12">
+																					<label for="idjab" class="col-md-2 control-label"> Jabatan </label>
+																					<div class="col-md-8">
+																						<select class="form-control select2" name="idjab" id="idjab">
 																							@foreach($jabatans as $jabatan)
-																								<option value="{{ $jabatan['jns_jab'] }}||{{ $jabatan['jabatan'] }}" <?php if ($jab['jns_jab']."||".$jab['idjab'] == $jabatan['jns_jab'] ."||". $jabatan['jabatan'] ): ?> selected <?php endif ?> > {{ $jabatan['jabatan'] }} </option>
+																								<option value="{{ $jabatan['jabatan'] }}" <?php if ($jab['idjab'] == $jabatan['jabatan'] ): ?> selected <?php endif ?> > {{ $jabatan['jabatan'] }} </option>
 																							@endforeach
 																						</select>
 																					</div>
 																				</div>
 
 																				<div class="form-group col-md-12">
-																					<label for="idunit" class="col-md-2 control-label"> Unit Organisasi </label>
+																					<label for="idunit" class="col-md-2 control-label"> Unit Kerja </label>
 																					<div class="col-md-8">
 																						<select class="form-control select2" name="idunit" id="idunit">
 																							@foreach($units as $unit)
@@ -845,9 +890,9 @@
 																				</div>
 
 																				<div class="form-group col-md-12">
-																					<label class="col-md-2 control-label"> TMT Jabatan </label>
+																					<label class="col-md-2 control-label"> TMT Jabatan <span style="color: red; font-size: 20px;"> *</span></label>
 																					<div class="col-md-8">
-																						<input type="text" name="tmt_jab" class="form-control" id="datepicker-autoclose5" autocomplete="off" placeholder="dd/mm/yyyy" value="{{ date('d/m/Y', strtotime(str_replace('/', '-', $jab['tmt_jab']))) }}">
+																						<input type="text" name="tmt_jab" class="form-control" id="datepicker-autoclose5" autocomplete="off" placeholder="dd/mm/yyyy" value="{{ date('d/m/Y', strtotime(str_replace('/', '-', $jab['tmt_jab']))) }}" required="">
 																					</div>
 																				</div>
 
@@ -859,9 +904,9 @@
 																				</div>
 
 																				<div class="form-group col-md-12">
-																					<label class="col-md-2 control-label"> Tanggal SK </label>
+																					<label class="col-md-2 control-label"> Tanggal SK <span style="color: red; font-size: 20px;"> *</span></label>
 																					<div class="col-md-8">
-																						<input type="text" name="tmt_sk_jab" class="form-control" id="datepicker-autoclose6" autocomplete="off" placeholder="dd/mm/yyyy" value="{{ date('d/M/Y', strtotime(str_replace('/', '-', $jab['tmt_sk_jab']))) }}">
+																						<input type="text" name="tmt_sk_jab" class="form-control" id="datepicker-autoclose6" autocomplete="off" placeholder="dd/mm/yyyy" value="{{ date('d/M/Y', strtotime(str_replace('/', '-', $jab['tmt_sk_jab']))) }}" required="">
 																					</div>
 																				</div>
 
@@ -880,11 +925,12 @@
 													</tbody>
 												</table>
 											</div>
+											@endif
 											<a href="/portal/kepegawaian/data pegawai"><button type="button" class="btn btn-default pull-right m-b-20 m-t-10"> Kembali </button></a>
 										</section>
 										<div id="modal-insert-jab" class="modal fade" role="dialog">
 											<div class="modal-dialog">
-												<div class="modal-content">
+												<div class="modal-content modal-lg">
 													<form method="POST" action="/portal/kepegawaian/form/tambahjabpegawai" class="form-horizontal" enctype="multipart/form-data">
 													@csrf
 														<div class="modal-header">
@@ -939,9 +985,9 @@
 															</div>
 
 															<div class="form-group">
-																<label class="col-md-2 control-label"> TMT Jabatan </label>
+																<label class="col-md-2 control-label"> TMT Jabatan <span style="color: red; font-size: 20px;"> *</span></label>
 																<div class="col-md-8">
-																	<input type="text" name="tmt_jab" class="form-control" id="datepicker-autoclose10" autocomplete="off" placeholder="dd/mm/yyyy" >
+																	<input type="text" name="tmt_jab" class="form-control" id="datepicker-autoclose10" autocomplete="off" placeholder="dd/mm/yyyy" required="">
 																</div>
 															</div>
 
@@ -953,9 +999,9 @@
 															</div>
 
 															<div class="form-group">
-																<label class="col-md-2 control-label"> Tanggal SK </label>
+																<label class="col-md-2 control-label"> Tanggal SK <span style="color: red; font-size: 20px;"> *</span></label>
 																<div class="col-md-8">
-																	<input type="text" name="tmt_sk_jab" class="form-control" id="datepicker-autoclose11" autocomplete="off" placeholder="dd/mm/yyyy">
+																	<input type="text" name="tmt_sk_jab" class="form-control" id="datepicker-autoclose11" autocomplete="off" placeholder="dd/mm/yyyy" required="">
 																</div>
 															</div>
 

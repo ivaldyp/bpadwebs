@@ -82,7 +82,7 @@
 										<div class="content-wrap">
 											<section id="section-underline-1">
 												<div class="form-group">
-													<label for="tgl_join" class="col-md-2 control-label"> TMT </label>
+													<label for="tgl_join" class="col-md-2 control-label"> TMT <span style="color: red; font-size: 20px;"> *</span></label>
 													<div class="col-md-8">
 														<input required type="text" name="tgl_join" class="form-control" id="datepicker-autoclose" autocomplete="off" placeholder="dd/mm/yyyy">
 													</div>
@@ -125,10 +125,17 @@
 												</div>
 												
 												<div class="form-group">
-													<label for="nm_emp" class="col-md-2 control-label"> Nama </label>
+													<label for="nm_emp" class="col-md-2 control-label"> Nama <span style="color: red; font-size: 20px;"> *</span></label>
 													<div class="col-md-8">
-														<input autocomplete="off" type="text" name="nm_emp" class="form-control" id="nm_emp" data-error="Masukkan nama">
+														<input autocomplete="off" type="text" name="nm_emp" class="form-control" id="nm_emp" data-error="Masukkan nama" required="">
 														<div class="help-block with-errors"></div>
+													</div>
+												</div>
+
+												<div class="form-group">
+													<label for="nik_emp" class="col-md-2 control-label"> NIK KTP </label>
+													<div class="col-md-8">
+														<input autocomplete="off" type="text" name="nik_emp" class="form-control" id="nik_emp">
 													</div>
 												</div>
 
@@ -292,9 +299,7 @@
 													<label for="idgroup" class="col-md-2 control-label"> Grup User </label>
 													<div class="col-md-8">
 														<select class="form-control select2" name="idgroup" id="idgroup">
-															@foreach($idgroups as $idgroup)
-																<option value="{{ $idgroup['idgroup'] }}"> {{ $idgroup['idgroup'] }} </option>
-															@endforeach
+															<option value="EMPLOYEE"> EMPLOYEE </option>
 														</select>
 													</div>
 												</div>
@@ -326,7 +331,9 @@
 													<div class="col-md-8">
 														<select class="form-control" name="iddik" id="iddik">
 															@foreach($pendidikans as $pendidikan)
+																@if($pendidikan['urut'] != '0')
 																<option value="{{ $pendidikan['dik'] }}"> {{ $pendidikan['nm_dik'] }} </option>
+																@endif
 															@endforeach
 														</select>
 													</div>
@@ -385,9 +392,9 @@
 											</section>
 											<section id="section-underline-3">
 												<div class="form-group">
-													<label class="col-md-2 control-label"> TMT Golongan </label>
+													<label class="col-md-2 control-label"> TMT Golongan <span style="color: red; font-size: 20px;"> *</span></label>
 													<div class="col-md-8">
-														<input type="text" name="tmt_gol" class="form-control" id="datepicker-autoclose3" autocomplete="off" placeholder="dd/mm/yyyy">
+														<input type="text" name="tmt_gol" class="form-control" id="datepicker-autoclose3" autocomplete="off" placeholder="dd/mm/yyyy" required="">
 													</div>
 												</div>
 
@@ -399,9 +406,9 @@
 												</div>
 
 												<div class="form-group">
-													<label for="tmt_sk_gol" class="col-md-2 control-label"> Tanggal SK </label>
+													<label for="tmt_sk_gol" class="col-md-2 control-label"> Tanggal SK <span style="color: red; font-size: 20px;"> *</span></label>
 													<div class="col-md-8">
-														<input type="text" name="tmt_sk_gol" class="form-control" id="datepicker-autoclose4" autocomplete="off" placeholder="dd/mm/yyyy">
+														<input type="text" name="tmt_sk_gol" class="form-control" id="datepicker-autoclose4" autocomplete="off" placeholder="dd/mm/yyyy" required="">
 													</div>
 												</div>
 
@@ -421,6 +428,9 @@
 													<div class="col-md-8">
 														<select class="form-control" name="jns_kp" id="jns_kp">
 															<option value="Reguler"> Reguler </option>
+															<option value="Pilihan"> Pilihan </option>
+															<option value="Penghargaan"> Penghargaan </option>
+															<option value="Istimewa"> Istimewa </option>
 														</select>
 													</div>
 												</div>
@@ -445,19 +455,30 @@
 												</div> -->
 											</section>
 											<section id="section-underline-4">
+
 												<div class="form-group">
-													<label for="jabatan" class="col-md-2 control-label"> Jabatan </label>
+													<label for="jns_jab" class="col-md-2 control-label"> Jenis Jabatan </label>
 													<div class="col-md-8">
-														<select class="form-control select2" name="jabatan" id="jabatan">
+														<select class="form-control" name="jns_jab" id="jns_jab">
+															<option value="STRUKTURAL">STRUKTURAL</option>
+															<option value="FUNGSIONAL">FUNGSIONAL</option>
+														</select>
+													</div>
+												</div>
+
+												<div class="form-group">
+													<label for="idjab" class="col-md-2 control-label"> Jabatan </label>
+													<div class="col-md-8">
+														<select class="form-control select2" name="idjab" id="idjab">
 															@foreach($jabatans as $jabatan)
-																<option value="{{ $jabatan['jns_jab'] }}||{{ $jabatan['jabatan'] }}"> {{ $jabatan['jabatan'] }} </option>
+																<option value="{{ $jabatan['jabatan'] }}"> {{ $jabatan['jabatan'] }} </option>
 															@endforeach
 														</select>
 													</div>
 												</div>
 
 												<div class="form-group">
-													<label for="idunit" class="col-md-2 control-label"> Unit Organisasi </label>
+													<label for="idunit" class="col-md-2 control-label"> Unit Kerja </label>
 													<div class="col-md-8">
 														<select class="form-control select2" name="idunit" id="idunit">
 															@foreach($units as $unit)
@@ -490,7 +511,7 @@
 												</div>
 
 												<div class="form-group">
-													<label class="col-md-2 control-label"> TMT Jabatan </label>
+													<label class="col-md-2 control-label"> TMT Jabatan <span style="color: red; font-size: 20px;"> *</span></label>
 													<div class="col-md-8">
 														<input type="text" name="tmt_jab" class="form-control" id="datepicker-autoclose5" autocomplete="off" placeholder="dd/mm/yyyy" required>
 													</div>
@@ -504,9 +525,9 @@
 												</div>
 
 												<div class="form-group">
-													<label class="col-md-2 control-label"> Tanggal SK </label>
+													<label class="col-md-2 control-label"> Tanggal SK <span style="color: red; font-size: 20px;"> *</span></label>
 													<div class="col-md-8">
-														<input type="text" name="tmt_sk_jab" class="form-control" id="datepicker-autoclose6" autocomplete="off" placeholder="dd/mm/yyyy">
+														<input type="text" name="tmt_sk_jab" class="form-control" id="datepicker-autoclose6" autocomplete="off" placeholder="dd/mm/yyyy" required="">
 													</div>
 												</div>
 
@@ -524,9 +545,6 @@
 									</div>
 								</div>
 							</div>
-						</div>
-	
-						<div class="panel panel-info">
 							<div class="panel-heading">  
 								
 							</div>
