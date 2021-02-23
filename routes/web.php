@@ -192,6 +192,7 @@ Route::group(['prefix' => 'kepegawaian'], function () {
 
 	Route::get('/excel', 'KepegawaianController@printexcel');
 	Route::get('/excelpegawai', 'KepegawaianController@printexcelpegawai');
+	Route::get('/excelpegawaiadmin', 'KepegawaianController@printexcelpegawaiadmin');
 
 	Route::get('/data pegawai', 'KepegawaianController@pegawaiall');
 	Route::get('/tambah pegawai', 'KepegawaianController@pegawaitambah');
