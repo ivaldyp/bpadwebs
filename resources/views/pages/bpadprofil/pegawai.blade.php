@@ -128,7 +128,10 @@
 														</tr>
 														<tr>
 															<td class="col-md-6 p-l-30"><h4>NIP</h4></td>
-															<td class="col-md-6" style="vertical-align: middle;"><h4 class="text-muted">{{ $emp_data['nip_emp'] }}</h4></td>
+															<td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">{{ $emp_data['nip_emp'] }}</h4></td>
+															<td class="col-md-6 data-input">
+																<input class="form-control" type="text" name="nip_emp" value="{{ $emp_data['nip_emp'] }}" placeholder="NIP" autocomplete="off">
+															</td>
 														</tr>
 														<tr>
 															<td class="col-md-6 p-l-30"><h4>NRK</h4></td>
