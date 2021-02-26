@@ -61,28 +61,14 @@
 				<div class="col-md-12">
 					<!-- <div class="white-box"> -->
 					<div class="panel panel-default">
-						<div class="panel-heading">Surat Keluar</div>
+						<div class="panel-heading">Struktur Organisasi</div>
 						<div class="panel-wrapper collapse in">
 							<div class="panel-body">
-								<h2 class="article-title">Struktur Organisasi - BPAD</h2>
-					            <!-- <img id="img-overlay" src="{{ ('/portal/public/img/profil/organisasi.png') }}" style="width: 100%"> -->
-					            <!-- <div id="overlay"></div> -->
-					            <span class="zoom" id="ex2">
-									<!-- <svgs>       
-										<image href="https://mdn.mozillademos.org/files/6457/mdn_logo_only_color.png" height="200" width="200"/>
-									</svg> -->
-									<a href="/portal/public/img/profil/organisasi2.jpg" target="_blank"><img src="{{ ('/portal/public/img/profil/organisasi2.jpg') }}" width='100%' alt='Struktur Organisasi BPAD'/></a>
-								</span>
-					            <br><br>
-
-					            <h2 class="article-title">Struktur Organisasi - Suku Badan</h2>
-					            <!-- <img id="img-overlay" src="{{ ('/portal/public/img/profil/organisasi.png') }}" style="width: 100%"> -->
-					            <!-- <div id="overlay"></div> -->
-					            <span class="zoom" id="ex1">
-									<a href="/portal/public/img/profil/organisasi_suban2.jpg" target="_blank"><img src="{{ ('/portal/public/img/profil/organisasi_suban2.jpg') }}" width='100%' alt='Struktur Organisasi BPAD'/></a>
-								</span>
-					            <br><br>
-
+								<input type="hidden" id="empstruc" value="{{ json_encode($employees) }}">
+								<div class="panel-body">
+									<div style="width:100%; height:700px;" id="orgchart"/>
+								</div>
+								
 							</div>
 						</div>
 					</div>
@@ -108,6 +94,72 @@
 	<script src="{{ ('/portal/public/ample/js/custom.min.js') }}"></script>
 	<script src="{{ ('/portal/public/js/jquery.zoom.js') }}"></script>
 	<script src="{{ ('/portal/public/js/jquery.zoom.min.js') }}"></script>
+	<!-- OrgChart -->
+	<script src="{{ ('/portal/public/js/orgchart.js') }}"></script>
+
+	<script>
+		var empstruc = $("#empstruc").val();
+		empstruc = JSON.parse(empstruc);
+
+		var myArray = [];
+		var imageExists = false;
+
+		$.each( empstruc, function( key, value ) {
+
+			// var imgloc = '{{ config('app.openfileimg') }}' + '/' +  value['id_emp'] + '/profil/' + value['foto'] ;
+			
+			// $.ajax({
+			// 	url: imgloc,
+			// 	type:'HEAD',
+			// 	error: function()
+			// 	{
+			// 		imageExists = true;
+			// 	},
+			// 	success: function()
+			// 	{
+			// 		imageExists = false;
+			// 	}
+			// });
+
+			// console.log(imageExists);
+
+			var ceksao = empstruc.filter(function (data) { return data.idunit == value['sao'] });
+			if (key == 0) {
+				myArray.push({
+					id: value['idunit'],
+					name: value['nm_emp'],
+					title: value['nm_unit'],
+					img: '{{ config('app.openfileimgdefault') }}',
+				});
+			} else {
+				if (ceksao != '') {
+					myArray.push({
+						id: value['idunit'],
+						pid: value['sao'],
+						name: value['nm_emp'],
+						title: value['nm_unit'],
+						img: '{{ config('app.openfileimgdefault') }}',
+					});
+				}
+			}	
+		});
+
+		var chart = new OrgChart(document.getElementById("orgchart"), {
+			template: "rony",
+			nodeBinding: {
+				field_0: "name",
+				field_1: "title",
+				img_0: "img",
+			},
+			collapse: {
+				level: 2
+			},
+			layout: OrgChart.mixed,
+			// orientation: OrgChart.orientation.left,
+			nodes: myArray
+		});
+	</script>
+
 	<script type="text/javascript">
 		$(document).ready(function(){
 			// $('#ex1').zoom({

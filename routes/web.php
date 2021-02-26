@@ -112,9 +112,19 @@ Route::group(['prefix' => 'profil'], function () {
 
 	Route::get('/pegawai', 'ProfilController@pegawai');
 	Route::post('/form/ubahidpegawai', 'ProfilController@formupdateidpegawai');
+
+	Route::post('/form/tambahkelpegawai', 'ProfilController@forminsertkelpegawai');
+	Route::post('/form/ubahkelpegawai', 'ProfilController@formupdatekelpegawai');
+	Route::post('/form/hapuskelpegawai', 'ProfilController@formdeletekelpegawai');
+
 	Route::post('/form/tambahdikpegawai', 'ProfilController@forminsertdikpegawai');
 	Route::post('/form/ubahdikpegawai', 'ProfilController@formupdatedikpegawai');
 	Route::post('/form/hapusdikpegawai', 'ProfilController@formdeletedikpegawai');
+
+	// Route::post('/form/ubahidpegawai', 'ProfilController@formupdateidpegawai');
+	Route::post('/form/tambahnonpegawai', 'ProfilController@forminsertnonpegawai');
+	Route::post('/form/ubahnonpegawai', 'ProfilController@formupdatenonpegawai');
+	Route::post('/form/hapusnonpegawai', 'ProfilController@formdeletenonpegawai');
 
 	// Route::post('/form/ubahidpegawai', 'ProfilController@formupdateidpegawai');
 	Route::post('/form/tambahgolpegawai', 'ProfilController@forminsertgolpegawai');
@@ -125,6 +135,10 @@ Route::group(['prefix' => 'profil'], function () {
 	Route::post('/form/tambahjabpegawai', 'ProfilController@forminsertjabpegawai');
 	Route::post('/form/ubahjabpegawai', 'ProfilController@formupdatejabpegawai');
 	Route::post('/form/hapusjabpegawai', 'ProfilController@formdeletejabpegawai');
+
+	Route::post('/form/tambahhukpegawai', 'ProfilController@forminserthukpegawai');
+	Route::post('/form/ubahhukpegawai', 'ProfilController@formupdatehukpegawai');
+	Route::post('/form/hapushukpegawai', 'ProfilController@formdeletehukpegawai');
 });
 
 Route::group(['prefix' => 'cms'], function () {

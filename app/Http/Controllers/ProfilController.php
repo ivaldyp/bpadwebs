@@ -13,10 +13,15 @@ use App\Emp_data;
 use App\Emp_dik;
 use App\Emp_gol;
 use App\Emp_jab;
+use App\Emp_non;
+use App\Emp_kel;
+use App\Emp_huk;
 use App\Fr_disposisi;
 use App\Glo_dik;
 use App\Glo_disposisi_kode;
 use App\Glo_disposisi_penanganan;
+use App\Glo_huk;
+use App\Glo_kel;
 use App\Glo_org_golongan;
 use App\Glo_org_jabatan;
 use App\Glo_org_kedemp;
@@ -47,10 +52,10 @@ class ProfilController extends Controller
 
 
 
-		$accessid = $this->checkAccess($_SESSION['user_data']['idgroup'], 37);
-		$accessdik = $this->checkAccess($_SESSION['user_data']['idgroup'], 65);
-		$accessgol = $this->checkAccess($_SESSION['user_data']['idgroup'], 71);
-		$accessjab = $this->checkAccess($_SESSION['user_data']['idgroup'], 72);
+		// $accessid = $this->checkAccess($_SESSION['user_data']['idgroup'], 37);
+		// $accessdik = $this->checkAccess($_SESSION['user_data']['idgroup'], 65);
+		// $accessgol = $this->checkAccess($_SESSION['user_data']['idgroup'], 71);
+		// $accessjab = $this->checkAccess($_SESSION['user_data']['idgroup'], 72);
 
 		$emp_data = Emp_data::
 						where('id_emp', Auth::user()->id_emp)
@@ -77,6 +82,22 @@ class ProfilController extends Controller
 						->orderBy('tmt_jab', 'desc')
 						->get();
 
+		$emp_non = Emp_non::where('sts', 1)
+						->where('noid', Auth::user()->id_emp)
+						->orderBy('tgl_non', 'desc')
+						->get();
+
+		$emp_kel = Emp_kel::
+					join('bpaddtfake.dbo.glo_kel', 'bpaddtfake.dbo.glo_kel.kel', '=', 'bpaddtfake.dbo.emp_kel.jns_kel')
+					->where('bpaddtfake.dbo.emp_kel.sts', 1)
+					->orderBy('urut', 'asc')
+					->get();
+
+		$emp_huk = Emp_huk::
+					where('sts', 1)
+					->orderBy('tgl_sk', 'desc')
+					->get();
+
 		$statuses = Glo_org_statusemp::get();
 		$pendidikans = Glo_dik::
 						orderBy('urut')
@@ -98,24 +119,28 @@ class ProfilController extends Controller
 
 		$units = glo_org_unitkerja::orderBy('kd_unit', 'asc')->get();
 
+		$keluargas = Glo_kel::orderBy('urut')->get();
+
+		$hukumans = Glo_huk::orderBy('urut_huk')->get();
+
 		return view('pages.bpadprofil.pegawai')
 				->with('id_emp', Auth::user()->id_emp)
 				->with('emp_data', $emp_data[0])
 				->with('emp_dik', $emp_dik)
 				->with('emp_gol', $emp_gol)
 				->with('emp_jab', $emp_jab)
-				->with('access', $access)
-				->with('accessid', $accessid)
-				->with('accessdik', $accessdik)
-				->with('accessgol', $accessgol)
-				->with('accessjab', $accessjab)
+				->with('emp_non', $emp_non)
+				->with('emp_kel', $emp_kel)
+				->with('emp_huk', $emp_huk)
 				->with('statuses', $statuses)
 				->with('pendidikans', $pendidikans)
 				->with('golongans', $golongans)
 				->with('jabatans', $jabatans)
 				->with('lokasis', $lokasis)
 				->with('kedudukans', $kedudukans)
-				->with('units', $units);	
+				->with('units', $units)
+				->with('keluargas', $keluargas)
+				->with('hukumans', $hukumans);
 	}
 
 	public function formupdateidpegawai(Request $request)
@@ -256,6 +281,125 @@ class ProfilController extends Controller
 					->with('message', 'Pegawai '.$request->nm_emp.' berhasil diubah. Apabila terdapat kesalahan data, mohon melakukan login ulang')
 					->with('msg_num', 1);
 	}
+
+	// ------KELUARGA--------------------------------------------------------------------- //
+	// ------KELUARGA--------------------------------------------------------------------- //
+	// ------KELUARGA--------------------------------------------------------------------- //
+	// ------KELUARGA--------------------------------------------------------------------- //
+	// ------KELUARGA--------------------------------------------------------------------- //
+	// ------KELUARGA--------------------------------------------------------------------- //
+// ------KELUARGA--------------------------------------------------------------------- //
+	// ------KELUARGA--------------------------------------------------------------------- //
+	// ------KELUARGA--------------------------------------------------------------------- //
+// ------KELUARGA--------------------------------------------------------------------- //
+	// ------KELUARGA--------------------------------------------------------------------- //
+	// ------KELUARGA--------------------------------------------------------------------- //
+// ------KELUARGA--------------------------------------------------------------------- //
+	// ------KELUARGA--------------------------------------------------------------------- //
+	// ------KELUARGA--------------------------------------------------------------------- //
+	// ------KELUARGA--------------------------------------------------------------------- //
+	// ------KELUARGA--------------------------------------------------------------------- //
+	// ------KELUARGA--------------------------------------------------------------------- //
+// ------KELUARGA--------------------------------------------------------------------- //
+	// ------KELUARGA--------------------------------------------------------------------- //
+	// ------KELUARGA--------------------------------------------------------------------- //
+// ------KELUARGA--------------------------------------------------------------------- //
+	// ------KELUARGA--------------------------------------------------------------------- //
+	// ------KELUARGA--------------------------------------------------------------------- //
+// ------KELUARGA--------------------------------------------------------------------- //
+	// ------KELUARGA--------------------------------------------------------------------- //
+	// ------KELUARGA--------------------------------------------------------------------- //
+
+	public function forminsertkelpegawai (Request $request)
+	{
+		$this->checkSessionTime();
+
+		$id_emp = $_SESSION['user_data']['id_emp'];
+
+		$insert_emp_kel = [
+				// PENDIDIKAN
+				'sts' => 1,
+				'uname'     => (Auth::user()->usname ? Auth::user()->usname : Auth::user()->id_emp),
+				'tgl'       => date('Y-m-d H:i:s'),
+				'noid' => $id_emp,
+				'jns_kel' => $request->jns_kel,
+				'nm_kel' => $request->nm_kel,
+				'nik_kel' => ($request->nik_kel ?? ''),
+				'tgl_kel' => ($request->tgl_kel ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tgl_kel))) : ''),
+			];
+
+		Emp_kel::insert($insert_emp_kel);
+
+		return redirect('/profil/pegawai')
+					->with('message', 'Data keluarga pegawai berhasil ditambah')
+					->with('msg_num', 1);
+	}
+
+	public function formupdatekelpegawai (Request $request)
+	{
+		$this->checkSessionTime();
+
+		$id_emp = $_SESSION['user_data']['id_emp'];
+
+		Emp_kel::where('noid', $id_emp)
+			->where('ids', $request->ids)
+			->update([
+				'sts' => 1,
+				'jns_kel' => $request->jns_kel,
+				'nm_kel' => $request->nm_kel,
+				'nik_kel' => ($request->nik_kel ?? ''),
+				'tgl_kel' => ($request->tgl_kel ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tgl_kel))) : ''),
+			]);
+
+		return redirect('/profil/pegawai')
+					->with('message', 'Data keluarga pegawai berhasil diubah')
+					->with('msg_num', 1);
+	}
+
+	public function formdeletekelpegawai(Request $request)
+	{
+		$this->checkSessionTime();
+
+		$id_emp = $_SESSION['user_data']['id_emp'];
+
+		Emp_kel::where('noid', $id_emp)
+		->where('ids', $request->ids)
+		->update([
+			'sts' => 0,
+		]);
+
+		return redirect('/profil/pegawai')
+					->with('message', 'Data keluarga pegawai berhasil dihapus')
+					->with('msg_num', 1);
+	}
+
+	// ----------PENDIDIKAN--------------------------------------------------------------- //
+	// ----------PENDIDIKAN--------------------------------------------------------------- //
+	// ----------PENDIDIKAN--------------------------------------------------------------- //
+	// ----------PENDIDIKAN--------------------------------------------------------------- //
+	// ----------PENDIDIKAN--------------------------------------------------------------- //
+	// ----------PENDIDIKAN--------------------------------------------------------------- //
+// ----------PENDIDIKAN--------------------------------------------------------------- //
+	// ----------PENDIDIKAN--------------------------------------------------------------- //
+	// ----------PENDIDIKAN--------------------------------------------------------------- //
+// ----------PENDIDIKAN--------------------------------------------------------------- //
+	// ----------PENDIDIKAN--------------------------------------------------------------- //
+	// ----------PENDIDIKAN--------------------------------------------------------------- //
+// ----------PENDIDIKAN--------------------------------------------------------------- //
+	// ----------PENDIDIKAN--------------------------------------------------------------- //
+	// ----------PENDIDIKAN--------------------------------------------------------------- //
+	// ----------PENDIDIKAN--------------------------------------------------------------- //
+	// ----------PENDIDIKAN--------------------------------------------------------------- //
+	// ----------PENDIDIKAN--------------------------------------------------------------- //
+// ----------PENDIDIKAN--------------------------------------------------------------- //
+	// ----------PENDIDIKAN--------------------------------------------------------------- //
+	// ----------PENDIDIKAN--------------------------------------------------------------- //
+// ----------PENDIDIKAN--------------------------------------------------------------- //
+	// ----------PENDIDIKAN--------------------------------------------------------------- //
+	// ----------PENDIDIKAN--------------------------------------------------------------- //
+// ----------PENDIDIKAN--------------------------------------------------------------- //
+	// ----------PENDIDIKAN--------------------------------------------------------------- //
+	// ----------PENDIDIKAN--------------------------------------------------------------- //
 
 	public function forminsertdikpegawai (Request $request)
 	{
@@ -399,9 +543,203 @@ class ProfilController extends Controller
 					->with('msg_num', 1);
 	}
 
-	// ------------------------------------------------------------------------------- //
-	// ------------------------------------------------------------------------------- //
-	// ------------------------------------------------------------------------------- //
+	// ----------PENDIDIKAN NON FORMAL--------------------------------------------------------------------- //
+	// ----------PENDIDIKAN NON FORMAL--------------------------------------------------------------------- //
+	// ----------PENDIDIKAN NON FORMAL--------------------------------------------------------------------- //
+	// ----------PENDIDIKAN NON FORMAL--------------------------------------------------------------------- //
+	// ----------PENDIDIKAN NON FORMAL--------------------------------------------------------------------- //
+	// ----------PENDIDIKAN NON FORMAL--------------------------------------------------------------------- //
+// ----------PENDIDIKAN NON FORMAL--------------------------------------------------------------------- //
+	// ----------PENDIDIKAN NON FORMAL--------------------------------------------------------------------- //
+	// ----------PENDIDIKAN NON FORMAL--------------------------------------------------------------------- //
+// ----------PENDIDIKAN NON FORMAL--------------------------------------------------------------------- //
+	// ----------PENDIDIKAN NON FORMAL--------------------------------------------------------------------- //
+	// ----------PENDIDIKAN NON FORMAL--------------------------------------------------------------------- //
+// ----------PENDIDIKAN NON FORMAL--------------------------------------------------------------------- //
+	// ----------PENDIDIKAN NON FORMAL--------------------------------------------------------------------- //
+	// ----------PENDIDIKAN NON FORMAL--------------------------------------------------------------------- //
+	// ----------PENDIDIKAN NON FORMAL--------------------------------------------------------------------- //
+	// ----------PENDIDIKAN NON FORMAL--------------------------------------------------------------------- //
+	// ----------PENDIDIKAN NON FORMAL--------------------------------------------------------------------- //
+// ----------PENDIDIKAN NON FORMAL--------------------------------------------------------------------- //
+	// ----------PENDIDIKAN NON FORMAL--------------------------------------------------------------------- //
+	// ----------PENDIDIKAN NON FORMAL--------------------------------------------------------------------- //
+// ----------PENDIDIKAN NON FORMAL--------------------------------------------------------------------- //
+	// ----------PENDIDIKAN NON FORMAL--------------------------------------------------------------------- //
+	// ----------PENDIDIKAN NON FORMAL--------------------------------------------------------------------- //
+// ----------PENDIDIKAN NON FORMAL--------------------------------------------------------------------- //
+	// ----------PENDIDIKAN NON FORMAL--------------------------------------------------------------------- //
+	// ----------PENDIDIKAN NON FORMAL--------------------------------------------------------------------- //
+
+	public function forminsertnonpegawai (Request $request)
+	{
+		$this->checkSessionTime();
+
+		$id_emp = $_SESSION['user_data']['id_emp'];
+		$filenon = '';
+
+		$insert_emp_non = [
+				// PENDIDIKAN
+				'sts' => 1,
+				'uname'     => (Auth::user()->usname ? Auth::user()->usname : Auth::user()->id_emp),
+				'tgl'       => date('Y-m-d H:i:s'),
+				'noid' => $id_emp,
+				'nm_non' => $request->nm_non,
+				'penye_non' => $request->penye_non,
+				'thn_non' => ($request->thn_non ? $request->thn_non : ''),
+				'durasi_non' => ($request->durasi_non ? $request->durasi_non : '0'),
+				'sert_non' => ($request->sert_non ? $request->sert_non : ''),
+				'tgl_non' => ($request->tgl_non ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tgl_non))) : ''),
+			];
+
+		$nowid = Emp_non::insertGetId($insert_emp_non);
+
+		// (IDENTITAS) cek dan set variabel untuk file foto pegawai
+		if (isset($request->filenon)) {
+			$file = $request->filenon;
+
+			if ($file->getSize() > 5555555) {
+				return redirect('/profil/pegawai')->with('message', 'Ukuran file ijazah terlalu besar (Maksimal 5MB)');     
+			}
+
+			if (strtolower($file->getClientOriginalExtension()) != "png" && strtolower($file->getClientOriginalExtension()) != "jpg" && strtolower($file->getClientOriginalExtension()) != "jpeg" && strtolower($file->getClientOriginalExtension()) != "pdf") {
+				return redirect('/profil/pegawai')->with('message', 'File yang diunggah harus berbentuk PDF / JPG / JPEG / PNG');     
+			}
+
+			$filenon .= $nowid . "_" . $id_emp . ".". $file->getClientOriginalExtension();
+
+			$tujuan_upload = config('app.savefileimg');
+			$tujuan_upload .= "\\" . $id_emp . "\\non\\";
+
+			if (file_exists($tujuan_upload . $filenon )) {
+				unlink($tujuan_upload . $filenon);
+			}
+
+			$file->move($tujuan_upload, $filenon);
+		}
+			
+		if (!(isset($filenon))) {
+			$filenon = '';
+		}
+
+		if ($filenon != '') {
+			Emp_non::where('noid', $id_emp)
+			->where('ids', $nowid)
+			->update([
+				'gambar' => $filenon,
+			]);
+		}
+		
+
+		return redirect('/profil/pegawai')
+					->with('message', 'Data pendidikan non formal pegawai berhasil ditambah')
+					->with('msg_num', 1);
+	}
+
+	public function formupdatenonpegawai (Request $request)
+	{
+		$this->checkSessionTime();
+
+		$id_emp = $_SESSION['user_data']['id_emp'];
+		$filenon = '';
+
+		// (IDENTITAS) cek dan set variabel untuk file foto pegawai
+		if (isset($request->filenon)) {
+			$file = $request->filenon;
+
+			if ($file->getSize() > 5555555) {
+				return redirect('/profil/pegawai')->with('message', 'Ukuran file ijazah terlalu besar (Maksimal 5MB)');     
+			}
+
+			if (strtolower($file->getClientOriginalExtension()) != "png" && strtolower($file->getClientOriginalExtension()) != "jpg" && strtolower($file->getClientOriginalExtension()) != "jpeg" && strtolower($file->getClientOriginalExtension()) != "pdf") {
+				return redirect('/profil/pegawai')->with('message', 'File yang diunggah harus berbentuk PDF / JPG / JPEG / PNG');     
+			}
+
+			$filenon .= $request->ids . "_" . $id_emp . ".". $file->getClientOriginalExtension();
+
+			$tujuan_upload = config('app.savefileimg');
+			$tujuan_upload .= "\\" . $id_emp . "\\non\\";
+
+			if (file_exists($tujuan_upload . $filenon )) {
+				unlink($tujuan_upload . $filenon);
+			}
+
+			$file->move($tujuan_upload, $filenon);
+		}
+			
+		if (!(isset($filenon))) {
+			$filenon = '';
+		}
+
+		if ($filenon != '') {
+			Emp_non::where('noid', $id_emp)
+			->where('ids', $nowid)
+			->update([
+				'gambar' => $filenon,
+			]);
+		}
+
+		Emp_non::where('noid', $id_emp)
+			->where('ids', $request->ids)
+			->update([
+				'sts' => 1,
+				'nm_non' => $request->nm_non,
+				'penye_non' => $request->penye_non,
+				'thn_non' => ($request->thn_non ? $request->thn_non : ''),
+				'durasi_non' => ($request->durasi_non ? $request->durasi_non : '0'),
+				'sert_non' => ($request->sert_non ? $request->sert_non : ''),
+				'tgl_non' => ($request->tgl_non ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tgl_non))) : ''),
+			]);
+
+		return redirect('/profil/pegawai')
+					->with('message', 'Data pendidikan non formal berhasil diubah')
+					->with('msg_num', 1);
+	}
+
+	public function formdeletenonpegawai(Request $request)
+	{
+		$this->checkSessionTime();
+
+		$id_emp = $_SESSION['user_data']['id_emp'];
+
+		Emp_non::where('noid', $id_emp)
+		->where('ids', $request->ids)
+		->update([
+			'sts' => 0,
+		]);
+
+		return redirect('/profil/pegawai')
+					->with('message', 'Data pendidikan non formal pegawai berhasil dihapus')
+					->with('msg_num', 1);
+	}
+
+	// -------GOLONGAN---------------------------------------------------------------------- //
+	// -------GOLONGAN---------------------------------------------------------------------- //
+	// -------GOLONGAN---------------------------------------------------------------------- //
+	// -------GOLONGAN---------------------------------------------------------------------- //
+	// -------GOLONGAN---------------------------------------------------------------------- //
+	// -------GOLONGAN---------------------------------------------------------------------- //
+// -------GOLONGAN---------------------------------------------------------------------- //
+	// -------GOLONGAN---------------------------------------------------------------------- //
+	// -------GOLONGAN---------------------------------------------------------------------- //
+// -------GOLONGAN---------------------------------------------------------------------- //
+	// -------GOLONGAN---------------------------------------------------------------------- //
+	// -------GOLONGAN---------------------------------------------------------------------- //
+// -------GOLONGAN---------------------------------------------------------------------- //
+	// -------GOLONGAN---------------------------------------------------------------------- //
+	// -------GOLONGAN---------------------------------------------------------------------- //
+	// -------GOLONGAN---------------------------------------------------------------------- //
+	// -------GOLONGAN---------------------------------------------------------------------- //
+	// -------GOLONGAN---------------------------------------------------------------------- //
+// -------GOLONGAN---------------------------------------------------------------------- //
+	// -------GOLONGAN---------------------------------------------------------------------- //
+	// -------GOLONGAN---------------------------------------------------------------------- //
+// -------GOLONGAN---------------------------------------------------------------------- //
+	// -------GOLONGAN---------------------------------------------------------------------- //
+	// -------GOLONGAN---------------------------------------------------------------------- //
+// -------GOLONGAN---------------------------------------------------------------------- //
+	// -------GOLONGAN---------------------------------------------------------------------- //
+	// -------GOLONGAN---------------------------------------------------------------------- //
 
 	public function forminsertgolpegawai (Request $request)
 	{
@@ -547,9 +885,33 @@ class ProfilController extends Controller
 					->with('msg_num', 1);
 	}
 
-	// ------------------------------------------------------------------------------- //
-	// ------------------------------------------------------------------------------- //
-	// ------------------------------------------------------------------------------- //
+	// -------JABATAN-------------------------------------------------------------------- //
+	// -------JABATAN-------------------------------------------------------------------- //
+	// -------JABATAN-------------------------------------------------------------------- //
+	// -------JABATAN-------------------------------------------------------------------- //
+	// -------JABATAN-------------------------------------------------------------------- //
+	// -------JABATAN-------------------------------------------------------------------- //
+// -------JABATAN-------------------------------------------------------------------- //
+	// -------JABATAN-------------------------------------------------------------------- //
+	// -------JABATAN-------------------------------------------------------------------- //
+// -------JABATAN-------------------------------------------------------------------- //
+	// -------JABATAN-------------------------------------------------------------------- //
+	// -------JABATAN-------------------------------------------------------------------- //
+// -------JABATAN-------------------------------------------------------------------- //
+	// -------JABATAN-------------------------------------------------------------------- //
+	// -------JABATAN-------------------------------------------------------------------- //
+	// -------JABATAN-------------------------------------------------------------------- //
+	// -------JABATAN-------------------------------------------------------------------- //
+	// -------JABATAN-------------------------------------------------------------------- //
+// -------JABATAN-------------------------------------------------------------------- //
+	// -------JABATAN-------------------------------------------------------------------- //
+	// -------JABATAN-------------------------------------------------------------------- //
+// -------JABATAN-------------------------------------------------------------------- //
+	// -------JABATAN-------------------------------------------------------------------- //
+	// -------JABATAN-------------------------------------------------------------------- //
+// -------JABATAN-------------------------------------------------------------------- //
+	// -------JABATAN-------------------------------------------------------------------- //
+	// -------JABATAN-------------------------------------------------------------------- //
 
 	public function forminsertjabpegawai (Request $request)
 	{
@@ -701,7 +1063,199 @@ class ProfilController extends Controller
 					->with('msg_num', 1);
 	}
 
+	// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+	// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+	// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+	// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+	// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+	// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+	// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+	// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+	// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+	// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+	// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+	// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+	// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+	// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+	// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+	// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+	// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+	// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+	// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+	// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+	// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+
+	public function forminserthukpegawai (Request $request)
+	{
+		$this->checkSessionTime();
+
+		$id_emp = $_SESSION['user_data']['id_emp'];
+		$filehuk = '';
+
+		$insert_emp_huk = [
+				// PENDIDIKAN
+				'sts' => 1,
+				'uname'     => (Auth::user()->usname ? Auth::user()->usname : Auth::user()->id_emp),
+				'tgl'       => date('Y-m-d H:i:s'),
+				'noid' => $id_emp,
+				'jns_huk' => $request->jns_huk,
+				'tgl_mulai' => ($request->tgl_mulai ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tgl_mulai))) : ''),
+				'tgl_akhir' => ($request->tgl_akhir ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tgl_akhir))) : ''),
+				'no_sk' => $request->no_sk ?? '-',
+				'tgl_sk' => ($request->tgl_sk ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tgl_sk))) : ''),
+			];
+
+		$nowid = Emp_huk::insertGetId($insert_emp_huk);
+
+		// (IDENTITAS) cek dan set variabel untuk file foto pegawai
+		if (isset($request->filehuk)) {
+			
+			$file = $request->filehuk;
+
+			if ($file->getSize() > 5555555) {
+				return redirect('/profil/pegawai')->with('message', 'Ukuran file terlalu besar (Maksimal 5MB)');     
+			}
+
+			if (strtolower($file->getClientOriginalExtension()) != "png" && strtolower($file->getClientOriginalExtension()) != "jpg" && strtolower($file->getClientOriginalExtension()) != "jpeg" && strtolower($file->getClientOriginalExtension()) != "pdf") {
+				return redirect('/profil/pegawai')->with('message', 'File yang diunggah harus berbentuk PDF / JPG / JPEG / PNG');     
+			}
+
+			$filehuk .= $nowid . "_" . $id_emp . ".". $file->getClientOriginalExtension();
+
+			$tujuan_upload = config('app.savefileimg');
+			$tujuan_upload .= "\\" . $id_emp . "\\huk\\";
+
+			if (file_exists($tujuan_upload . $filehuk )) {
+				unlink($tujuan_upload . $filehuk);
+			}
+
+			$file->move($tujuan_upload, $filehuk);
+		}
+			
+		if (!(isset($filehuk))) {
+			$filehuk = '';
+		}
+
+		if ($filehuk != '') {
+			Emp_huk::where('noid', $id_emp)
+			->where('ids', $nowid)
+			->update([
+				'gambar' => $filehuk,
+			]);
+		}
+		
+
+		return redirect('/profil/pegawai')
+					->with('message', 'Data hukuman disiplin pegawai berhasil ditambah')
+					->with('msg_num', 1);
+	}
+
+	public function formupdatehukpegawai (Request $request)
+	{
+		$this->checkSessionTime();
+
+		$id_emp = $_SESSION['user_data']['id_emp'];
+		$filehuk = '';
+
+		// (IDENTITAS) cek dan set variabel untuk file foto pegawai
+		if (isset($request->filehuk)) {
+			$file = $request->filehuk;
+
+			if ($file->getSize() > 5555555) {
+				return redirect('/profil/pegawai')->with('message', 'Ukuran file terlalu besar (Maksimal 5MB)');     
+			}
+
+			if (strtolower($file->getClientOriginalExtension()) != "png" && strtolower($file->getClientOriginalExtension()) != "jpg" && strtolower($file->getClientOriginalExtension()) != "jpeg" && strtolower($file->getClientOriginalExtension()) != "pdf") {
+				return redirect('/profil/pegawai')->with('message', 'File yang diunggah harus berbentuk PDF / JPG / JPEG / PNG');     
+			}
+
+			$filehuk .= $request->ids . "_" . $id_emp . ".". $file->getClientOriginalExtension();
+
+			$tujuan_upload = config('app.savefileimg');
+			$tujuan_upload .= "\\" . $id_emp . "\\huk\\";
+
+			if (file_exists($tujuan_upload . $filehuk )) {
+				unlink($tujuan_upload . $filehuk);
+			}
+
+			$file->move($tujuan_upload, $filehuk);
+		}
+			
+		if (!(isset($filehuk))) {
+			$filehuk = '';
+		}
+
+		if ($filehuk != '') {
+			Emp_huk::where('noid', $id_emp)
+			->where('ids', $request->ids)
+			->update([
+				'gambar' => $filehuk,
+			]);
+		}
+
+		Emp_huk::where('noid', $id_emp)
+			->where('ids', $request->ids)
+			->update([
+				'jns_huk' => $request->jns_huk,
+				'tgl_mulai' => ($request->tgl_mulai ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tgl_mulai))) : ''),
+				'tgl_akhir' => ($request->tgl_akhir ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tgl_akhir))) : ''),
+				'no_sk' => $request->no_sk ?? '-',
+				'tgl_sk' => ($request->tgl_sk ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tgl_sk))) : ''),
+			]);
+
+		return redirect('/profil/pegawai')
+					->with('message', 'Data hukuman disiplin berhasil diubah')
+					->with('msg_num', 1);
+	}
+
+	public function formdeletehukpegawai(Request $request)
+	{
+		$this->checkSessionTime();
+
+		$id_emp = $_SESSION['user_data']['id_emp'];
+
+		Emp_huk::where('noid', $id_emp)
+		->where('ids', $request->ids)
+		->update([
+			'sts' => 0,
+		]);
+
+		return redirect('/profil/pegawai')
+					->with('message', 'Data hukuman disiplin pegawai berhasil dihapus')
+					->with('msg_num', 1);
+	}
+
 	// ------------------------------------------------------------------------------- //
+	// ------------------------------------------------------------------------------- //
+	// ------------------------------------------------------------------------------- //
+	// ------------------------------------------------------------------------------- //
+	// ------------------------------------------------------------------------------- //
+	// ------------------------------------------------------------------------------- //
+// ------------------------------------------------------------------------------- //
+	// ------------------------------------------------------------------------------- //
+	// ------------------------------------------------------------------------------- //
+// ------------------------------------------------------------------------------- //
+	// ------------------------------------------------------------------------------- //
+	// ------------------------------------------------------------------------------- //
+// ------------------------------------------------------------------------------- //
+	// ------------------------------------------------------------------------------- //
+	// ------------------------------------------------------------------------------- //
+	// ------------------------------------------------------------------------------- //
+	// ------------------------------------------------------------------------------- //
+	// ------------------------------------------------------------------------------- //
+// ------------------------------------------------------------------------------- //
+	// ------------------------------------------------------------------------------- //
+	// ------------------------------------------------------------------------------- //
+// ------------------------------------------------------------------------------- //
+	// ------------------------------------------------------------------------------- //
+	// ------------------------------------------------------------------------------- //
+// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
 

@@ -107,9 +107,11 @@
 					<div class="white-box">
 						<ul class="nav customtab nav-tabs" role="tablist">
 							<li role="presentation" class="active"><a href="#tabs1" aria-controls="home" role="tab" data-toggle="tab" aria-expanded="true"><span class="visible-xs">Id</span><span class="hidden-xs"> Identitas </span></a></li>
+							<li role="presentation" class=""><a href="#tabs5" aria-controls="settings" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs">Kel</span> <span class="hidden-xs">Keluarga</span></a></li>
 							<li role="presentation" class=""><a href="#tabs2" aria-controls="profile" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs">Dik</span> <span class="hidden-xs"> Pendidikan </span></a></li>
 							<li role="presentation" class=""><a href="#tabs3" aria-controls="messages" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs">Gol</i></span> <span class="hidden-xs">Golongan</span></a></li>
 							<li role="presentation" class=""><a href="#tabs4" aria-controls="settings" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs">Jab</span> <span class="hidden-xs">Jabatan</span></a></li>
+							<li role="presentation" class=""><a href="#tabs6" aria-controls="settings" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs">HukDis</span> <span class="hidden-xs">Hukuman Disiplin</span></a></li>
 						</ul>
 						<!-- Tab panes -->
 						<div class="tab-content">
@@ -432,73 +434,192 @@
 									<div class="clearfix"></div>
 								</form>
 							</div>
-							<div role="tabpanel" class="tab-pane fade" id="tabs2">
-								@if ($accessdik['zadd'] == 'y')
-								<button class="btn btn-info m-b-20 btn-insert-dik" type="button" data-toggle="modal" data-target="#modal-insert-dik">Tambah</button>
-								@endif
+							<div role="tabpanel" class="tab-pane fade" id="tabs5">
+								<button class="btn btn-info m-b-20 btn-insert-kel" type="button" data-toggle="modal" data-target="#modal-insert-kel">Tambah</button>
 
-								@if(count($emp_dik) > 0)
+								@if(count($emp_kel) > 0)
 								<div class="table-responsive">
 									<table class="table table-hover manage-u-table">
 										<tbody>
-											@foreach($emp_dik as $key => $dik)
-												@if ($dik['iddik'] != 'NA')
+											@foreach($emp_kel as $key => $kel)
 												<tr>
-													<td>
-														<h1>{{ $dik['iddik'] }}</h1>
+													<td style="vertical-align: middle;">
+														<strong>{{ strtoupper($kel['jns_kel']) }}</strong>
+														<br>{{ ucwords(strtolower($kel['nm_kel'])) }}
 													</td>
 
 													<td style="vertical-align: middle;">
-														<strong>{{ $dik['prog_sek'] }} {{ $dik['th_sek'] }}</strong>
-														<br>{{ $dik['nm_sek'] }}
-													</td>
-
-													<td style="vertical-align: middle;">
-														<?php if ($dik['no_sek']) : ?>
-															<strong>No. {{ $dik['no_sek'] }}</strong>
-														<?php endif ?>
-														
-														<?php if ($dik['gambar'] && $dik['gambar'] != '') : ?> 
-															<br><a target="_blank" href="{{ config('app.openfileimg') }}/{{ Auth::user()->id_emp }}/dik/{{ $dik['gambar'] }}">[File Ijazah]</a>
+														<strong>NIK</strong><br>
+														<?php if ($kel['nik_kel']) : ?> 
+															{{ $kel['nik_kel'] }}
 														<?php else : ?>
-															<br>[Tidak ada ijazah]
+															-
 														<?php endif ?>
 													</td>
 
-													@if ($accessdik['zupd'] == 'y' || $accessdik['zdel'] == 'y')
 													<td style="vertical-align: middle;">
-														@if ($accessdik['zupd'] == 'y')
-														<button type="button" class="btn btn-info btn-outline btn-circle m-r-5 btn-update-dik" data-toggle="modal" data-target="#modal-update-dik" 
-															data-ids="{{$dik['ids']}}"
-															data-noid="{{$dik['noid']}}"
-															data-iddik="{{$dik['iddik']}}"
-															data-prog_sek="{{$dik['prog_sek']}}"
-															data-no_sek="{{$dik['no_sek']}}"
-															data-th_sek="{{$dik['th_sek']}}"
-															data-nm_sek="{{$dik['nm_sek']}}"
-															data-gelar_dpn_sek="{{$dik['gelar_dpn_sek']}}"
-															data-gelar_blk_sek="{{$dik['gelar_blk_sek']}}"
-															data-ijz_cpns="{{$dik['ijz_cpns']}}"
-														><i class="ti-pencil-alt"></i></button>
-														@endif
-														@if ($accessdik['zdel'] == 'y')
-														<button type="button" class="btn btn-danger btn-delete-dik btn-outline btn-circle m-r-5" data-toggle="modal" data-target="#modal-delete-dik"
-															data-ids="{{$dik['ids']}}"
-															data-noid="{{$dik['noid']}}"
-															data-iddik="{{$dik['iddik']}}"
-														><i class="ti-trash"></i></button>
-														@endif
+														<strong>Tgl Lahir</strong><br>
+														<?php if (date('d-M-Y',strtotime($kel['tgl_kel']))) : ?> 
+															{{ date('d-M-Y',strtotime($kel['tgl_kel'])) }}
+														<?php else : ?>
+															-
+														<?php endif ?>
 													</td>
-													@endif
+
+													<td style="vertical-align: middle;">
+														
+														<button type="button" class="btn btn-info btn-outline btn-circle m-r-5 btn-update-kel" data-toggle="modal" data-target="#modal-update-kel" 
+															data-ids="{{$kel['ids']}}"
+															data-noid="{{$kel['noid']}}"
+															data-jns_kel="{{$kel['jns_kel']}}"
+															data-nm_kel="{{$kel['nm_kel']}}"
+															data-nik_kel="{{$kel['nik_kel']}}"
+															data-tgl_kel="{{ date('d/m/Y',strtotime($kel['tgl_kel'])) }}"
+														><i class="ti-pencil-alt"></i></button>
+														<button type="button" class="btn btn-danger btn-delete-kel btn-outline btn-circle m-r-5" data-toggle="modal" data-target="#modal-delete-kel"
+															data-ids="{{$kel['ids']}}"
+															data-noid="{{$kel['noid']}}"
+															data-jns_kel="{{$kel['jns_kel']}}"
+														><i class="ti-trash"></i></button>
+													</td>
 												</tr>
-												@endif
 											@endforeach
 										</tbody>
 									</table>
 								</div>
 								@endif
-								
-								<div class="clearfix"></div>	
+								<div class="clearfix"></div>
+							</div>
+							<div role="tabpanel" class="tab-pane fade" id="tabs2">
+								<div class="white-box">
+									<h2><b>PENDIDIKAN FORMAL</b></h2>
+									
+									<button class="btn btn-info m-b-20 btn-insert-dik" type="button" data-toggle="modal" data-target="#modal-insert-dik">Tambah</button>
+
+									@if(count($emp_dik) > 0)
+									<div class="table-responsive">
+										<table class="table table-hover manage-u-table">
+											<tbody>
+												@foreach($emp_dik as $key => $dik)
+													@if ($dik['iddik'] != 'NA')
+													<tr>
+														<td>
+															<h1>{{ $dik['iddik'] }}</h1>
+														</td>
+
+														<td style="vertical-align: middle;">
+															<strong>{{ $dik['prog_sek'] }} {{ $dik['th_sek'] }}</strong>
+															<br>{{ $dik['nm_sek'] }}
+														</td>
+
+														<td style="vertical-align: middle;">
+															<?php if ($dik['no_sek']) : ?>
+																<strong>No. {{ $dik['no_sek'] }}</strong>
+															<?php endif ?>
+															
+															<?php if ($dik['gambar'] && $dik['gambar'] != '') : ?> 
+																<br><a target="_blank" href="{{ config('app.openfileimg') }}/{{ Auth::user()->id_emp }}/dik/{{ $dik['gambar'] }}">[File Ijazah]</a>
+															<?php else : ?>
+																<br>[Tidak ada ijazah]
+															<?php endif ?>
+														</td>
+
+														<td style="vertical-align: middle;">
+															<button type="button" class="btn btn-info btn-outline btn-circle m-r-5 btn-update-dik" data-toggle="modal" data-target="#modal-update-dik" 
+																data-ids="{{$dik['ids']}}"
+																data-noid="{{$dik['noid']}}"
+																data-iddik="{{$dik['iddik']}}"
+																data-prog_sek="{{$dik['prog_sek']}}"
+																data-no_sek="{{$dik['no_sek']}}"
+																data-th_sek="{{$dik['th_sek']}}"
+																data-nm_sek="{{$dik['nm_sek']}}"
+																data-gelar_dpn_sek="{{$dik['gelar_dpn_sek']}}"
+																data-gelar_blk_sek="{{$dik['gelar_blk_sek']}}"
+																data-ijz_cpns="{{$dik['ijz_cpns']}}"
+															><i class="ti-pencil-alt"></i></button>
+															<button type="button" class="btn btn-danger btn-delete-dik btn-outline btn-circle m-r-5" data-toggle="modal" data-target="#modal-delete-dik"
+																data-ids="{{$dik['ids']}}"
+																data-noid="{{$dik['noid']}}"
+																data-iddik="{{$dik['iddik']}}"
+															><i class="ti-trash"></i></button>
+														</td>
+													</tr>
+													@endif
+												@endforeach
+											</tbody>
+										</table>
+									</div>
+									@endif
+									
+									<div class="clearfix"></div>
+								</div>
+
+								<div class="white-box">
+									<h2><b>PENDIDIKAN NON-FORMAL</b></h2>
+									<button class="btn btn-info m-b-20 btn-insert-non" type="button" data-toggle="modal" data-target="#modal-insert-non">Tambah</button>
+
+									@if(count($emp_non) > 0)
+									<div class="table-responsive">
+										<table class="table table-hover manage-u-table">
+											<tbody>
+												@foreach($emp_non as $key => $non)
+												<tr>
+													@if (count($emp_non) > 1)
+													<td>
+														<h1>{{ $key + 1 }}</h1>
+													</td>
+													@endif
+													<td style="vertical-align: middle;">
+														<strong>Nama</strong>
+														<br>{{ $non['nm_non'] ?? '-' }}
+													</td>
+
+													<td style="vertical-align: middle;">
+														<strong>Penyelenggara</strong>
+														<br>{{ $non['penye_non'] ?? '-' }}
+													</td>
+
+													<td style="vertical-align: middle;">
+														<strong>No. {{ $non['sert_non'] }}</strong>
+														<br>Th. {{ $non['thn_non'] ?? '-' }}
+													</td>
+
+													<td style="vertical-align: middle;">
+														<strong>File</strong>
+														<?php if ($non['gambar'] && $non['gambar'] != '') : ?> 
+															<br><a target="_blank" href="{{ config('app.openfileimg') }}/{{ Auth::user()->id_emp }}/non/{{ $non['gambar'] }}">[File]</a>
+														<?php else : ?>
+															<br>[Tidak ada file]
+														<?php endif ?>
+													</td>
+
+													<td style="vertical-align: middle;">
+														<button type="button" class="btn btn-info btn-outline btn-circle m-r-5 btn-update-non" data-toggle="modal" data-target="#modal-update-non" 
+															data-ids="{{$non['ids']}}"
+															data-noid="{{$non['noid']}}"
+															data-nm_non="{{$non['nm_non']}}"
+															data-penye_non="{{$non['penye_non']}}"
+															data-thn_non="{{$non['thn_non']}}"
+															data-durasi_non="{{$non['durasi_non']}}"
+															data-sert_non="{{$non['sert_non']}}"
+															data-tgl_non="{{date('d/m/Y',strtotime($non['tgl_non']))}}"
+														><i class="ti-pencil-alt"></i></button>
+														<button type="button" class="btn btn-danger btn-delete-non btn-outline btn-circle m-r-5" data-toggle="modal" data-target="#modal-delete-non"
+															data-ids="{{$non['ids']}}"
+															data-noid="{{$non['noid']}}"
+															data-nm_non="{{$non['nm_non']}}"
+														><i class="ti-trash"></i></button>
+													</td>
+												</tr>
+												@endforeach
+											</tbody>
+										</table>
+									</div>
+									@endif
+									
+									<div class="clearfix"></div>
+								</div>
+										
 							</div>
 							<div role="tabpanel" class="tab-pane fade" id="tabs3">
 								<button class="btn btn-info m-b-20 btn-insert-gol" type="button" data-toggle="modal" data-target="#modal-insert-gol">Tambah</button>
@@ -611,15 +732,6 @@
 														<?php endif ?>
 													</td>
 
-													<td style="vertical-align: middle;">
-														<strong>No. SK</strong><br>
-														<?php if ($jab['no_sk_jab']) : ?>
-															{{ $jab['no_sk_jab'] }}
-														<?php else : ?>
-															-
-														<?php endif ?>
-													</td>
-
 													<?php if ($jab['gambar'] && $jab['gambar'] != '') : ?> 
 														<td style="vertical-align: middle;">
 															<strong>File</strong>
@@ -660,12 +772,248 @@
 								@endif
 								<div class="clearfix"></div>
 							</div>
+							<div role="tabpanel" class="tab-pane fade" id="tabs6">
+								<button class="btn btn-info m-b-20 btn-insert-huk" type="button" data-toggle="modal" data-target="#modal-insert-huk">Tambah</button>
+
+								@if(count($emp_huk) > 0)
+								<div class="table-responsive">
+									<table class="table table-hover manage-u-table">
+										<tbody>
+											@foreach($emp_huk as $key => $huk)
+												<tr>
+													@if (count($emp_huk) > 1)
+													<td>
+														<h1>{{ $key + 1 }}</h1>
+													</td>
+													@endif
+													<td style="vertical-align: middle;">
+														<strong>Hukuman {{ ucwords(strtolower($huk['jns_huk'])) }}</strong>
+														<br>{{ date('d/M/Y',strtotime($huk['tgl_mulai'])) }} - {{ date('d/M/Y',strtotime($huk['tgl_akhir'])) }}
+													</td>
+
+													<td style="vertical-align: middle;">
+														<strong>SK. 
+														<?php if ($huk['no_sk']) : ?> 
+															{{ $huk['no_sk'] }}
+														<?php else : ?>
+															-
+														<?php endif ?>
+														
+														</strong><br>Tgl. 
+														<?php if ($huk['tgl_sk']) : ?> 
+															{{ date('d/M/Y',strtotime($huk['tgl_sk'])) }}
+														<?php else : ?>
+															-
+														<?php endif ?>
+													</td>
+
+													<td style="vertical-align: middle;">
+														<strong>File</strong><br>
+														<?php if ($huk['gambar']) : ?> 
+															<a target="_blank" href="{{ config('app.openfileimg') }}/{{ Auth::user()->id_emp }}/huk/{{ $huk['gambar'] }}">[Unduh File]</a>
+														<?php else : ?>
+															[File tidak tersedia]
+														<?php endif ?>
+													</td>
+
+													<td style="vertical-align: middle;">
+														
+														<button type="button" class="btn btn-info btn-outline btn-circle m-r-5 btn-update-huk" data-toggle="modal" data-target="#modal-update-huk" 
+															data-ids="{{$huk['ids']}}"
+															data-noid="{{$huk['noid']}}"
+															data-jns_huk="{{$huk['jns_huk']}}"
+															data-tgl_mulai="{{ date('d/m/Y',strtotime($huk['tgl_mulai'])) }}"
+															data-tgl_akhir="{{ date('d/m/Y',strtotime($huk['tgl_akhir'])) }}"
+															data-no_sk="{{$huk['no_sk']}}"
+															data-tgl_sk="{{ date('d/m/Y',strtotime($huk['tgl_sk'])) }}"
+														><i class="ti-pencil-alt"></i></button>
+														<button type="button" class="btn btn-danger btn-delete-huk btn-outline btn-circle m-r-5" data-toggle="modal" data-target="#modal-delete-huk"
+															data-ids="{{$huk['ids']}}"
+															data-noid="{{$huk['noid']}}"
+														><i class="ti-trash"></i></button>
+													</td>
+												</tr>
+											@endforeach
+										</tbody>
+									</table>
+								</div>
+								@endif
+								<div class="clearfix"></div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+			<!-- MODAL KELUARGA -->
+			<!-- 
+			KELUARGA
+			KELUARGA
+			KELUARGA
+			-->
+			<div id="modal-insert-kel" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content modal-lg">
+						<form method="POST" action="/portal/profil/form/tambahkelpegawai" class="form-horizontal" enctype="multipart/form-data">
+						@csrf
+							<div class="modal-header">
+								<h4 class="modal-title"><b>Tambah Data Keluarga</b></h4>
+							</div>
+							<div class="modal-body">
+
+								<div class="form-group">
+									<label for="jns_kel" class="col-md-3 control-label"> Pilih </label>
+									<div class="col-md-4">
+										<select class="form-control" name="jns_kel" id="modal_insert_kel_jns_kel">
+											@foreach($keluargas as $keluarga)
+												<option value="{{ $keluarga['kel'] }}"> {{ $keluarga['kel'] }} </option>
+											@endforeach
+										</select>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="nm_kel" class="col-md-3 control-label"> Nama </label>
+									<div class="col-md-9">
+										<input autocomplete="off" type="text" name="nm_kel" class="form-control" id="modal_insert_kel_nm_kel" required="">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="nik_kel" class="col-md-3 control-label"> NIK KTP </label>
+									<div class="col-md-9">
+										<input autocomplete="off" type="text" name="nik_kel" class="form-control uintTextBox" id="modal_insert_kel_nik_kel">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="tgl_kel" class="col-md-3 control-label"> Tanggal Lahir </label>
+									<div class="col-md-9">
+										<input autocomplete="off" type="text" name="tgl_kel" class="form-control datepicker-autoclose-def" id="modal_insert_kel_tgl_kel" placeholder="dd/mm/yyyy" required="">
+									</div>
+								</div>
+
+							</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-danger pull-right">Simpan</button>
+								<button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div id="modal-update-kel" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content modal-lg">
+						<form method="POST" action="/portal/profil/form/ubahkelpegawai" class="form-horizontal" enctype="multipart/form-data">
+						@csrf
+							<div class="modal-header">
+								<h4 class="modal-title"><b>Ubah Data Keluarga</b></h4>
+							</div>
+							<div class="modal-body">
+								
+								<input type="hidden" name="ids" id="modal_update_kel_ids">
+								<input type="hidden" name="noid" id="modal_update_kel_noid">
+
+								<div class="form-group">
+									<label for="jns_kel" class="col-md-3 control-label"> Pilih </label>
+									<div class="col-md-4">
+										<select class="form-control" name="jns_kel" id="modal_update_kel_jns_kel">
+											@foreach($keluargas as $keluarga)
+												<option value="{{ $keluarga['kel'] }}"> {{ $keluarga['kel'] }} </option>
+											@endforeach
+										</select>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="nm_kel" class="col-md-3 control-label"> Nama </label>
+									<div class="col-md-9">
+										<input autocomplete="off" type="text" name="nm_kel" class="form-control" id="modal_update_kel_nm_kel" required="">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="nik_kel" class="col-md-3 control-label"> NIK KTP </label>
+									<div class="col-md-9">
+										<input autocomplete="off" type="text" name="nik_kel" class="form-control uintTextBox" id="modal_update_kel_nik_kel">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="tgl_kel" class="col-md-3 control-label"> Tanggal Lahir </label>
+									<div class="col-md-9">
+										<input autocomplete="off" type="text" name="tgl_kel" class="form-control datepicker-autoclose-def" id="modal_update_kel_tgl_kel" placeholder="dd/mm/yyyy" required="">
+									</div>
+								</div>
+
+							</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-danger pull-right">Simpan</button>
+								<button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="modal fade modal-delete" id="modal-delete-kel">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<form method="POST" action="/portal/profil/form/hapuskelpegawai" class="form-horizontal">
+						@csrf
+							<div class="modal-header">
+								<h4 class="modal-title"><b>Hapus Pendidikan</b></h4>
+							</div>
+							<div class="modal-body">
+								<h4 class="label_delete"></h4>
+								<input type="hidden" name="ids" id="modal_delete_kel_ids" value="">
+								<input type="hidden" name="noid" id="modal_delete_kel_noid" value="">
+							</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-danger pull-right">Hapus</button>
+								<button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 			<!-- MODAL PENDIDIKAN -->
+			<!-- 
+			PENDIDIKAN
+			PENDIDIKAN
+			PENDIDIKAN
+			-->
 			<div id="modal-insert-dik" class="modal fade" role="dialog">
 				<div class="modal-dialog">
 					<div class="modal-content modal-lg">
@@ -866,7 +1214,209 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+			<!-- MODAL NON FORMAL -->
+			<!-- 
+			NON FORMAL
+			NON FORMAL
+			NON FORMAL
+			-->
+			<div id="modal-insert-non" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content modal-lg">
+						<form method="POST" action="/portal/profil/form/tambahnonpegawai" class="form-horizontal" enctype="multipart/form-data">
+						@csrf
+							<div class="modal-header">
+								<h4 class="modal-title"><b>Tambah Pendidikan Non Formal</b></h4>
+							</div>
+							<div class="modal-body">
+
+								<div class="form-group">
+									<label for="nm_non" class="col-md-3 control-label"> Nama Kegiatan <span style="color: red; font-size: 20px;"> *</span></label>
+									<div class="col-md-9">
+										<input autocomplete="off" type="text" name="nm_non" class="form-control" id="modal_insert_non_nm_non" required="">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="penye_non" class="col-md-3 control-label"> Penyelenggara <span style="color: red; font-size: 20px;"> *</span></label>
+									<div class="col-md-9">
+										<input autocomplete="off" type="text" name="penye_non" class="form-control" id="modal_insert_non_penye_non">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="thn_non" class="col-md-3 control-label"> Tahun </label>
+									<div class="col-md-9">
+										<input autocomplete="off" type="text" name="thn_non" class="form-control intLimitTextBox4" id="modal_insert_non_thn_non">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="durasi_non" class="col-md-3 control-label"> Durasi <br><span style="color: red; font-size: 12px;"> Dalam satuan hari</span></label>
+									<div class="col-md-9">
+										<input autocomplete="off" type="text" name="durasi_non" class="form-control intLimitTextBox" id="modal_insert_non_durasi_non" value="0">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="sert_non" class="col-md-3 control-label"> Nomor Sertifikat </label>
+									<div class="col-md-9">
+										<input autocomplete="off" type="text" name="sert_non" class="form-control" id="modal_insert_non_sert_non">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="tgl_non" class="col-md-3 control-label"> Tanggal Sertifikat </label>
+									<div class="col-md-9">
+										<input autocomplete="off" type="text" name="tgl_non" class="form-control datepicker-autoclose-def" id="modal_insert_non_tgl_non" placeholder="dd/mm/yyyy">
+									</div>
+								</div>
+
+
+								<div class="form-group">
+									<label for="filenon" class="col-lg-3 control-label"> File <br> <span style="font-size: 12px; color:red">Size Max 5MB</span> </label>
+									<div class="col-lg-9">
+										<input type="file" class="form-control" id="modal_insert_non_filenon" name="filenon">
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-info pull-right">Simpan</button>
+								<button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div id="modal-update-non" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content modal-lg">
+						<form method="POST" action="/portal/profil/form/ubahnonpegawai" class="form-horizontal" enctype="multipart/form-data">
+						@csrf
+							<div class="modal-header">
+								<h4 class="modal-title"><b>Ubah Pendidikan Non Formal</b></h4>
+							</div>
+							<div class="modal-body">
+
+								<input type="hidden" name="ids" id="modal_update_non_ids">
+								<input type="hidden" name="noid" id="modal_update_non_noid">
+
+								<div class="form-group">
+									<label for="nm_non" class="col-md-3 control-label"> Nama Kegiatan <span style="color: red; font-size: 20px;"> *</span></label>
+									<div class="col-md-9">
+										<input autocomplete="off" type="text" name="nm_non" class="form-control" id="modal_update_non_nm_non" required="">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="penye_non" class="col-md-3 control-label"> Penyelenggara <span style="color: red; font-size: 20px;"> *</span></label>
+									<div class="col-md-9">
+										<input autocomplete="off" type="text" name="penye_non" class="form-control" id="modal_update_non_penye_non">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-md-3 control-label"> Tahun </label>
+									<div class="col-md-9">
+										<input autocomplete="off" type="text" name="thn_non" class="form-control" id="modal_update_non_thn_non">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-md-3 control-label"> Durasi <br><span style="color: red; font-size: 12px;"> Dalam satuan hari</span></label>
+									<div class="col-md-9">
+										<input autocomplete="off" type="text" name="durasi_non" class="form-control" id="modal_update_non_durasi_non">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="sert_non" class="col-md-3 control-label"> Nomor Sertifikat </label>
+									<div class="col-md-9">
+										<input autocomplete="off" type="text" name="sert_non" class="form-control" id="modal_update_non_sert_non">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="tgl_non" class="col-md-3 control-label"> Tanggal Sertifikat </label>
+									<div class="col-md-9">
+										<input autocomplete="off" type="text" name="tgl_non" class="form-control datepicker-autoclose-def" id="modal_update_non_tgl_non" placeholder="dd/mm/yyyy">
+									</div>
+								</div>
+
+
+								<div class="form-group">
+									<label for="filenon" class="col-lg-3 control-label"> File <br> <span style="font-size: 12px; color:red">Size Max 5MB</span> </label>
+									<div class="col-lg-9">
+										<input type="file" class="form-control" id="modal_update_non_filenon" name="filenon">
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-info pull-right">Simpan</button>
+								<button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="modal fade modal-delete" id="modal-delete-non">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<form method="POST" action="/portal/profil/form/hapusnonpegawai" class="form-horizontal">
+						@csrf
+							<div class="modal-header">
+								<h4 class="modal-title"><b>Hapus Pendidikan Non Formal</b></h4>
+							</div>
+							<div class="modal-body">
+								<h4 class="label_delete"></h4>
+								<input type="hidden" name="ids" id="modal_delete_non_ids" value="">
+								<input type="hidden" name="noid" id="modal_delete_non_noid" value="">
+							</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-danger pull-right">Hapus</button>
+								<button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 			<!-- MODAL GOLONGAN -->
+			<!-- 
+			GOLONGAN
+			GOLONGAN
+			GOLONGAN
+			-->
 			<div id="modal-insert-gol" class="modal fade" role="dialog">
 				<div class="modal-dialog">
 					<div class="modal-content modal-lg">
@@ -1027,7 +1577,6 @@
 									</div>
 								</div>
 								
-								<div class="clearfix"></div>
 							</div>
 							<div class="modal-footer">
 								<button type="submit" class="btn btn-danger pull-right">Simpan</button>
@@ -1071,7 +1620,19 @@
 
 
 
+
+
+
+
+
+
+
 			<!-- MODAL JABATAN -->
+			<!-- 
+			JABATAN
+			JABATAN
+			JABATAN
+			-->
 			<div id="modal-insert-jab" class="modal fade" role="dialog">
 				<div class="modal-dialog">
 					<div class="modal-content modal-lg">
@@ -1303,6 +1864,192 @@
 					</div>
 				</div>
 			</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			<!-- MODAL HUKUMAN DISIPLIN -->
+			<!-- 
+			HUKUMAN DISIPLIN
+			HUKUMAN DISIPLIN
+			HUKUMAN DISIPLIN
+			-->
+			<div id="modal-insert-huk" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content modal-lg">
+						<form method="POST" action="/portal/profil/form/tambahhukpegawai" class="form-horizontal" enctype="multipart/form-data">
+						@csrf
+							<div class="modal-header">
+								<h4 class="modal-title"><b>Tambah Hukuman Disiplin</b></h4>
+							</div>
+							<div class="modal-body">
+
+								<div class="form-group">
+									<label for="jns_huk" class="col-lg-2 control-label"> Pilih </label>
+									<div class="col-md-4">
+										<select class="form-control" name="jns_huk" id="modal_insert_huk_jns_huk">
+											<option value="Ringan"> Ringan </option>
+											<option value="Sedang"> Sedang </option>
+											<option value="Berat"> Berat </option>
+										</select>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="tgl_mulai" class="col-lg-2 control-label"> Tanggal Mulai </label>
+									<div class="col-md-4">
+										<input autocomplete="off" type="text" name="tgl_mulai" class="form-control datepicker-autoclose-def" id="modal_insert_huk_tgl_mulai" placeholder="dd/mm/yyyy" required="">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="tgl_akhir" class="col-lg-2 control-label"> Tanggal Akhir </label>
+									<div class="col-md-4">
+										<input autocomplete="off" type="text" name="tgl_akhir" class="form-control datepicker-autoclose-def" id="modal_insert_huk_tgl_akhir" placeholder="dd/mm/yyyy" required="">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="no_sk" class="col-lg-2 control-label"> No SK </label>
+									<div class="col-md-8">
+										<input autocomplete="off" type="text" name="no_sk" class="form-control" id="modal_insert_kel_no_sk" required="">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="tgl_sk" class="col-lg-2 control-label"> Tanggal SK </label>
+									<div class="col-md-4">
+										<input autocomplete="off" type="text" name="tgl_sk" class="form-control datepicker-autoclose-def" id="modal_insert_huk_tgl_sk" placeholder="dd/mm/yyyy" required="">
+									</div>
+								</div>
+
+								<div class="form-group ">
+									<label for="filehuk" class="col-lg-2 control-label"> Upload File <br> <span style="font-size: 12px; color:red">Size Max 5MB</span> </label>
+									<div class="col-lg-8">
+										<input type="file" class="form-control" id="modal_insert_huk_file" name="filehuk">
+									</div>
+								</div>
+
+
+							</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-danger pull-right">Simpan</button>
+								<button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div id="modal-update-huk" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content modal-lg">
+						<form method="POST" action="/portal/profil/form/ubahhukpegawai" class="form-horizontal" enctype="multipart/form-data">
+						@csrf
+							<div class="modal-header">
+								<h4 class="modal-title"><b>Ubah Hukuman Disiplin</b></h4>
+							</div>
+							<div class="modal-body">
+								
+								<input type="hidden" name="ids" id="modal_update_huk_ids">
+								<input type="hidden" name="noid" id="modal_update_huk_noid">
+
+								<div class="form-group">
+									<label for="jns_huk" class="col-lg-2 control-label"> Pilih </label>
+									<div class="col-md-4">
+										<select class="form-control" name="jns_huk" id="modal_update_huk_jns_huk">
+											<option value="Ringan"> Ringan </option>
+											<option value="Sedang"> Sedang </option>
+											<option value="Berat"> Berat </option>
+										</select>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="tgl_mulai" class="col-lg-2 control-label"> Tanggal Mulai </label>
+									<div class="col-md-4">
+										<input autocomplete="off" type="text" name="tgl_mulai" class="form-control datepicker-autoclose-def" id="modal_update_huk_tgl_mulai" placeholder="dd/mm/yyyy" required="">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="tgl_akhir" class="col-lg-2 control-label"> Tanggal Akhir </label>
+									<div class="col-md-4">
+										<input autocomplete="off" type="text" name="tgl_akhir" class="form-control datepicker-autoclose-def" id="modal_update_huk_tgl_akhir" placeholder="dd/mm/yyyy" required="">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="no_sk" class="col-lg-2 control-label"> No SK </label>
+									<div class="col-md-8">
+										<input autocomplete="off" type="text" name="no_sk" class="form-control" id="modal_update_huk_no_sk" required="">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="tgl_sk" class="col-lg-2 control-label"> Tanggal SK </label>
+									<div class="col-md-4">
+										<input autocomplete="off" type="text" name="tgl_sk" class="form-control datepicker-autoclose-def" id="modal_update_huk_tgl_sk" placeholder="dd/mm/yyyy" required="">
+									</div>
+								</div>
+
+								<div class="form-group ">
+									<label for="filehuk" class="col-lg-2 control-label"> Upload File <br> <span style="font-size: 12px; color:red">Size Max 5MB</span> </label>
+									<div class="col-lg-8">
+										<input type="file" class="form-control" id="modal_update_huk_file" name="filehuk">
+									</div>
+								</div>
+
+							</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-danger pull-right">Simpan</button>
+								<button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="modal fade modal-delete" id="modal-delete-huk">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<form method="POST" action="/portal/profil/form/hapushukpegawai" class="form-horizontal">
+						@csrf
+							<div class="modal-header">
+								<h4 class="modal-title"><b>Hapus Hukuman Disiplin</b></h4>
+							</div>
+							<div class="modal-body">
+								<h4 class="label_delete"></h4>
+								<input type="hidden" name="ids" id="modal_delete_huk_ids" value="">
+								<input type="hidden" name="noid" id="modal_delete_huk_noid" value="">
+							</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-danger pull-right">Hapus</button>
+								<button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 @endsection
@@ -1397,69 +2144,115 @@
 				$(".data-input").toggle();
 			});
 
+			jQuery('.datepicker-autoclose-def').datepicker({
+				autoclose: true
+				, todayHighlight: false
+				, format: 'dd/mm/yyyy'
+				, orientation: "auto"
+			});
+
 			jQuery('#datepicker-autoclose').datepicker({
 				autoclose: true
 				, todayHighlight: false
 				, format: 'dd/mm/yyyy'
+				, orientation: "auto"
 			});
 
 			jQuery('#datepicker-autoclose2').datepicker({
 				autoclose: true
 				, todayHighlight: false
 				, format: 'dd/mm/yyyy'
+				, orientation: "auto"
 			});
 
 			jQuery('#datepicker-autoclose3').datepicker({
 				autoclose: true
 				, todayHighlight: false
 				, format: 'dd/mm/yyyy'
+				, orientation: "auto"
 			});
 
 			jQuery('#datepicker-autoclose4').datepicker({
 				autoclose: true
 				, todayHighlight: false
 				, format: 'dd/mm/yyyy'
+				, orientation: "auto"
 			});
 
 			jQuery('#datepicker-autoclose5').datepicker({
 				autoclose: true
 				, todayHighlight: false
 				, format: 'dd/mm/yyyy'
+				, orientation: "auto"
 			});
 
 			jQuery('#datepicker-autoclose6').datepicker({
 				autoclose: true
 				, todayHighlight: false
 				, format: 'dd/mm/yyyy'
+				, orientation: "auto"
 			});
 
 			jQuery('#datepicker-autoclose8').datepicker({
 				autoclose: true
 				, todayHighlight: false
 				, format: 'dd/mm/yyyy'
+				, orientation: "auto"
 			});
 
 			jQuery('#datepicker-autoclose9').datepicker({
 				autoclose: true
 				, todayHighlight: false
 				, format: 'dd/mm/yyyy'
+				, orientation: "auto"
 			});
 
 			jQuery('#datepicker-autoclose10').datepicker({
 				autoclose: true
 				, todayHighlight: false
 				, format: 'dd/mm/yyyy'
+				, orientation: "auto"
 			});
 
 			jQuery('#datepicker-autoclose11').datepicker({
 				autoclose: true
 				, todayHighlight: false
 				, format: 'dd/mm/yyyy'
+				, orientation: "auto"
 			});
+
+			$('.btn-update-kel').on('click', function () {
+				var $el = $(this);
+				console.log($el.data());
+				$("#modal_update_kel_ids").val($el.data('ids'));
+				$("#modal_update_kel_noid").val($el.data('noid'));
+				$("#modal_update_kel_jns_kel").val($el.data('jns_kel'));
+				$("#modal_update_kel_nm_kel").val($el.data('nm_kel'));
+				$("#modal_update_kel_nik_kel").val($el.data('nik_kel'));
+				$("#modal_update_kel_tgl_kel").val($el.data('tgl_kel'));
+			});
+			$('.btn-delete-kel').on('click', function () {
+				var $el = $(this);
+				$(".label_delete").append('Apakah anda yakin ingin menghapus data <b>' + $el.data('jns_kel') + '</b>?');
+				$("#modal_delete_kel_ids").val($el.data('ids'));
+				$("#modal_delete_kel_noid").val($el.data('noid'));
+			});
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 			$('.btn-update-dik').on('click', function () {
 				var $el = $(this);
-
 				$("#modal_update_dik_ids").val($el.data('ids'));
 				$("#modal_update_dik_noid").val($el.data('noid'));
 				$("#modal_update_dik_iddik").val($el.data('iddik'));
@@ -1471,19 +2264,65 @@
 				$("#modal_update_dik_gelar_dpn_sek").val($el.data('gelar_dpn_sek'));
 				$("#modal_update_dik_ijz_cpns").val($el.data('ijz_cpns'));
 			});
-
 			$('.btn-delete-dik').on('click', function () {
 				var $el = $(this);
-
 				$(".label_delete").append('Apakah anda yakin ingin menghapus <b>' + $el.data('iddik') + '</b>?');
 				$("#modal_delete_dik_ids").val($el.data('ids'));
 				$("#modal_delete_dik_noid").val($el.data('noid'));
 				$("#modal_delete_dik_iddik").val($el.data('iddik'));
 			});
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+			$('.btn-update-non').on('click', function () {
+				var $el = $(this);
+				$("#modal_update_non_ids").val($el.data('ids'));
+				$("#modal_update_non_noid").val($el.data('noid'));
+				$("#modal_update_non_nm_non").val($el.data('nm_non'));
+				$("#modal_update_non_penye_non").val($el.data('penye_non'));
+				$("#modal_update_non_thn_non").val($el.data('thn_non'));
+				$("#modal_update_non_durasi_non").val($el.data('durasi_non'));
+				$("#modal_update_non_sert_non").val($el.data('sert_non'));
+				$("#modal_update_non_tgl_non").val($el.data('tgl_non'));
+			});
+			$('.btn-delete-non').on('click', function () {
+				var $el = $(this);
+				$(".label_delete").append('Apakah anda yakin ingin menghapus kegiatan <b>' + $el.data('nm_non') + '</b>?');
+				$("#modal_delete_non_ids").val($el.data('ids'));
+				$("#modal_delete_non_noid").val($el.data('noid'));
+			});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 			$('.btn-update-gol').on('click', function () {
 				var $el = $(this);
-
 				$("#modal_update_gol_ids").val($el.data('ids'));
 				$("#modal_update_gol_noid").val($el.data('noid'));
 				$("#datepicker-autoclose3").val($el.data('tmt_gol'));
@@ -1494,21 +2333,31 @@
 				$("#modal_update_gol_mkthn").val($el.data('mk_thn'));
 				$("#modal_update_gol_mkbln").val($el.data('mk_bln'));
 			});
-
 			$('.btn-delete-gol').on('click', function () {
 				var $el = $(this);
-
 				$(".label_delete").append('Apakah anda yakin ingin menghapus <b>' + $el.data('idgol') + '</b>?');
 				$("#modal_delete_gol_ids").val($el.data('ids'));
 				$("#modal_delete_gol_noid").val($el.data('noid'));
 				$("#modal_delete_gol_idgol").val($el.data('idgol'));
 			});
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 			$('.btn-update-jab').on('click', function () {
 				var $el = $(this);
-
-				console.log($el.data());
-
 				$("#modal_update_jab_ids").val($el.data('ids'));
 				$("#modal_update_jab_noid").val($el.data('noid'));
 				$("#modal_update_jab_jns_jab").select2("val", $el.data('jns_jab'));
@@ -1521,14 +2370,59 @@
 				$("#datepicker-autoclose6").val($el.data('tmt_sk_jab'));
 				$("#modal_update_jab_no_sk_jab").val($el.data('no_sk_jab'));
 			});
-
 			$('.btn-delete-jab').on('click', function () {
 				var $el = $(this);
-
 				$(".label_delete").append('Apakah anda yakin ingin menghapus jabatan <b>' + $el.data('idjab') + '</b> pada unit kerja <b>' + $el.data('nm_unit') + '</b>?');
 				$("#modal_delete_jab_ids").val($el.data('ids'));
 				$("#modal_delete_jab_noid").val($el.data('noid'));
 			});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			$('.btn-update-huk').on('click', function () {
+				var $el = $(this);
+				$("#modal_update_huk_ids").val($el.data('ids'));
+				$("#modal_update_huk_noid").val($el.data('noid'));
+				$("#modal_update_huk_jns_huk").val($el.data('jns_huk'));
+				$("#modal_update_huk_tgl_mulai").val($el.data('tgl_mulai'));
+				$("#modal_update_huk_tgl_akhir").val($el.data('tgl_akhir'));
+				$("#modal_update_huk_no_sk").val($el.data('no_sk'));
+				$("#modal_update_huk_tgl_sk").val($el.data('tgl_sk'));
+			});
+			$('.btn-delete-huk').on('click', function () {
+				var $el = $(this);
+				$(".label_delete").append('Apakah anda yakin ingin menghapus hukuman disiplin ini?');
+				$("#modal_delete_huk_ids").val($el.data('ids'));
+				$("#modal_delete_huk_noid").val($el.data('noid'));
+			});
+
+
+
+
+
+
+
+
+
+
+			
 
 			$(".modal-delete").on("hidden.bs.modal", function () {
 				$(".label_delete").empty();
