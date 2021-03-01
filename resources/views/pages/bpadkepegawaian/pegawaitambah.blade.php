@@ -482,7 +482,21 @@
 													<div class="col-md-8">
 														<select class="form-control select2" name="idunit" id="idunit">
 															@foreach($units as $unit)
-																<option value="{{ $unit['kd_unit'] }}"> {{ $unit['kd_unit'] }} - {{ $unit['notes'] }}</option>
+																<option value="{{ $unit['kd_unit'] }}"> {{ $unit['kd_unit'] }} - {{ $unit['notes'] }}
+																	@if(strlen($unit['kd_unit'] > 4) && substr($unit['kd_unit'], 4, 2) == '51')
+																		[JAKARTA PUSAT]
+																	@elseif(strlen($unit['kd_unit'] > 4) && substr($unit['kd_unit'], 4, 2) == '52')
+																		[JAKARTA UTARA]
+																	@elseif(strlen($unit['kd_unit'] > 4) && substr($unit['kd_unit'], 4, 2) == '53')
+																		[JAKARTA BARAT]
+																	@elseif(strlen($unit['kd_unit'] > 4) && substr($unit['kd_unit'], 4, 2) == '54')
+																		[JAKARTA SELATAN]
+																	@elseif(strlen($unit['kd_unit'] > 4) && substr($unit['kd_unit'], 4, 2) == '55')
+																		[JAKARTA TIMUR]
+																	@elseif(strlen($unit['kd_unit'] > 4) && substr($unit['kd_unit'], 4, 2) == '56')
+																		[PULAU SERIBU]
+																	@endif
+																</option>
 															@endforeach
 														</select>
 													</div>
