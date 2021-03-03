@@ -2847,5 +2847,17 @@ class KepegawaianController extends Controller
 				->with('laporans', $laporans);
 	}
 
+	public function formresetkinerja(Request $request)
+	{
+		Kinerja_data::
+			where('idemp', $request->now_id_emp)
+			->where('tgl_trans', $request->tgl_trans)
+			->update([
+				'stat' => null,
+			]);
+
+		return redirect('/kepegawaian/laporan%20kinerja?now_id_emp='.$request->now_id_emp.'&now_month='.$request->now_month.'&now_year='.$request->now_year.'&now_valid=%3D+1')->with('message', 'Kinerja tanggal '.date('d-M-Y',strtotime($request->tgl_trans)).' berhasil direset');
+	}
+
 	// -------------------- EKINERJA -------------------- //
 }

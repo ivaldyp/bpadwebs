@@ -131,7 +131,15 @@
 												@if($nowdate != $laporan['tgl_trans'])
 													@php $nowdate = $laporan['tgl_trans'] @endphp
 													<tr style="background-color: #f7fafc !important">
-														<td colspan="5"><b>TANGGAL: {{ date('D, d-M-Y',strtotime($laporan['tgl_trans'])) }} --- 
+														<td 
+														
+														<?php if($now_valid == "= 1" && isset($_SESSION['user_data']['idunit']) && strlen($_SESSION['user_data']['idunit']) == 8) : ?>
+														colspan="4"
+														<?php else : ?>
+														colspan="5"
+														<?php endif ?>
+
+														style="vertical-align: middle;"><b>TANGGAL: {{ date('D, d-M-Y',strtotime($laporan['tgl_trans'])) }} --- 
 														@if($now_valid == "= 1")
 														{{ $laporan['jns_hadir_app'] }}
 														@else
@@ -146,7 +154,20 @@
 														<td style="display: none;"></td>
 														<td style="display: none;"></td>
 														<td style="display: none;"></td>
+														@if($now_valid == "= 1" && isset($_SESSION['user_data']['idunit']) && strlen($_SESSION['user_data']['idunit']) == 8 )
+														<td>
+															<button class="btn btn-danger btn-reset"
+															data-toggle="modal" data-target="#modal-reset-kinerja" 
+															data-now_id_emp="{{ $now_id_emp }}"
+															data-now_month="{{ $now_month }}"
+															data-now_year="{{ $now_year }}"
+															data-tgl_trans="{{ $laporan['tgl_trans'] }}"
+															>
+															RESET</button>
+														</td>
+														@else
 														<td style="display: none;"></td>
+														@endif
 													</tr>
 												@endif
 
@@ -182,6 +203,29 @@
 								
 							</div>
 						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal fade modal-reset" id="modal-reset-kinerja">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<form method="POST" action="/portal/kepegawaian/form/formresetkinerja" class="form-horizontal">
+						@csrf
+							<div class="modal-header">
+								<h4 class="modal-title"><b>Reset Kinerja</b></h4>
+							</div>
+							<div class="modal-body">
+								<h4 class="label_delete"></h4>
+								<input type="hidden" name="now_id_emp" id="modal_reset_now_id_emp" value="">
+								<input type="hidden" name="tgl_trans" id="modal_reset_tgl_trans" value="">
+								<input type="hidden" name="now_month" id="modal_reset_now_month" value="">
+								<input type="hidden" name="now_year" id="modal_reset_now_year" value="">
+							</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-danger pull-right">Reset</button>
+								<button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>
@@ -229,6 +273,24 @@
 				// 		title: 'Laporan Kinerja'
 				// 	}
 				// ]
+			});
+
+			$('.btn-reset').on('click', function () {
+				var $el = $(this);
+
+				var splitdate1 = ($el.data('tgl_trans')).split(" ");
+				var splitdate2 = (splitdate1[0]).split("-");
+				var date = splitdate2[2] + "-" + splitdate2[1] + "-" + splitdate2[0];
+
+				$(".label_delete").append('Apakah anda yakin ingin melakukan reset appoval kinerja pada tanggal <b>'+ date +'</b> ?');
+				$("#modal_reset_now_id_emp").val($el.data('now_id_emp'));
+				$("#modal_reset_now_month").val($el.data('now_month'));
+				$("#modal_reset_now_year").val($el.data('now_year'));
+				$("#modal_reset_tgl_trans").val($el.data('tgl_trans'));
+			});
+
+			$(".modal-reset").on("hidden.bs.modal", function () {
+				$(".label_delete").empty();
 			});
 		});
 	</script>
