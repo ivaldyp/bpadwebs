@@ -2118,12 +2118,26 @@ class KepegawaianController extends Controller
 			}
 		}
 
+		if ($request->now_month) {
+			$now_month = (int)$request->now_month;
+		} else {
+			$now_month = (int)date('m');
+		}
+
+		if ($request->now_year) {
+			$now_year = (int)$request->now_year;
+		} else {
+			$now_year = (int)date('Y');
+		}
+
 		$laporans = DB::select( DB::raw("
 					SELECT kinerja_data.*, emp_data.nm_emp					
 					from bpaddtfake.dbo.kinerja_data
 					join bpaddtfake.dbo.emp_data on emp_data.id_emp = kinerja_data.idemp
 					where idemp = '$now_id_emp'
 					and stat is null
+					and YEAR(tgl_trans) = $now_year
+					and MONTH(tgl_trans) = $now_month
 					order by tgl_trans desc, nm_emp asc
 					"));
 
@@ -2133,6 +2147,8 @@ class KepegawaianController extends Controller
 				->with('access', $access)
 				->with('laporans', $laporans)
 				->with('pegawais', $pegawais)
+				->with('now_month', $now_month)
+				->with('now_year', $now_year)
 				->with('now_id_emp', $now_id_emp);
 	}
 

@@ -81,8 +81,33 @@
 												@endforelse
 											</select>
 										</div>
+										<div class="col-md-2">
+											<select class="form-control" name="now_month" id="now_month" onchange="this.form.submit()">
+												<option <?php if ($now_month == 1): ?> selected <?php endif ?> value="1">Januari</option>
+												<option <?php if ($now_month == 2): ?> selected <?php endif ?> value="2">Februari</option>
+												<option <?php if ($now_month == 3): ?> selected <?php endif ?> value="3">Maret</option>
+												<option <?php if ($now_month == 4): ?> selected <?php endif ?> value="4">April</option>
+												<option <?php if ($now_month == 5): ?> selected <?php endif ?> value="5">Mei</option>
+												<option <?php if ($now_month == 6): ?> selected <?php endif ?> value="6">Juni</option>
+												<option <?php if ($now_month == 7): ?> selected <?php endif ?> value="7">Juli</option>
+												<option <?php if ($now_month == 8): ?> selected <?php endif ?> value="8">Agustus</option>
+												<option <?php if ($now_month == 9): ?> selected <?php endif ?> value="9">September</option>
+												<option <?php if ($now_month == 10): ?> selected <?php endif ?> value="10">Oktober</option>
+												<option <?php if ($now_month == 11): ?> selected <?php endif ?> value="11">November</option>
+												<option <?php if ($now_month == 12): ?> selected <?php endif ?> value="12">Desember</option>
+											</select>
+										</div>
+										<div class=" col-md-2">
+											<?php date_default_timezone_set('Asia/Jakarta'); ?>
+											<select class="form-control" name="now_year" id="now_year" onchange="this.form.submit()">
+												<option <?php if ($now_year == (int)date('Y')): ?> selected <?php endif ?> value="{{ (int)date('Y') }}">{{ (int)date('Y') }}</option>
+												<option <?php if ($now_year == (int)date('Y') - 1): ?> selected <?php endif ?> value="{{ (int)date('Y') - 1 }}">{{ (int)date('Y') - 1 }}</option>
+												<option <?php if ($now_year == (int)date('Y') - 2): ?> selected <?php endif ?> value="{{ (int)date('Y') - 2 }}">{{ (int)date('Y') - 2 }}</option>
+											</select>
+										</div>
 									</form>
 								</div>
+
 								<div class="row ">
 									<h3 class="text-center">tabel kinerja belum tervalidasi</h3>
 									<form method="POST" action="/portal/kepegawaian/form/approvekinerja">
