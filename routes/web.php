@@ -235,6 +235,7 @@ Route::group(['prefix' => 'kepegawaian'], function () {
 	Route::post('/form/tambahkinerja', 'KepegawaianController@forminsertkinerja');
 	Route::post('/form/hapuskinerja', 'KepegawaianController@formdeletekinerja');
 	Route::post('/form/tambahaktivitas', 'KepegawaianController@forminsertaktivitas');
+	Route::get('/form/cekjadwalaktivitas', 'KepegawaianController@formcekjadwalaktivitas');
 	Route::get('/form/hapusaktivitas', 'KepegawaianController@formdeleteaktivitas');
 
 	Route::get('/approve kinerja', 'KepegawaianController@approvekinerja');

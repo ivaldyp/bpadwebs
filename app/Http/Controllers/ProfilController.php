@@ -89,12 +89,14 @@ class ProfilController extends Controller
 
 		$emp_kel = Emp_kel::
 					join('bpaddtfake.dbo.glo_kel', 'bpaddtfake.dbo.glo_kel.kel', '=', 'bpaddtfake.dbo.emp_kel.jns_kel')
+					->where('bpaddtfake.dbo.emp_kel.noid', Auth::user()->id_emp)
 					->where('bpaddtfake.dbo.emp_kel.sts', 1)
 					->orderBy('urut', 'asc')
 					->get();
 
 		$emp_huk = Emp_huk::
 					where('sts', 1)
+					->where('noid', Auth::user()->id_emp)
 					->orderBy('tgl_sk', 'desc')
 					->get();
 

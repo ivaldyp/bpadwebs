@@ -65,8 +65,8 @@
 				</div>
 			</div>
 			<div class="row ">
-				<div class="col-md-2"></div>
-				<div class="col-md-8">
+				<div class="col-md-1"></div>
+				<div class="col-md-10">
 					<form class="form-horizontal" method="POST" action="/portal/kepegawaian/form/tambahkinerja" data-toggle="validator" enctype="multipart/form-data">
 					@csrf
 						<div class="panel panel-info">
@@ -389,22 +389,38 @@
 
 				var csrf_js_var = "{{ csrf_token() }}";
 
-				if (flag == 0) {
-					$.ajax({ 
-					type: "POST", 
-					url: "/portal/kepegawaian/form/tambahaktivitas",
-					data: { tgltrans : vartgltrans, time1 : vartime1, time2 : vartime2, uraian : varuraian, keterangan : varketerangan, _token : csrf_js_var, tipehadir : vartipehadir, jnshadir : varjnshadir, lainnya : varlainnya,  },
-					dataType: "JSON",
-					}).done(function( data ) { 
-						$('#body_tabel').empty();
-						$('#body_tabel').append(data);
-						$('#time1').val("00:00");
-						$('#time2').val("00:00");
-						$('#uraian').val("");
-						$('#keterangan').val("");
-						alert("Berhasil menambahkan aktivitas baru");
-					}); 
-				}
+				$.ajax({ 
+				type: "GET", 
+				url: "/portal/kepegawaian/form/cekjadwalaktivitas",
+				data: { tgltrans : vartgltrans, time1 : vartime1, time2 : vartime2,  },
+				dataType: "JSON",
+				}).done(function( data ) {
+					if (data == 1) {
+						alert("GAGAL MENAMBAHKAN AKTIVITAS - JADWAL TELAH TERISI");
+					} else if (data == 2) {
+						alert("GAGAL MENAMBAHKAN AKTIVITAS - KINERJA SUDAH DISETUJUI, TIDAK DAPAT DIISI");
+					} else {
+						if (flag == 0) {
+							$.ajax({ 
+							type: "POST", 
+							url: "/portal/kepegawaian/form/tambahaktivitas",
+							data: { tgltrans : vartgltrans, time1 : vartime1, time2 : vartime2, uraian : varuraian, keterangan : varketerangan, _token : csrf_js_var, tipehadir : vartipehadir, jnshadir : varjnshadir, lainnya : varlainnya,  },
+							dataType: "JSON",
+							}).done(function( data ) { 
+								$('#body_tabel').empty();
+								$('#body_tabel').append(data);
+								$('#time1').val("00:00");
+								$('#time2').val("00:00");
+								$('#uraian').val("");
+								$('#keterangan').val("");
+								alert("Berhasil menambahkan aktivitas baru");
+							}); 
+						}
+					}
+					
+				}); 
+
+				
 			});
 
 			$('.myTable').DataTable({

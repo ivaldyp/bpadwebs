@@ -62,8 +62,7 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-1"></div>
-				<div class="col-md-10">
+				<div class="col-md-12">
 					
 						<div class="panel panel-info">
 							<div class="panel-heading"> Data Pegawai {{ ucwords(strtolower($emp_data['nm_emp'])) }} </div>
@@ -73,10 +72,12 @@
 									<nav>
 										<ul>
 											<li><a href="#section-underline-1" class=""><span>Identitas</span></a></li>
+											<li><a href="#section-underline-6" class=""><span>Keluarga</span></a></li>
 											<li><a href="#section-underline-2" class=""><span>Pendidikan</span></a></li>
 											<li><a href="#section-underline-3" class=""><span>Golongan</span></a></li>
 											<li><a href="#section-underline-4" class=""><span>Jabatan</span></a></li>
 											<li><a href="#section-underline-5" class=""><span>Status</span></a></li>
+											<li><a href="#section-underline-7" class=""><span>Hukuman Disiplin</span></a></li>
 										</ul>
 									</nav>
 									<div class="content-wrap">
@@ -339,136 +340,211 @@
 										
 											</form>
 										</section>
-										<section id="section-underline-2">
-											<button class="btn btn-info m-b-20" type="button" data-toggle="modal" data-target="#modal-insert-dik">Tambah</button>
+										<section id="section-underline-6">
 
-											@if(count($emp_dik) > 0)
+											@if(count($emp_kel) > 0)
 											<div class="table-responsive">
 												<table class="table table-hover table-bordered">
 													<thead>
 														<tr>
 															<th>No</th>
-															<th>Pendidikan</th>
-															<th>Program Studi</th>
-															<th>Ijazah</th>
-															<th>Action</th>
+															<th>Keluarga</th>
+															<th>NIK</th>
+															<th>Tgl Lahir</th>
 														</tr>
 													</thead>
 													<tbody>
-														@foreach($emp_dik as $key => $dik)
+														@foreach($emp_kel as $key => $kel)
 														<tr>
 															<td>{{ $key+1 }}</td>
-															<td>{{ $dik['iddik'] }}</td>
-															<td>{{ $dik['nm_sek'] }}<br>
-																<span class="text-muted">{{$dik['prog_sek']}}</span>
-															</td>
-															<td>{{ $dik['no_sek'] }}<br>
-																<span class="text-muted">{{$dik['th_sek']}}</span>
-															</td>
 															<td>
-																
-																	<button type="button" class="btn btn-info btn-outline btn-circle m-r-5 btn-update-dik" data-toggle="modal" data-target="#modal-update-dik-{{$key}}" ><i class="ti-pencil-alt"></i></button>
-																	<button type="button" class="btn btn-danger btn-delete-dik btn-outline btn-circle m-r-5" data-toggle="modal" data-target="#modal-delete-dik-{{$key}}"><i class="ti-trash"></i></button>
-																	<div id="modal-delete-dik-{{$key}}" class="modal fade" role="dialog">
-																		<div class="modal-dialog">
-																			<div class="modal-content">
-																				<form method="POST" action="/portal/kepegawaian/form/hapusdikpegawai" class="form-horizontal">
-																				@csrf
-																					<div class="modal-header">
-																						<h4 class="modal-title"><b>Hapus Pendidikan</b></h4>
-																					</div>
-																					<div class="modal-body">
-																						<h4>Apa anda yakin ingin menghapus pendidikan {{$dik['iddik']}} </h4>
-																						<input type="hidden" name="ids" value="{{$dik['ids']}}">
-																						<input type="hidden" name="noid" value="{{$dik['noid']}}">
-																						<input type="hidden" name="iddik" value="{{$dik['iddik']}}">
-																					</div>
-																					<div class="modal-footer">
-																						<button type="submit" class="btn btn-danger pull-right">Hapus</button>
-																						<button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
-																					</div>
-																				</form>
-																			</div>
-																		</div>
-																	</div>
-																
+																<strong>{{ strtoupper($kel['jns_kel']) }}</strong>
+																<br>{{ ucwords(strtolower($kel['nm_kel'])) }}
 															</td>
-															<div id="modal-update-dik-{{$key}}" class="modal fade" role="dialog">
-																<div class="modal-dialog">
-																	<div class="modal-content">
-																		<form method="POST" action="/portal/kepegawaian/form/ubahdikpegawai" class="form-horizontal" enctype="multipart/form-data">
-																		@csrf
-																			<div class="modal-header">
-																				<h4 class="modal-title"><b>Ubah Pendidikan</b></h4>
-																			</div>
-																			<div class="modal-body">
-																				
-																				<input type="hidden" name="ids" value="{{$dik['ids']}}">
-																				<input type="hidden" name="noid" value="{{$dik['noid']}}">
-
-																				<div class="form-group col-md-12">
-																					<label for="iddik" class="col-md-3 control-label"> Pendidikan Terakhir </label>
-																					<div class="col-md-9">
-																						<select class="form-control" name="iddik">
-																							@foreach($pendidikans as $pendidikan)
-																								@if($pendidikan['urut'] != '0')
-																								<option value="{{ $pendidikan['dik'] }}" <?php if ($dik['iddik'] == $pendidikan['dik'] ): ?> selected <?php endif ?> > {{ $pendidikan['nm_dik'] }} </option>
-																								@endif
-																							@endforeach
-																						</select>
-																					</div>
-																				</div>
-
-																				<div class="form-group col-md-12">
-																					<label for="prog_sek" class="col-md-3 control-label"> Program Studi </label>
-																					<div class="col-md-9">
-																						<input autocomplete="off" type="text" name="prog_sek" class="form-control" value="{{$dik['prog_sek']}}">
-																					</div>
-																				</div>
-
-																				<div class="form-group col-md-12">
-																					<label for="nm_sek" class="col-md-3 control-label"> Nama Lembaga </label>
-																					<div class="col-md-9">
-																						<input autocomplete="off" type="text" name="nm_sek" class="form-control" value="{{$dik['nm_sek']}}">
-																					</div>
-																				</div>
-
-																				<div class="form-group col-md-12">
-																					<label class="col-md-3 control-label"> Nomor / Tahun Ijazah </label>
-																					<div class="col-md-6">
-																						<input autocomplete="off" type="text" name="no_sek" class="form-control" value="{{$dik['no_sek']}}" placeholder="Nomor Ijazah">
-																					</div>
-																					<div class="col-md-3">
-																						<input autocomplete="off" type="text" name="th_sek" class="form-control" value="{{$dik['th_sek']}}" placeholder="Tahun">
-																					</div>
-																				</div>
-
-																				<div class="form-group col-md-12">
-																					<label for="gelar" class="col-md-3 control-label"> Gelar </label>
-																					<div class="col-md-3">
-																						<input autocomplete="off" type="text" name="gelar_dpn_sek" class="form-control" value="{{$dik['gelar_dpn_sek']}}" placeholder="Depan">
-																					</div>
-																					<div class="col-md-3">
-																						<input autocomplete="off" type="text" name="gelar_blk_sek" class="form-control" value="{{$dik['gelar_blk_sek']}}" placeholder="Belakang">
-																					</div>
-																				</div>
-
-																				<div class="clearfix"></div>
-																			</div>
-																			<div class="modal-footer">
-																				<button type="submit" class="btn btn-danger pull-right">Simpan</button>
-																				<button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
-																			</div>
-																		</form>
-																	</div>
-																</div>
-															</div>
+															<td>{{ $kel['nik_kel'] ?? '-' }}</td>
+															<td>{{ date('d-M-Y',strtotime($kel['tgl_kel'])) ?? '-' }}</td>
 														</tr>
 														@endforeach
 													</tbody>
 												</table>
 											</div>
 											@endif
+											<a href="/portal/kepegawaian/data pegawai"><button type="button" class="btn btn-default pull-right m-b-20 m-t-10"> Kembali </button></a>
+										</section>
+										<section id="section-underline-2">
+											<div class="white-box">
+												<h2><b>PENDIDIKAN FORMAL</b></h2>
+												<button class="btn btn-info m-b-20" type="button" data-toggle="modal" data-target="#modal-insert-dik">Tambah</button>
+
+												@if(count($emp_dik) > 0)
+												<div class="table-responsive">
+													<table class="table table-hover table-bordered">
+														<thead>
+															<tr>
+																<th>No</th>
+																<th>Pendidikan</th>
+																<th>Program Studi</th>
+																<th>Ijazah</th>
+																<th>Action</th>
+															</tr>
+														</thead>
+														<tbody>
+															@foreach($emp_dik as $key => $dik)
+															<tr>
+																<td>{{ $key+1 }}</td>
+																<td>{{ $dik['iddik'] }}</td>
+																<td>{{ $dik['nm_sek'] }}<br>
+																	<span class="text-muted">{{$dik['prog_sek']}}</span>
+																</td>
+																<td>{{ $dik['no_sek'] }}<br>
+																	<span class="text-muted">{{$dik['th_sek']}}</span>
+																</td>
+																<td>
+																	
+																		<button type="button" class="btn btn-info btn-outline btn-circle m-r-5 btn-update-dik" data-toggle="modal" data-target="#modal-update-dik-{{$key}}" ><i class="ti-pencil-alt"></i></button>
+																		<button type="button" class="btn btn-danger btn-delete-dik btn-outline btn-circle m-r-5" data-toggle="modal" data-target="#modal-delete-dik-{{$key}}"><i class="ti-trash"></i></button>
+																		<div id="modal-delete-dik-{{$key}}" class="modal fade" role="dialog">
+																			<div class="modal-dialog">
+																				<div class="modal-content">
+																					<form method="POST" action="/portal/kepegawaian/form/hapusdikpegawai" class="form-horizontal">
+																					@csrf
+																						<div class="modal-header">
+																							<h4 class="modal-title"><b>Hapus Pendidikan</b></h4>
+																						</div>
+																						<div class="modal-body">
+																							<h4>Apa anda yakin ingin menghapus pendidikan {{$dik['iddik']}} </h4>
+																							<input type="hidden" name="ids" value="{{$dik['ids']}}">
+																							<input type="hidden" name="noid" value="{{$dik['noid']}}">
+																							<input type="hidden" name="iddik" value="{{$dik['iddik']}}">
+																						</div>
+																						<div class="modal-footer">
+																							<button type="submit" class="btn btn-danger pull-right">Hapus</button>
+																							<button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
+																						</div>
+																					</form>
+																				</div>
+																			</div>
+																		</div>
+																	
+																</td>
+																<div id="modal-update-dik-{{$key}}" class="modal fade" role="dialog">
+																	<div class="modal-dialog">
+																		<div class="modal-content">
+																			<form method="POST" action="/portal/kepegawaian/form/ubahdikpegawai" class="form-horizontal" enctype="multipart/form-data">
+																			@csrf
+																				<div class="modal-header">
+																					<h4 class="modal-title"><b>Ubah Pendidikan</b></h4>
+																				</div>
+																				<div class="modal-body">
+																					
+																					<input type="hidden" name="ids" value="{{$dik['ids']}}">
+																					<input type="hidden" name="noid" value="{{$dik['noid']}}">
+
+																					<div class="form-group col-md-12">
+																						<label for="iddik" class="col-md-3 control-label"> Pendidikan Terakhir </label>
+																						<div class="col-md-9">
+																							<select class="form-control" name="iddik">
+																								@foreach($pendidikans as $pendidikan)
+																									@if($pendidikan['urut'] != '0')
+																									<option value="{{ $pendidikan['dik'] }}" <?php if ($dik['iddik'] == $pendidikan['dik'] ): ?> selected <?php endif ?> > {{ $pendidikan['nm_dik'] }} </option>
+																									@endif
+																								@endforeach
+																							</select>
+																						</div>
+																					</div>
+
+																					<div class="form-group col-md-12">
+																						<label for="prog_sek" class="col-md-3 control-label"> Program Studi </label>
+																						<div class="col-md-9">
+																							<input autocomplete="off" type="text" name="prog_sek" class="form-control" value="{{$dik['prog_sek']}}">
+																						</div>
+																					</div>
+
+																					<div class="form-group col-md-12">
+																						<label for="nm_sek" class="col-md-3 control-label"> Nama Lembaga </label>
+																						<div class="col-md-9">
+																							<input autocomplete="off" type="text" name="nm_sek" class="form-control" value="{{$dik['nm_sek']}}">
+																						</div>
+																					</div>
+
+																					<div class="form-group col-md-12">
+																						<label class="col-md-3 control-label"> Nomor / Tahun Ijazah </label>
+																						<div class="col-md-6">
+																							<input autocomplete="off" type="text" name="no_sek" class="form-control" value="{{$dik['no_sek']}}" placeholder="Nomor Ijazah">
+																						</div>
+																						<div class="col-md-3">
+																							<input autocomplete="off" type="text" name="th_sek" class="form-control" value="{{$dik['th_sek']}}" placeholder="Tahun">
+																						</div>
+																					</div>
+
+																					<div class="form-group col-md-12">
+																						<label for="gelar" class="col-md-3 control-label"> Gelar </label>
+																						<div class="col-md-3">
+																							<input autocomplete="off" type="text" name="gelar_dpn_sek" class="form-control" value="{{$dik['gelar_dpn_sek']}}" placeholder="Depan">
+																						</div>
+																						<div class="col-md-3">
+																							<input autocomplete="off" type="text" name="gelar_blk_sek" class="form-control" value="{{$dik['gelar_blk_sek']}}" placeholder="Belakang">
+																						</div>
+																					</div>
+
+																					<div class="clearfix"></div>
+																				</div>
+																				<div class="modal-footer">
+																					<button type="submit" class="btn btn-danger pull-right">Simpan</button>
+																					<button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
+																				</div>
+																			</form>
+																		</div>
+																	</div>
+																</div>
+															</tr>
+															@endforeach
+														</tbody>
+													</table>
+												</div>
+												@endif
+											</div>
+											<div class="white-box">
+												<h2><b>PENDIDIKAN NON-FORMAL</b></h2>
+
+												@if(count($emp_non) > 0)
+												<div class="table-responsive">
+													<table class="table table-hover table-bordered">
+														<thead>
+															<tr>
+																<th>No</th>
+																<th>Nama Kegiatan</th>
+																<th>Penyelenggara</th>
+																<th>Nomor & Tahun</th>
+																<th>File</th>
+															</tr>
+														</thead>
+														<tbody>
+															@foreach($emp_non as $key => $non)
+															<tr>
+																<td>{{ $key+1 }}</td>
+																<td>{{ $non['nm_non'] ?? '-' }}</td>
+																<td>{{ $$non['penye_non'] ?? '-' }}</td>
+																<td>
+																	<strong>No. {{ $non['sert_non'] }}</strong>
+																	<br>Th. {{ $non['thn_non'] ?? '-' }}
+																</td>
+																<td>
+																	<?php if ($non['gambar'] && $non['gambar'] != '') : ?> 
+																		<br><a target="_blank" href="{{ config('app.openfileimg') }}/{{ $id_emp }}/non/{{ $non['gambar'] }}">[File]</a>
+																	<?php else : ?>
+																		<br>[Tidak ada file]
+																	<?php endif ?>
+																</td>
+																
+															</tr>
+															@endforeach
+														</tbody>
+													</table>
+												</div>
+												@endif
+											</div>
+	
 
 											<a href="/portal/kepegawaian/data pegawai"><button type="button" class="btn btn-default pull-right m-b-20 m-t-10"> Kembali </button></a>	
 										</section>
@@ -1046,6 +1122,56 @@
 												<button type="submit" class="m-b-20 m-t-10 btn btn-success pull-right"> Simpan </button>
 												<a href="/portal/kepegawaian/data pegawai"><button type="button" class="m-b-20 m-t-10 btn btn-default pull-right m-r-10"> Kembali </button></a>	
 											</form>
+										</section>
+										<section id="section-underline-6">
+
+											@if(count($emp_huk) > 0)
+											<div class="table-responsive">
+												<table class="table table-hover table-bordered">
+													<thead>
+														<tr>
+															<th>No</th>
+															<th>Jenis</th>
+															<th>Durasi</th>
+															<th>Nomor & Tanggal Surat</th>
+															<th>File</th>
+														</tr>
+													</thead>
+													<tbody>
+														@foreach($emp_huk as $key => $huk)
+														<tr>
+															<td>{{ $key+1 }}</td>
+															<td>Hukuman {{ ucwords(strtolower($huk['jns_huk'])) }}</td>
+															<td>{{ date('d/M/Y',strtotime($huk['tgl_mulai'])) }} - {{ date('d/M/Y',strtotime($huk['tgl_akhir'])) }}</td>
+															<td>
+																<strong>SK. 
+																<?php if ($huk['no_sk']) : ?> 
+																	{{ $huk['no_sk'] }}
+																<?php else : ?>
+																	-
+																<?php endif ?>
+																
+																</strong><br>Tgl. 
+																<?php if ($huk['tgl_sk']) : ?> 
+																	{{ date('d/M/Y',strtotime($huk['tgl_sk'])) }}
+																<?php else : ?>
+																	-
+																<?php endif ?>	
+															</td>
+															<td>
+																<?php if ($huk['gambar']) : ?> 
+																	<a target="_blank" href="{{ config('app.openfileimg') }}/{{ $id_emp }}/huk/{{ $huk['gambar'] }}">[Unduh File]</a>
+																<?php else : ?>
+																	[File tidak tersedia]
+																<?php endif ?>
+															</td>
+														</tr>
+														@endforeach
+													</tbody>
+												</table>
+											</div>
+											@endif
+											<a href="/portal/kepegawaian/data pegawai"><button type="button" class="btn btn-default pull-right m-b-20 m-t-10"> Kembali </button></a>
 										</section>
 								</div>
 							</div>

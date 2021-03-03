@@ -94,7 +94,9 @@
 														@if($_SESSION['user_data']['idunit'])
 														@if(strlen($_SESSION['user_data']['idunit']) < 10)
 														<th style="display: none;"></th>
-														<th>Pilih</th>
+														<th>
+															<input class="" type="checkbox" id="myCheckBoxAll">
+														</th>
 														@endif
 														@endif
 														<th class="col-md-2">Nama</th>
@@ -311,6 +313,20 @@
 	<script src="{{ ('/portal/public/ample/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
 
 	<script>
+		$('#myCheckBoxAll').change(function(){
+			if($(this).prop('checked')){
+				$('tbody input[type="checkbox"]').each(function(){
+					$(this).prop('checked', true);
+					$('#confirmButton').prop('disabled', checkBoxes.filter(':checked').length < 1);
+				});
+			}else{
+				$('tbody input[type="checkbox"]').each(function(){
+					$(this).prop('checked', false);
+					$('#confirmButton').prop('disabled', true);
+				});
+			}
+		});
+
 		var checkBoxes = $('tbody .myCheckBox');
 		checkBoxes.change(function () {
 			$('#confirmButton').prop('disabled', checkBoxes.filter(':checked').length < 1);

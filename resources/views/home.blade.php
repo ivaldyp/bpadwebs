@@ -66,6 +66,7 @@
 				<div class="col-md-12">
 					<div class="white-box">
 						<div class="row row-in">
+							<a href="/portal/kepegawaian/data%20pegawai">
 							<div class="col-md-4 col-sm-4 row-in-br">
 								<ul class="col-in">
 									<li>
@@ -78,6 +79,7 @@
 									
 								</ul>
 							</div>
+							</a>
 							@if(isset($_SESSION['user_data']['id_emp']))
 							<a href="/portal/disposisi/disposisi">
 							<div class="col-md-4 col-sm-4 row-in-br">

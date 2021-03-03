@@ -18,9 +18,14 @@ use App\Emp_data;
 use App\Emp_dik;
 use App\Emp_gol;
 use App\Emp_jab;
+use App\Emp_non;
+use App\Emp_kel;
+use App\Emp_huk;
 use App\Fr_suratkeluar;
 use App\Fr_disposisi;
 use App\Glo_dik;
+use App\Glo_huk;
+use App\Glo_kel;
 use App\Glo_disposisi_kode;
 use App\Glo_org_golongan;
 use App\Glo_org_jabatan;
@@ -181,6 +186,28 @@ class KepegawaianController extends Controller
 						->orderBy('tmt_jab', 'desc')
 						->get();
 
+		$emp_non = Emp_non::where('sts', 1)
+						->where('noid', $id_emp)
+						->orderBy('tgl_non', 'desc')
+						->get();
+
+		// var_dump($emp_non);
+		// die();
+
+		$emp_kel = Emp_kel::
+					join('bpaddtfake.dbo.glo_kel', 'bpaddtfake.dbo.glo_kel.kel', '=', 'bpaddtfake.dbo.emp_kel.jns_kel')
+					->where('bpaddtfake.dbo.emp_kel.noid', $id_emp)
+					->where('bpaddtfake.dbo.emp_kel.sts', 1)
+					->orderBy('urut', 'asc')
+					->get();
+
+		$emp_huk = Emp_huk::
+					where('sts', 1)
+					->where('noid', $id_emp)
+					->orderBy('tgl_sk', 'desc')
+					->get();
+
+
 		$statuses = Glo_org_statusemp::get();
 
 		$idgroups = Sec_access::
@@ -209,12 +236,19 @@ class KepegawaianController extends Controller
 
 		$units = glo_org_unitkerja::orderBy('kd_unit', 'asc')->get();
 
+		$keluargas = Glo_kel::orderBy('urut')->get();
+
+		$hukumans = Glo_huk::orderBy('urut_huk')->get();
+
 		return view('pages.bpadkepegawaian.pegawaiubah')
 				->with('id_emp', $id_emp)
 				->with('emp_data', $emp_data)
 				->with('emp_dik', $emp_dik)
 				->with('emp_gol', $emp_gol)
 				->with('emp_jab', $emp_jab)
+				->with('emp_non', $emp_non)
+				->with('emp_kel', $emp_kel)
+				->with('emp_huk', $emp_huk)
 				->with('statuses', $statuses)
 				->with('idgroups', $idgroups)
 				->with('pendidikans', $pendidikans)
@@ -222,7 +256,9 @@ class KepegawaianController extends Controller
 				->with('jabatans', $jabatans)
 				->with('lokasis', $lokasis)
 				->with('kedudukans', $kedudukans)
-				->with('units', $units);
+				->with('units', $units)
+				->with('keluargas', $keluargas)
+				->with('hukumans', $hukumans);
 	}
 
 	public function forminsertpegawai(Request $request)
@@ -1734,6 +1770,42 @@ class KepegawaianController extends Controller
 		return $query;
 	}
 
+	public function formcekjadwalaktivitas(Request $request)
+	{
+		$idemp = Auth::user()->id_emp;
+
+		$returnthis = 0;
+
+		$cekappr = DB::select( DB::raw("
+					  SELECT count(sts) as total
+					  from bpaddtfake.dbo.kinerja_data
+					  where stat = 1
+					  and sts = 1
+					  and tgl_trans = '$request->tgltrans'
+						"))[0];
+		$cekappr = json_decode(json_encode($cekappr), true);
+
+		if ($cekappr['total'] > 0) {
+			// tandanya jadwal udah di approved
+			$returnthis = 2;
+		}
+
+		$total = DB::select( DB::raw("
+					SELECT count(sts) as total from bpaddtfake.dbo.kinerja_detail
+					where tgl_trans = '$request->tgltrans'
+					and (time1 <= '$request->time1' and time2 >= '$request->time2')
+						"))[0];
+		$total = json_decode(json_encode($total), true);
+
+		if ($total['total'] > 0) {
+			// tandanya ada jadwal yg crash
+			$returnthis = 1;
+		}
+
+		return $returnthis;
+
+	}
+
 	public function forminsertkinerja(Request $request)
 	{
 		$this->checkSessionTime();
@@ -2195,6 +2267,7 @@ class KepegawaianController extends Controller
 					and stat $now_valid
 					and YEAR(tgl_trans) = $now_year
 					and MONTH(tgl_trans) = $now_month
+					ORDER BY tgl_trans, time1, time2
 					"));
 		$laporans = json_decode(json_encode($laporans), true);
 
@@ -2744,6 +2817,7 @@ class KepegawaianController extends Controller
 					and stat $now_valid
 					and YEAR(tgl_trans) = $now_year
 					and MONTH(tgl_trans) = $now_month
+					ORDER BY tgl_trans, time1, time2
 					"));
 		$laporans = json_decode(json_encode($laporans), true);
 
