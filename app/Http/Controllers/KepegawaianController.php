@@ -2076,10 +2076,10 @@ class KepegawaianController extends Controller
 	public function approvekinerja(Request $request)
 	{
 		$this->checkSessionTime();
-		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
-		$currentpath = explode("?", $currentpath)[0];
-		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
-		$access = $this->checkAccess($_SESSION['user_data']['idgroup'], $thismenu['ids']);
+		// $currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
+		// $currentpath = explode("?", $currentpath)[0];
+		// $thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
+		// $access = $this->checkAccess($_SESSION['user_data']['idgroup'], $thismenu['ids']);
 
 		if ($_SESSION['user_data']['idunit']) {
 			$idunit = $_SESSION['user_data']['idunit'];
@@ -2144,7 +2144,7 @@ class KepegawaianController extends Controller
 		$laporans = json_decode(json_encode($laporans), true);
 
 		return view('pages.bpadkepegawaian.kinerjaapprove')
-				->with('access', $access)
+				// ->with('access', $access)
 				->with('laporans', $laporans)
 				->with('pegawais', $pegawais)
 				->with('now_month', $now_month)
