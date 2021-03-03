@@ -117,7 +117,7 @@
 												<thead>
 													<tr>
 														@if($_SESSION['user_data']['idunit'])
-														@if(strlen($_SESSION['user_data']['idunit']) < 10)
+														@if(strlen($_SESSION['user_data']['idunit']) == 8)
 														<th style="display: none;"></th>
 														<th>
 															<input class="" type="checkbox" id="myCheckBoxAll">
@@ -157,7 +157,7 @@
 
 													<tr>
 														@if($_SESSION['user_data']['idunit'])
-														@if(strlen($_SESSION['user_data']['idunit']) < 10)
+														@if(strlen($_SESSION['user_data']['idunit']) == 8)
 														<input type="hidden" name="idemp_{{$key}}" value="{{ $laporan['idemp'] }}">
 														<input type="hidden" name="tgl_trans_{{$key}}" value="{{ $laporan['tgl_trans'] }}">
 														<input type="hidden" name="tipe_hadir_{{$key}}" value="{{ $laporan['tipe_hadir'] }}">
