@@ -281,7 +281,7 @@ class KepegawaianController extends Controller
 				return redirect('/kepegawaian/tambah%20pegawai')->with('message', 'NIP sudah tersimpan di database');
 			}
 		}
-		if (strlen($request->nip_emp) != 18 && strlen($request->nip_emp) != 0) {
+		if (strlen($request->nip_emp) > 18) {
 			return redirect('/kepegawaian/tambah%20pegawai')->with('message', 'NIP harus terdiri dari 18 digit');
 		}
 			
@@ -294,7 +294,7 @@ class KepegawaianController extends Controller
 				return redirect('/kepegawaian/tambah%20pegawai')->with('message', 'NRK sudah tersimpan di database');
 			}
 		}
-		if (strlen($request->nrk_emp) != 6 && strlen($request->nrk_emp) != 0) {
+		if (strlen($request->nrk_emp) > 6) {
 			return redirect('/kepegawaian/tambah%20pegawai')->with('message', 'NRK harus terdiri dari 6 digit');
 		}
 
@@ -307,7 +307,7 @@ class KepegawaianController extends Controller
 				return redirect('/kepegawaian/tambah%20pegawai')->with('message', 'NIK KTP sudah tersimpan di database');
 			}
 		}	
-		if (strlen($request->nik_emp) != 16 && strlen($request->nik_emp) != 0) {
+		if (strlen($request->nik_emp) > 16) {
 			return redirect('/kepegawaian/tambah%20pegawai')->with('message', 'NIK KTP harus terdiri dari 16 digit');
 		}
 		// $filettd = '';
@@ -548,7 +548,7 @@ class KepegawaianController extends Controller
 				return redirect('/kepegawaian/ubah%20pegawai?id_emp='.$id_emp)->with('message', 'NIP sudah tersimpan di database');
 			}
 		}
-		if (strlen($request->nip_emp) != 18 && strlen($request->nip_emp) != 0) {
+		if (strlen($request->nip_emp) > 18) {
 			return redirect('/kepegawaian/ubah%20pegawai?id_emp='.$id_emp)->with('message', 'NIP harus terdiri dari 18 digit');
 		}
 			
@@ -561,7 +561,7 @@ class KepegawaianController extends Controller
 				return redirect('/kepegawaian/ubah%20pegawai?id_emp='.$id_emp)->with('message', 'NRK sudah tersimpan di database');
 			}
 		}
-		if (strlen($request->nrk_emp) != 6 && strlen($request->nrk_emp) != 0) {
+		if (strlen($request->nrk_emp) > 6) {
 			return redirect('/kepegawaian/ubah%20pegawai?id_emp='.$id_emp)->with('message', 'NRK harus terdiri dari 6 digit');
 		}
 
@@ -574,7 +574,7 @@ class KepegawaianController extends Controller
 				return redirect('/kepegawaian/ubah%20pegawai?id_emp='.$id_emp)->with('message', 'NIK KTP sudah tersimpan di database');
 			}
 		}	
-		if (strlen($request->nik_emp) != 16 && strlen($request->nik_emp) != 0) {
+		if (strlen($request->nik_emp) > 16) {
 			return redirect('/kepegawaian/ubah%20pegawai?id_emp='.$id_emp)->with('message', 'NIK KTP harus terdiri dari 16 digit');
 		}
 		
