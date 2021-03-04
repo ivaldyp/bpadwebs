@@ -261,6 +261,19 @@ class KepegawaianController extends Controller
 				->with('hukumans', $hukumans);
 	}
 
+	public function formapprovepegawai(Request $request)
+	{
+		var_dump($request->all());
+		$namamodel = "Emp_".$request->
+		die();
+
+		if ($request->formtipe == 'gol') {
+			# code...
+		} elseif ($request->formtipe == 'jab') {
+			# code...
+		}
+	}
+
 	public function forminsertpegawai(Request $request)
 	{
 		$this->checkSessionTime();
@@ -1780,6 +1793,7 @@ class KepegawaianController extends Controller
 					  SELECT count(sts) as total
 					  from bpaddtfake.dbo.kinerja_data
 					  where stat = 1
+					  and idemp = '$idemp'
 					  and sts = 1
 					  and tgl_trans = '$request->tgltrans'
 						"))[0];
