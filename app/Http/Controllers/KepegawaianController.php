@@ -1763,7 +1763,7 @@ class KepegawaianController extends Controller
 					from bpaddtfake.dbo.v_kinerja
 					where idemp = '$idemp'
 					and stat is null
-					order by tgl_trans desc
+					order by tgl_trans desc, time1, time2
 					"));
 		$query = json_decode(json_encode($query), true);
 
@@ -1790,17 +1790,17 @@ class KepegawaianController extends Controller
 			$returnthis = 2;
 		}
 
-		$total = DB::select( DB::raw("
-					SELECT count(sts) as total from bpaddtfake.dbo.kinerja_detail
-					where tgl_trans = '$request->tgltrans'
-					and (time1 <= '$request->time1' and time2 >= '$request->time2')
-						"))[0];
-		$total = json_decode(json_encode($total), true);
+		// $total = DB::select( DB::raw("
+		// 			SELECT count(sts) as total from bpaddtfake.dbo.kinerja_detail
+		// 			where tgl_trans = '$request->tgltrans'
+		// 			and (time1 <= '$request->time1' and time2 >= '$request->time2')
+		// 				"))[0];
+		// $total = json_decode(json_encode($total), true);
 
-		if ($total['total'] > 0) {
-			// tandanya ada jadwal yg crash
-			$returnthis = 1;
-		}
+		// if ($total['total'] > 0) {
+		// 	// tandanya ada jadwal yg crash
+		// 	$returnthis = 1;
+		// }
 
 		return $returnthis;
 
