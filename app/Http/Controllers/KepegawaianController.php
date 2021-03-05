@@ -263,15 +263,47 @@ class KepegawaianController extends Controller
 
 	public function formapprovepegawai(Request $request)
 	{
-		var_dump($request->all());
-		$namamodel = "Emp_".$request->
-		die();
+		$namespace = '\\App\\'; 
+		$namemodel = "Emp_".$request->formtipe;
 
-		if ($request->formtipe == 'gol') {
-			# code...
-		} elseif ($request->formtipe == 'jab') {
-			# code...
+		$model = $namespace . $namemodel; 
+
+		$query = $model::
+				where('noid', $request->id_emp)
+				->where('ids', $request->ids)
+				->first();
+
+		if ($query['gambar'] && $request->appr == 0) {
+			$file = $query['gambar'];
+
+			$tujuan_upload = config('app.savefileimg');
+			$tujuan_upload .= "\\" . $request->id_emp . "\\". $request->formtipe ."\\";
+
+			if (file_exists($tujuan_upload . $file )) {
+				unlink($tujuan_upload . $file);
+			}
+
+			$model::
+				where('noid', $request->id_emp)
+				->where('ids', $request->ids)
+				->update([
+					'gambar' => null,
+					'appr' => $request->appr,
+					'alasan' => $request->alasan,
+				]);
+		} else {
+			$model::
+				where('noid', $request->id_emp)
+				->where('ids', $request->ids)
+				->update([
+					'appr' => $request->appr,
+					'alasan' => $request->alasan,
+				]);
 		}
+		
+		return redirect('/kepegawaian/ubah%20pegawai?id_emp='.$request->id_emp)
+					->with('message', 'Approval file pegawai berhasil')
+					->with('msg_num', 1);
 	}
 
 	public function forminsertpegawai(Request $request)
@@ -323,105 +355,6 @@ class KepegawaianController extends Controller
 		if (strlen($request->nik_emp) > 16) {
 			return redirect('/kepegawaian/tambah%20pegawai')->with('message', 'NIK KTP harus terdiri dari 16 digit');
 		}
-		// $filettd = '';
-		// $fileijazah = '';
-		// $fileskgol = '';
-		// $fileskjab = '';
-
-		// (IDENTITAS) cek dan set variabel untuk file foto pegawai
-		// if (isset($request->filefoto)) {
-		// 	$file = $request->filefoto;
-
-		// 	if ($file->getSize() > 2222222) {
-		// 		return redirect('/kepegawaian/tambah pegawai')->with('message', 'Ukuran file foto pegawai terlalu besar (Maksimal 2MB)');     
-		// 	} 
-
-		// 	$filefoto .= $new_id_emp . ".". $file->getClientOriginalExtension();
-
-		// 	$tujuan_upload = config('app.savefileimgemp');
-		// 	$file->move($tujuan_upload, $filefoto);
-		// }
-			
-		// if (!(isset($filefoto))) {
-		// 	$filefoto = '';
-		// }
-
-		// (IDENTITAS) cek dan set variabel untuk file foto ttd pegawai
-		// if (isset($request->filettd)) {
-		// 	$file = $request->filettd;
-
-		// 	if ($file->getSize() > 2222222) {
-		// 		return redirect('/kepegawaian/tambah pegawai')->with('message', 'Ukuran file foto tandatangan terlalu besar (Maksimal 2MB)');     
-		// 	} 
-
-		// 	$filettd .= $new_id_emp . ".". $file->getClientOriginalExtension();
-
-		// 	$tujuan_upload = config('app.savefileimgttd');
-		// 	$file->move($tujuan_upload, $filettd);
-		// }
-			
-		// if (!(isset($filettd))) {
-		// 	$filettd = '';
-		// }
-
-		// (PENDIDIKAN) cek dan set variabel untuk file foto ijazah
-		// if (isset($request->fileijazah)) {
-		// 	$file = $request->fileijazah;
-
-		// 	if ($file->getSize() > 2222222) {
-		// 		return redirect('/kepegawaian/tambah pegawai')->with('message', 'Ukuran file foto ijazah terlalu besar (Maksimal 2MB)');     
-		// 	} 
-
-		// 	$fileijazah .= $new_id_emp . ".". $file->getClientOriginalExtension();
-
-		// 	$tujuan_upload = config('app.savefileimgdik');
-		// 	$file->move($tujuan_upload, $fileijazah);
-		// }
-			
-		// if (!(isset($fileijazah))) {
-		// 	$fileijazah = '';
-		// }
-
-		// (GOLONGAN) cek dan set variabel untuk file SK Golongan
-		// if (isset($request->fileskgol)) {
-		// 	$file = $request->fileskgol;
-
-		// 	if ($file->getSize() > 2222222) {
-		// 		return redirect('/kepegawaian/tambah pegawai')->with('message', 'Ukuran file foto SK golongan terlalu besar (Maksimal 2MB)');     
-		// 	} 
-
-		// 	$fileskgol .= $new_id_emp . ".". $file->getClientOriginalExtension();
-
-		// 	$tujuan_upload = config('app.savefileimggol');
-		// 	$file->move($tujuan_upload, $fileskgol);
-		// }
-			
-		// if (!(isset($fileskgol))) {
-		// 	$fileskgol = '';
-		// }
-
-		// (JABATAN) cek dan set variabel untuk file SK Jabatan
-		// if (isset($request->fileskjab)) {
-		// 	$file = $request->fileskjab;
-
-		// 	if ($file->getSize() > 2222222) {
-		// 		return redirect('/kepegawaian/tambah pegawai')->with('message', 'Ukuran file foto SK jabatan terlalu besar (Maksimal 2MB)');    
-		// 	} 
-
-		// 	$fileskjab .= $new_id_emp . ".". $file->getClientOriginalExtension();
-
-		// 	$tujuan_upload = config('app.savefileimgjab');
-		// 	$file->move($tujuan_upload, $fileskjab);
-		// }
-			
-		// if (!(isset($fileskjab))) {
-		// 	$fileskjab = '';
-		// }
-	
-		// mulai insert
-
-		// var_dump($request->all());
-		// die();
 
 		$insert_emp_data = [
 				// IDENTITAS
@@ -592,138 +525,6 @@ class KepegawaianController extends Controller
 		}
 		
 		$filefoto = '';
-		// $filettd = '';
-		// $fileijazah = '';
-		// $fileskgol = '';
-		// $fileskjab = '';
-
-		// (IDENTITAS) cek dan set variabel untuk file foto pegawai
-		// if (isset($request->filefoto)) {
-		// 	$file = $request->filefoto;
-
-		// 	if ($file->getSize() > 2222222) {
-		// 		return redirect('/kepegawaian/data pegawai')->with('message', 'Ukuran file foto pegawai terlalu besar (Maksimal 2MB)');     
-		// 	} 
-
-		// 	$filefoto .= $new_id_emp . ".". $file->getClientOriginalExtension();
-
-		// 	$tujuan_upload = config('app.savefileimgemp');
-		// 	$file->move($tujuan_upload, $filefoto);
-		// }
-			
-		// if (!(isset($filefoto))) {
-		// 	$filefoto = '';
-		// }
-
-		// (IDENTITAS) cek dan set variabel untuk file foto ttd pegawai
-		// if (isset($request->filettd)) {
-		// 	$file = $request->filettd;
-
-		// 	if ($file->getSize() > 2222222) {
-		// 		return redirect('/kepegawaian/data pegawai')->with('message', 'Ukuran file foto tandatangan terlalu besar (Maksimal 2MB)');     
-		// 	} 
-
-		// 	$filettd .= $new_id_emp . ".". $file->getClientOriginalExtension();
-
-		// 	$tujuan_upload = config('app.savefileimgttd');
-		// 	$file->move($tujuan_upload, $filettd);
-		// }
-			
-		// if (!(isset($filettd))) {
-		// 	$filettd = '';
-		// }
-
-		// (PENDIDIKAN) cek dan set variabel untuk file foto ijazah
-		// if (isset($request->fileijazah)) {
-		// 	$file = $request->fileijazah;
-
-		// 	if ($file->getSize() > 2222222) {
-		// 		return redirect('/kepegawaian/data pegawai')->with('message', 'Ukuran file foto ijazah terlalu besar (Maksimal 2MB)');     
-		// 	} 
-
-		// 	$fileijazah .= $new_id_emp . ".". $file->getClientOriginalExtension();
-
-		// 	$tujuan_upload = config('app.savefileimgdik');
-		// 	$file->move($tujuan_upload, $fileijazah);
-		// }
-			
-		// if (!(isset($fileijazah))) {
-		// 	$fileijazah = '';
-		// }
-
-		// (GOLONGAN) cek dan set variabel untuk file SK Golongan
-		// if (isset($request->fileskgol)) {
-		// 	$file = $request->fileskgol;
-
-		// 	if ($file->getSize() > 2222222) {
-		// 		return redirect('/kepegawaian/data pegawai')->with('message', 'Ukuran file foto SK golongan terlalu besar (Maksimal 2MB)');     
-		// 	} 
-
-		// 	$fileskgol .= $new_id_emp . ".". $file->getClientOriginalExtension();
-
-		// 	$tujuan_upload = config('app.savefileimggol');
-		// 	$file->move($tujuan_upload, $fileskgol);
-		// }
-			
-		// if (!(isset($fileskgol))) {
-		// 	$fileskgol = '';
-		// }
-
-		// (JABATAN) cek dan set variabel untuk file SK Jabatan
-		// if (isset($request->fileskjab)) {
-		// 	$file = $request->fileskjab;
-
-		// 	if ($file->getSize() > 2222222) {
-		// 		return redirect('/kepegawaian/data pegawai')->with('message', 'Ukuran file foto SK jabatan terlalu besar (Maksimal 2MB)');    
-		// 	} 
-
-		// 	$fileskjab .= $new_id_emp . ".". $file->getClientOriginalExtension();
-
-		// 	$tujuan_upload = config('app.savefileimgjab');
-		// 	$file->move($tujuan_upload, $fileskjab);
-		// }
-			
-		// if (!(isset($fileskjab))) {
-		// 	$fileskjab = '';
-		// }
-
-
-		// ubah semua variabel tanggal jadi format 'Ymd'
-		// if (isset($request->tgl_join)) {
-		// 	$tgl_join = date('Y-m-d',strtotime($request->tgl_join));
-		// } else {
-		// 	$tgl_join = null;
-		// }
-
-		// if (isset($request->tgl_lahir)) {
-		// 	$tgl_lahir = date('Y-m-d',strtotime($request->tgl_lahir));
-		// } else {
-		// 	$tgl_lahir = null;
-		// }
-
-		// if (isset($request->tmt_gol)) {
-		// 	$tmt_gol = date('Y-m-d',strtotime($request->tmt_gol));
-		// } else {
-		// 	$tmt_gol = null;
-		// }
-
-		// if (isset($request->tmt_sk_gol)) {
-		// 	$tmt_sk_gol = date('Y-m-d',strtotime($request->tmt_sk_gol));
-		// } else {
-		// 	$tmt_sk_gol = null;
-		// }
-
-		// if (isset($request->tmt_jab)) {
-		// 	$tmt_jab = date('Y-m-d',strtotime($request->tmt_jab));
-		// } else {
-		// 	$tmt_jab = null;
-		// }
-
-		// if (isset($request->tmt_sk_jab)) {
-		// 	$tmt_sk_jab = date('Y-m-d',strtotime($request->tmt_sk_jab));
-		// } else {
-		// 	$tmt_sk_jab = null;
-		// }
 	
 		// mulai insert
 
@@ -756,78 +557,6 @@ class KepegawaianController extends Controller
 				'no_jamsos' => ($request->no_jamsos ? $request->no_jamsos : ''),
 				'idgroup' => $request->idgroup,
 			]);
-
-		// Emp_dik::where('noid', $id_emp)
-		// 	->update([
-		// 		'iddik' => $request->iddik,
-		// 		'prog_sek' => ($request->prog_sek ? $request->prog_sek : ''),
-		// 		'nm_sek' => ($request->nm_sek ? $request->nm_sek : ''),
-		// 		'no_sek' => ($request->no_sek ? $request->no_sek : ''),
-		// 		'th_sek' => ($request->th_sek ? $request->th_sek : ''),
-		// 		'gelar_dpn_sek' => ($request->gelar_dpn_sek ? $request->gelar_dpn_sek : ''),
-		// 		'gelar_blk_sek' => ($request->gelar_blk_sek ? $request->gelar_blk_sek : ''),
-		// 		'ijz_cpns' => $request->ijz_cpns,
-		// 	]);
-
-		// Emp_gol::where('noid', $id_emp)
-		// 	->update([
-		// 		'tmt_gol' => (isset($request->tmt_gol) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_gol))) : null),
-		// 		'no_sk_gol' => ($request->no_sk_gol ? $request->no_sk_gol : ''),
-		// 		'tmt_sk_gol' => (isset($request->tmt_sk_gol) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_sk_gol))) : null),
-		// 		'idgol' => $request->idgol,
-		// 		'jns_kp' => $request->jns_kp,
-		// 		'mk_thn' => ($request->mk_thn ? $request->mk_thn : ''),
-		// 		'mk_bln' => ($request->mk_bln ? $request->mk_bln : ''),
-		// 	]);
-
-		// Emp_jab::where('noid', $id_emp)
-		// 	->update([
-		// 		// JABATAN
-		// 		'idskpd' => '1.20.512',
-		// 		'jns_jab' => $jns_jab,
-		// 		'idjab' => $idjab,
-		// 		'idunit' => $request->idunit,
-		// 		'idlok' => $request->idlok,
-		// 		'eselon' => $request->eselon,
-		// 		'tmt_jab' => (isset($request->tmt_jab) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_jab))) : null),
-		// 		'no_sk_jab' => ($request->no_sk_jab ? $request->no_sk_jab : ''),
-		// 		'tmt_sk_jab' => (isset($request->tmt_sk_jab) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_sk_jab))) : null),
-		// 	]);
-
-		// if ($filefoto != '') {
-		// 	Emp_data::where('id_emp', $id_emp)
-		// 	->update([
-		// 		'foto' => $filefoto,
-		// 	]);
-		// }
-
-		// if ($filettd != '') {
-		// 	Emp_data::where('id_emp', $id_emp)
-		// 	->update([
-		// 		'ttd' => $filettd,
-		// 	]);
-		// }
-
-		// if ($fileijazah != '') {
-		// 	Emp_dik::where('noid', $id_emp)
-		// 	->update([
-		// 		'gambar' => $fileijazah,
-		// 	]);
-		// }
-
-		// if ($fileskgol != '') {
-		// 	Emp_gol::where('noid', $id_emp)
-		// 	->update([
-		// 		'gambar' => $fileskgol,
-		// 	]);
-		// }
-
-		// if ($fileskjab != '') {
-		// 	Emp_jab::where('noid', $id_emp)
-		// 	->update([
-		// 		'gambar' => $fileskjab,
-		// 	]);
-		// }
 
 		return redirect('/kepegawaian/data pegawai')
 					->with('message', 'Pegawai '.$request->nm_emp.' berhasil diubah')
@@ -1157,24 +886,6 @@ class KepegawaianController extends Controller
 		$access = $this->checkAccess($_SESSION['user_data']['idgroup'], $thismenu['ids']);
 
 		$ids = Auth::user()->id_emp;
-
-		// if ($ids) {
-		// 	$data_self = DB::select( DB::raw("  
-		// 						SELECT top 1 id_emp, nrk_emp, nip_emp, nm_emp, tbjab.idjab, tbjab.idunit, tbunit.child, tbunit.nm_unit, tbunit.notes from bpaddtfake.dbo.emp_data as a
-		// 						CROSS APPLY (SELECT TOP 1 tmt_jab,idskpd,idunit,idlok,tmt_sk_jab,no_sk_jab,jns_jab,replace(idjab,'NA::','') as idjab,eselon,gambar FROM bpaddtfake.dbo.emp_jab WHERE a.id_emp=emp_jab.noid AND emp_jab.sts='1' ORDER BY tmt_jab DESC) tbjab
-		// 						CROSS APPLY (SELECT TOP 1 * FROM bpaddtfake.dbo.glo_org_unitkerja WHERE glo_org_unitkerja.kd_unit = tbjab.idunit) tbunit
-		// 						,bpaddtfake.dbo.glo_skpd as b,bpaddtfake.dbo.glo_org_unitkerja as c,bpaddtfake.dbo.glo_org_lokasi as d WHERE tbjab.idskpd=b.skpd AND tbjab.idskpd+'::'+tbjab.idunit=c.kd_skpd+'::'+c.kd_unit AND tbjab.idskpd+'::'+tbjab.idlok=d.kd_skpd+'::'+d.kd_lok AND a.sts='1' AND b.sts='1' AND c.sts='1' AND d.sts='1' 
-		// 						and id_emp like '$ids'") )[0];
-		// 	$data_self = json_decode(json_encode($data_self), true);
-		// } else {
-		// 	$data_self = DB::select( DB::raw("  
-		// 						SELECT top 1 id_emp, nrk_emp, nip_emp, nm_emp, tbjab.idjab, tbjab.idunit, tbunit.child, tbunit.nm_unit, tbunit.notes from bpaddtfake.dbo.emp_data as a
-		// 						CROSS APPLY (SELECT TOP 1 tmt_jab,idskpd,idunit,idlok,tmt_sk_jab,no_sk_jab,jns_jab,replace(idjab,'NA::','') as idjab,eselon,gambar FROM bpaddtfake.dbo.emp_jab WHERE a.id_emp=emp_jab.noid AND emp_jab.sts='1' ORDER BY tmt_jab DESC) tbjab
-		// 						CROSS APPLY (SELECT TOP 1 * FROM bpaddtfake.dbo.glo_org_unitkerja WHERE glo_org_unitkerja.kd_unit = tbjab.idunit) tbunit
-		// 						,bpaddtfake.dbo.glo_skpd as b,bpaddtfake.dbo.glo_org_unitkerja as c,bpaddtfake.dbo.glo_org_lokasi as d WHERE tbjab.idskpd=b.skpd AND tbjab.idskpd+'::'+tbjab.idunit=c.kd_skpd+'::'+c.kd_unit AND tbjab.idskpd+'::'+tbjab.idlok=d.kd_skpd+'::'+d.kd_lok AND a.sts='1' AND b.sts='1' AND c.sts='1' AND d.sts='1' 
-		// 						and idunit like '01' and ked_emp = 'aktif'") )[0];
-		// 	$data_self = json_decode(json_encode($data_self), true);
-		// }
 	
 		if ($ids) {
 			$data_self = DB::select( DB::raw("  
@@ -1489,10 +1200,7 @@ class KepegawaianController extends Controller
 								<td><b>'.$total.'</b></td>
 							</tr>';
 			}
-		}
-
-		
-
+		}	
 	}
 
 	public function suratkeluar()
@@ -1807,6 +1515,7 @@ class KepegawaianController extends Controller
 		// $total = DB::select( DB::raw("
 		// 			SELECT count(sts) as total from bpaddtfake.dbo.kinerja_detail
 		// 			where tgl_trans = '$request->tgltrans'
+		// 			and idemp = '$idemp'
 		// 			and (time1 <= '$request->time1' and time2 >= '$request->time2')
 		// 				"))[0];
 		// $total = json_decode(json_encode($total), true);

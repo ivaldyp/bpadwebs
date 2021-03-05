@@ -616,6 +616,7 @@
 												</div>
 											</div>
 										</div>
+										
 										<section id="section-underline-3">
 											<button class="btn btn-info m-b-20" type="button" data-toggle="modal" data-target="#modal-insert-gol">Tambah</button>
 
@@ -629,6 +630,7 @@
 															<th>No SK</th>
 															<th>Golongan</th>
 															<th>File</th>
+															<th>Approve</th>
 															<th>Action</th>
 														</tr>
 													</thead>
@@ -641,10 +643,19 @@
 															<td>{{ $gol['idgol'] }} - {{ $gol['nm_pangkat'] }}</td>
 															<td>
 																<?php if ($gol['gambar'] && $gol['gambar'] != '') : ?> 
-																	<a target="_blank" href="{{ config('app.openfileimg') }}/{{ $id_emp }}/gol/{{ $gol['gambar'] }}">[File SK]</a>
+																	<a target="_blank" href="{{ config('app.openfileimg') }}/{{ $id_emp }}/gol/{{ $gol['gambar'] }}">[File SK]
+																	</a>
 																<?php else : ?>
 																	[Tidak ada SK Gol]
 																<?php endif ?>
+																<?php if ($gol['appr'] == '1') : ?> 
+																	<i class="fa fa-check" style="color: #2ECC40;" data-toggle="tooltip" title="Sudah Di Approve"></i>
+																<?php else : ?>
+																	<i class="fa fa-close" style="color: #FF4136;" data-toggle="tooltip" title="Belum di approve, {{ $gol ? $gol['alasan'] : '' }}"></i>
+																<?php endif ?>
+															</td>
+															<td>
+																<button type="button" class="btn btn-warning btn-approve btn-outline btn-circle" data-toggle="modal" data-target="#modal-approve" data-appr_tipe="gol" data-appr_ids="{{ $gol['ids'] }}" data-appr_id_emp="{{ $id_emp }}"><i class="ti-search"></i></button>	
 															</td>
 															<td>
 																<button type="button" class="btn btn-info btn-outline btn-circle m-r-5 btn-update-gol" data-toggle="modal" data-target="#modal-update-gol-{{$key}}" ><i class="ti-pencil-alt"></i></button>
@@ -844,12 +855,10 @@
 														<tr>
 															<th>No</th>
 															<th>TMT</th>
-															<th>No SK</th>
 															<th>Unit</th>
-															<th>Lokasi</th>
-															<th>Jenis</th>
 															<th>Jabatan</th>
 															<th>File</th>
+															<th>Approve</th>
 															<th>Action</th>
 														</tr>
 													</thead>
@@ -858,17 +867,29 @@
 														<tr>
 															<td>{{ $key+1 }}</td>
 															<td>{{ date('d/M/Y', strtotime(str_replace('/', '-', $jab['tmt_jab']))) }}</td>
-															<td>{{ $jab['no_sk_jab'] }}</td>
-															<td>{{ $jab['unit']['nm_unit'] }}</td>
-															<td>{{ $jab['lokasi']['nm_lok'] }}</td>
-															<td>{{ $jab['jns_jab'] }}</td>
-															<td>{{ $jab['idjab'] }}</td>
 															<td>
+																{{ $jab['unit']['nm_unit'] }}<br>
+																<span class="text-muted">{{ $jab['lokasi']['nm_lok'] }}</span>
+															</td>
+															<td>
+																{{ $jab['jns_jab'] }}<br>
+																<span class="text-muted">{{ $jab['idjab'] }}</span >
+															</td>
+															<td>
+																<span>{{ $jab['no_sk_jab'] }}</span><br>
 																<?php if ($jab['gambar'] && $jab['gambar'] != '') : ?> 
 																	<a target="_blank" href="{{ config('app.openfileimg') }}/{{ $id_emp }}/jab/{{ $jab['gambar'] }}">[File SK]</a>
 																<?php else : ?>
 																	[Tidak ada SK Jab]
 																<?php endif ?>
+																<?php if ($jab['appr'] == '1') : ?> 
+																	<i class="fa fa-check" style="color: #2ECC40;" data-toggle="tooltip" title="Sudah Di Approve"></i>
+																<?php else : ?>
+																	<i class="fa fa-close" style="color: #FF4136;" data-toggle="tooltip" title="Belum di approve, {{ $jab != '' && !(is_null($jab)) ?  $jab['alasan'] : '' }}"></i>
+																<?php endif ?>
+															</td>
+															<td>
+																<button type="button" class="btn btn-warning btn-approve btn-outline btn-circle" data-toggle="modal" data-target="#modal-approve" data-appr_tipe="jab" data-appr_ids="{{ $jab['ids'] }}" data-appr_id_emp="{{ $id_emp }}"><i class="ti-search"></i></button>	
 															</td>
 															<td>
 																
@@ -1030,7 +1051,7 @@
 															<div class="form-group">
 																<label for="idunit" class="col-md-2 control-label"> Unit Organisasi </label>
 																<div class="col-md-8">
-																	<select class="form-control select2" name="idunit" id="idunit">
+																	<select class="form-control select2" name="idunit">
 																		@foreach($units as $unit)
 																			<option value="{{ $unit['kd_unit'] }}" > {{ $unit['kd_unit'] }} - {{ $unit['notes'] }}</option>
 																		@endforeach
@@ -1041,7 +1062,7 @@
 															<div class="form-group">
 																<label for="idlok" class="col-md-2 control-label"> Lokasi </label>
 																<div class="col-md-8">
-																	<select class="form-control" name="idlok" id="idlok">
+																	<select class="form-control" name="idlok">
 																		@foreach($lokasis as $lokasi)
 																			<option value="{{ $lokasi['kd_lok'] }}"> {{ $lokasi['nm_lok'] }}</option>
 																		@endforeach
@@ -1052,7 +1073,7 @@
 															<div class="form-group">
 																<label for="eselon" class="col-md-2 control-label"> Golongan </label>
 																<div class="col-md-8">
-																	<select class="form-control select2" name="eselon" id="eselon">
+																	<select class="form-control select2" name="eselon" >
 																		@foreach($golongans as $golongan)
 																			<option value="{{ $golongan['gol'] }}"> {{ $golongan['gol'] }} - {{ $golongan['nm_pangkat'] }} </option>
 																		@endforeach
@@ -1135,6 +1156,7 @@
 															<th>Durasi</th>
 															<th>Nomor & Tanggal Surat</th>
 															<th>File</th>
+															<th>Approve</th>
 														</tr>
 													</thead>
 													<tbody>
@@ -1164,6 +1186,14 @@
 																<?php else : ?>
 																	[File tidak tersedia]
 																<?php endif ?>
+																<?php if ($huk['appr'] == '1') : ?> 
+																	<i class="fa fa-check" style="color: #2ECC40;" data-toggle="tooltip" title="Sudah Di Approve"></i>
+																<?php else : ?>
+																	<i class="fa fa-close" style="color: #FF4136;" data-toggle="tooltip" title="Belum di approve, {{ $huk != '' && !(is_null($huk)) ?  $huk['alasan'] : '' }}"></i>
+																<?php endif ?>
+															</td>
+															<td>
+																<button type="button" class="btn btn-warning btn-approve btn-outline btn-circle" data-toggle="modal" data-target="#modal-approve" data-appr_tipe="huk" data-appr_ids="{{ $huk['ids'] }}" data-appr_id_emp="{{ $id_emp }}"><i class="ti-search"></i></button>	
 															</td>
 														</tr>
 														@endforeach
@@ -1183,6 +1213,53 @@
 							</div>
 						</div>
 					
+				</div>
+			</div>
+
+			<div id="modal-approve" class="modal fade modal-approval" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<form method="POST" action="/portal/kepegawaian/form/approvepegawai" class="form-horizontal">
+						@csrf
+							<div class="modal-header">
+								<h4 class="modal-title"><b>Approve File</b></h4>
+							</div>
+							<div class="modal-body">
+								<!-- <h4>Approve file? </h4> -->
+								<div class="form-group">
+									<label class="col-md-2 control-label"> Approve? </label>
+									<div class="radio-list col-md-8">
+										<label class="radio-inline">
+											<div class="radio radio-info">
+												<input type="radio" name="appr" id="appr1" value="1" data-error="Pilih salah satu" required checked>
+												<label for="appr1">Ya</label> 
+											</div>
+										</label>
+										<label class="radio-inline">
+											<div class="radio radio-info">
+												<input type="radio" name="appr" id="appr2" value="0">
+												<label for="appr2">Tidak</label>
+											</div>
+										</label>
+										<div class="help-block with-errors"></div>  
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="alasan" class="col-md-2 control-label"> Alasan </label>
+									<div class="col-md-8">
+										<textarea class="form-control" name="alasan" id="alasan"></textarea>
+									</div>
+								</div>
+								<input type="hidden" name="ids" id="modal_approve_ids">
+								<input type="hidden" name="formtipe" id="modal_approve_formtipe">
+								<input type="hidden" name="id_emp" id="modal_approve_id_emp">
+							</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-info pull-right">Simpan</button>
+								<button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
+							</div>
+						</form>
+					</div>
 				</div>
 			</div>
 			
@@ -1311,6 +1388,13 @@
 			autoclose: true
 			, todayHighlight: false
 			, format: 'dd/mm/yyyy'
+		});
+
+		$('.btn-approve').on('click', function () {
+			var $el = $(this);
+			$("#modal_approve_ids").val($el.data('appr_ids'));
+			$("#modal_approve_formtipe").val($el.data('appr_tipe'));
+			$("#modal_approve_id_emp").val($el.data('appr_id_emp'));
 		});
 
 	</script>

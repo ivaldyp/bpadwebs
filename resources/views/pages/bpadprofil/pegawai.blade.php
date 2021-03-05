@@ -656,18 +656,20 @@
 														<?php endif ?>
 													</td>
 													
-
+													<td style="vertical-align: middle;">
 													<?php if ($gol['gambar'] && $gol['gambar'] != '') : ?> 
-														<td style="vertical-align: middle;">
-															<strong>File</strong>
-															<br><a target="_blank" href="{{ config('app.openfileimg') }}/{{ Auth::user()->id_emp }}/gol/{{ $gol['gambar'] }}">[File SK]</a>
-														</td>
+														<strong>File</strong>
+														<br><a target="_blank" href="{{ config('app.openfileimg') }}/{{ Auth::user()->id_emp }}/gol/{{ $gol['gambar'] }}">[File SK]</a>
 													<?php else : ?>
-														<td style="vertical-align: middle;">
-															<strong>File</strong>
-															<br>[Tidak ada SK Gol]
-														</td>
+														<strong>File</strong>
+														<br>[Tidak ada SK Gol]
 													<?php endif ?>
+													<?php if ($gol['appr'] == '1') : ?> 
+														<i class="fa fa-check" style="color: #2ECC40;" data-toggle="tooltip" title="Sudah Di Approve"></i>
+													<?php else : ?>
+														<i class="fa fa-close" style="color: #FF4136;" data-toggle="tooltip" title="Belum di approve, {{ $gol != '' && !(is_null($gol)) ?  $gol['alasan'] : '' }}"></i>
+													<?php endif ?>
+													</td>
 
 													<td style="vertical-align: middle;">
 														
@@ -732,17 +734,22 @@
 														<?php endif ?>
 													</td>
 
+													<td style="vertical-align: middle;">
 													<?php if ($jab['gambar'] && $jab['gambar'] != '') : ?> 
-														<td style="vertical-align: middle;">
-															<strong>File</strong>
-															<br><a target="_blank" href="{{ config('app.openfileimg') }}/{{ Auth::user()->id_emp }}/jab/{{ $jab['gambar'] }}">[File]</a>
-														</td>
+														<strong>File</strong>
+														<br><a target="_blank" href="{{ config('app.openfileimg') }}/{{ Auth::user()->id_emp }}/jab/{{ $jab['gambar'] }}">[File]</a>
 													<?php else : ?>
-														<td style="vertical-align: middle;">
-															<strong>File</strong>
-															<br>[Tidak ada SK Jab]
-														</td>
+														<strong>File</strong>
+														<br>[Tidak ada SK Jab]
 													<?php endif ?>
+													<?php if ($jab['appr'] == '1') : ?> 
+														<i class="fa fa-check" style="color: #2ECC40;" data-toggle="tooltip" title="Sudah Di Approve"></i>
+													<?php else : ?>
+														<i class="fa fa-close" style="color: #FF4136;" data-toggle="tooltip" title="Belum di approve, {{ $jab != '' && !(is_null($jab)) ?  $jab['alasan'] : '' }}"></i>
+													<?php endif ?>
+													</td>
+													
+													
 
 													<td style="vertical-align: middle;">
 														<button type="button" class="btn btn-info btn-outline btn-circle m-r-5 btn-update-jab" data-toggle="modal" data-target="#modal-update-jab" 
@@ -814,7 +821,13 @@
 														<?php else : ?>
 															[File tidak tersedia]
 														<?php endif ?>
+														<?php if ($huk['appr'] == '1') : ?> 
+															<i class="fa fa-check" style="color: #2ECC40;" data-toggle="tooltip" title="Sudah Di Approve"></i>
+														<?php else : ?>
+															<i class="fa fa-close" style="color: #FF4136;" data-toggle="tooltip" title="Belum di approve, {{ $huk != '' && !(is_null($huk)) ?  $huk['alasan'] : '' }}"></i>
+														<?php endif ?>
 													</td>
+
 
 													<td style="vertical-align: middle;">
 														
@@ -1577,6 +1590,7 @@
 									</div>
 								</div>
 								
+								<div class="clearfix"></div>
 							</div>
 							<div class="modal-footer">
 								<button type="submit" class="btn btn-danger pull-right">Simpan</button>
