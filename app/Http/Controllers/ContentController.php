@@ -227,6 +227,15 @@ class ContentController extends Controller
 					where('ids', $id)
 					->first();
 
+		$thits = Content_tb::
+					where('ids', $id)
+					->first(['thits']);
+
+		Content_tb::where('ids', $id)
+			->update([
+				'thits' => $thits['thits'] + 1,
+			]);
+
 		$aside_top_view = Content_tb::take(3)
 							->where('appr', 'Y')
 							->where('idkat', 12)

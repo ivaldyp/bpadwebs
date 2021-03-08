@@ -35,7 +35,7 @@
 					<!-- article content -->
 					<div class="article-content">
 						<div>
-							{!! $video['isi2'] !!}
+							{!! str_replace(".com/watch",".com/embed",$video['isi2']) !!}
 						</div>
 					</div><br>
 					<!-- /article content -->

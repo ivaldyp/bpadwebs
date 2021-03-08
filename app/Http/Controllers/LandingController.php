@@ -115,7 +115,7 @@ class LandingController extends Controller
 		// }
 
 		$info_id = Glo_kategori::
-						where('nmkat', 'infografik')
+						where('kode_kat', 'INF')
 						->where('sts', 1)
 						->first();
 
@@ -128,7 +128,7 @@ class LandingController extends Controller
 					->get();
 
 		$lelang_id = Glo_kategori::
-						where('nmkat', 'lelang')
+						where('kode_kat', 'LEL')
 						->where('sts', 1)
 						->first();
 

@@ -78,8 +78,9 @@
 									<input type="hidden" name="contentnew" value="1">
 									<input type="hidden" name="appr" value="N">
 									<input type="hidden" name="usrinput" value="{{ isset(Auth::user()->id_emp) ? Auth::user()->id_emp : Auth::user()->usname }}">
+									<input type="hidden" name="kode_kat" value="{{ $kat['kode_kat'] }}">
 
-									@if(strtolower($kat['nmkat']) == 'infografik')
+									@if($kat['kode_kat'] == 'INF')
 
 										<?php 
 
@@ -103,9 +104,61 @@
 										</div>
 
 										<div class="form-group">
+											<label for="url" class="col-md-2 control-label"> URL </label>
+											<div class="col-md-8">
+												<input type="text" class="form-control" id="url" name="url" autocomplete="off">
+												<div class="help-block with-errors"></div>
+											</div>
+										</div>
+
+										<div class="form-group">
 											<label for="tfile" class="col-lg-2 control-label"> Upload Foto <br> <span style="font-size: 10px">Hanya berupa JPG, JPEG, dan PNG</span> </label>
 											<div class="col-lg-8">
 												<input type="file" class="form-control" id="tfile" name="tfile">
+											</div>
+										</div>
+
+									@elseif($kat['kode_kat'] == 'VID')
+
+										<div class="form-group">
+											<label for="subkat" class="col-md-2 control-label"><span style="color: red">*</span> Subkategori </label>
+											<div class="col-md-8">
+												<select class="form-control" name="subkat" id="subkat">
+													@foreach($subkats as $subkat)
+														<option value="{{ $subkat['subkat'] }}"> {{ $subkat['subkat'] }} </option>
+													@endforeach
+												</select>
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label for="tanggal" class="col-md-2 control-label"> Waktu </label>
+											<div class="col-md-8">
+												<input type="text" class="form-control" id="tanggal" name="tanggal" autocomplete="off" data-error="Masukkan tanggal" value="{{ date('d/m/Y H:i:s', strtotime(str_replace('/', '-', now('Asia/Jakarta')))) }}">
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label for="judul" class="col-md-2 control-label"><span style="color: red">*</span> Judul </label>
+											<div class="col-md-8">
+												<input type="text" class="form-control" id="judul" name="judul" autocomplete="off" data-error="Masukkan judul" required>
+												<div class="help-block with-errors"></div>
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label for="url" class="col-md-2 control-label"> URL </label>
+											<div class="col-md-8">
+												<input type="text" class="form-control" id="url" name="url" autocomplete="off">
+												<div class="help-block with-errors"></div>
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label for="isi2" class="col-md-2 control-label"> Embed </label>
+											<div class="col-md-8">
+												<textarea class="form-control" id="isi2" name="isi2" autocomplete="off"></textarea>
+												<div class="help-block with-errors"></div>
 											</div>
 										</div>
 
