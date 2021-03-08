@@ -144,8 +144,9 @@
 										</div>
 
 										<div class="form-group">
-											<label for="url" class="col-md-2 control-label"> URL </label>
-											<div class="col-md-8">
+											<label for="url" class="col-md-2 control-label"> URL <br><span style="color: red; font-size: 14px">Masukkan kode youtube video ID</span></label>
+											<div class="col-md-8 input-group">
+												<span class="input-group-addon" id="basic-addon3">youtube.com/watch?v=</span>
 												<input type="text" class="form-control" id="url" name="url" autocomplete="off" value="{{ $content['url'] }}">
 												<div class="help-block with-errors"></div>
 											</div>
