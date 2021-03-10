@@ -219,13 +219,13 @@
 								<div class="panel-wrapper collapse in">
 									<div class="panel-body">
 										<ul class="nav customtab nav-tabs" role="tablist">
-											<li role="presentation" class="active"><a href="#agenda" aria-controls="home" role="tab" data-toggle="tab" aria-expanded="true"><span class="visible-xs"><i class="ti-home"></i></span><span class="hidden-xs"> Agenda</span></a></li>
-											<li role="presentation" class=""><a href="#berita" aria-controls="profile" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs"><i class="ti-user"></i></span> <span class="hidden-xs">Berita</span></a></li>
-											<li role="presentation" class=""><a href="#ulangtahun" aria-controls="messages" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs"><i class="ti-email"></i></span> <span class="hidden-xs">Ulang Tahun</span></a></li>
-											<!-- <li role="presentation" class=""><a href="#pensiun" aria-controls="settings" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs"><i class="ti-settings"></i></span> <span class="hidden-xs">Pensiun</span></a></li> -->
+											<!-- <li role="presentation" class="active"><a href="#agenda" aria-controls="home" role="tab" data-toggle="tab" aria-expanded="true"><span class="visible-xs"><i class="ti-home"></i></span><span class="hidden-xs"> Agenda</span></a></li> -->
+											<!-- <li role="presentation" class=""><a href="#berita" aria-controls="profile" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs"><i class="ti-user"></i></span> <span class="hidden-xs">Berita</span></a></li> -->
+											<li role="presentation" class="active"><a href="#ulangtahun" aria-controls="messages" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs"><i class="ti-email"></i></span> <span class="hidden-xs">Ulang Tahun</span></a></li>
+											<li role="presentation" class=""><a href="#pensiun" aria-controls="settings" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs"><i class="ti-settings"></i></span> <span class="hidden-xs">Pensiun</span></a></li>
 										</ul>
 										<div class="tab-content">
-											<div role="tabpanel" class="tab-pane fade active in" id="agenda">
+											<div role="tabpanel" class="tab-pane fade in" id="agenda">
 												@foreach($agendas as $agenda)
 												{{ date('d-M-Y', strtotime(str_replace('/', '-', $agenda['dtanggal']))) }} oleh {{ $agenda['an'] }}
 												<br>
@@ -249,7 +249,7 @@
 												{{ $beritas->onEachSide(2)->links() }}
 												<div class="clearfix"></div>
 											</div>
-											<div role="tabpanel" class="tab-pane fade in" id="ulangtahun">
+											<div role="tabpanel" class="tab-pane fade active in" id="ulangtahun">
 												<h4>Kemarin:</h4>
 												@if(count($ultah_yes) > 0)
 												<ol>
@@ -279,6 +279,45 @@
 												<ol>
 												@foreach($ultah_tom as $tom)
 												<li>{{ $tom['nm_emp'] }} - {{ $tom['nm_unit'] }} <b>{{ strtoupper($tom['nm_lok']) }}</b></li>
+												@endforeach
+												</ol>
+												@else
+												-
+												@endif
+												<hr>
+
+											</div>
+											<div role="tabpanel" class="tab-pane fade in" id="pensiun">
+												<h4>Bulan ini:</h4>
+												@if(count($pensiun_now) > 0)
+												<ol>
+												@foreach($pensiun_now as $now)
+												<li>{{ $now['nm_emp'] }} - {{ $now['nm_unit'] }} <b>{{ strtoupper($now['nm_lok']) }}</b></li>
+												@endforeach
+												</ol>
+												@else
+												-
+												@endif
+												<hr>
+
+												<h4>Bulan depan:</h4>
+												@if(count($pensiun_min1) > 0)
+												<ol>
+												@foreach($pensiun_min1 as $min1)
+												<li>{{ $min1['nm_emp'] }} - {{ $min1['nm_unit'] }} <b>{{ strtoupper($min1['nm_lok']) }}</b></li>
+												@endforeach
+												</ol>
+												@else
+												-
+												@endif
+												<hr>
+
+
+												<h4>2 - 6 Bulan kedepan:</h4>
+												@if(count($pensiun_min6) > 0)
+												<ol>
+												@foreach($pensiun_min6 as $min6)
+												<li>{{ $min6['nm_emp'] }} - {{ $min6['nm_unit'] }} <b>{{ strtoupper($min6['nm_lok']) }}</b></li>
 												@endforeach
 												</ol>
 												@else

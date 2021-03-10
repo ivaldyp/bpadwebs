@@ -248,6 +248,11 @@ class HomeController extends Controller
 		}
 		$employees = json_decode(json_encode($employees), true);
 
+		// ULANG TAHUN
+		// ULANG TAHUN
+		// ULANG TAHUN
+		// ULANG TAHUN		
+
 		$d_now = (int)date('d');
 		$d_tom = (int)date('d',strtotime("+1 days"));
 		$d_yes = (int)date('d',strtotime("-1 days"));
@@ -286,6 +291,41 @@ class HomeController extends Controller
 					"));
 		$ultah_yes = json_decode(json_encode($ultah_yes), true);
 
+		// PENSIUN
+		// PENSIUN
+		// PENSIUN
+		// PENSIUN	
+
+		$pensiun_now = DB::select( DB::raw("
+					SELECT nm_emp, tbjab.idjab, tbunit.nm_unit, d.nm_lok from bpaddtfake.dbo.emp_data as a
+					CROSS APPLY (SELECT TOP 1 tmt_jab,idskpd,idunit,idlok,tmt_sk_jab,no_sk_jab,jns_jab,replace(idjab,'NA::','') as idjab,eselon,gambar FROM  bpaddtfake.dbo.emp_jab WHERE a.id_emp=emp_jab.noid AND emp_jab.sts='1' ORDER BY tmt_jab DESC) tbjab
+					CROSS APPLY (SELECT TOP 1 * FROM bpaddtfake.dbo.glo_org_unitkerja WHERE glo_org_unitkerja.kd_unit = tbjab.idunit) tbunit
+					,bpaddtfake.dbo.glo_skpd as b,bpaddtfake.dbo.glo_org_unitkerja as c,bpaddtfake.dbo.glo_org_lokasi as d WHERE tbjab.idskpd=b.skpd AND tbjab.idskpd+'::'+tbjab.idunit=c.kd_skpd+'::'+c.kd_unit AND tbjab.idskpd+'::'+tbjab.idlok=d.kd_skpd+'::'+d.kd_lok AND a.sts='1' AND b.sts='1' AND c.sts='1' AND d.sts='1'
+					and ked_emp = 'AKTIF' AND (DATEDIFF(month,tgl_lahir,getdate()) = 696)
+					ORDER BY nm_emp ASC 
+					"));
+		$pensiun_now = json_decode(json_encode($pensiun_now), true);
+
+		$pensiun_min1 = DB::select( DB::raw("
+					SELECT nm_emp, tbjab.idjab, tbunit.nm_unit, d.nm_lok from bpaddtfake.dbo.emp_data as a
+					CROSS APPLY (SELECT TOP 1 tmt_jab,idskpd,idunit,idlok,tmt_sk_jab,no_sk_jab,jns_jab,replace(idjab,'NA::','') as idjab,eselon,gambar FROM  bpaddtfake.dbo.emp_jab WHERE a.id_emp=emp_jab.noid AND emp_jab.sts='1' ORDER BY tmt_jab DESC) tbjab
+					CROSS APPLY (SELECT TOP 1 * FROM bpaddtfake.dbo.glo_org_unitkerja WHERE glo_org_unitkerja.kd_unit = tbjab.idunit) tbunit
+					,bpaddtfake.dbo.glo_skpd as b,bpaddtfake.dbo.glo_org_unitkerja as c,bpaddtfake.dbo.glo_org_lokasi as d WHERE tbjab.idskpd=b.skpd AND tbjab.idskpd+'::'+tbjab.idunit=c.kd_skpd+'::'+c.kd_unit AND tbjab.idskpd+'::'+tbjab.idlok=d.kd_skpd+'::'+d.kd_lok AND a.sts='1' AND b.sts='1' AND c.sts='1' AND d.sts='1'
+					and ked_emp = 'AKTIF' AND (DATEDIFF(month,tgl_lahir,getdate()) = 695)
+					ORDER BY nm_emp ASC  
+					"));
+		$pensiun_min1 = json_decode(json_encode($pensiun_min1), true);
+
+		$pensiun_min6 = DB::select( DB::raw("
+					SELECT nm_emp, tbjab.idjab, tbunit.nm_unit, d.nm_lok from bpaddtfake.dbo.emp_data as a
+					CROSS APPLY (SELECT TOP 1 tmt_jab,idskpd,idunit,idlok,tmt_sk_jab,no_sk_jab,jns_jab,replace(idjab,'NA::','') as idjab,eselon,gambar FROM  bpaddtfake.dbo.emp_jab WHERE a.id_emp=emp_jab.noid AND emp_jab.sts='1' ORDER BY tmt_jab DESC) tbjab
+					CROSS APPLY (SELECT TOP 1 * FROM bpaddtfake.dbo.glo_org_unitkerja WHERE glo_org_unitkerja.kd_unit = tbjab.idunit) tbunit
+					,bpaddtfake.dbo.glo_skpd as b,bpaddtfake.dbo.glo_org_unitkerja as c,bpaddtfake.dbo.glo_org_lokasi as d WHERE tbjab.idskpd=b.skpd AND tbjab.idskpd+'::'+tbjab.idunit=c.kd_skpd+'::'+c.kd_unit AND tbjab.idskpd+'::'+tbjab.idlok=d.kd_skpd+'::'+d.kd_lok AND a.sts='1' AND b.sts='1' AND c.sts='1' AND d.sts='1'
+					and ked_emp = 'AKTIF' AND (DATEDIFF(month,tgl_lahir,getdate()) >= 690 and DATEDIFF(month,tgl_lahir,getdate()) < 694)
+					ORDER BY nm_emp ASC 
+					"));
+		$pensiun_min6 = json_decode(json_encode($pensiun_min6), true);
+
 		return view('home')
 				->with('iduser', $iduser)
 				->with('agendas', $agendas)
@@ -297,6 +337,9 @@ class HomeController extends Controller
 				->with('employeesjson', json_encode($employees))
 				->with('ultah_tom', $ultah_tom)
 				->with('ultah_now', $ultah_now)
-				->with('ultah_yes', $ultah_yes);
+				->with('ultah_yes', $ultah_yes)
+				->with('pensiun_now', $pensiun_now)
+				->with('pensiun_min1', $pensiun_min1)
+				->with('pensiun_min6', $pensiun_min6);
 	}
 }
