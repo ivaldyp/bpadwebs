@@ -386,16 +386,16 @@ class CmsController extends Controller
 
 		$result = [
 				'sts'       => $request->sts,
-				'uname'		=> Auth::user()->usname,
-				'tgl'		=> date('Y-m-d H:i:s'),
-				'ip'		=> '',
-				'logbuat'	=> '',
+				'uname'     => Auth::user()->usname,
+				'tgl'       => date('Y-m-d H:i:s'),
+				'ip'        => '',
+				'logbuat'   => '',
 				'nmkat'     => $request->nmkat,
-				'privacy'	=> 'C,',
-				'inc_sql'	=> '',
-				'inc_file'	=> '',
-				'inc_order'	=> '',
-				'iscontent'	=> '',
+				'privacy'   => 'C,',
+				'inc_sql'   => '',
+				'inc_file'  => '',
+				'inc_order' => '',
+				'iscontent' => '',
 			];
 
 		Glo_kategori::insert($result);
@@ -473,14 +473,14 @@ class CmsController extends Controller
 
 		$result = [
 				'sts'       => $request->sts,
-				'uname'		=> Auth::user()->usname,
-				'tgl'		=> date('Y-m-d H:i:s'),
-				'ip'		=> '',
-				'logbuat'	=> '',
-				'idkat'		=> '5',
+				'uname'     => Auth::user()->usname,
+				'tgl'       => date('Y-m-d H:i:s'),
+				'ip'        => '',
+				'logbuat'   => '',
+				'idkat'     => '5',
 				'subkat'     => $request->subkat,
 				'urut_subkat' => $maxurut,
-				'kd_cms' 	=> '1.20.512',
+				'kd_cms'    => '1.20.512',
 			];
 
 		Glo_subkategori::insert($result);
@@ -553,7 +553,7 @@ class CmsController extends Controller
 		// } 
 
 		$kategoris = DB::select( DB::raw("
-				  	SELECT *, (select count (ids) from bpadcmsfake.dbo.content_tb as con where appr = 'N' and sts = 1 and suspend = '$suspnow' and idkat = kat.ids) as total
+					SELECT *, (select count (ids) from bpadcmsfake.dbo.content_tb as con where appr = 'N' and sts = 1 and suspend = '$suspnow' and idkat = kat.ids) as total
 					FROM bpadcmsfake.dbo.glo_kategori as kat
 					WHERE sts = 1
 					ORDER BY nmkat
@@ -561,7 +561,7 @@ class CmsController extends Controller
 		$kategoris = json_decode(json_encode($kategoris), true);
 
 		$katnowdetail = DB::select( DB::raw("
-				  	SELECT *, lower(nmkat) as nama
+					SELECT *, lower(nmkat) as nama
 					FROM bpadcmsfake.dbo.glo_kategori kat
 					WHERE ids = $katnow
 				"))[0];
@@ -571,7 +571,7 @@ class CmsController extends Controller
 					get();
 
 		$contents = DB::select( DB::raw("
-				  	SELECT TOP (1000) con.*, lower(kat.nmkat) as nmkat from bpadcmsfake.dbo.content_tb con
+					SELECT TOP (1000) con.*, lower(kat.nmkat) as nmkat from bpadcmsfake.dbo.content_tb con
 					  join bpadcmsfake.dbo.glo_kategori kat on kat.ids = con.idkat
 					  where idkat = $katnow
 					  and suspend = '$suspnow'
@@ -620,7 +620,7 @@ class CmsController extends Controller
 					->get();
 
 		$content = DB::select( DB::raw("
-				  	SELECT con.tanggal as tanggalc, con.*, lower(kat.nmkat) as nmkat from bpadcmsfake.dbo.content_tb con
+					SELECT con.tanggal as tanggalc, con.*, lower(kat.nmkat) as nmkat from bpadcmsfake.dbo.content_tb con
 					  join bpadcmsfake.dbo.glo_kategori kat on kat.ids = con.idkat
 					  where con.ids = $ids
 					  order by con.tanggal desc
@@ -638,7 +638,7 @@ class CmsController extends Controller
 			$thisid = $_SESSION['user_data']['id_emp'];
 		} else {
 			$thisid = $_SESSION['user_data']['usname'];
-		}	
+		}   
 
 		foreach ($splitappr as $key => $data) {
 			if ($thisid == $data) {
@@ -691,9 +691,15 @@ class CmsController extends Controller
 			} elseif (strtolower($kat['nmkat']) == 'infografik') {
 				$tujuan_upload = config('app.savefileimginfografik');
 			}
-
-			
+		
 			$file->move($tujuan_upload, $file_name);
+
+			$image_info = getimagesize($tujuan_upload . '\\' . $file_name);
+			$width = $image_info[0];
+			$height = $image_info[1];
+			$height_new = 256 * $height / $width;
+
+			$this->createThumbnail($file_name, 256, 256, $tujuan_upload);
 		}
 
 		if (isset($request->tfiledownload)) {
@@ -764,26 +770,26 @@ class CmsController extends Controller
 
 		$insert = [
 				'sts'       => 1,
-				'uname'		=> (Auth::user()->usname ? Auth::user()->usname : Auth::user()->id_emp),
-				'tgl'		=> date('Y-m-d H:i:s'),
-				'ip'		=> '',
-				'logbuat'	=> '',
+				'uname'     => (Auth::user()->usname ? Auth::user()->usname : Auth::user()->id_emp),
+				'tgl'       => date('Y-m-d H:i:s'),
+				'ip'        => '',
+				'logbuat'   => '',
 				'suspend' => $suspend,
 				'idkat'     => $request->idkat,
 				'subkat'     => $subkat,
-				'tipe'		=> $headline,
+				'tipe'      => $headline,
 				'tanggal'   => date('Y-m-d H:i:s',strtotime(str_replace('/', '-', $request->tanggal))),
 				'judul'   => $request->judul,
 				'isi1'   => htmlentities($isi1),
 				'isi2'   => $isi2,
 				'tglinput'   => date('Y-m-d H:i:s',strtotime(str_replace('/', '-', $request->tanggal))),
 				'editor'   => $request->editor,
-				'link'		=> '',
+				'link'      => '',
 				'thits'   => 0,
 				'ipserver' => '',
 				'tfile'   => $file_name,
 				'likes'   => 0,
-				'privacy'	=> '',
+				'privacy'   => '',
 				'url'       => $url,
 				'kd_cms'   => '1.20.512',
 				'appr'   => "N",
@@ -834,6 +840,13 @@ class CmsController extends Controller
 			}
 
 			$file->move($tujuan_upload, $file_name);
+
+			$image_info = getimagesize($tujuan_upload . '\\' . $file_name);
+			$width = $image_info[0];
+			$height = $image_info[1];
+			$height_new = 256 * $height / $width;
+
+			$this->createThumbnail($file_name, 256, 256, $tujuan_upload);
 		}
 
 		if (isset($request->tfiledownload)) {
@@ -921,7 +934,7 @@ class CmsController extends Controller
 			where('ids', $request->ids)
 			->update([
 				'subkat'     => $subkat,
-				'tipe'		=> $headline,
+				'tipe'      => $headline,
 				'tanggal'   => date('Y-m-d H:i:s',strtotime(str_replace('/', '-', $request->tanggal))),
 				'judul'   => $request->judul,
 				'isi1'   => htmlentities($request->isi1),
@@ -971,6 +984,62 @@ class CmsController extends Controller
 		return redirect('/cms/content?katnow='.$request->idkat)
 					->with('message', 'Konten berhasil dihapus')
 					->with('msg_num', 1);
+	}
+
+	function createThumbnail($image_name, $new_width, $new_height, $uploadDir)
+	{
+		$path = $uploadDir . '/' . $image_name;
+
+		$mime = getimagesize($path);
+
+		if($mime['mime']=='image/png') { 
+			$src_img = imagecreatefrompng($path);
+		}
+		if($mime['mime']=='image/jpg' || $mime['mime']=='image/jpeg' || $mime['mime']=='image/pjpeg') {
+			$src_img = imagecreatefromjpeg($path);
+		}   
+
+		$old_x          =   imageSX($src_img);
+		$old_y          =   imageSY($src_img);
+
+		if($old_x > $old_y) 
+		{
+			$thumb_w    =   $new_width;
+			$thumb_h    =   $old_y*($new_height/$old_x);
+		}
+
+		if($old_x < $old_y) 
+		{
+			$thumb_w    =   $old_x*($new_width/$old_y);
+			$thumb_h    =   $new_height;
+		}
+
+		if($old_x == $old_y) 
+		{
+			$thumb_w    =   $new_width;
+			$thumb_h    =   $new_height;
+		}
+
+		$dst_img        =   ImageCreateTrueColor($thumb_w,$thumb_h);
+
+		imagecopyresampled($dst_img,$src_img,0,0,0,0,$thumb_w,$thumb_h,$old_x,$old_y); 
+
+		$image_name = str_replace(".","-thumb.",$image_name);
+
+		// New save location
+		$new_thumb_loc = $uploadDir . '/' . $image_name;
+
+		if($mime['mime']=='image/png') {
+			$result = imagepng($dst_img,$new_thumb_loc,8);
+		}
+		if($mime['mime']=='image/jpg' || $mime['mime']=='image/jpeg' || $mime['mime']=='image/pjpeg') {
+			$result = imagejpeg($dst_img,$new_thumb_loc,80);
+		}
+
+		imagedestroy($dst_img); 
+		imagedestroy($src_img);
+
+		return $result;
 	}
 
 	// ---------------- CONTENT ------------------ //
@@ -1033,9 +1102,9 @@ class CmsController extends Controller
 
 		$result1 = [
 				'href'      => $request->href,
-				'name'		=> $request->name,
-				'source'	=> $pathhref,
-				'type'		=> 'static',
+				'name'      => $request->name,
+				'source'    => $pathhref,
+				'type'      => 'static',
 			];
 		New_icon_produk::insert($result1);
 
@@ -1066,9 +1135,9 @@ class CmsController extends Controller
 
 		$result2 = [
 				'href'      => $request->href,
-				'name'		=> $request->name,
-				'source'	=> $pathhref,
-				'type'		=> 'active',
+				'name'      => $request->name,
+				'source'    => $pathhref,
+				'type'      => 'active',
 			];
 		New_icon_produk::insert($result2);
 
@@ -1153,7 +1222,7 @@ class CmsController extends Controller
 			where('name', $request->name)
 			->update([
 				'href'      => $request->href,
-				'name'		=> $request->name,
+				'name'      => $request->name,
 			]);
 
 		return redirect('/cms/produk')
@@ -1209,8 +1278,8 @@ class CmsController extends Controller
 		Setup_can_approve::where('can_approve', 'like', '%%')->delete();
 
 		$query = [
-				'updated_at'	=> date('Y-m-d H:i:s'),
-				'can_approve'	=> $approve,
+				'updated_at'    => date('Y-m-d H:i:s'),
+				'can_approve'   => $approve,
 			];
 		Setup_can_approve::insert($query);
 
