@@ -250,32 +250,41 @@
 												<div class="clearfix"></div>
 											</div>
 											<div role="tabpanel" class="tab-pane fade in" id="ulangtahun">
-												@if(count($ultah_yes) > 0)
 												<h4>Kemarin:</h4>
+												@if(count($ultah_yes) > 0)
 												<ol>
 												@foreach($ultah_yes as $yes)
 												<li>{{ $yes['nm_emp'] }} - {{ $yes['nm_unit'] }}</li>
 												@endforeach
-												</ol><hr>
+												</ol>
+												@else
+												-
 												@endif
+												<hr>
 
-												@if(count($ultah_now) > 0)
 												<h4>Hari Ini:</h4>
+												@if(count($ultah_now) > 0)
 												<ol>
 												@foreach($ultah_now as $now)
 												<li>{{ $now['nm_emp'] }} - {{ $now['nm_unit'] }}</li>
 												@endforeach
-												</ol><hr>
+												</ol>
+												@else
+												-
 												@endif
+												<hr>
 
-												@if(count($ultah_tom) > 0)
 												<h4>Besok:</h4>
+												@if(count($ultah_tom) > 0)
 												<ol>
 												@foreach($ultah_tom as $tom)
 												<li>{{ $tom['nm_emp'] }} - {{ $tom['nm_unit'] }}</li>
 												@endforeach
-												</ol><hr>
+												</ol>
+												@else
+												-
 												@endif
+												<hr>
 
 											</div>
 											<!-- <div role="tabpanel" class="tab-pane fade in" id="pensiun"></div> -->

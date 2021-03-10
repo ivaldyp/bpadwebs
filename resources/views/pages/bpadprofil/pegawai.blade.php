@@ -1487,7 +1487,7 @@
 									</div>
 								</div>
 
-								<div class="form-group">
+								<!-- <div class="form-group">
 									<label class="col-md-3 control-label"> Masa Kerja </label>
 									<div class="col-md-3">
 										<input autocomplete="off" type="text" name="mk_thn" class="form-control intLimitTextBox" placeholder="Tahun">
@@ -1497,7 +1497,7 @@
 										<input autocomplete="off" type="text" name="mk_bln" class="form-control intLimitTextBox" placeholder="Bulan">
 									</div>
 									<label for="tmt_sk_gol" class="col-md-1 control-label"> Bulan </label>
-								</div>
+								</div> -->
 
 								<div class="form-group">
 									<label for="fileijazah" class="col-lg-3 control-label"> Upload File <br> <span style="font-size: 12px; color:red">Size Max 5MB</span> </label>
@@ -1571,7 +1571,7 @@
 									</div>
 								</div>
 
-								<div class="form-group col-md-12">
+								<!-- <div class="form-group col-md-12">
 									<label class="col-md-2 control-label"> Masa Kerja </label>
 									<div class="col-md-3">
 										<input autocomplete="off" type="text" name="mk_thn" class="form-control intLimitTextBox" placeholder="Tahun" id="modal_update_gol_mkthn">
@@ -1581,7 +1581,7 @@
 										<input autocomplete="off" type="text" name="mk_bln" class="form-control intLimitTextBox" placeholder="Bulan" id="modal_update_gol_mkbln">
 									</div>
 									<label for="tmt_sk_gol" class="col-md-1 control-label"> Bulan </label>
-								</div>
+								</div> -->
 
 
 								<div class="form-group col-md-12">

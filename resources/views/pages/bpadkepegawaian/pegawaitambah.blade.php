@@ -435,7 +435,7 @@
 													</div>
 												</div>
 
-												<div class="form-group">
+												<!-- <div class="form-group">
 													<label class="col-md-2 control-label"> Masa Kerja </label>
 													<div class="col-md-3">
 														<input autocomplete="off" type="text" name="mk_thn" class="form-control intLimitTextBox" id="mk_thn" placeholder="Tahun">
@@ -445,7 +445,7 @@
 														<input autocomplete="off" type="text" name="mk_bln" class="form-control intLimitTextBox" id="mk_bln" placeholder="Bulan">
 													</div>
 													<label for="tmt_sk_gol" class="col-md-1 control-label"> Bulan </label>
-												</div>
+												</div> -->
 
 												<!-- <div class="form-group">
 													<label for="fileskgol" class="col-lg-2 control-label"> Upload SK <br> <span style="font-size: 10px">Hanya berupa JPG, JPEG, dan PNG</span> </label>

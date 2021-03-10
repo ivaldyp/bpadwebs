@@ -740,7 +740,7 @@
 																					</div>
 																				</div>
 
-																				<div class="form-group col-md-12">
+																				<!-- <div class="form-group col-md-12">
 																					<label class="col-md-2 control-label"> Masa Kerja </label>
 																					<div class="col-md-3">
 																						<input autocomplete="off" type="text" name="mk_thn" class="form-control intLimitTextBox" placeholder="Tahun" value="{{$gol['mk_thn']}}">
@@ -750,7 +750,7 @@
 																						<input autocomplete="off" type="text" name="mk_bln" class="form-control intLimitTextBox" placeholder="Bulan" value="{{$gol['mk_bln']}}">
 																					</div>
 																					<label for="tmt_sk_gol" class="col-md-1 control-label"> Bulan </label>
-																				</div>
+																				</div> -->
 
 																				<div class="clearfix"></div>
 																			</div>
@@ -823,7 +823,7 @@
 																</div>
 															</div>
 
-															<div class="form-group">
+															<!-- <div class="form-group">
 																<label class="col-md-3 control-label"> Masa Kerja </label>
 																<div class="col-md-3">
 																	<input autocomplete="off" type="text" name="mk_thn" class="form-control intLimitTextBox" placeholder="Tahun">
@@ -833,7 +833,7 @@
 																	<input autocomplete="off" type="text" name="mk_bln" class="form-control intLimitTextBox" placeholder="Bulan">
 																</div>
 																<label for="tmt_sk_gol" class="col-md-1 control-label"> Bulan </label>
-															</div>
+															</div> -->
 
 														</div>
 														<div class="modal-footer">
