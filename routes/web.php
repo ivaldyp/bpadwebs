@@ -111,6 +111,7 @@ Route::group(['prefix' => 'profil'], function () {
 	Route::get('/ceknoform', 'ProfilController@ceknoform');
 
 	Route::get('/pegawai', 'ProfilController@pegawai');
+	Route::get('/printdrh', 'ProfilController@printdrh');
 	Route::post('/form/ubahidpegawai', 'ProfilController@formupdateidpegawai');
 
 	Route::post('/form/tambahkelpegawai', 'ProfilController@forminsertkelpegawai');

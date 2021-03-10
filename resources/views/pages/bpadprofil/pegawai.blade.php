@@ -86,6 +86,7 @@
 							<h3><strong>
 								{{ ucwords(strtolower($emp_jab[0]['unit']['nm_unit'])) }}
 							</strong></h3>
+							<a href="/portal/profil/printdrh"><button class="btn btn-warning btn-rounded">Cetak Riwayat</button></a>
 						</div>
 						<form method="POST" action="/portal/profil/form/ubahidpegawai" data-toggle="validator" enctype="multipart/form-data">
 						@csrf
