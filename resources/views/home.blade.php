@@ -254,7 +254,7 @@
 												@if(count($ultah_yes) > 0)
 												<ol>
 												@foreach($ultah_yes as $yes)
-												<li>{{ $yes['nm_emp'] }} - {{ $yes['nm_unit'] }}</li>
+												<li>{{ $yes['nm_emp'] }} - {{ $yes['nm_unit'] }} <b>{{ strtoupper($yes['nm_lok']) }}</b></li>
 												@endforeach
 												</ol>
 												@else
@@ -266,7 +266,7 @@
 												@if(count($ultah_now) > 0)
 												<ol>
 												@foreach($ultah_now as $now)
-												<li>{{ $now['nm_emp'] }} - {{ $now['nm_unit'] }}</li>
+												<li>{{ $now['nm_emp'] }} - {{ $now['nm_unit'] }} <b>{{ strtoupper($now['nm_lok']) }}</b></li>
 												@endforeach
 												</ol>
 												@else
@@ -278,7 +278,7 @@
 												@if(count($ultah_tom) > 0)
 												<ol>
 												@foreach($ultah_tom as $tom)
-												<li>{{ $tom['nm_emp'] }} - {{ $tom['nm_unit'] }}</li>
+												<li>{{ $tom['nm_emp'] }} - {{ $tom['nm_unit'] }} <b>{{ strtoupper($tom['nm_lok']) }}</b></li>
 												@endforeach
 												</ol>
 												@else
