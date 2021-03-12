@@ -917,16 +917,24 @@ class CmsController extends Controller
 
 		if (isset($request->btnAppr)) {
 
+			if (Auth::user()->usname) {
+				$approved_by = Auth::user()->usname;
+			} else {
+				$approved_by = Auth::user()->id_emp;
+			}
+
 			if (strtolower($kat['nmkat']) == 'lelang' && $request->appr == 'Y') {
 				Content_tb::where('idkat', $request->idkat)
 				->update([
 					'appr' => 'N',
+					'approved_by' => $approved_by,
 				]);
 			}
 
 			Content_tb::where('ids', $request->ids)
 			->update([
 				'appr' => $request->appr,
+				'approved_by' => $approved_by,
 			]);
 		}
 

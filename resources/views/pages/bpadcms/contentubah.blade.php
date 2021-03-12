@@ -280,6 +280,15 @@
 										</div>
 									</div>
 
+									@if($flagapprove == 1)
+									<div class="form-group">
+										<label for="approved_by" class="col-md-2 control-label"> approved_by </label>
+										<div class="col-md-8">
+											<input disabled type="text" class="form-control" id="approved_by" autocomplete="off" value="{{ $content['approved_by'] }}">
+										</div>
+									</div>
+									@endif
+
 									<div class="form-group">
 										<label class="col-md-2 control-label"> Suspend? </label>
 										<div class="radio-list col-md-8">
