@@ -71,7 +71,7 @@
                             <div class="panel-body">
 								<p style="color: red">Approved By: 
 								@if(!(is_null($approveds)))
-								{{ $approveds['can_approve'] }}
+								{{ $approveds }}
 								@endif
 								</p>
 								<form method="POST" action="/portal/cms/form/approve" class="form-horizontal">

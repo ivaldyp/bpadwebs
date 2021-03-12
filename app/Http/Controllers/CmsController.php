@@ -1263,12 +1263,25 @@ class CmsController extends Controller
 
 		$approveds = Setup_can_approve::first();
 
+		$splitapprove = explode("::", $approveds['can_approve']);
+		$peopleappr = '';
+		foreach ($splitapprove as $key => $split) {
+			
+			if (substr($split, 0, 8) == '1.20.512') {
+				$query = Emp_data::where('id_emp', $split)->first(['nm_emp']);
+				$peopleappr .= $query['nm_emp'];
+			} else {
+				$peopleappr .= $split;
+			}
+			$peopleappr .= '::';
+		}
+
 		$pegawai1 = Emp_data::where('ked_emp', 'AKTIF')->orderBy('nm_emp')->get();
 
 		$pegawai2 = Sec_logins::orderBy('idgroup')->orderBy('usname')->get();
 
 		return view('pages.bpadcms.approve')
-				->with('approveds', $approveds)
+				->with('approveds', $peopleappr)
 				->with('pegawai1', $pegawai1)
 				->with('pegawai2', $pegawai2);
 	}
