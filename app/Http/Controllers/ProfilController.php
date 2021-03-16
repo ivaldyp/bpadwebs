@@ -750,7 +750,7 @@ class ProfilController extends Controller
 
 		if ($filenon != '') {
 			Emp_non::where('noid', $id_emp)
-			->where('ids', $nowid)
+			->where('ids', $request->ids)
 			->update([
 				'gambar' => $filenon,
 			]);

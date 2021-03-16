@@ -107,12 +107,13 @@
 				<tr class="">
 					<td class="wid35">a. Nama (Lengkap dengan gelar)</td>
 					<td class="wid5"> : </td>
-					<td class="wid60">{{ $emp_data['gelar_dpn'] ?? '' }} {{ $emp_data['nm_emp'] }} {{ $emp_data['gelar_blk'] ?? '' }}</td>
+					<td class="wid60">{{ $emp_data['gelar_dpn'] ?? '' }} {{ $emp_data['nm_emp'] }}{{ $emp_data['gelar_blk'] ? (', ' . $emp_data['gelar_blk']) : '' }}</td>
 				</tr>
 				<tr class="">
 					<td class="wid35">b. NIP / NRK</td>
 					<td class="wid5"> : </td>
-					<td class="wid60">{{ $emp_data['nip_emp'] ?? '-' }} / {{ $emp_data['nrk_emp'] ?? '-' }}</td>
+					<td class="wid60">{{ !(is_null($emp_data['nip_emp'])) && $emp_data['nip_emp'] != '' ? $emp_data['nip_emp'] : '-' }} / 
+										{{ !(is_null($emp_data['nrk_emp'])) && $emp_data['nrk_emp'] != '' ? $emp_data['nrk_emp'] : '-' }}</td>
 				</tr>
 				<tr class="">
 					<td class="wid35">c. Tempat, Tanggal Lahir</td>
@@ -153,17 +154,17 @@
 				<tr class="">
 					<td class="wid35">g. Alamat</td>
 					<td class="wid5"> : </td>
-					<td class="wid60">{{ $emp_data['alamat_emp'] ?? '-' }}</td>
+					<td class="wid60">{{ !(is_null($emp_data['alamat_emp'])) && $emp_data['alamat_emp'] != '' ? $emp_data['alamat_emp'] : '-' }}</td>
 				</tr>
 				<tr class="">
 					<td class="wid35">h. Nomor telp</td>
 					<td class="wid5"> : </td>
-					<td class="wid60">{{ $emp_data['tlp_emp'] ?? '-' }}</td>
+					<td class="wid60">{{ !(is_null($emp_data['tlp_emp'])) && $emp_data['tlp_emp'] != '' ? $emp_data['tlp_emp'] : '-' }}</td>
 				</tr>
 				<tr class="">
 					<td class="wid35">i. Email</td>
 					<td class="wid5"> : </td>
-					<td class="wid60">{{ $emp_data['email_emp'] ?? '-' }}</td>
+					<td class="wid60">{{ !(is_null($emp_data['email_emp'])) && $emp_data['email_emp'] != '' ? $emp_data['email_emp'] : '-' }}</td>
 				</tr>
 			</tbody>
 
@@ -183,6 +184,7 @@
 				</tr>
 			</thead>
 			<tbody>
+				@if(count($emp_kel) > 0)
 				@foreach($emp_kel as $key => $kel)
 				<tr>
 					<td style="text-align: center;">{{ $key + 1 }}</td>
@@ -192,6 +194,11 @@
 					<td>{{ date('d-M-Y',strtotime($kel['tgl_kel'])) }}</td>
 				</tr>
 				@endforeach
+				@else
+				<tr>
+					<td style="text-align: center;" colspan=5> --- Tidak Ada Data --- </td>
+				</tr>
+				@endif
 			</tbody>
 
 		</table>	
@@ -210,6 +217,7 @@
 				</tr>
 			</thead>
 			<tbody>
+				@if(count($emp_gol) > 0)
 				@foreach($emp_gol as $key => $gol)
 				<tr>
 					<td style="text-align: center;">{{ $key + 1 }}</td>
@@ -219,6 +227,11 @@
 					<td>{{ date('d-M-Y',strtotime($gol['tmt_sk_gol'])) }}</td>
 				</tr>
 				@endforeach
+				@else
+				<tr>
+					<td style="text-align: center;" colspan=5> --- Tidak Ada Data --- </td>
+				</tr>
+				@endif
 			</tbody>
 
 		</table>	
@@ -237,6 +250,7 @@
 				</tr>
 			</thead>
 			<tbody>
+				@if(count($emp_jab) > 0)
 				@foreach($emp_jab as $key => $jab)
 				<tr>
 					<td style="text-align: center;">{{ $key + 1 }}</td>
@@ -246,6 +260,11 @@
 					<td>{{ date('d-M-Y',strtotime($jab['tmt_sk_jab'])) }}</td>
 				</tr>
 				@endforeach
+				@else
+				<tr>
+					<td style="text-align: center;" colspan=5> --- Tidak Ada Data --- </td>
+				</tr>
+				@endif
 			</tbody>
 
 		</table>	
@@ -265,6 +284,7 @@
 				</tr>
 			</thead>
 			<tbody>
+				@if(count($emp_dik) > 0)
 				@foreach($emp_dik as $key => $dik)
 				<tr>
 					<td style="text-align: center;">{{ $key + 1 }}</td>
@@ -275,6 +295,11 @@
 					<td>{{ $dik['no_sek'] != '' && !(is_null($dik['no_sek'])) ? $dik['no_sek'] : '-' }}</td>
 				</tr>
 				@endforeach
+				@else
+				<tr>
+					<td style="text-align: center;" colspan=6> --- Tidak Ada Data --- </td>
+				</tr>
+				@endif
 			</tbody>
 
 		</table>
@@ -293,6 +318,7 @@
 				</tr>
 			</thead>
 			<tbody>
+				@if(count($emp_non) > 0)
 				@foreach($emp_non as $key => $non)
 				<tr>
 					<td style="text-align: center;">{{ $key + 1 }}</td>
@@ -302,6 +328,11 @@
 					<td>{{ $non['sert_non'] != '' && !(is_null($non['sert_non'] )) ? $non['sert_non'] : '-' }}</td>
 				</tr>
 				@endforeach
+				@else
+				<tr>
+					<td style="text-align: center;" colspan=5> --- Tidak Ada Data --- </td>
+				</tr>
+				@endif
 			</tbody>
 
 		</table>	
@@ -320,6 +351,7 @@
 				</tr>
 			</thead>
 			<tbody>
+				@if(count($emp_huk) > 0)
 				@foreach($emp_huk as $key => $huk)
 				<tr>
 					<td style="text-align: center;">{{ $key + 1 }}</td>
@@ -329,6 +361,11 @@
 					<td>{{ $huk['tgl_sk'] != '' && !(is_null($huk['tgl_sk'] )) ? date('d/M/Y',strtotime($huk['tgl_sk'])) : '-' }}</td>
 				</tr>
 				@endforeach
+				@else
+				<tr>
+					<td style="text-align: center;" colspan=5> --- Tidak Ada Data --- </td>
+				</tr>
+				@endif
 			</tbody>
 
 		</table>	
