@@ -15,6 +15,9 @@ use PHPMailer\PHPMailer\Exception;
 
 use App\Agenda_tb;
 use App\Berita_tb;
+use App\Internal_arsip;
+use App\Internal_info;
+use App\Glo_arsip_kategori;
 use App\Help;
 use App\Sec_menu;
 
@@ -30,10 +33,10 @@ class InternalController extends Controller
 	}
 
 	// ========== <AGENDA> ========== //
-    
-    public function agenda()
-    {
-    	$this->checkSessionTime();
+	
+	public function agenda()
+	{
+		$this->checkSessionTime();
 		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
 		$currentpath = explode("?", $currentpath)[0];
 		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
@@ -46,18 +49,18 @@ class InternalController extends Controller
 		return view('pages.bpadinternal.agenda')
 				->with('access', $access)
 				->with('agendas', $agendas);
-    }
+	}
 
-    public function agendatambah()
-    {
-    	$this->checkSessionTime();
+	public function agendatambah()
+	{
+		$this->checkSessionTime();
 
 		return view('pages.bpadinternal.agendatambah');
-    }
+	}
 
-    public function agendaubah(Request $request)
-    {
-    	$this->checkSessionTime();
+	public function agendaubah(Request $request)
+	{
+		$this->checkSessionTime();
 
 		$agenda = Agenda_tb::
 					where('ids', $request->ids)
@@ -66,11 +69,11 @@ class InternalController extends Controller
 		return view('pages.bpadinternal.agendaubah')
 				->with('ids', $request->ids)
 				->with('agenda', $agenda);
-    }
+	}
 
-    public function formappragenda(Request $request)
-    {
-    	$this->checkSessionTime();
+	public function formappragenda(Request $request)
+	{
+		$this->checkSessionTime();
 
 		Agenda_tb::where('ids', $request->ids)
 			->update([
@@ -86,11 +89,11 @@ class InternalController extends Controller
 		return redirect('/internal/agenda')
 				->with('message', $message)
 				->with('msg_num', 1);
-    }
+	}
 
-    public function forminsertagenda(Request $request)
-    {
-    	$this->checkSessionTime();
+	public function forminsertagenda(Request $request)
+	{
+		$this->checkSessionTime();
 
 		$fileagenda = '';
 
@@ -140,11 +143,11 @@ class InternalController extends Controller
 		return redirect('/internal/agenda')
 				->with('message', 'Agenda baru berhasil dibuat')
 				->with('msg_num', 1);
-    }
+	}
 
-    public function formupdateagenda(Request $request)
-    {
-    	$this->checkSessionTime();
+	public function formupdateagenda(Request $request)
+	{
+		$this->checkSessionTime();
 
 		$fileagenda = '';
 
@@ -189,11 +192,11 @@ class InternalController extends Controller
 		return redirect('/internal/agenda')
 				->with('message', 'Agenda berhasil diubah')
 				->with('msg_num', 1);
-    }
+	}
 
-    public function formdeleteagenda(Request $request)
-    {
-    	$this->checkSessionTime();
+	public function formdeleteagenda(Request $request)
+	{
+		$this->checkSessionTime();
 
 		Agenda_tb::
 				where('ids', $request->ids)
@@ -210,15 +213,15 @@ class InternalController extends Controller
 		return redirect('/internal/agenda')
 					->with('message', 'Agenda berhasil dihapus')
 					->with('msg_num', 1);
-    }
+	}
 
-    // ========== </AGENDA> ========== //
+	// ========== </AGENDA> ========== //
 
-    // ========== <BERITA> ========== //
+	// ========== <BERITA> ========== //
 
-    public function berita()
-    {
-    	$this->checkSessionTime();
+	public function berita()
+	{
+		$this->checkSessionTime();
 		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
 		$currentpath = explode("?", $currentpath)[0];
 		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
@@ -231,18 +234,18 @@ class InternalController extends Controller
 		return view('pages.bpadinternal.berita')
 				->with('access', $access)
 				->with('beritas', $beritas);
-    }
+	}
 
-    public function beritatambah()
-    {
-    	$this->checkSessionTime();
+	public function beritatambah()
+	{
+		$this->checkSessionTime();
 
 		return view('pages.bpadinternal.beritatambah');
-    }
+	}
 
-    public function beritaubah(Request $request)
-    {
-    	$this->checkSessionTime();
+	public function beritaubah(Request $request)
+	{
+		$this->checkSessionTime();
 
 		$berita = Berita_tb::
 					where('ids', $request->ids)
@@ -251,11 +254,11 @@ class InternalController extends Controller
 		return view('pages.bpadinternal.beritaubah')
 				->with('ids', $request->ids)
 				->with('berita', $berita);
-    }
+	}
 
-    public function formapprberita(Request $request)
-    {
-    	$this->checkSessionTime();
+	public function formapprberita(Request $request)
+	{
+		$this->checkSessionTime();
 
 		Berita_tb::where('ids', $request->ids)
 			->update([
@@ -271,11 +274,11 @@ class InternalController extends Controller
 		return redirect('/internal/berita')
 				->with('message', $message)
 				->with('msg_num', 1);
-    }
+	}
 
-    public function forminsertberita(Request $request)
-    {
-    	$this->checkSessionTime();
+	public function forminsertberita(Request $request)
+	{
+		$this->checkSessionTime();
 
 		if (is_null($request->isi)) {
 			$isi = '';
@@ -303,11 +306,11 @@ class InternalController extends Controller
 		return redirect('/internal/berita')
 				->with('message', 'Berita baru berhasil dibuat')
 				->with('msg_num', 1);
-    }
+	}
 
-    public function formupdateberita(Request $request)
-    {
-    	$this->checkSessionTime();
+	public function formupdateberita(Request $request)
+	{
+		$this->checkSessionTime();
 
 		Berita_tb::where('ids', $request->ids)
 					->update([
@@ -319,11 +322,11 @@ class InternalController extends Controller
 		return redirect('/internal/berita')
 				->with('message', 'Berita berhasil diubah')
 				->with('msg_num', 1);
-    }
+	}
 
-    public function formdeleteberita(Request $request)
-    {
-    	$this->checkSessionTime();
+	public function formdeleteberita(Request $request)
+	{
+		$this->checkSessionTime();
 
 		Berita_tb::
 				where('ids', $request->ids)
@@ -332,15 +335,15 @@ class InternalController extends Controller
 		return redirect('/internal/berita')
 					->with('message', 'Berita berhasil dihapus')
 					->with('msg_num', 1);
-    }
+	}
 
-    // ========== </BERITA> ========== //
+	// ========== </BERITA> ========== //
 
-    // ========== <SARAN> ========== //
-    
-    public function saran()
-    {
-    	$this->checkSessionTime();
+	// ========== <SARAN> ========== //
+	
+	public function saran()
+	{
+		$this->checkSessionTime();
 		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
 		$currentpath = explode("?", $currentpath)[0];
 		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
@@ -353,11 +356,11 @@ class InternalController extends Controller
 		return view('pages.bpadinternal.saran')
 				->with('access', $access)
 				->with('sarans', $sarans);
-    }
+	}
 
-    public function formapprsaran(Request $request)
-    {
-    	$this->checkSessionTime();
+	public function formapprsaran(Request $request)
+	{
+		$this->checkSessionTime();
 
 		if ($request->read == 1) {
 			$read = 0;
@@ -373,11 +376,11 @@ class InternalController extends Controller
 		return redirect('/internal/saran')
 				->with('message', 'Status berhasil diubah')
 				->with('msg_num', 1);
-    }
+	}
 
-    public function formmailsaran(Request $request)
-    {
-    	$subject = 'Reply';
+	public function formmailsaran(Request $request)
+	{
+		$subject = 'Reply';
 		$body = 'Pengirim: ' . $request->sender . '<br><br>';
 		$body = $body . $request->body;
 
@@ -433,7 +436,377 @@ class InternalController extends Controller
 		return redirect('/internal/saran')
 				->with('message', 'saran berhasil dibuat')
 				->with('msg_num', 1);
-    }
+	}
 
-    // ========== </SARAN> ========== //
+	// ========== </SARAN> ========== //
+
+	// ========== <INFO KEPEGAWAIAN> ========== //
+
+	public function infoall(Request $request)
+	{
+		$this->checkSessionTime();
+		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
+		$currentpath = explode("?", $currentpath)[0];
+		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
+		$access = $this->checkAccess($_SESSION['user_data']['idgroup'], $thismenu['ids']);
+
+		if ($request->searchnow) {
+			$qsearchnow = $request->searchnow;
+		} else {
+			$qsearchnow = '';
+		}
+
+		$infos = Internal_info::
+				where('info_judul', 'like', '%'.$qsearchnow.'%')
+				->where('sts', '1')
+				->orderBy('tgl', 'desc')
+				->orderBy('tgl_mulai', 'desc')		
+				->orderBy('tgl_akhir', 'desc')
+				->orderBy('info_judul', 'asc')
+				->limit(1000)
+				->get();
+
+		return view('pages.bpadinternal.info')
+				->with('infos', $infos);
+	}
+
+	public function infotambah()
+	{
+		$this->checkSessionTime();
+
+		return view('pages.bpadinternal.infotambah');
+	}
+
+	public function infoubah(Request $request)
+	{
+		$this->checkSessionTime();
+
+		$infos = Internal_info::
+					where('ids', $request->ids)
+					->first();
+
+		return view('pages.bpadinternal.infoubah')
+				->with('ids', $request->ids)
+				->with('infos', $infos);
+	}
+
+	public function forminsertinfo(Request $request)
+	{
+		$this->checkSessionTime();
+
+		$fileinfo = '';
+
+		date_default_timezone_set('Asia/Jakarta');
+		$insert_info = [
+				// PENDIDIKAN
+				'sts' => 1,
+				'uname'     => (Auth::user()->usname ? Auth::user()->usname : Auth::user()->id_emp),
+				'tgl'       => date('Y-m-d H:i:s'),
+				'info_judul' => $request->info_judul,
+				'tgl_mulai' => ($request->tgl_mulai ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tgl_mulai))) : ''),
+				'tgl_akhir' => ($request->tgl_akhir ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tgl_akhir))) : ''),
+				'info_tampil' => $request->info_tampil,
+			];
+
+		$nowid = Internal_info::insertGetId($insert_info);
+
+		if (isset($request->fileinfo)) {
+			
+			$file = $request->fileinfo;
+
+			if ($file->getSize() > 5555555) {
+				return redirect('/profil/pegawai')->with('message', 'Ukuran file terlalu besar (Maksimal 5MB)');     
+			}
+
+			if (strtolower($file->getClientOriginalExtension()) != "png" && strtolower($file->getClientOriginalExtension()) != "jpg" && strtolower($file->getClientOriginalExtension()) != "jpeg" && strtolower($file->getClientOriginalExtension()) != "pdf") {
+				return redirect('/profil/pegawai')->with('message', 'File yang diunggah harus berbentuk PDF / JPG / JPEG / PNG');     
+			}
+
+			$fileinfo .= $nowid . "_info.". $file->getClientOriginalExtension();
+
+			$tujuan_upload = config('app.savefileinfo');
+			$tujuan_upload .= "\\" . $nowid . "\\";
+
+			if (file_exists($tujuan_upload . $fileinfo )) {
+				unlink($tujuan_upload . $fileinfo);
+			}
+
+			$file->move($tujuan_upload, $fileinfo);
+		}
+			
+		if (!(isset($fileinfo))) {
+			$fileinfo = '';
+		}
+
+		if ($fileinfo != '') {
+			Internal_info::where('ids', $nowid)
+			->update([
+				'info_file' => $fileinfo,
+			]);
+		}
+		
+		return redirect('/internal/info')
+					->with('message', 'Info Kepegawaian baru berhasil ditambah')
+					->with('msg_num', 1);
+	}
+
+	public function formupdateinfo(Request $request)
+	{
+		$this->checkSessionTime();
+
+		Internal_info::where('ids', $request->ids)
+					->update([
+						'info_judul' => $request->info_judul,
+						'tgl_mulai' => ($request->tgl_mulai ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tgl_mulai))) : ''),
+						'tgl_akhir' => ($request->tgl_akhir ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tgl_akhir))) : ''),
+						'info_tampil' => $request->info_tampil,
+					]);
+
+		$fileinfo = '';
+
+		if (isset($request->fileinfo)) {
+			
+			$file = $request->fileinfo;
+
+			if ($file->getSize() > 5555555) {
+				return redirect('/profil/pegawai')->with('message', 'Ukuran file terlalu besar (Maksimal 5MB)');     
+			}
+
+			if (strtolower($file->getClientOriginalExtension()) != "png" && strtolower($file->getClientOriginalExtension()) != "jpg" && strtolower($file->getClientOriginalExtension()) != "jpeg" && strtolower($file->getClientOriginalExtension()) != "pdf") {
+				return redirect('/profil/pegawai')->with('message', 'File yang diunggah harus berbentuk PDF / JPG / JPEG / PNG');     
+			}
+
+			$fileinfo .= $request->ids . "_info.". $file->getClientOriginalExtension();
+
+			$tujuan_upload = config('app.savefileinfo');
+			$tujuan_upload .= "\\" . $request->ids . "\\";
+
+			if (file_exists($tujuan_upload . $fileinfo )) {
+				unlink($tujuan_upload . $fileinfo);
+			}
+
+			$file->move($tujuan_upload, $fileinfo);
+		}
+			
+		if (!(isset($fileinfo))) {
+			$fileinfo = '';
+		}
+
+		if ($fileinfo != '') {
+			Internal_info::where('ids', $request->ids)
+			->update([
+				'info_file' => $fileinfo,
+			]);
+		}
+
+		return redirect('/internal/info')
+				->with('message', 'Info berhasil diubah')
+				->with('msg_num', 1);
+	}
+
+	public function formdeleteinfo(Request $request)
+	{
+		$this->checkSessionTime();
+
+		Internal_info::where('ids', $request->ids)
+					->update([
+						'sts' => 0,
+					]);
+
+		return redirect('/internal/info')
+					->with('message', 'Info Kepegawaian berhasil dihapus')
+					->with('msg_num', 1);
+	}
+
+	// ========== </INFO KEPEGAWAIAN> ========== //
+
+	// ========== <ARSIP KEPEGAWAIAN> ========== //
+
+	public function arsipall(Request $request)
+	{
+		$this->checkSessionTime();
+		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
+		$currentpath = explode("?", $currentpath)[0];
+		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
+		$access = $this->checkAccess($_SESSION['user_data']['idgroup'], $thismenu['ids']);
+
+		if ($request->searchnow) {
+			$qsearchnow = $request->searchnow;
+		} else {
+			$qsearchnow = '';
+		}
+
+		$arsips = Internal_arsip::
+				where('arsip_judul', 'like', '%'.$qsearchnow.'%')
+				->where('sts', '1')
+				->orderBy('tgl', 'desc')
+				->orderBy('arsip_judul', 'asc')
+				->limit(1000)
+				->get();
+
+		return view('pages.bpadinternal.arsip')
+				->with('arsips', $arsips);
+	}
+
+	public function arsiptambah()
+	{
+		$this->checkSessionTime();
+
+		$kats = Glo_arsip_kategori::
+				where('sts', 1)
+				->orderBy('singkatan')
+				->get();
+
+		return view('pages.bpadinternal.arsiptambah')
+				->with('kats', $kats);
+	}
+
+	public function arsipubah(Request $request)
+	{
+		$this->checkSessionTime();
+
+		$arsips = Internal_arsip::
+					where('ids', $request->ids)
+					->first();
+
+		$kats = Glo_arsip_kategori::
+				where('sts', 1)
+				->orderBy('singkatan')
+				->get();
+
+		return view('pages.bpadinternal.arsipubah')
+				->with('ids', $request->ids)
+				->with('arsips', $arsips)
+				->with('kats', $kats);
+	}
+
+	public function forminsertarsip(Request $request)
+	{
+		$this->checkSessionTime();
+
+		$filearsip = '';
+
+		date_default_timezone_set('Asia/Jakarta');
+		$insert_arsip = [
+				// PENDIDIKAN
+				'sts' => 1,
+				'uname'     => (Auth::user()->usname ? Auth::user()->usname : Auth::user()->id_emp),
+				'tgl'       => date('Y-m-d H:i:s'),
+				'arsip_judul' => $request->arsip_judul,
+				'arsip_detail' => $request->arsip_detail,
+				'arsip_kat' => $request->arsip_kat,
+				'arsip_tampil' => $request->arsip_tampil,
+			];
+
+		$nowid = Internal_arsip::insertGetId($insert_arsip);
+
+		if (isset($request->filearsip)) {
+			
+			$file = $request->filearsip;
+
+			if ($file->getSize() > 5555555) {
+				return redirect('/profil/pegawai')->with('message', 'Ukuran file terlalu besar (Maksimal 5MB)');     
+			}
+
+			if (strtolower($file->getClientOriginalExtension()) != "png" && strtolower($file->getClientOriginalExtension()) != "jpg" && strtolower($file->getClientOriginalExtension()) != "jpeg" && strtolower($file->getClientOriginalExtension()) != "pdf") {
+				return redirect('/profil/pegawai')->with('message', 'File yang diunggah harus berbentuk PDF / JPG / JPEG / PNG');     
+			}
+
+			$filearsip .= $nowid . "_arsip.". $file->getClientOriginalExtension();
+
+			$tujuan_upload = config('app.savefilearsip');
+			$tujuan_upload .= "\\" . $nowid . "\\";
+
+			if (file_exists($tujuan_upload . $filearsip )) {
+				unlink($tujuan_upload . $filearsip);
+			}
+
+			$file->move($tujuan_upload, $filearsip);
+		}
+			
+		if (!(isset($filearsip))) {
+			$filearsip = '';
+		}
+
+		if ($filearsip != '') {
+			Internal_arsip::where('ids', $nowid)
+			->update([
+				'arsip_file' => $filearsip,
+			]);
+		}
+		
+		return redirect('/internal/arsip')
+					->with('message', 'Arsip baru berhasil ditambah')
+					->with('msg_num', 1);
+	}
+
+	public function formupdatearsip(Request $request)
+	{
+		$this->checkSessionTime();
+
+		Internal_arsip::where('ids', $request->ids)
+					->update([
+						'arsip_judul' => $request->arsip_judul,
+						'arsip_detail' => $request->arsip_detail,
+						'arsip_kat' => $request->arsip_kat,
+						'arsip_tampil' => $request->arsip_tampil,
+					]);
+
+		$filearsip = '';
+
+		if (isset($request->filearsip)) {
+			
+			$file = $request->filearsip;
+
+			if ($file->getSize() > 5555555) {
+				return redirect('/profil/pegawai')->with('message', 'Ukuran file terlalu besar (Maksimal 5MB)');     
+			}
+
+			if (strtolower($file->getClientOriginalExtension()) != "png" && strtolower($file->getClientOriginalExtension()) != "jpg" && strtolower($file->getClientOriginalExtension()) != "jpeg" && strtolower($file->getClientOriginalExtension()) != "pdf") {
+				return redirect('/profil/pegawai')->with('message', 'File yang diunggah harus berbentuk PDF / JPG / JPEG / PNG');     
+			}
+
+			$filearsip .= $request->ids . "_arsip.". $file->getClientOriginalExtension();
+
+			$tujuan_upload = config('app.savefilearsip');
+			$tujuan_upload .= "\\" . $request->ids . "\\";
+
+			if (file_exists($tujuan_upload . $filearsip )) {
+				unlink($tujuan_upload . $filearsip);
+			}
+
+			$file->move($tujuan_upload, $filearsip);
+		}
+			
+		if (!(isset($filearsip))) {
+			$filearsip = '';
+		}
+
+		if ($filearsip != '') {
+			Internal_arsip::where('ids', $request->ids)
+			->update([
+				'arsip_file' => $filearsip,
+			]);
+		}
+
+		return redirect('/internal/arsip')
+				->with('message', 'Arsip berhasil diubah')
+				->with('msg_num', 1);
+	}
+
+	public function formdeletearsip(Request $request)
+	{
+		$this->checkSessionTime();
+
+		Internal_arsip::where('ids', $request->ids)
+					->update([
+						'sts' => 0,
+					]);
+
+		return redirect('/internal/arsip')
+					->with('message', 'Arsip berhasil dihapus')
+					->with('msg_num', 1);
+	}
+
+	// ========== </ARSIP KEPEGAWAIAN> ========== //
 }

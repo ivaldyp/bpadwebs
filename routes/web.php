@@ -194,6 +194,22 @@ Route::group(['prefix' => 'internal'], function () {
 	Route::post('/form/ubahberita', 'InternalController@formupdateberita');
 	Route::post('/form/hapusberita', 'InternalController@formdeleteberita');
 
+	Route::get('/info', 'InternalController@infoall');
+	Route::get('/info tambah', 'InternalController@infotambah');
+	Route::post('/info ubah', 'InternalController@infoubah');
+	Route::get('/form/apprinfo', 'InternalController@formapprinfo');
+	Route::post('/form/tambahinfo', 'InternalController@forminsertinfo');
+	Route::post('/form/ubahinfo', 'InternalController@formupdateinfo');
+	Route::post('/form/hapusinfo', 'InternalController@formdeleteinfo');
+
+	Route::get('/arsip', 'InternalController@arsipall');
+	Route::get('/arsip tambah', 'InternalController@arsiptambah');
+	Route::post('/arsip ubah', 'InternalController@arsipubah');
+	Route::get('/form/apprarsip', 'InternalController@formapprarsip');
+	Route::post('/form/tambaharsip', 'InternalController@forminsertarsip');
+	Route::post('/form/ubaharsip', 'InternalController@formupdatearsip');
+	Route::post('/form/hapusarsip', 'InternalController@formdeletearsip');
+
 	Route::get('/saran', 'InternalController@saran');
 	// Route::post('/form/reply', 'InternalController@formmailsaran');
 	Route::post('/form/apprsaran', 'InternalController@formapprsaran');

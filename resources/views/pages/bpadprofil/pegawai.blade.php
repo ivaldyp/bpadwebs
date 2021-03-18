@@ -1071,7 +1071,7 @@
 										<input autocomplete="off" type="text" name="no_sek" class="form-control" id="modal_insert_dik_no_sek" placeholder="Nomor Ijazah">
 									</div>
 									<div class="col-md-3">
-										<input autocomplete="off" type="text" name="th_sek" class="form-control intLimitTextBox4" id="modal_insert_dik_th_sek" placeholder="Tahun" required="">
+										<input autocomplete="off" type="text" name="th_sek" class="form-control intLimitTextBox4" id="modal_insert_dik_th_sek" placeholder="Tahun">
 									</div>
 								</div>
 
