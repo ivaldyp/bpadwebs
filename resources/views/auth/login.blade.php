@@ -90,8 +90,8 @@
 ?>
 
 @if(count($query) > 0)
-<div style="margin-top: 70px; background-color: #ffffff; font: bold  large calibri , serif; font-size: 19px; font-weight: bold">
-    <marquee scrollamount="15">
+<div style="margin-top: 70px; background-color: #ffffff; font: bold  large calibri , serif; font-size: 19px; font-weight: bold; width: 100%" class="col-md-12">
+    <marquee scrollamount="12" style="width: 100%">
     @foreach($query as $key => $data)
         @if($key % 2 == 0)
             @php
@@ -105,9 +105,9 @@
         @endif
 
     
-        <p align="center" style="color:#ffffff;background-color:{{ $bgcolor }}; margin-bottom: 0px; height: 30px; vertical-align: middle; padding: 3px;">
+        <p align="center" style="color:#ffffff;background-color:{{ $bgcolor }}; margin-bottom: 0px; height: 30px; vertical-align: middle; padding: 3px; text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;">
             @if( !(is_null($data['info_file'])) && $data['info_file'] != '' )
-                <a style="color: #ffffff" target="_blank" href="{{ config('app.openfileinfo') }}/{{ $data['ids'] }}/{{ $data['info_file'] }}">{{ $data['info_judul'] }}</a>
+                <a style="color: #ffffff; text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;" target="_blank" href="{{ config('app.openfileinfo') }}/{{ $data['ids'] }}/{{ $data['info_file'] }}">{{ $data['info_judul'] }}</a>
             @else
                 {{ $data['info_judul'] }}
             @endif
