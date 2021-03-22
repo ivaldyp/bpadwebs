@@ -90,7 +90,7 @@
 ?>
 
 @if(count($query) > 0)
-<div style="margin-top: 70px; background-color: #ffffff; font: bold  large calibri , serif; font-size: 19px; font-weight: bold; width: 100%" class="col-md-12">
+<div style="margin-top: 35px; background-color: #ffffff; font: bold  large calibri , serif; font-size: 19px; font-weight: bold; width: 100%" class="col-md-12">
     <marquee scrollamount="12" style="width: 100%">
     @foreach($query as $key => $data)
         @if($key % 2 == 0)
