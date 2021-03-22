@@ -76,8 +76,8 @@
 											<li><a href="#section-underline-2" class=""><span>Pendidikan</span></a></li>
 											<li><a href="#section-underline-3" class=""><span>Golongan</span></a></li>
 											<li><a href="#section-underline-4" class=""><span>Jabatan</span></a></li>
-											<li><a href="#section-underline-5" class=""><span>Status</span></a></li>
 											<li><a href="#section-underline-7" class=""><span>Hukuman Disiplin</span></a></li>
+											<li><a href="#section-underline-5" class=""><span>Status</span></a></li>
 										</ul>
 									</nav>
 									<div class="content-wrap">
@@ -1111,39 +1111,6 @@
 												</div>
 											</div>
 										</div>
-										<section id="section-underline-5">
-											<form class="form-horizontal" method="POST" action="/portal/kepegawaian/form/ubahstatuspegawai" data-toggle="validator" enctype="multipart/form-data">
-											@csrf
-												<div class="col-md-12">
-													<input type="hidden" name="id_emp" value="{{ $id_emp }}">
-
-													<div class="form-group">
-														<label for="ked_emp" class="col-md-2 control-label"> Status </label>
-														<div class="col-md-8">
-															<select class="form-control" name="ked_emp" id="ked_emp">
-																@foreach($kedudukans as $kedudukan)
-																	<option value="{{ $kedudukan['ked_emp'] }}"
-																		<?php if ($emp_data['ked_emp'] == $kedudukan['ked_emp']): ?>
-																			selected
-																		<?php endif ?>
-																	> {{ $kedudukan['ked_emp'] }} </option>
-																@endforeach
-															</select>
-														</div>
-													</div>
-
-													<div class="form-group">
-														<label for="tgl_end" class="col-md-2 control-label"> Tanggal </label>
-														<div class="col-md-8">
-															<?php date_default_timezone_set('Asia/Jakarta'); ?>
-															<input type="text" name="tgl_end" class="form-control" id="datepicker-autoclose7" autocomplete="off" placeholder="dd/mm/yyyy" value="{{ date('d/m/Y') }}">
-														</div>
-													</div>
-												</div>
-												<button type="submit" class="m-b-20 m-t-10 btn btn-success pull-right"> Simpan </button>
-												<a href="/portal/kepegawaian/data pegawai"><button type="button" class="m-b-20 m-t-10 btn btn-default pull-right m-r-10"> Kembali </button></a>	
-											</form>
-										</section>
 										<section id="section-underline-6">
 
 											@if(count($emp_huk) > 0)
@@ -1202,6 +1169,39 @@
 											</div>
 											@endif
 											<a href="/portal/kepegawaian/data pegawai"><button type="button" class="btn btn-default pull-right m-b-20 m-t-10"> Kembali </button></a>
+										</section>
+										<section id="section-underline-5">
+											<form class="form-horizontal" method="POST" action="/portal/kepegawaian/form/ubahstatuspegawai" data-toggle="validator" enctype="multipart/form-data">
+											@csrf
+												<div class="col-md-12">
+													<input type="hidden" name="id_emp" value="{{ $id_emp }}">
+
+													<div class="form-group">
+														<label for="ked_emp" class="col-md-2 control-label"> Status </label>
+														<div class="col-md-8">
+															<select class="form-control" name="ked_emp" id="ked_emp">
+																@foreach($kedudukans as $kedudukan)
+																	<option value="{{ $kedudukan['ked_emp'] }}"
+																		<?php if ($emp_data['ked_emp'] == $kedudukan['ked_emp']): ?>
+																			selected
+																		<?php endif ?>
+																	> {{ $kedudukan['ked_emp'] }} </option>
+																@endforeach
+															</select>
+														</div>
+													</div>
+
+													<div class="form-group">
+														<label for="tgl_end" class="col-md-2 control-label"> Tanggal </label>
+														<div class="col-md-8">
+															<?php date_default_timezone_set('Asia/Jakarta'); ?>
+															<input type="text" name="tgl_end" class="form-control" id="datepicker-autoclose7" autocomplete="off" placeholder="dd/mm/yyyy" value="{{ date('d/m/Y') }}">
+														</div>
+													</div>
+												</div>
+												<button type="submit" class="m-b-20 m-t-10 btn btn-success pull-right"> Simpan </button>
+												<a href="/portal/kepegawaian/data pegawai"><button type="button" class="m-b-20 m-t-10 btn btn-default pull-right m-r-10"> Kembali </button></a>	
+											</form>
 										</section>
 								</div>
 							</div>

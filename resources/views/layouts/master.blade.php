@@ -149,7 +149,7 @@
 							<!-- <li><i class="fa fa-map-marker"></i> 2736 Hinkle Deegan Lake Road </li> -->
 							<li><i class="fa fa-phone"></i> (021) 3865745 - (021) 3865745</li>
 							<li><i class="fa fa-envelope"></i> surat@bpadjakarta.id</li>
-							<li><i class="fa fa-envelope" style="opacity: 0"></i> asetbpad@gmail.com</li>
+							<li><i class="fa fa-envelope" style="opacity: 0"></i> bpad@jakarta.go.id</li>
 						</ul>
 					</div>
 				</div>

@@ -74,4 +74,49 @@
         </div>
     </div>
 </div>
+
+<?php  
+    use App\Internal_info;
+    use Illuminate\Support\Facades\DB;
+    date_default_timezone_set('Asia/Jakarta');
+    $datenow = date('Y-m-d');
+
+    $query = DB::select( DB::raw("  
+                SELECT TOP 3 * 
+                FROM bpaddtfake.dbo.internal_info
+                WHERE '$datenow' <= tgl_akhir AND '$datenow' >= tgl_mulai AND sts = 1 AND info_tampil = 1
+                ORDER BY tgl desc") );
+    $query = json_decode(json_encode($query), true);
+?>
+
+@if(count($query) > 0)
+<div style="margin-top: 70px; background-color: #ffffff; font: bold  large calibri , serif; font-size: 19px; font-weight: bold">
+    <marquee scrollamount="15">
+    @foreach($query as $key => $data)
+        @if($key % 2 == 0)
+            @php
+                $bgcolor = '#1b4f72';
+                $bgcolor = '#006cb9';
+            @endphp
+        @else
+            @php
+                $bgcolor = '#5dade2';
+            @endphp
+        @endif
+
+    
+        <p align="center" style="color:#ffffff;background-color:{{ $bgcolor }}; margin-bottom: 0px; height: 30px; vertical-align: middle; padding: 3px;">
+            @if( !(is_null($data['info_file'])) && $data['info_file'] != '' )
+                <a style="color: #ffffff" target="_blank" href="{{ config('app.openfileinfo') }}/{{ $data['ids'] }}/{{ $data['info_file'] }}">{{ $data['info_judul'] }}</a>
+            @else
+                {{ $data['info_judul'] }}
+            @endif
+        </p>
+    @endforeach
+    </marquee>
+</div>
+@endif
+
+
+
 @endsection

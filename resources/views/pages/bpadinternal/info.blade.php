@@ -66,9 +66,6 @@
 						<div class="panel-heading">Info Kepegawaian</div>
 						<div class="col-md-12">
 							<div class="col-md-2"></div>
-						<marquee class="col-md-8" direction="right" style="background-color: #1b4f72; color: #ffe500">
-							This is a sample scrolling text that has scrolls texts to right.
-						</marquee>
 						</div>
 						<div class="panel-wrapper collapse in">
 							<div class="panel-body">
