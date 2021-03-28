@@ -56,6 +56,7 @@
 							$originalDate = explode(" ", $foto['tanggal']);
 							$newTime = explode(":", $originalDate[1]);
 							$newDate = date("d F Y", strtotime($originalDate[0]));
+
 						?>
 
 						<div class="col-md-6">
@@ -68,7 +69,11 @@
 									<ul class="article-meta" style="list-style: none; padding: 0;">
 										<i class="fa fa-user"></i> oleh {{ $foto['editor'] }}
 										<span class="pull-right"><i class="fa fa-calendar"></i> {{ $newDate }} <br></span><br>
-										{{ $foto['subkat'] }}
+										{{ $foto['subkat'] }}<br>
+										<button class="copyBtn" style="background-color: transparent; border: none; padding-left: 0px" 
+									        data-clipboard-text="{{ url()->current() }}/{{$foto['ids']}}/{{str_replace(' ', '_', $foto['judul'])}}">
+									        <i class="fa fa-share-alt"></i> Share Link
+										</button>
 										<!-- <i class="fa fa-eye"></i> {{ $foto['thits'] }} views  -->
 									</ul>
 									<!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p> -->

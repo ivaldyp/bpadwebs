@@ -271,6 +271,13 @@ hs.src = ('//s10.histats.com/js15_as.js');
 
 	<!-- <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'></script> -->
 	<script src="{{ ('/portal/public/js/jquery.zoom.js') }}"></script>
+	<script src="{{ ('/portal/public/js/jquery.copy-to-clipboard.js') }}"></script>
+	<script type="text/javascript">
+		$('.copyBtn').click(function(){
+		  	$(this).CopyToClipboard();
+		  	alert("Link Berhasil Di Salin");
+		});
+	</script>
 	<script type="text/javascript">
 		var main = function(){
 			var ads = $('#ads')

@@ -78,6 +78,10 @@
 									<ul style="list-style: none; padding: 0;" class="article-meta">
 										<i class="fa fa-user" style="color: #006cd8"></i> oleh {{ $berita['editor'] }}
 										<span class="pull-right"><i class="fa fa-calendar"></i> {{ $newDate }} <br></span>
+										<br><button class="copyBtn" style="background-color: transparent; border: none; padding-left: 0px" 
+									        data-clipboard-text="{{ url()->current() }}/{{$berita['ids']}}/{{str_replace(' ', '_', $berita['judul'])}}">
+									        <i class="fa fa-share-alt"></i> Share Link
+										</button>
 										<!-- <i class="fa fa-eye"></i> {{ $berita['thits'] }} views  -->
 									</ul>
 									<!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p> -->
