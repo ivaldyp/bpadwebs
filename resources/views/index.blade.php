@@ -77,7 +77,7 @@
 									{!! html_entity_decode($hot['isi1']) !!}
 								</div>
 								<hr>
-								<a href="{{ url('/content/berita/' . $hot['ids']) }}" class="primary-button pull-right">Lihat Berita</a>
+								<a href="{{ url('/content/berita/' . $hot['ids']. '/' . str_replace(' ', '_', $hot['judul']) ) }}" class="primary-button pull-right">Lihat Berita</a>
 							</div>
 						</div>
 
@@ -129,7 +129,7 @@
 				<div class="col-md-6">
 					<div class="event">
 						<div class="event-img">
-							<a href="{{ url('/content/berita/' . $normal['ids']) }}">
+							<a href="{{ url('/content/berita/' . $normal['ids']. '/' . str_replace(' ', '_', $normal['judul']) ) }}">
 								<img src="{{ $fullpath }}" alt="">
 							</a>
 						</div>
