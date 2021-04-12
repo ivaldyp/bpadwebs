@@ -69,7 +69,7 @@
 						<div class="col-md-6">
 							<div class="article">
 								<div class="berita" style="border-radius: 10px">
-									<a href="{{ url('/content/berita/' . $berita['ids']) }}">
+									<a href="{{ url('/content/berita/' . $berita['ids'] . '/' . str_replace(' ', '_', $berita['judul']) ) }}">
 										<img src="{{ $fullpath }}" alt="">
 									</a>
 								</div>
