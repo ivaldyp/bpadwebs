@@ -112,12 +112,12 @@
 								<a href="/portal/disposisi/tambah disposisi"><button class="btn btn-info" style="margin-bottom: 10px">Tambah </button></a> 
 								@endif
 								<ul class="nav customtab nav-tabs" role="tablist">
-									<li role="presentation" class="active"><a href="#inbox" aria-controls="home" role="tab" data-toggle="tab" aria-expanded="true"><span class="visible-xs"><i class="ti-home"></i></span><span class="hidden-xs"> Undangan</span></a></li>
-									<li role="presentation" class=""><a href="#surat" aria-controls="surat" role="tab" data-toggle="tab" aria-expanded="true"><span class="visible-xs"><i class="ti-home"></i></span><span class="hidden-xs"> Surat</span></a></li>
+									<li role="presentation" class="active"><a href="#surat" aria-controls="surat" role="tab" data-toggle="tab" aria-expanded="true"><span class="visible-xs"><i class="ti-home"></i></span><span class="hidden-xs"> Surat</span></a></li>
+									<li role="presentation" class=""><a href="#inbox" aria-controls="home" role="tab" data-toggle="tab" aria-expanded="true"><span class="visible-xs"><i class="ti-home"></i></span><span class="hidden-xs"> Undangan</span></a></li>
 									<li role="presentation" class=""><a href="#sent" aria-controls="profile" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs"><i class="ti-user"></i></span> <span class="hidden-xs"> Draft</span></a></li>
 								</ul>
 								<div class="tab-content">
-									<div role="tabpanel" class="tab-pane fade active in" id="inbox">
+									<div role="tabpanel" class="tab-pane fade " id="inbox">
 										<div class="table-responsive" style="overflow: visible;">
 											<table id="myTable" class="table table-hover table-striped" style="z-index: 99999;">
 												<thead>
@@ -244,7 +244,7 @@
 											</table>
 										</div>
 									</div>
-									<div role="tabpanel" class="tab-pane fade" id="surat">
+									<div role="tabpanel" class="tab-pane fade active in" id="surat">
 										<div class="table-responsive" style="overflow: visible;">
 											<table id="myTable2" class="table table-hover table-striped">
 												<thead>

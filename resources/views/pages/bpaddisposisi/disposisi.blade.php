@@ -109,14 +109,14 @@
 									</form>
 								</div>
 								<ul class="nav customtab nav-tabs" role="tablist">
-									<li role="presentation" class="active"><a href="#undinbox" aria-controls="undinbox" role="tab" data-toggle="tab" aria-expanded="true" style="background-color: #2cabe3; color: white"><span class="visible-xs"><i class="ti-home"></i></span><span class="hidden-xs"> Undangan Inbox ({{ count($dispinboxundangan) }})</span></a></li>
-									<li role="presentation" class=""><a href="#undsent" aria-controls="undsent" role="tab" data-toggle="tab" aria-expanded="false" style="background-color: #2cabe3; color: white"><span class="visible-xs"><i class="ti-file"></i></span> <span class="hidden-xs"> Undangan Sent</span></a></li>
-									<li role="presentation" class=""><a href="#surinbox" aria-controls="surinbox" role="tab" data-toggle="tab" aria-expanded="true" style="background-color: #ffc36d; color: white"><span class="visible-xs"><i class="ti-home"></i></span><span class="hidden-xs"> Surat Inbox ({{ count($dispinboxsurat) }})</span></a></li>
+									<li role="presentation" class="active"><a href="#surinbox" aria-controls="surinbox" role="tab" data-toggle="tab" aria-expanded="true" style="background-color: #ffc36d; color: white"><span class="visible-xs"><i class="ti-home"></i></span><span class="hidden-xs"> Surat Inbox ({{ count($dispinboxsurat) }})</span></a></li>
 									<li role="presentation" class=""><a href="#sursent" aria-controls="sursent" role="tab" data-toggle="tab" aria-expanded="false" style="background-color: #ffc36d; color: white"><span class="visible-xs"><i class="ti-file"></i></span> <span class="hidden-xs"> Surat Sent</span></a></li>
+									<li role="presentation" class=""><a href="#undinbox" aria-controls="undinbox" role="tab" data-toggle="tab" aria-expanded="true" style="background-color: #2cabe3; color: white"><span class="visible-xs"><i class="ti-home"></i></span><span class="hidden-xs"> Undangan Inbox ({{ count($dispinboxundangan) }})</span></a></li>
+									<li role="presentation" class=""><a href="#undsent" aria-controls="undsent" role="tab" data-toggle="tab" aria-expanded="false" style="background-color: #2cabe3; color: white"><span class="visible-xs"><i class="ti-file"></i></span> <span class="hidden-xs"> Undangan Sent</span></a></li>
 									<li role="presentation" class=""><a href="#draft" aria-controls="draft" role="tab" data-toggle="tab" aria-expanded="false" style="background-color: #53e69d; color: white"><span class="visible-xs"><i class="ti-file"></i></span> <span class="hidden-xs"> Draft ({{ count($dispdraft) }})</span></a></li>
 								</ul>
 								<div class="tab-content">
-									<div role="tabpanel" class="tab-pane fade active in" id="undinbox">
+									<div role="tabpanel" class="tab-pane fade" id="undinbox">
 										<div class="table-responsive" style="overflow: visible;">
 											<table id="myTable" class="table table-hover table-striped" style="z-index: 99999;">
 												<thead>
@@ -416,7 +416,7 @@
 											</table>
 										</div>
 									</div>
-									<div role="tabpanel" class="tab-pane fade" id="surinbox">
+									<div role="tabpanel" class="tab-pane fade active in" id="surinbox">
 										<div class="table-responsive" style="overflow: visible;">
 											<table id="myTable3" class="table table-hover table-striped" style="z-index: 99999;">
 												<thead>
