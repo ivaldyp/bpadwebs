@@ -224,9 +224,26 @@
 																</td>
 																<td class="col-md-6 data-input">
 																	<select class="select2 m-b-10 select2-multiple" multiple="multiple" name="jabatans[]" id="jabatans">
-																		@foreach($jabatans as $key => $jabatan)
+																		{{-- @foreach($jabatans as $key => $jabatan)
 																			<option value="{{ $jabatan['jabatan'] }}"> {{ $jabatan['jabatan'] }} </option>
-																		@endforeach
+																		@endforeach --}}
+																		@foreach($jabatans as $key => $jabatan)
+																			<option value="{{ $jabatan['kd_unit'] }}"> {{ ucwords(strtolower($jabatan['nm_unit'])) }} 
+																				@if ( strlen($jabatan['kd_unit'] > 2) && substr($jabatan['kd_unit'], 4, 2) == '51' )
+																					- <b>JAKARTA PUSAT</b>
+																				@elseif ( strlen($jabatan['kd_unit'] > 2) && substr($jabatan['kd_unit'], 4, 2) == '52' )
+																					- <b>JAKARTA UTARA</b>
+																				@elseif ( strlen($jabatan['kd_unit'] > 2) && substr($jabatan['kd_unit'], 4, 2) == '53' )
+																					- <b>JAKARTA BARAT</b>
+																				@elseif ( strlen($jabatan['kd_unit'] > 2) && substr($jabatan['kd_unit'], 4, 2) == '54' )
+																					- <b>JAKARTA SELATAR</b>
+																				@elseif ( strlen($jabatan['kd_unit'] > 2) && substr($jabatan['kd_unit'], 4, 2) == '55' )
+																					- <b>JAKARTA TIMUR</b>
+																				@elseif ( strlen($jabatan['kd_unit'] > 2) && substr($jabatan['kd_unit'], 4, 2) == '56' )
+																					- <b>KEPULAUAN SERIBU</b>
+																				@endif
+																			</option>
+																		@endforeach 
 																	</select>
 																</td>
 															</tr>

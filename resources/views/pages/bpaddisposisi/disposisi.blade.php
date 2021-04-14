@@ -167,7 +167,12 @@
 															</td>
 															<td>{{ $thiskdsurat }}</td>
 															<td class="col-sm-2">{{ date('d-M-Y',strtotime($thistanggal)) }}</td>
-															<td class="col-sm-2">{{ $thisperihal ?? '-' }}</td>
+															<td class="col-sm-2">
+																<span class="text-muted">
+																	{{ $thisasal ?? '[Asal surat tidak disebutkan]' }}
+																</span><hr class="m-t-5 m-b-5">
+																{{ $thisperihal ?? '-' }}
+															</td>
 															<td>
 																<span class="mytooltip tooltip-effect-1"> 
 																	<span class="tooltip-item">Detail</span> 
@@ -181,10 +186,6 @@
 																				<tr>
 																					<td><strong>No Surat</strong></td>
 																					<td>{{ $thisnosurat ?? '-' }}</td>
-																				</tr>
-																				<tr>
-																					<td><strong>Asal Surat</strong></td>
-																					<td>{{ $thisasal ?? '-' }}</td>
 																				</tr>
 																				<tr>
 																					<td><strong>Download</strong></td>
@@ -326,7 +327,12 @@
 															<td>{{ $thisnoform }}</td>
 															<td>{{ $thiskdsurat }}</td>
 															<td class="col-sm-2">{{ date('d-M-Y',strtotime($thistanggal)) }}</td>
-															<td class="col-sm-2">{{ $thisperihal ?? '-' }}</td>
+															<td class="col-sm-2">
+																<span class="text-muted">
+																	{{ $thisasal ?? '[Asal surat tidak disebutkan]' }}
+																</span><hr class="m-t-5 m-b-5">
+																{{ $thisperihal ?? '-' }}
+															</td>
 															<td>
 																<span class="mytooltip tooltip-effect-1"> 
 																	<span class="tooltip-item">Detail</span> 
@@ -340,10 +346,6 @@
 																				<tr>
 																					<td><strong>No Surat</strong></td>
 																					<td>{{ $thisnosurat ?? '-' }}</td>
-																				</tr>
-																				<tr>
-																					<td><strong>Asal Surat</strong></td>
-																					<td>{{ $thisasal ?? '-' }}</td>
 																				</tr>
 																				<tr>
 																					<td><strong>Download</strong></td>
@@ -467,7 +469,12 @@
 															</td>
 															<td>{{ $thiskdsurat }}</td>
 															<td class="col-sm-2">{{ date('d-M-Y',strtotime($thistanggal)) }}</td>
-															<td class="col-sm-2">{{ $thisperihal ?? '-' }}</td>
+															<td class="col-sm-2">
+																<span class="text-muted">
+																	{{ $thisasal ?? '[Asal surat tidak disebutkan]' }}
+																</span><hr class="m-t-5 m-b-5">
+																{{ $thisperihal ?? '-' }}
+															</td>
 															<td>
 																<span class="mytooltip tooltip-effect-1"> 
 																	<span class="tooltip-item">Detail</span> 
@@ -481,10 +488,6 @@
 																				<tr>
 																					<td><strong>No Surat</strong></td>
 																					<td>{{ $thisnosurat ?? '-' }}</td>
-																				</tr>
-																				<tr>
-																					<td><strong>Asal Surat</strong></td>
-																					<td>{{ $thisasal ?? '-' }}</td>
 																				</tr>
 																				<tr>
 																					<td><strong>Download</strong></td>
@@ -625,7 +628,12 @@
 															<td>{{ $thisnoform }}</td>
 															<td>{{ $thiskdsurat }}</td>
 															<td class="col-sm-2">{{ date('d-M-Y',strtotime($thistanggal)) }}</td>
-															<td class="col-sm-2">{{ $thisperihal ?? '-' }}</td>
+															<td class="col-sm-2">
+																<span class="text-muted">
+																	{{ $thisasal ?? '[Asal surat tidak disebutkan]' }}
+																</span><hr class="m-t-5 m-b-5">
+																{{ $thisperihal ?? '-' }}
+															</td>
 															<td>
 																<span class="mytooltip tooltip-effect-1"> 
 																	<span class="tooltip-item">Detail</span> 
@@ -639,10 +647,6 @@
 																				<tr>
 																					<td><strong>No Surat</strong></td>
 																					<td>{{ $thisnosurat ?? '-' }}</td>
-																				</tr>
-																				<tr>
-																					<td><strong>Asal Surat</strong></td>
-																					<td>{{ $thisasal ?? '-' }}</td>
 																				</tr>
 																				<tr>
 																					<td><strong>Download</strong></td>
@@ -759,7 +763,12 @@
 															<td>{{ $thisnoform }}</td>
 															<td>{{ $thiskdsurat }}</td>
 															<td class="col-sm-2">{{ date('d-M-Y',strtotime($thistanggal)) }}</td>
-															<td class="col-sm-2">{{ $thisperihal ?? '-' }}</td>
+															<td class="col-sm-2">
+																<span class="text-muted">
+																	{{ $thisasal ?? '[Asal surat tidak disebutkan]' }}
+																</span><hr class="m-t-5 m-b-5">
+																{{ $thisperihal ?? '-' }}
+															</td>
 															<td>
 																<span class="mytooltip tooltip-effect-1"> 
 																	<span class="tooltip-item">Detail</span> 
@@ -773,10 +782,6 @@
 																				<tr>
 																					<td><strong>No Surat</strong></td>
 																					<td>{{ $thisnosurat ?? '-' }}</td>
-																				</tr>
-																				<tr>
-																					<td><strong>Asal Surat</strong></td>
-																					<td>{{ $thisasal ?? '-' }}</td>
 																				</tr>
 																				<tr>
 																					<td><strong>Download</strong></td>

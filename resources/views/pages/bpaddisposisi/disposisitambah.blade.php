@@ -213,7 +213,7 @@
 											<div class="col-md-8">
 												<select class="select2 m-b-10 select2-multiple" multiple="multiple" name="jabatans[]" id="jabatans">
 													@foreach($jabatans as $key => $jabatan)
-														<option <?php if ($key == 0): ?> selected <?php endif ?> value="{{ $jabatan['jabatan'] }}"> {{ $jabatan['jabatan'] }} </option>
+														<option <?php if ($key == 0): ?> selected <?php endif ?> value="{{ $jabatan['kd_unit'] }}"> {{ $jabatan['nm_unit'] }} </option>
 													@endforeach
 												</select>
 											</div>
