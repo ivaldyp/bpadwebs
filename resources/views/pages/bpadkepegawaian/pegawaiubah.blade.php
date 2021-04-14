@@ -954,11 +954,25 @@
 																				</div>
 
 																				<div class="form-group col-md-12">
-																					<label for="idunit" class="col-md-2 control-label"> Unit Kerja </label>
+																					<label for="idunit" class="col-md-2 control-label"> Unit Organisasi </label>
 																					<div class="col-md-8">
 																						<select class="form-control select2" name="idunit" id="idunit">
 																							@foreach($units as $unit)
-																								<option value="{{ $unit['kd_unit'] }}" <?php if ($jab['idunit'] == $unit['kd_unit'] ): ?> selected <?php endif ?> > {{ $unit['kd_unit'] }} - {{ $unit['notes'] }}</option>
+																								<option value="{{ $unit['kd_unit'] }}" <?php if ($jab['idunit'] == $unit['kd_unit'] ): ?> selected <?php endif ?> > {{ $unit['kd_unit'] }} - {{ $unit['notes'] }}
+																								@if(strlen($unit['kd_unit'] > 4) && substr($unit['kd_unit'], 4, 2) == '51')
+																									<span style="font-weight: bold;">[JAKARTA PUSAT]</span>
+																								@elseif(strlen($unit['kd_unit'] > 4) && substr($unit['kd_unit'], 4, 2) == '52')
+																									<span style="font-weight: bold;">[JAKARTA UTARA]</span>
+																								@elseif(strlen($unit['kd_unit'] > 4) && substr($unit['kd_unit'], 4, 2) == '53')
+																									<span style="font-weight: bold;">[JAKARTA BARAT]</span>
+																								@elseif(strlen($unit['kd_unit'] > 4) && substr($unit['kd_unit'], 4, 2) == '54')
+																									<span style="font-weight: bold;">[JAKARTA SELATAN]</span>
+																								@elseif(strlen($unit['kd_unit'] > 4) && substr($unit['kd_unit'], 4, 2) == '55')
+																									<span style="font-weight: bold;">[JAKARTA TIMUR]</span>
+																								@elseif(strlen($unit['kd_unit'] > 4) && substr($unit['kd_unit'], 4, 2) == '56')
+																									<span style="font-weight: bold;">[PULAU SERIBU]</span>
+																								@endif
+																								</option>
 																							@endforeach
 																						</select>
 																					</div>
@@ -1053,7 +1067,21 @@
 																<div class="col-md-8">
 																	<select class="form-control select2" name="idunit">
 																		@foreach($units as $unit)
-																			<option value="{{ $unit['kd_unit'] }}" > {{ $unit['kd_unit'] }} - {{ $unit['notes'] }}</option>
+																			<option value="{{ $unit['kd_unit'] }}" > {{ $unit['kd_unit'] }} - {{ $unit['notes'] }}
+																			@if(strlen($unit['kd_unit'] > 4) && substr($unit['kd_unit'], 4, 2) == '51')
+																				<span style="font-weight: bold;">[JAKARTA PUSAT]</span>
+																			@elseif(strlen($unit['kd_unit'] > 4) && substr($unit['kd_unit'], 4, 2) == '52')
+																				<span style="font-weight: bold;">[JAKARTA UTARA]</span>
+																			@elseif(strlen($unit['kd_unit'] > 4) && substr($unit['kd_unit'], 4, 2) == '53')
+																				<span style="font-weight: bold;">[JAKARTA BARAT]</span>
+																			@elseif(strlen($unit['kd_unit'] > 4) && substr($unit['kd_unit'], 4, 2) == '54')
+																				<span style="font-weight: bold;">[JAKARTA SELATAN]</span>
+																			@elseif(strlen($unit['kd_unit'] > 4) && substr($unit['kd_unit'], 4, 2) == '55')
+																				<span style="font-weight: bold;">[JAKARTA TIMUR]</span>
+																			@elseif(strlen($unit['kd_unit'] > 4) && substr($unit['kd_unit'], 4, 2) == '56')
+																				<span style="font-weight: bold;">[PULAU SERIBU]</span>
+																			@endif
+																			</option>
 																		@endforeach
 																	</select>
 																</div>

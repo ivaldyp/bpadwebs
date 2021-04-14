@@ -52,26 +52,32 @@ class ProfilController extends Controller
 
 	public function printdrh(Request $request)
 	{
+		if (Auth::user()->id_emp) {
+			$id_emp = Auth::user()->id_emp;
+		} else {
+			$id_emp = $request->emp;
+		}
+		
 		$emp_data = Emp_data::
-						where('id_emp', Auth::user()->id_emp)
+						where('id_emp', $id_emp)
 						->where('sts', 1)
 						->first();
 
 		$emp_dik = Emp_dik::with('dik')
-						->where('noid', Auth::user()->id_emp)
+						->where('noid', $id_emp)
 						->where('sts', 1)
 						->orderBy('th_sek', 'desc')
 						->get();
 
 		// $emp_gol = Emp_gol::with('gol')
-		// 				->where('noid', Auth::user()->id_emp)
+		// 				->where('noid', $id_emp)
 		// 				->where('sts', 1)
 		// 				->orderBy('tmt_gol', 'desc')
 		// 				->get();
 
 		$emp_gol = Emp_gol::
 						join('bpaddtfake.dbo.glo_org_golongan', 'bpaddtfake.dbo.glo_org_golongan.gol', '=', 'bpaddtfake.dbo.emp_gol.idgol')
-						->where('bpaddtfake.dbo.emp_gol.noid', Auth::user()->id_emp)
+						->where('bpaddtfake.dbo.emp_gol.noid', $id_emp)
 						->where('bpaddtfake.dbo.emp_gol.sts', 1)
 						->orderBy('bpaddtfake.dbo.emp_gol.tmt_gol', 'desc')
 						->get();
@@ -79,26 +85,26 @@ class ProfilController extends Controller
 		$emp_jab = Emp_jab::with('jabatan')
 						->with('lokasi')
 						->with('unit')
-						->where('noid', Auth::user()->id_emp)
+						->where('noid', $id_emp)
 						->where('sts', 1)
 						->orderBy('tmt_jab', 'desc')
 						->get();
 
 		$emp_non = Emp_non::where('sts', 1)
-						->where('noid', Auth::user()->id_emp)
+						->where('noid', $id_emp)
 						->orderBy('tgl_non', 'desc')
 						->get();
 
 		$emp_kel = Emp_kel::
 					join('bpaddtfake.dbo.glo_kel', 'bpaddtfake.dbo.glo_kel.kel', '=', 'bpaddtfake.dbo.emp_kel.jns_kel')
-					->where('bpaddtfake.dbo.emp_kel.noid', Auth::user()->id_emp)
+					->where('bpaddtfake.dbo.emp_kel.noid', $id_emp)
 					->where('bpaddtfake.dbo.emp_kel.sts', 1)
 					->orderBy('urut', 'asc')
 					->get();
 
 		$emp_huk = Emp_huk::
 					where('sts', 1)
-					->where('noid', Auth::user()->id_emp)
+					->where('noid', $id_emp)
 					->orderBy('tgl_sk', 'desc')
 					->get();
 
@@ -114,7 +120,7 @@ class ProfilController extends Controller
 							'emp_huk' => $emp_huk,
 						]);
 		// return $pdf->stream('preview.pdf');
-		return $pdf->download(Auth::user()->id_emp.'_DAFTAR RIWAYAT HIDUP.pdf');
+		return $pdf->download($id_emp.'_DAFTAR RIWAYAT HIDUP.pdf');
 	}
 
 	public function pegawai(Request $request)

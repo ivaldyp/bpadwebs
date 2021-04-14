@@ -62,8 +62,7 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-2"></div>
-				<div class="col-md-8">
+				<div class="col-md-10 col-md-offset-1">
 					<form class="form-horizontal" method="POST" action="/portal/kepegawaian/form/tambahpegawai" data-toggle="validator" enctype="multipart/form-data">
 					@csrf
 						<div class="panel panel-info">
@@ -478,23 +477,23 @@
 												</div>
 
 												<div class="form-group">
-													<label for="idunit" class="col-md-2 control-label"> Unit Kerja </label>
+													<label for="idunit" class="col-md-2 control-label"> Unit Organisasi </label>
 													<div class="col-md-8">
 														<select class="form-control select2" name="idunit" id="idunit">
 															@foreach($units as $unit)
 																<option value="{{ $unit['kd_unit'] }}"> {{ $unit['kd_unit'] }} - {{ $unit['notes'] }}
 																	@if(strlen($unit['kd_unit'] > 4) && substr($unit['kd_unit'], 4, 2) == '51')
-																		[JAKARTA PUSAT]
+																		<span style="font-weight: bold;">[JAKARTA PUSAT]</span>
 																	@elseif(strlen($unit['kd_unit'] > 4) && substr($unit['kd_unit'], 4, 2) == '52')
-																		[JAKARTA UTARA]
+																		<span style="font-weight: bold;">[JAKARTA UTARA]</span>
 																	@elseif(strlen($unit['kd_unit'] > 4) && substr($unit['kd_unit'], 4, 2) == '53')
-																		[JAKARTA BARAT]
+																		<span style="font-weight: bold;">[JAKARTA BARAT]</span>
 																	@elseif(strlen($unit['kd_unit'] > 4) && substr($unit['kd_unit'], 4, 2) == '54')
-																		[JAKARTA SELATAN]
+																		<span style="font-weight: bold;">[JAKARTA SELATAN]</span>
 																	@elseif(strlen($unit['kd_unit'] > 4) && substr($unit['kd_unit'], 4, 2) == '55')
-																		[JAKARTA TIMUR]
+																		<span style="font-weight: bold;">[JAKARTA TIMUR]</span>
 																	@elseif(strlen($unit['kd_unit'] > 4) && substr($unit['kd_unit'], 4, 2) == '56')
-																		[PULAU SERIBU]
+																		<span style="font-weight: bold;">[PULAU SERIBU]</span>
 																	@endif
 																</option>
 															@endforeach
