@@ -410,7 +410,7 @@
 														<tr>
 															<td>{{ $thisnoform }}</td>
 															<td>{{ $thiskdsurat }}</td>
-															<td class="col-sm-2">{{ date('d-M-Y',strtotime($thistanggal)) }}</td>
+															<td class="col-sm-1">{{ date('d-M-Y',strtotime($thistanggal)) }}</td>
 															<td class="col-sm-2">
 																<span class="text-muted">
 																	{{ $thisasal ?? '[Asal surat tidak disebutkan]' }}
