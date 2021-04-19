@@ -631,14 +631,30 @@ class CmsController extends Controller
 		$bln = $splitmon[0];
 
 		$contents = DB::select( DB::raw("
-					SELECT TOP (1000) con.*, lower(kat.nmkat) as nmkat from bpadcmsfake.dbo.content_tb con
-					  join bpadcmsfake.dbo.glo_kategori kat on kat.ids = con.idkat
-					  where idkat = '$request->kat'
-					  and suspend = ''
-					  and con.sts = 1
-					  and month(tanggal) = '$bln'
-					  and year(tanggal) = '$request->rekap_thn'
-					  order by con.tgl desc
+					SELECT TOP (1000) con.*, lower(kat.nmkat) as nmkat, nm_emp, nm_unit from bpadcmsfake.dbo.content_tb con
+					join bpadcmsfake.dbo.glo_kategori kat on kat.ids = con.idkat
+					join (
+						SELECT id_emp, nm_emp, tbunit.nm_unit FROM bpaddtfake.dbo.emp_data as a
+					CROSS APPLY (SELECT TOP 1 tmt_jab,idskpd,idunit,idlok,tmt_sk_jab,no_sk_jab,jns_jab,replace(idjab,'NA::','') as idjab,eselon,gambar FROM  bpaddtfake.dbo.emp_jab WHERE a.id_emp=emp_jab.noid AND emp_jab.sts='1' ORDER BY tmt_jab DESC) tbjab
+					CROSS APPLY (SELECT TOP 1 * FROM bpaddtfake.dbo.glo_org_unitkerja WHERE glo_org_unitkerja.kd_unit = tbjab.idunit) tbunit
+					,bpaddtfake.dbo.glo_skpd as b,bpaddtfake.dbo.glo_org_unitkerja as c,bpaddtfake.dbo.glo_org_lokasi as d WHERE tbjab.idskpd=b.skpd AND tbjab.idskpd+'::'+tbjab.idunit=c.kd_skpd+'::'+c.kd_unit AND tbjab.idskpd+'::'+tbjab.idlok=d.kd_skpd+'::'+d.kd_lok AND a.sts='1' AND b.sts='1' AND c.sts='1' AND d.sts='1'
+					 and ked_emp = 'aktif' and tgl_end is null
+					) emp on con.usrinput = emp.id_emp 
+					where con.idkat = '$request->kat'
+					and con.suspend = ''
+					and con.sts = 1
+					and month(con.tanggal) = '$bln'
+					and year(con.tanggal) = '$request->rekap_thn'
+					order by con.tanggal desc
+
+					-- SELECT TOP (1000) con.*, lower(kat.nmkat) as nmkat from bpadcmsfake.dbo.content_tb con
+					--   join bpadcmsfake.dbo.glo_kategori kat on kat.ids = con.idkat
+					--   where idkat = '$request->kat'
+					--   and suspend = ''
+					--   and con.sts = 1
+					--   and month(tanggal) = '$bln'
+					--   and year(tanggal) = '$request->rekap_thn'
+					--   order by con.tgl desc
 				"));
 		$contents = json_decode(json_encode($contents), true);
 

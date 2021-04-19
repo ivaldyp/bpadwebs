@@ -77,9 +77,10 @@
 				<tr class="headclrblue">
 					<th class="">No</th>
 					<th class="col-md-2">Kegiatan</th>
+					<th class="col-md-2">User</th>
 					<th>Tanggal</th>
 					<th class="col-md-2">Link</th>
-					<th class="col-md-3">Attachment</th>
+					<th class="col-md-2">Attachment</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -94,6 +95,7 @@
 				<tr>
 					<td style="text-align: center;">{{ $key+1 }}</td>
 					<td style="word-wrap: break-word">{{ $content['judul'] }}</td>
+					<td style="word-wrap: break-word;">{{ $content['nm_emp'] }} - [{{ $content['nm_unit'] }}]</td>
 					<td>{{ date('d/M/Y', strtotime(str_replace('/', '-', $content['tanggal']))) }}</td>
 					<td style="word-wrap: break-word">{{ $url }}/portal/content/{{ $kat }}/{{ $content['ids'] }}</td>
 					<td style="word-wrap: break-word">
