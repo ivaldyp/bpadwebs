@@ -163,6 +163,7 @@ Route::group(['prefix' => 'cms'], function () {
 	Route::post('/form/hapussubkategori', 'CmsController@formdeletesubkategori');
 
 	Route::get('/content', 'CmsController@contentall');
+	Route::get('/rekap content', 'CmsController@contentrekap');
 	Route::get('/tambah content', 'CmsController@contenttambah');
 	Route::post('/ubah content', 'CmsController@contentubah');
 	Route::get('/form/apprcontent', 'CmsController@formapprcontent');
@@ -273,6 +274,8 @@ Route::group(['prefix' => 'kepegawaian'], function () {
 	Route::post('/form/tambahsuratkeluar', 'KepegawaianController@forminsertsuratkeluar');
 	Route::post('/form/ubahsuratkeluar', 'KepegawaianController@formupdatesuratkeluar');
 	Route::post('/form/hapussuratkeluar', 'KepegawaianController@formdeletesuratkeluar');
+
+	Route::get('/peta jabatan', 'Kepegawaian2Controller@petajabatan');
 });
 
 Route::group(['prefix' => 'security'], function () {

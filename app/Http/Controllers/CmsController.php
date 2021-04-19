@@ -2,6 +2,14 @@
 
 namespace App\Http\Controllers;
 
+require 'vendor/autoload.php';
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PDF;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
@@ -580,6 +588,24 @@ class CmsController extends Controller
 				"));
 		$contents = json_decode(json_encode($contents), true);
 
+		$approve = Setup_can_approve::first();
+		$splitappr = explode("::", $approve['can_approve']);
+
+		if ($_SESSION['user_data']['id_emp']) {
+			$thisid = $_SESSION['user_data']['id_emp'];
+		} else {
+			$thisid = $_SESSION['user_data']['usname'];
+		} 
+
+		foreach ($splitappr as $key => $data) {
+			if ($thisid == $data) {
+				$flagapprove = 1;
+				break;
+			} else {
+				$flagapprove = 0;
+			}
+		}
+
 		return view('pages.bpadcms.content')
 				->with('access', $access)
 				->with('kategoris', $kategoris)
@@ -587,7 +613,46 @@ class CmsController extends Controller
 				->with('contents', $contents)
 				->with('katnow', $katnow)
 				->with('katnowdetail', $katnowdetail)
-				->with('suspnow', $suspnow);
+				->with('suspnow', $suspnow)
+				->with('flagapprove', $flagapprove);
+	}
+
+	public function contentrekap(Request $request)
+	{
+		$kategoris = DB::select( DB::raw("
+					SELECT nmkat
+					FROM bpadcmsfake.dbo.glo_kategori
+					WHERE sts = 1
+					AND ids = '$request->kat'
+				"))[0];
+		$kategoris = json_decode(json_encode($kategoris), true);
+
+		$splitmon = explode("::", $request->rekap_bln);
+		$bln = $splitmon[0];
+
+		$contents = DB::select( DB::raw("
+					SELECT TOP (1000) con.*, lower(kat.nmkat) as nmkat from bpadcmsfake.dbo.content_tb con
+					  join bpadcmsfake.dbo.glo_kategori kat on kat.ids = con.idkat
+					  where idkat = '$request->kat'
+					  and suspend = ''
+					  and con.sts = 1
+					  and month(tanggal) = '$bln'
+					  and year(tanggal) = '$request->rekap_thn'
+					  order by con.tgl desc
+				"));
+		$contents = json_decode(json_encode($contents), true);
+
+		$pdf = PDF::setPaper('a4', 'portrait');
+		$pdf->loadView('pages.bpadcms.contentpreview', 
+						[
+							'contents' => $contents,
+							'kategoris' => $kategoris,
+							'bln' => $splitmon[1],
+							'thn' => $request->rekap_thn,
+							'url' => $request->current_url,
+						]);
+		// return $pdf->stream('preview.pdf');
+		return $pdf->download('REKAP_'.strtoupper($kategoris['nmkat']).'_'.strtoupper($splitmon[1]).$request->rekap_thn.'.pdf');
 	}
 
 	public function contenttambah(Request $request)
