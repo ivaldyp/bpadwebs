@@ -80,7 +80,7 @@
 					<th class="col-md-2">User</th>
 					<th>Tanggal</th>
 					<th class="col-md-2">Link</th>
-					<th class="col-md-2">Attachment</th>
+					<th class="col-md-1">Attachment</th>
 				</tr>
 			</thead>
 			<tbody>

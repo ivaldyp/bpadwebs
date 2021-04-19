@@ -658,7 +658,7 @@ class CmsController extends Controller
 				"));
 		$contents = json_decode(json_encode($contents), true);
 
-		$pdf = PDF::setPaper('a4', 'portrait');
+		$pdf = PDF::setPaper('a4', 'landscape');
 		$pdf->loadView('pages.bpadcms.contentpreview', 
 						[
 							'contents' => $contents,
