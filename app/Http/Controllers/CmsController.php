@@ -663,7 +663,7 @@ class CmsController extends Controller
 		$sheet->setCellValue('A1', 'REKAP KONTEN ' . strtoupper($kategoris['nmkat']));
 		$sheet->getStyle('A1')->getFont()->setBold( true );
 
-		$sheet->setCellValue('A2', 'PERIODE' . strtoupper($bln) . $request->rekap_thn);
+		$sheet->setCellValue('A2', 'PERIODE ' . strtoupper($bln) . ' ' . $request->rekap_thn);
 		$sheet->getStyle('A2')->getFont()->setBold( true );
 
 		$styleArray = [
@@ -733,7 +733,7 @@ class CmsController extends Controller
 
 		$rowend = $nowrow - 1;
 
-		$filename = 'REKAP_'.strtoupper($kategoris['nmkat']).'_'.strtoupper($splitmon[1]).$request->rekap_thn.'.xlsx';
+		$filename = 'REKAP_'.strtoupper($kategoris['nmkat']).'_'.strtoupper($splitmon[1]).'_'.$request->rekap_thn.'.xlsx';
 
 		// Redirect output to a client's web browser (Xlsx)
 		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
