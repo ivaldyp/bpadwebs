@@ -69,16 +69,22 @@
 							<div class="panel-body">
 								<div class="row " style="margin-bottom: 10px">
 									@if ($access['zadd'] == 'y')
-									<div class="col-md-1">
+									<div class="col-sm-1">
 										<label for="suspnow" class="control-label">  </label>
 										<button class="btn btn-info btn-href-tambah" type="button" data-toggle="modal" data-target="#modal-insert">Tambah</button>
 									</div>
 									@endif
 
 									@if ($flagapprove == 1)
-									<div class="col-md-1">
-										<label for="rekap" class="control-label">  </label>
-										<button class="btn btn-success btn-href-rekap" type="button" data-toggle="modal" data-target="#modal-rekap">-Rekap-</button>
+									<div class="col-sm-2" style="padding-top: 20px;">
+										<div class="col-sm-6">
+										<button class="btn btn-danger btn-href-rekap" type="button" data-toggle="modal" data-target="#modal-rekap"><i class="fa fa-file-pdf-o"></i></button>
+											
+										</div>
+										<div class="col-sm-6">
+										<button class="btn btn-success btn-href-excel" type="button" data-toggle="modal" data-target="#modal-excel"><i class="fa fa-file-excel-o"></i></button>
+											
+										</div>
 									</div>
 									@endif
 
@@ -219,7 +225,7 @@
 						<form method="GET" action="/portal/cms/rekap content" class="form-horizontal" data-toggle="validator">
 						@csrf
 							<div class="modal-header">
-								<h4 class="modal-title"><b>Pilih Periode</b></h4>
+								<h4 class="modal-title"><b>Cetak PDF</b></h4>
 							</div>
 							<div class="modal-body">
 								<div class="form-group">
@@ -275,6 +281,71 @@
 					</div>
 				</div>
 			</div>
+			<div id="modal-excel" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<form method="GET" action="/portal/cms/rekap excel" class="form-horizontal" data-toggle="validator">
+						@csrf
+							<div class="modal-header">
+								<h4 class="modal-title"><b>Cetak Excel</b></h4>
+							</div>
+							<div class="modal-body">
+								<div class="form-group">
+									<label for="kat" class="col-md-2 control-label"> Kategori </label>
+									<div class="col-md-8">
+										<select class="form-control select2" name="kat" id="kat" required>
+											@foreach($kategoris as $kategori)
+												<option <?php if ($kategori['ids'] == $katnow ): ?> selected <?php endif ?> value="{{ $kategori['ids'] }}">{{ $kategori['nmkat'] }}</option>
+											@endforeach
+										</select>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="rekap_bln" class="col-md-2 control-label"> Bulan </label>
+									<div class="col-md-4">
+										<select class="form-control" name="rekap_bln" id="rekap_bln" required>
+											<option value="01::Januari">Januari</option>
+											<option value="02::Februari">Februari</option>
+											<option value="03::Maret">Maret</option>
+											<option value="04::April">April</option>
+											<option value="05::Mei">Mei</option>
+											<option value="06::Juni">Juni</option>
+											<option value="07::Juli">Juli</option>
+											<option value="08::Agustus">Agustus</option>
+											<option value="09::September">September</option>
+											<option value="10::Oktober">Oktober</option>
+											<option value="11::November">November</option>
+											<option value="12::Desember">Desember</option>
+										</select>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="rekap_thn" class="col-md-2 control-label"> Tahun </label>
+									<div class="col-md-4">
+										<select class="form-control select2" name="rekap_thn" id="rekap_thn" required>
+											<option value="{{ date('Y') }}">{{ date('Y') }}</option>
+											<option value="{{ date('Y')-1 }}">{{ date('Y')-1 }}</option>
+											<option value="{{ date('Y')-2 }}">{{ date('Y')-2 }}</option>
+											<option value="{{ date('Y')-3 }}">{{ date('Y')-3 }}</option>
+											<option value="{{ date('Y')-4 }}">{{ date('Y')-4 }}</option>
+										</select>
+									</div>
+								</div>
+
+								<input type="hidden" name="current_url" value="{{ $_SERVER['SERVER_NAME'] }}">
+
+							</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-success pull-right">Simpan</button>
+								<button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
+
+
 			<div id="modal-insert" class="modal fade" role="dialog">
 				<div class="modal-dialog">
 					<div class="modal-content">

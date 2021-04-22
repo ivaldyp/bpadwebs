@@ -617,7 +617,7 @@ class CmsController extends Controller
 				->with('flagapprove', $flagapprove);
 	}
 
-	public function contentrekap(Request $request)
+	public function contentexcel(Request $request)
 	{
 		$kategoris = DB::select( DB::raw("
 					SELECT nmkat
@@ -655,6 +655,132 @@ class CmsController extends Controller
 					--   and month(tanggal) = '$bln'
 					--   and year(tanggal) = '$request->rekap_thn'
 					--   order by con.tgl desc
+				"));
+		$contents = json_decode(json_encode($contents), true);
+
+		$spreadsheet = new Spreadsheet();
+		$sheet = $spreadsheet->getActiveSheet();
+		$sheet->setCellValue('A1', 'REKAP KONTEN ' . strtoupper($kategoris['nmkat']));
+		$sheet->getStyle('A1')->getFont()->setBold( true );
+
+		$sheet->setCellValue('A2', 'PERIODE' . strtoupper($bln) . $request->rekap_thn);
+		$sheet->getStyle('A2')->getFont()->setBold( true );
+
+		$styleArray = [
+		    'font' => [
+		        'size' => 12,
+		        'name' => 'Trebuchet MS',
+		    ]
+		];
+		$sheet->getStyle('A1:A4')->applyFromArray($styleArray);
+
+		$sheet->setCellValue('A4', 'NO');
+		$sheet->setCellValue('B4', 'KEGIATAN');
+		$sheet->setCellValue('C4', 'USER');
+		$sheet->setCellValue('D4', 'TANGGAL');
+		$sheet->setCellValue('E4', 'LINK');
+		$sheet->setCellValue('F4', 'ATTACHMENT');
+
+		$colorArrayhead = [
+			'fill' => [
+				'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+				'startColor' => [
+					'rgb' => 'F79646',
+				],
+			],
+		];
+		$sheet->getStyle('A4:F4')->applyFromArray($colorArrayhead);
+		$sheet->getStyle('A4:F4')->getFont()->setBold( true );
+		$sheet->getStyle('A4:F4')->getAlignment()->setHorizontal('center');
+
+		$colorArrayV1 = [
+			'fill' => [
+				'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+				'startColor' => [
+					'rgb' => 'FDE9D9',
+				],
+			],
+		];
+
+		$nowrow = 5;
+		$rowstart = $nowrow - 1;
+		foreach ($contents as $key => $content) {
+			if ($content['idkat'] == 1) {
+				$kat = 'berita';
+			} else {
+				$kat = 'foto';
+			}
+
+			if ($key%2 == 0) {
+				$sheet->getStyle('A'.$nowrow.':F'.$nowrow)->applyFromArray($colorArrayV1);
+			}
+
+			$sheet->setCellValue('A'.$nowrow, $key+1);
+			$sheet->setCellValue('B'.$nowrow, $content['judul']);
+			$sheet->setCellValue('C'.$nowrow, $content['nm_emp'] . ' - [' . $content['nm_unit'] . ']' );
+			$sheet->setCellValue('D'.$nowrow, date('d/M/Y', strtotime(str_replace('/', '-', $content['tanggal']))) );
+			$sheet->setCellValue('E'.$nowrow, $request->current_url . '/portal/content/' . $kat . '/' . $content['ids'] );
+			$sheet->setCellValue('F'.$nowrow, ($content['tfile'] && $content['tfile'] != '' ) ? $request->current_url . '/portal/public/publicimg/images/cms/1.20.512/' . $content['idkat']. '/file/' . $content['tfile'] : '-' );
+
+			$nowrow++;
+		}
+
+		$sheet->getColumnDimension('A')->setWidth(7);
+		foreach(range('B','F') as $columnID) {
+		    $sheet->getColumnDimension($columnID)
+		        ->setAutoSize(true);
+		}
+
+		$rowend = $nowrow - 1;
+
+		$filename = 'REKAP_'.strtoupper($kategoris['nmkat']).'_'.strtoupper($splitmon[1]).$request->rekap_thn.'.xlsx';
+
+		// Redirect output to a client's web browser (Xlsx)
+		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+		header('Content-Disposition: attachment;filename="'.$filename.'"');
+		header('Cache-Control: max-age=0');
+		// If you're serving to IE 9, then the following may be needed
+		header('Cache-Control: max-age=1');
+		 
+		// If you're serving to IE over SSL, then the following may be needed
+		header('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
+		header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT'); // always modified
+		header('Cache-Control: cache, must-revalidate'); // HTTP/1.1
+		header('Pragma: public'); // HTTP/1.
+
+		$writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+		$writer->save('php://output');
+	}
+
+	public function contentrekap(Request $request)
+	{
+		$kategoris = DB::select( DB::raw("
+					SELECT nmkat
+					FROM bpadcmsfake.dbo.glo_kategori
+					WHERE sts = 1
+					AND ids = '$request->kat'
+				"))[0];
+		$kategoris = json_decode(json_encode($kategoris), true);
+
+		$splitmon = explode("::", $request->rekap_bln);
+		$bln = $splitmon[0];
+
+		$contents = DB::select( DB::raw("
+					SELECT TOP (1000) con.*, lower(kat.nmkat) as nmkat, nm_emp, nm_unit from bpadcmsfake.dbo.content_tb con
+					join bpadcmsfake.dbo.glo_kategori kat on kat.ids = con.idkat
+					join (
+						SELECT id_emp, nm_emp, tbunit.nm_unit FROM bpaddtfake.dbo.emp_data as a
+					CROSS APPLY (SELECT TOP 1 tmt_jab,idskpd,idunit,idlok,tmt_sk_jab,no_sk_jab,jns_jab,replace(idjab,'NA::','') as idjab,eselon,gambar FROM  bpaddtfake.dbo.emp_jab WHERE a.id_emp=emp_jab.noid AND emp_jab.sts='1' ORDER BY tmt_jab DESC) tbjab
+					CROSS APPLY (SELECT TOP 1 * FROM bpaddtfake.dbo.glo_org_unitkerja WHERE glo_org_unitkerja.kd_unit = tbjab.idunit) tbunit
+					,bpaddtfake.dbo.glo_skpd as b,bpaddtfake.dbo.glo_org_unitkerja as c,bpaddtfake.dbo.glo_org_lokasi as d WHERE tbjab.idskpd=b.skpd AND tbjab.idskpd+'::'+tbjab.idunit=c.kd_skpd+'::'+c.kd_unit AND tbjab.idskpd+'::'+tbjab.idlok=d.kd_skpd+'::'+d.kd_lok AND a.sts='1' AND b.sts='1' AND c.sts='1' AND d.sts='1'
+					 and ked_emp = 'aktif' and tgl_end is null
+					) emp on con.usrinput = emp.id_emp 
+					where con.idkat = '$request->kat'
+					and con.suspend = ''
+					and con.sts = 1
+					and month(con.tanggal) = '$bln'
+					and year(con.tanggal) = '$request->rekap_thn'
+					order by con.tanggal desc
 				"));
 		$contents = json_decode(json_encode($contents), true);
 
