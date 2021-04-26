@@ -97,9 +97,9 @@
 					<td style="word-wrap: break-word">{{ $content['judul'] }}</td>
 					<td style="word-wrap: break-word;">{{ strtoupper($content['nm_emp']) }} - [{{ $content['nm_unit'] }}, {{ strtoupper($content['nm_lok']) }}]</td>
 					<td>{{ date('d/M/Y', strtotime(str_replace('/', '-', $content['tanggal']))) }}</td>
-					<td style="word-wrap: break-word">{{ $url }}/portal/content/{{ $kat }}/{{ $content['ids'] }}</td>
+					<td style="word-wrap: break-word">https://{{ $url }}/portal/content/{{ $kat }}/{{ $content['ids'] }}</td>
 					<td style="word-wrap: break-word">
-						{{ ($content['tfile'] && $content['tfile'] != '' ) ? $url . '/portal/public/publicimg/images/cms/1.20.512/' . $content['idkat']. '/file/' . $content['tfile'] : '-' }}
+						{{ ($content['tfile'] && $content['tfile'] != '' ) ? 'https://' . $url . '/portal/public/publicimg/images/cms/1.20.512/' . $content['idkat']. '/file/' . $content['tfile'] : '-' }}
 					</td>
 				</tr>
 				@endforeach
