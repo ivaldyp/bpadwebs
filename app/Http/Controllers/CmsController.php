@@ -631,10 +631,10 @@ class CmsController extends Controller
 		$bln = $splitmon[0];
 
 		$contents = DB::select( DB::raw("
-					SELECT TOP (1000) con.*, lower(kat.nmkat) as nmkat, nm_emp, nm_unit from bpadcmsfake.dbo.content_tb con
+					SELECT TOP (1000) con.*, lower(kat.nmkat) as nmkat, nm_emp, nm_unit, emp.nm_lok from bpadcmsfake.dbo.content_tb con
 					join bpadcmsfake.dbo.glo_kategori kat on kat.ids = con.idkat
 					join (
-						SELECT id_emp, nm_emp, tbunit.nm_unit FROM bpaddtfake.dbo.emp_data as a
+						SELECT id_emp, nm_emp, tbunit.nm_unit, d.nm_lok FROM bpaddtfake.dbo.emp_data as a
 					CROSS APPLY (SELECT TOP 1 tmt_jab,idskpd,idunit,idlok,tmt_sk_jab,no_sk_jab,jns_jab,replace(idjab,'NA::','') as idjab,eselon,gambar FROM  bpaddtfake.dbo.emp_jab WHERE a.id_emp=emp_jab.noid AND emp_jab.sts='1' ORDER BY tmt_jab DESC) tbjab
 					CROSS APPLY (SELECT TOP 1 * FROM bpaddtfake.dbo.glo_org_unitkerja WHERE glo_org_unitkerja.kd_unit = tbjab.idunit) tbunit
 					,bpaddtfake.dbo.glo_skpd as b,bpaddtfake.dbo.glo_org_unitkerja as c,bpaddtfake.dbo.glo_org_lokasi as d WHERE tbjab.idskpd=b.skpd AND tbjab.idskpd+'::'+tbjab.idunit=c.kd_skpd+'::'+c.kd_unit AND tbjab.idskpd+'::'+tbjab.idlok=d.kd_skpd+'::'+d.kd_lok AND a.sts='1' AND b.sts='1' AND c.sts='1' AND d.sts='1'
@@ -663,7 +663,7 @@ class CmsController extends Controller
 		$sheet->setCellValue('A1', 'REKAP KONTEN ' . strtoupper($kategoris['nmkat']));
 		$sheet->getStyle('A1')->getFont()->setBold( true );
 
-		$sheet->setCellValue('A2', 'PERIODE ' . strtoupper($bln) . ' ' . $request->rekap_thn);
+		$sheet->setCellValue('A2', 'PERIODE ' . strtoupper($splitmon[1]) . ' ' . $request->rekap_thn);
 		$sheet->getStyle('A2')->getFont()->setBold( true );
 
 		$styleArray = [
@@ -717,7 +717,7 @@ class CmsController extends Controller
 
 			$sheet->setCellValue('A'.$nowrow, $key+1);
 			$sheet->setCellValue('B'.$nowrow, $content['judul']);
-			$sheet->setCellValue('C'.$nowrow, $content['nm_emp'] . ' - [' . $content['nm_unit'] . ']' );
+			$sheet->setCellValue('C'.$nowrow, strtoupper($content['nm_emp']) . ' - [' . $content['nm_unit'] . ', '. strtoupper($content['nm_lok']) .']' );
 			$sheet->setCellValue('D'.$nowrow, date('d/M/Y', strtotime(str_replace('/', '-', $content['tanggal']))) );
 			$sheet->setCellValue('E'.$nowrow, $request->current_url . '/portal/content/' . $kat . '/' . $content['ids'] );
 			$sheet->setCellValue('F'.$nowrow, ($content['tfile'] && $content['tfile'] != '' ) ? $request->current_url . '/portal/public/publicimg/images/cms/1.20.512/' . $content['idkat']. '/file/' . $content['tfile'] : '-' );
@@ -726,7 +726,8 @@ class CmsController extends Controller
 		}
 
 		$sheet->getColumnDimension('A')->setWidth(7);
-		foreach(range('B','F') as $columnID) {
+		$sheet->getColumnDimension('B')->setWidth(100);
+		foreach(range('C','F') as $columnID) {
 		    $sheet->getColumnDimension($columnID)
 		        ->setAutoSize(true);
 		}
@@ -766,10 +767,10 @@ class CmsController extends Controller
 		$bln = $splitmon[0];
 
 		$contents = DB::select( DB::raw("
-					SELECT TOP (1000) con.*, lower(kat.nmkat) as nmkat, nm_emp, nm_unit from bpadcmsfake.dbo.content_tb con
+					SELECT TOP (1000) con.*, lower(kat.nmkat) as nmkat, nm_emp, nm_unit, emp.nm_lok from bpadcmsfake.dbo.content_tb con
 					join bpadcmsfake.dbo.glo_kategori kat on kat.ids = con.idkat
 					join (
-						SELECT id_emp, nm_emp, tbunit.nm_unit FROM bpaddtfake.dbo.emp_data as a
+						SELECT id_emp, nm_emp, tbunit.nm_unit, d.nm_lok FROM bpaddtfake.dbo.emp_data as a
 					CROSS APPLY (SELECT TOP 1 tmt_jab,idskpd,idunit,idlok,tmt_sk_jab,no_sk_jab,jns_jab,replace(idjab,'NA::','') as idjab,eselon,gambar FROM  bpaddtfake.dbo.emp_jab WHERE a.id_emp=emp_jab.noid AND emp_jab.sts='1' ORDER BY tmt_jab DESC) tbjab
 					CROSS APPLY (SELECT TOP 1 * FROM bpaddtfake.dbo.glo_org_unitkerja WHERE glo_org_unitkerja.kd_unit = tbjab.idunit) tbunit
 					,bpaddtfake.dbo.glo_skpd as b,bpaddtfake.dbo.glo_org_unitkerja as c,bpaddtfake.dbo.glo_org_lokasi as d WHERE tbjab.idskpd=b.skpd AND tbjab.idskpd+'::'+tbjab.idunit=c.kd_skpd+'::'+c.kd_unit AND tbjab.idskpd+'::'+tbjab.idlok=d.kd_skpd+'::'+d.kd_lok AND a.sts='1' AND b.sts='1' AND c.sts='1' AND d.sts='1'
