@@ -720,7 +720,7 @@ class CmsController extends Controller
 			$sheet->setCellValue('C'.$nowrow, strtoupper($content['nm_emp']) . ' - [' . $content['nm_unit'] . ', '. strtoupper($content['nm_lok']) .']' );
 			$sheet->setCellValue('D'.$nowrow, date('d/M/Y', strtotime(str_replace('/', '-', $content['tanggal']))) );
 			$sheet->setCellValue('E'.$nowrow, 'https://' . $request->current_url . '/portal/content/' . $kat . '/' . $content['ids'] );
-			$sheet->setCellValue('F'.$nowrow, ($content['tfile'] && $content['tfile'] != '' ) ? $request->current_url . '/portal/public/publicimg/images/cms/1.20.512/' . $content['idkat']. '/file/' . $content['tfile'] : '-' );
+			$sheet->setCellValue('F'.$nowrow, ($content['tfile'] && $content['tfile'] != '' ) ? 'https://' . $request->current_url . '/portal/public/publicimg/images/cms/1.20.512/' . $content['idkat']. '/file/' . $content['tfile'] : '-' );
 
 			$nowrow++;
 		}
