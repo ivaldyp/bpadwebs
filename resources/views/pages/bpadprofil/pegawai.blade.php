@@ -715,7 +715,7 @@
 													</td>
 													@endif
 													<td style="vertical-align: middle;">
-														<strong>{{ ucwords(strtolower($jab['unit']['nm_unit'])) }}</strong>
+														<strong>{!! wordwrap(ucwords(strtolower($jab['unit']['nm_unit'])), 30, "<br>\n", TRUE ) !!}</strong>
 														<br>{!! wordwrap($jab['idjab'], 50, "<br>\n", TRUE) !!}
 													</td>
 
@@ -1670,7 +1670,7 @@
 									</div>
 								</div>
 
-								<div class="form-group">
+								{{--<div class="form-group">
 									<label for="idjab" class="col-md-2 control-label"> Jabatan </label>
 									<div class="col-md-8">
 										<select class="form-control select2" name="idjab" id="idjab">
@@ -1679,7 +1679,7 @@
 											@endforeach
 										</select>
 									</div>
-								</div>
+								</div>--}}
 
 								<div class="form-group">
 									<label for="idunit" class="col-md-2 control-label"> Unit Organisasi </label>
@@ -1788,16 +1788,16 @@
 									</div>
 								</div>
 
-								<div class="form-group col-md-12">
+								{{--<div class="form-group col-md-12">
 									<label for="idjab" class="col-md-2 control-label"> Jabatan </label>
 									<div class="col-md-8">
-										<select class="form-control select2 modal_update_idjab" name="idjab" id="">
+										<select class="form-control select2 modal_update_idjab" name="idjab" id="modal_update_jab_idjab">
 											@foreach($jabatans as $jabatan)
 												<option value="{{ $jabatan['jabatan'] }}"> {{ $jabatan['jabatan'] }} </option>
 											@endforeach
 										</select>
 									</div>
-								</div>
+								</div>--}}
 
 								<div class="form-group col-md-12">
 									<label for="idunit" class="col-md-2 control-label"> Unit Organisasi </label>
