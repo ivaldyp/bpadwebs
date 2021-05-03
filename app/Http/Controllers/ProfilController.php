@@ -1052,6 +1052,21 @@ class ProfilController extends Controller
 			$filejab = '';
 		}
 
+		if (strlen($request->idunit) > 2) {
+			$cutidunit = substr($request->idunit, 4, 2);
+			if (substr($cutidunit, 0, 1) == '5') {
+				$idlok = Glo_org_lokasi::where('new_kd_lok', $cutidunit)->first(['kd_lok']);
+			} elseif (substr($cutidunit, 0, 1) == '0') {
+				if ($cutidunit == '06') {
+					$idlok = Glo_org_lokasi::where('new_kd_lok', $cutidunit)->first(['kd_lok']);
+				} else {
+					$idlok = Glo_org_lokasi::where('new_kd_lok', '0')->first(['kd_lok']);
+				}
+			}
+		} else {
+			$idlok = ['kd_lok' => '00'];
+		}
+
 		$insert_emp_jab = [
 				// JABATAN
 				'sts' => 1,
@@ -1063,7 +1078,7 @@ class ProfilController extends Controller
 				'tmt_jab' => (isset($request->tmt_jab) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_jab))) : null),
 				'idskpd' => '1.20.512',
 				'idunit' => $request->idunit,
-				'idlok' => $request->idlok,
+				'idlok' => $idlok['kd_lok'],
 				'tmt_sk_jab' => (isset($request->tmt_sk_jab) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_sk_jab))) : null),
 				'no_sk_jab' => ($request->no_sk_jab ? $request->no_sk_jab : ''),
 				'jns_jab' => $request->jns_jab,
@@ -1114,12 +1129,27 @@ class ProfilController extends Controller
 			$filejab = '';
 		}
 
+		if (strlen($request->idunit) > 2) {
+			$cutidunit = substr($request->idunit, 4, 2);
+			if (substr($cutidunit, 0, 1) == '5') {
+				$idlok = Glo_org_lokasi::where('new_kd_lok', $cutidunit)->first(['kd_lok']);
+			} elseif (substr($cutidunit, 0, 1) == '0') {
+				if ($cutidunit == '06') {
+					$idlok = Glo_org_lokasi::where('new_kd_lok', $cutidunit)->first(['kd_lok']);
+				} else {
+					$idlok = Glo_org_lokasi::where('new_kd_lok', '0')->first(['kd_lok']);
+				}
+			}
+		} else {
+			$idlok = ['kd_lok' => '00'];
+		}
+
 		Emp_jab::where('noid', $request->noid)
 			->where('ids', $request->ids)
 			->update([
 				'tmt_jab' => (isset($request->tmt_jab) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_jab))) : null),
 				'idunit' => $request->idunit,
-				'idlok' => $request->idlok,
+				'idlok' => $idlok['kd_lok'],
 				'tmt_sk_jab' => (isset($request->tmt_sk_jab) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_sk_jab))) : null),
 				'no_sk_jab' => ($request->no_sk_jab ? $request->no_sk_jab : ''),
 				'jns_jab' => $request->jns_jab,

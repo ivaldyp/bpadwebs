@@ -978,16 +978,16 @@
 																					</div>
 																				</div>
 
-																				<div class="form-group col-md-12">
+																				{{-- <div class="form-group col-md-12">
 																					<label for="idlok" class="col-md-2 control-label"> Lokasi </label>
 																					<div class="col-md-8">
 																						<select class="form-control" name="idlok" id="idlok">
 																							@foreach($lokasis as $lokasi)
-																								<option value="{{ $lokasi['kd_lok'] }}" <?php if ($jab['idlok'] == $lokasi['kd_lok'] ): ?> selected <?php endif ?> > {{ $lokasi['nm_lok'] }}</option>
+																								<option value="{{ $lokasi['kd_lok'] }}"> {{ $lokasi['nm_lok'] }}</option>
 																							@endforeach
 																						</select>
 																					</div>
-																				</div>
+																				</div> --}}
 
 																				<div class="form-group col-md-12">
 																					<label for="eselon" class="col-md-2 control-label"> Golongan </label>
@@ -1087,7 +1087,7 @@
 																</div>
 															</div>
 
-															<div class="form-group">
+															{{--<div class="form-group">
 																<label for="idlok" class="col-md-2 control-label"> Lokasi </label>
 																<div class="col-md-8">
 																	<select class="form-control" name="idlok">
@@ -1096,7 +1096,7 @@
 																		@endforeach
 																	</select>
 																</div>
-															</div>
+															</div>--}}
 
 															<div class="form-group">
 																<label for="eselon" class="col-md-2 control-label"> Golongan </label>

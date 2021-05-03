@@ -501,7 +501,7 @@
 													</div>
 												</div>
 
-												<div class="form-group">
+												{{-- <div class="form-group">
 													<label for="idlok" class="col-md-2 control-label"> Lokasi </label>
 													<div class="col-md-8">
 														<select class="form-control" name="idlok" id="idlok">
@@ -510,7 +510,7 @@
 															@endforeach
 														</select>
 													</div>
-												</div>
+												</div> --}}
 
 												<div class="form-group">
 													<label for="eselon" class="col-md-2 control-label"> Golongan </label>
