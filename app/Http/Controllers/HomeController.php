@@ -65,8 +65,8 @@ class HomeController extends Controller
 			foreach ($query as $menu) {
 				if (is_null($menu['urlnew'])) {
 					$link = 'javascript:void(0)';
-				} elseif (substr($menu['urlnew'], 0, 4) == 'bpad') {
-					$link = $menu['url'];
+				} elseif (substr($menu['urlnew'], 0, 4) == 'http') {
+					$link = $menu['urlnew'];
 				} else {
 					if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') 
 						$link = "https"; 
