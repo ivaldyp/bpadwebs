@@ -20,6 +20,7 @@ use App\Traits\SessionCheckTraits;
 
 use App\Contenttb as Content_tb;
 use App\Emp_data;
+use App\Emp_notif;
 use App\Glo_kategori;
 use App\Glo_subkategori;
 use App\New_icon_produk;
@@ -69,7 +70,7 @@ class CmsController extends Controller
 								<td style="padding-left:'.$padding.'px; '.(($level == 0) ? 'font-weight: bold;"' : '').'">'.$menu['desk'].' '.(($menu['child'] == 1)? '<i class="fa fa-arrow-down"></i>' : '').'</td>
 								<td>'.($menu['zket'] ? $menu['zket'] : '-').'</td>
 								<td>'.($menu['iconnew'] ? $menu['iconnew'] : '-').'</td>
-								<td>'.($menu['urlnew'] ? $menu['urlnew'] : '-').'</td>
+								<td style="word-wrap: normal;">'.($menu['urlnew'] ? wordwrap($menu['urlnew'],15,"<br>\n") : '-').'</td>
 								<td class="text-center">'.intval($menu['urut']).'</td>
 								<td class="text-center">'.(($menu['child'] == 1)? '<i style="color:green;" class="fa fa-check"></i>' : '<i style="color:red;" class="fa fa-times"></i>').'</td>
 								<td class="text-center">'.(($menu['tampilnew'] == 1)? '<i style="color:green;" class="fa fa-check"></i>' : '<i style="color:red;" class="fa fa-times"></i>').'</td>
@@ -554,6 +555,24 @@ class CmsController extends Controller
 			$suspnow = 'Y';
 		}
 
+		if ($request->yearnow) {
+			$yearnow = (int)$request->yearnow;
+		} else {
+			$yearnow = (int)date('Y');
+		}
+
+		if ($request->monthnow) {
+			$monthnow = (int)$request->monthnow;
+		} else {
+			$monthnow = (int)date('m');
+		}
+
+		if ($request->signnow) {
+			$signnow = $request->signnow;
+		} else {
+			$signnow = "<=";
+		}
+
 		// if (is_null($request->apprnow) || $request->apprnow == 1) {
 		//     $apprnow = 'Y';
 		// } elseif ($request->apprnow == 0) {
@@ -584,6 +603,8 @@ class CmsController extends Controller
 					  where idkat = $katnow
 					  and suspend = '$suspnow'
 					  and con.sts = 1
+					  and month(con.tanggal) $signnow $monthnow
+					  and year(con.tanggal) = $yearnow
 					  order by con.tgl desc
 				"));
 		$contents = json_decode(json_encode($contents), true);
@@ -614,7 +635,10 @@ class CmsController extends Controller
 				->with('katnow', $katnow)
 				->with('katnowdetail', $katnowdetail)
 				->with('suspnow', $suspnow)
-				->with('flagapprove', $flagapprove);
+				->with('flagapprove', $flagapprove)
+				->with('signnow', $signnow)
+				->with('monthnow', $monthnow)
+				->with('yearnow', $yearnow);
 	}
 
 	public function contentexcel(Request $request)
@@ -863,7 +887,10 @@ class CmsController extends Controller
 				->with('kat', $kat)
 				->with('subkats', $subkats)
 				->with('content', $content)
-				->with('flagapprove', $flagapprove);
+				->with('flagapprove', $flagapprove)
+				->with('signnow', $request->signnow)
+				->with('monthnow', $request->monthnow)
+				->with('yearnow', $request->yearnow);
 	}
 
 	public function forminsertcontent(Request $request)
@@ -1104,12 +1131,6 @@ class CmsController extends Controller
 			$isi2 = htmlentities($isi2);
 		}
 
-		if ($request->suspend == 'Y') {
-			$suspend = 'Y';
-		} else {
-			$suspend = '';
-		}
-
 		if ($request->headline == 'H,' ) {
 			$headline = 'H,';
 		} else {
@@ -1146,6 +1167,48 @@ class CmsController extends Controller
 			]);
 		}
 
+
+		if ($request->suspend == 'Y') {
+			$suspend = 'Y';
+			$headline = '';
+			
+			Content_tb::where('ids', $request->ids)
+			->update([
+				'appr' => 'N',
+			]);
+
+			date_default_timezone_set('Asia/Jakarta');
+			if ($request->suspnow == '') {
+				$notifsuspend = [
+					'sts'       => 1,
+					'tgl'       => date('Y-m-d H:i:s'),
+					'id_emp'	=> $request->usrinput,
+					'jns_notif'	=> 'KONTEN',
+					'message1'	=> 'Konten anda dengan judul <b>'.$request->judul.'</b> telah di suspend',
+					'message2'	=> $request->suspend_teks,
+					'rd'		=> 'N',
+				];
+				Emp_notif::insert($notifsuspend);
+			}
+
+		} else {
+			$suspend = '';
+		}
+
+		date_default_timezone_set('Asia/Jakarta');
+		if ($request->appr == 'Y' && $suspend == '') {
+			$notifapprcontent = [
+					'sts'       => 1,
+					'tgl'       => date('Y-m-d H:i:s'),
+					'id_emp'	=> $request->usrinput,
+					'jns_notif'	=> 'KONTENAPPR',
+					'message1'	=> 'Konten anda dengan judul <b>'.$request->judul.'</b> telah disetujui',
+					'message2'	=> '',
+					'rd'		=> 'N',
+				];
+			Emp_notif::insert($notifapprcontent);
+		}
+
 		Content_tb::
 			where('ids', $request->ids)
 			->update([
@@ -1157,6 +1220,7 @@ class CmsController extends Controller
 				'isi2'   => $isi2,
 				'url'       => $url,
 				'suspend' => $suspend,
+				'suspend_teks' => $request->suspend_teks,
 			]);
 
 		if ($file_name != '') {
@@ -1166,7 +1230,13 @@ class CmsController extends Controller
 			]);
 		}
 
-		return redirect('/cms/content?katnow='.$request->idkat)
+		if ($request->suspnow == 'Y') {
+			$suspnow = 'Y';
+		} elseif ($request->suspnow == '') {
+			$suspnow = 'N';
+		}
+
+		return redirect('/cms/content?katnow='.$request->idkat.'&suspnow='.$suspnow)
 					->with('message', 'Konten berhasil diubah')
 					->with('msg_num', 1);
 	}

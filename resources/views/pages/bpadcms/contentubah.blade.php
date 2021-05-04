@@ -289,6 +289,7 @@
 									</div>
 									@endif
 
+									@if($flagapprove == 1)
 									<div class="form-group">
 										<label class="col-md-2 control-label"> Suspend? </label>
 										<div class="radio-list col-md-8">
@@ -307,12 +308,30 @@
 											<div class="help-block with-errors"></div>  
 										</div>
 									</div>
+									
+									<div class="form-group">
+										<label for="suspend_teks" class="col-md-2 control-label"> Alasan Suspend </label>
+										<div class="col-md-8">
+											@if($content['suspend'] == '')
+											<input type="text" class="form-control" id="suspend_teks" name="suspend_teks" autocomplete="off" value="">
+											@else
+											<input type="text" class="form-control" id="suspend_teks" name="suspend_teks" autocomplete="off" value="{{ $content['suspend_teks'] }}">
+											@endif
+										</div>
+									</div>
+									@endif
 
 									@if($content['appr'] == 'N')
 									<input type="hidden" name="appr" value="Y">
 									@else 
 									<input type="hidden" name="appr" value="N">
 									@endif
+
+									<input type="hidden" name="suspnow" value="{{ $content['suspend'] }}">
+									<input type="hidden" name="usrinput" value="{{ $content['usrinput'] }}">
+									<input type="hidden" name="monthnow" value="{{ $monthnow }}">
+									<input type="hidden" name="signnow" value="{{ $signnow }}">
+									<input type="hidden" name="yearnow" value="{{ $yearnow }}">
 								</div>
 								<div class="panel-footer">
 									<input type="submit" name="btnSimpan" class="btn btn-info pull-right m-r-10" value="Simpan">
@@ -324,7 +343,7 @@
 										<input type="submit" name="btnAppr" class="btn btn-danger pull-right m-r-10" value="Batal Setuju">
 										@endif
 									@endif
-									<button type="button" class="btn btn-default pull-right m-r-10" onclick="goBack()">Kembali</button>
+									<a href="{{ url()->previous() }}"><button type="button" class="btn btn-default pull-right m-r-10">Kembali</button></a>
 									<div class="clearfix"></div>
 								</div>
 							</div>

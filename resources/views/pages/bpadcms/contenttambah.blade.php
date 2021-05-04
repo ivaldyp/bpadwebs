@@ -292,7 +292,7 @@
 								<div class="panel-footer">
 									<button type="submit" class="btn btn-success pull-right">Simpan</button>
 									<!-- <button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Kembali</button> -->
-									<button type="button" class="btn btn-default pull-right m-r-10" onclick="goBack()">Kembali</button>			
+									<a href="{{ url()->previous() }}"><button type="button" class="btn btn-default pull-right m-r-10">Kembali</button></a>		
 									<div class="clearfix"></div>
 								</div>
 							</div>

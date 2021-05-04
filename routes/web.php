@@ -55,6 +55,10 @@ Route::group(['prefix' => 'content'], function () {
 
 // ------------- BPAD DT --------------
 
+Route::group(['prefix' => 'notifikasi'], function () {
+	Route::get('/cek/{jenis}/{ids}', 'NotifikasiController@cek');
+});
+
 Route::group(['prefix' => 'booking'], function () {
 	Route::get('/manageruang', 'BookingController@manageruang');
 	Route::post('form/tambahruang', 'BookingController@forminsertruang');
@@ -276,7 +280,10 @@ Route::group(['prefix' => 'kepegawaian'], function () {
 	Route::post('/form/ubahsuratkeluar', 'KepegawaianController@formupdatesuratkeluar');
 	Route::post('/form/hapussuratkeluar', 'KepegawaianController@formdeletesuratkeluar');
 
+	//////////////////////////////////////////////////////////////////////
+
 	Route::get('/peta jabatan', 'Kepegawaian2Controller@petajabatan');
+	Route::post('/form/insertjabchild', 'Kepegawaian2Controller@forminsertjabchild');
 });
 
 Route::group(['prefix' => 'security'], function () {

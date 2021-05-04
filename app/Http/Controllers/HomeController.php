@@ -8,10 +8,12 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Traits\SessionCheckTraits;
+use App\Traits\SessionCheckNotif;
 
 use App\Agenda_tb;
 use App\Berita_tb;
 use App\Emp_data;
+use App\Emp_notif;
 use App\Sec_access;
 use App\Sec_logins;
 use App\Sec_menu;
@@ -22,6 +24,7 @@ session_start();
 class HomeController extends Controller
 {
 	use SessionCheckTraits;
+	use SessionCheckNotif;
 
 	public function __construct()
 	{
@@ -125,11 +128,14 @@ class HomeController extends Controller
 		$this->checkSessionTime();
 		
 		unset($_SESSION['user_data']);
+		unset($_SESSION['notifs']);
 
 		date_default_timezone_set('Asia/Jakarta');
 		
 		if (is_null(Auth::user()->usname)) {
 			$iduser = Auth::user()->id_emp;
+
+			$notifs = $this->checknotif(Auth::user()->id_emp);
 
 			$user_data = DB::select( DB::raw("
 						SELECT id_emp,a.uname+'::'+convert(varchar,a.tgl)+'::'+a.ip,createdate,nip_emp,nrk_emp,nm_emp,nrk_emp+'-'+nm_emp as c2,gelar_dpn,gelar_blk,jnkel_emp,tempat_lahir,tgl_lahir,CONVERT(VARCHAR(10), tgl_lahir, 103) AS [DD/MM/YYYY],idagama,alamat_emp,tlp_emp,email_emp,status_emp,ked_emp,status_nikah,gol_darah,nm_bank,cb_bank,an_bank,nr_bank,no_taspen,npwp,no_askes,no_jamsos,tgl_join,CONVERT(VARCHAR(10), tgl_join, 103) AS [DD/MM/YYYY],tgl_end,reason,a.idgroup,pass_emp,foto,ttd,a.telegram_id,a.lastlogin,tbgol.tmt_gol,CONVERT(VARCHAR(10), tbgol.tmt_gol, 103) AS [DD/MM/YYYY],tbgol.tmt_sk_gol,CONVERT(VARCHAR(10), tbgol.tmt_sk_gol, 103) AS [DD/MM/YYYY],tbgol.no_sk_gol,tbgol.idgol,tbgol.jns_kp,tbgol.mk_thn,tbgol.mk_bln,tbgol.gambar,tbgol.nm_pangkat,tbjab.tmt_jab,CONVERT(VARCHAR(10), tbjab.tmt_jab, 103) AS [DD/MM/YYYY],tbjab.idskpd,tbjab.idunit,tbjab.idjab, tbunit.child, tbjab.idlok,tbjab.tmt_sk_jab,CONVERT(VARCHAR(10), tbjab.tmt_sk_jab, 103) AS [DD/MM/YYYY],tbjab.no_sk_jab,tbjab.jns_jab,tbjab.idjab,tbjab.eselon,tbjab.gambar,tbdik.iddik,tbdik.prog_sek,tbdik.no_sek,tbdik.th_sek,tbdik.nm_sek,tbdik.gelar_dpn_sek,tbdik.gelar_blk_sek,tbdik.ijz_cpns,tbdik.gambar,tbdik.nm_dik,b.nm_skpd,c.nm_unit,c.notes,d.nm_lok, tbunit.sao FROM bpaddtfake.dbo.emp_data as a
@@ -158,8 +164,11 @@ class HomeController extends Controller
 			->update([
 				'lastlogin' => date('Y-m-d H:i:s'),
 			]);	
+
+			$notifs = $this->checknotif(Auth::user()->usname);
 		}
 
+		$_SESSION['notifs'] = $notifs;
 		$_SESSION['user_data'] = $user_data;
 
 		$all_menu = [];

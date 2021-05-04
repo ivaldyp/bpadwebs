@@ -68,29 +68,10 @@
 						<div class="panel-wrapper collapse in">
 							<div class="panel-body">
 								<div class="row " style="margin-bottom: 10px">
-									@if ($access['zadd'] == 'y')
-									<div class="col-sm-1">
-										<label for="suspnow" class="control-label">  </label>
-										<button class="btn btn-info btn-href-tambah" type="button" data-toggle="modal" data-target="#modal-insert">Tambah</button>
-									</div>
-									@endif
 
-									@if ($flagapprove == 1)
-									<div class="col-sm-2" style="padding-top: 20px;">
-										<div class="col-sm-6">
-										<button class="btn btn-danger btn-href-rekap" type="button" data-toggle="modal" data-target="#modal-rekap"><i class="fa fa-file-pdf-o"></i></button>
-											
-										</div>
-										<div class="col-sm-6">
-										<button class="btn btn-success btn-href-excel" type="button" data-toggle="modal" data-target="#modal-excel"><i class="fa fa-file-excel-o"></i></button>
-											
-										</div>
-									</div>
-									@endif
-
-									<div class="col-md-6">
+									<div class="col-md-12">
 										<form method="GET" action="/portal/cms/content">
-											<div class=" col-md-6">
+											<div class=" col-md-3">
 												<label for="katnow" class="control-label"> Tipe </label>
 												<select class="form-control" name="katnow" id="katnow" required onchange="this.form.submit()">
 												<?php foreach ($kategoris as $key => $kategori) { ?>
@@ -104,7 +85,7 @@
 												<?php } ?>
 												</select>
 											</div>
-											<div class=" col-md-3">
+											<div class=" col-md-2">
 												<label for="suspnow" class="control-label"> Suspend </label>
 												<select class="form-control" name="suspnow" id="suspnow" onchange="this.form.submit()">
 												
@@ -113,11 +94,62 @@
 												
 												</select>
 											</div>
-											
+											<div class=" col-md-2">
+												<?php date_default_timezone_set('Asia/Jakarta'); ?>
+												<label for="yearnow" class="control-label"> Tahun </label>
+												<select class="form-control" name="yearnow" id="yearnow" onchange="this.form.submit()">
+													<option <?php if ($yearnow == (int)date('Y')): ?> selected <?php endif ?> value="{{ (int)date('Y') }}">{{ (int)date('Y') }}</option>
+													<option <?php if ($yearnow == (int)date('Y') - 1): ?> selected <?php endif ?> value="{{ (int)date('Y') - 1 }}">{{ (int)date('Y') - 1 }}</option>
+													<option <?php if ($yearnow == (int)date('Y') - 2): ?> selected <?php endif ?> value="{{ (int)date('Y') - 2 }}">{{ (int)date('Y') - 2 }}</option>
+													<option <?php if ($yearnow == (int)date('Y') - 3): ?> selected <?php endif ?> value="{{ (int)date('Y') - 3 }}">{{ (int)date('Y') - 3 }}</option>
+													<option <?php if ($yearnow == (int)date('Y') - 4): ?> selected <?php endif ?> value="{{ (int)date('Y') - 4 }}">{{ (int)date('Y') - 4 }}</option>
+												</select>
+											</div>
+											<div class=" col-md-1">
+												<label for="signnow" class="control-label"> Sign </label>
+												<select class="form-control" name="signnow" id="signnow" onchange="this.form.submit()">
+													<option <?php if ($signnow == "="): ?> selected <?php endif ?> value="=">=</option>
+													<option <?php if ($signnow == ">="): ?> selected <?php endif ?> value=">=">>=</option>
+													<option <?php if ($signnow == "<="): ?> selected <?php endif ?> value="<="><=</option>
+												</select>
+											</div>
+											<div class=" col-md-2">
+												<label for="monthnow" class="control-label"> Bulan </label>
+												<select class="form-control" name="monthnow" id="monthnow" onchange="this.form.submit()">
+													@php
+													$months = 1
+													@endphp
+
+													@for($i=$months; $i<=12; $i++)
+														@php
+															$dateObj   = DateTime::createFromFormat('!m', $i);
+															$monthname = $dateObj->format('F');
+														@endphp
+														<option <?php if ($monthnow == $i): ?> selected <?php endif ?> value="{{ $i }}">{{ $monthname }}</option>
+													@endfor
+												</select>
+											</div>
 										</form>
+
 									</div>
 									
 									
+								</div>
+								<div class="row" style="margin-bottom: 10px">
+									@if ($access['zadd'] == 'y')
+									<div class="col-sm-6" style="margin-left: 10px;">
+										<button class="btn btn-info btn-href-tambah" type="button" data-toggle="modal" data-target="#modal-insert">Tambah</button>
+										<button class="btn btn-danger btn-href-rekap" type="button" data-toggle="modal" data-target="#modal-rekap"><i class="fa fa-file-pdf-o"></i></button>
+										<button class="btn btn-success btn-href-excel" type="button" data-toggle="modal" data-target="#modal-excel"><i class="fa fa-file-excel-o"></i></button>
+										
+									</div>
+									@endif
+
+									@if ($flagapprove == 1)
+									<div class="col-sm-2">
+										
+									</div>
+									@endif
 								</div>
 								<div class="row">
 									<div class="table-responsive">
@@ -192,7 +224,7 @@
 													</td>
 													@if($access['zupd'] == 'y' || $access['zdel'] == 'y')
 														<td>
-															<form method="POST" action="/portal/cms/ubah content">
+															<form method="POST" action="/portal/cms/ubah content" target="_blank">
 																@csrf
 																@if($access['zupd'] == 'y')
 																	
@@ -231,7 +263,7 @@
 								<div class="form-group">
 									<label for="kat" class="col-md-2 control-label"> Kategori </label>
 									<div class="col-md-8">
-										<select class="form-control select2" name="kat" id="kat" required>
+										<select class="form-control select2" name="kat" id="kat_rekap" required>
 											@foreach($kategoris as $kategori)
 												<option <?php if ($kategori['ids'] == $katnow ): ?> selected <?php endif ?> value="{{ $kategori['ids'] }}">{{ $kategori['nmkat'] }}</option>
 											@endforeach
@@ -293,7 +325,7 @@
 								<div class="form-group">
 									<label for="kat" class="col-md-2 control-label"> Kategori </label>
 									<div class="col-md-8">
-										<select class="form-control select2" name="kat" id="kat" required>
+										<select class="form-control select2" name="kat" id="kat_excel" required>
 											@foreach($kategoris as $kategori)
 												<option <?php if ($kategori['ids'] == $katnow ): ?> selected <?php endif ?> value="{{ $kategori['ids'] }}">{{ $kategori['nmkat'] }}</option>
 											@endforeach
@@ -303,7 +335,7 @@
 								<div class="form-group">
 									<label for="rekap_bln" class="col-md-2 control-label"> Bulan </label>
 									<div class="col-md-4">
-										<select class="form-control" name="rekap_bln" id="rekap_bln" required>
+										<select class="form-control" name="rekap_bln" id="rekap_bln_excel" required>
 											<option value="01::Januari">Januari</option>
 											<option value="02::Februari">Februari</option>
 											<option value="03::Maret">Maret</option>
@@ -322,7 +354,7 @@
 								<div class="form-group">
 									<label for="rekap_thn" class="col-md-2 control-label"> Tahun </label>
 									<div class="col-md-4">
-										<select class="form-control select2" name="rekap_thn" id="rekap_thn" required>
+										<select class="form-control select2" name="rekap_thn" id="rekap_thn_excel" required>
 											<option value="{{ date('Y') }}">{{ date('Y') }}</option>
 											<option value="{{ date('Y')-1 }}">{{ date('Y')-1 }}</option>
 											<option value="{{ date('Y')-2 }}">{{ date('Y')-2 }}</option>
