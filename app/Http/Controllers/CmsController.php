@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Collection;
 use App\Traits\SessionCheckTraits;
+use App\Traits\SessionCheckNotif;
 
 use App\Contenttb as Content_tb;
 use App\Emp_data;
@@ -34,6 +35,7 @@ session_start();
 class CmsController extends Controller
 {
 	use SessionCheckTraits;
+	use SessionCheckNotif;
 
 	public function __construct()
 	{
@@ -542,6 +544,14 @@ class CmsController extends Controller
 		$currentpath = explode("?", $currentpath)[0];
 		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
 		$access = $this->checkAccess($_SESSION['user_data']['idgroup'], $thismenu['ids']);
+
+		unset($_SESSION['notifs']);
+		if (Auth::user()->usname) {
+			$notifs = $this->checknotif(Auth::user()->usname);
+		} else {
+			$notifs = $this->checknotif(Auth::user()->id_emp);
+		}
+		$_SESSION['notifs'] = $notifs;
 
 		if (!(is_null($request->katnow))) {
 			$katnow = $request->katnow;
