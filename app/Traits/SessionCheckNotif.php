@@ -19,13 +19,13 @@ trait SessionCheckNotif
 
 		// var_dump($idemp);
 		// die;
-		
+
 		$notifs = Emp_notif::
 						where('id_emp', $idemp)
 						->where('sts', 1)
 						->where('rd', 'N')
 						->orderBy('tgl', 'desc')
-						->take(4)
+						->take(5)
 						->get();
 		return $notifs;
 	}

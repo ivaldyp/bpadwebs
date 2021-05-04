@@ -91,9 +91,9 @@
 									@endforeach
 								</div>
 							</li>
-							<li>
+							{{-- <li>
 								<a class="text-center" href="javascript:void(0);"> <strong>Lihat Semua Notifikasi</strong> <i class="fa fa-angle-right"></i> </a>
-							</li>
+							</li> --}}
 							@else 
 							<li>
 								<div class="drop-title">You have 0 new notifications</div>
