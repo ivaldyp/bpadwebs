@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Traits\SessionCheckTraits;
+use App\Traits\SessionCheckNotif;
 
 use App\Emp_data;
 use App\Emp_dik;
@@ -21,6 +22,7 @@ use App\Emp_jab;
 use App\Emp_non;
 use App\Emp_kel;
 use App\Emp_huk;
+use App\Emp_notif;
 use App\Fr_suratkeluar;
 use App\Fr_disposisi;
 use App\Glo_dik;
@@ -44,10 +46,10 @@ session_start();
 class KepegawaianController extends Controller
 {
 	use SessionCheckTraits;
+	use SessionCheckNotif;
 
 	public function __construct()
 	{
-		
 		$this->middleware('auth');
 		set_time_limit(300);
 	}
@@ -61,6 +63,14 @@ class KepegawaianController extends Controller
 		$currentpath = explode("?", $currentpath)[0];
 		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
 		$access = $this->checkAccess($_SESSION['user_data']['idgroup'], $thismenu['ids']);
+
+		unset($_SESSION['notifs']);
+		if (Auth::user()->usname) {
+			$notifs = $this->checknotif(Auth::user()->usname);
+		} else {
+			$notifs = $this->checknotif(Auth::user()->id_emp);
+		}
+		$_SESSION['notifs'] = $notifs;
 
 		$units = Glo_org_unitkerja::orderBy('kd_unit')->get();
 
@@ -99,7 +109,8 @@ class KepegawaianController extends Controller
 				->with('idunit', $idunit)
 				->with('employees', $employees)
 				->with('units', $units)
-				->with('kedudukans', $kedudukans);
+				->with('kedudukans', $kedudukans)
+				->with('notifs', $notifs);
 		
 	}
 
@@ -299,6 +310,26 @@ class KepegawaianController extends Controller
 					'appr' => $request->appr,
 					'alasan' => $request->alasan,
 				]);
+		}
+
+		if (strtolower($request->formtipe) == 'jab') {
+			$formtipe = 'Jabatan';
+		} elseif (strtolower($request->formtipe) == 'gol') {
+			$formtipe = 'Golongan';
+		}
+
+		date_default_timezone_set('Asia/Jakarta');
+		if ($request->appr == '0') {
+			$notifapprcontent = [
+					'sts'       => 1,
+					'tgl'       => date('Y-m-d H:i:s'),
+					'id_emp'	=> $request->id_emp,
+					'jns_notif'	=> 'PROFIL',
+					'message1'	=> 'Sertifikat '.ucwords(strtolower($request->formtipe)).' anda telah ditolak',
+					'message2'	=> $request->alasan,
+					'rd'		=> 'N',
+				];
+			Emp_notif::insert($notifapprcontent);
 		}
 		
 		return redirect('/kepegawaian/ubah%20pegawai?id_emp='.$request->id_emp)

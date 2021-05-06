@@ -16,12 +16,16 @@ class NotifikasiController extends Controller
 			'rd' => 'Y',
 		]);
 
+		$jenis = strtoupper($jenis);
+
 		if ($jenis == 'KONTEN') {
 			return redirect('/cms/content?suspnow=Y');
 		} elseif ($jenis == 'KONTENAPPR') {
 			return redirect('/cms/content');
 		} elseif ($jenis == 'PROFIL') {
 			return redirect('/profil/pegawai');
+		} else {
+			return redirect('/home');
 		}
 	}
 }
