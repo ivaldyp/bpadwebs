@@ -97,10 +97,13 @@
 												</tr>
 											</thead>
 											<tbody>
+												@php
+													$num = 1;
+												@endphp
 												@foreach($sarans as $key => $saran)
 													@if (filter_var($saran['sender'], FILTER_VALIDATE_EMAIL)) 
 													<tr>
-														<td>{{ $key + 1 }}</td>
+														<td>{{ $num }}</td>
 														<td class="col-md-2">
 															{{ date('d/m/Y', strtotime(str_replace('/', '-', $saran['tanggal']))) }}
 														</td>
@@ -131,6 +134,9 @@
 															</td>
 														@endif
 													</tr>
+													@php
+														$num++;
+													@endphp
 													@endif
 												@endforeach
 											</tbody>
