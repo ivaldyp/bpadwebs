@@ -84,38 +84,40 @@
 											</thead>
 											<tbody>
 												@foreach($sarans as $key => $saran)
-												<tr>
-													<td>{{ $key + 1 }}</td>
-													<td class="col-md-2">
-														{{ date('d/m/Y', strtotime(str_replace('/', '-', $saran['tanggal']))) }}
-													</td>
-													<td>{{ strtolower($saran['sender']) }}</td>
-													<td>{{ $saran['isi'] }}</td>
-													<!-- <td>
-														<button class="btn btn-circle m-r-5 btn-warning btn-reply" data-toggle="modal" data-target="#modal-reply" data-sender="{{ $saran['sender'] }}"><i class="ti-back-left"></i></button>
-													</td> -->
-													<td class="text-center" >
-														{!! 
-															($saran['read']) == 1 ? 
-															'<i style="color:green;" class="fa fa-check"></i><br><span style="color: white">1</span>' : 
-															'<i style="color:red;" class="fa fa-times"></i><br><span style="color: white">0</span>' 
-														!!}
-													</td>
-													@if($access['zupd'] == 'y' || $access['zdel'] == 'y')
-														<td class="col-md-1 text-center">
-															<form method="POST" action="/portal/internal/form/apprsaran">
-																@csrf
-																<input type="hidden" name="ids" value="{{ $saran['ids'] }}">
-																<input type="hidden" name="read" value="{{ $saran['read'] }}">
-																@if($saran['read'] == 1)
-																<button type="submit" class="btn btn-circle m-r-5 btn-danger"><i class="ti-close"></i></button>
-																@else
-																<button type="submit" class="btn btn-circle m-r-5 btn-success"><i class="ti-check"></i></button>
-																@endif
-															</form>
+													@if (filter_var($saran['sender'], FILTER_VALIDATE_EMAIL)) 
+													<tr>
+														<td>{{ $key + 1 }}</td>
+														<td class="col-md-2">
+															{{ date('d/m/Y', strtotime(str_replace('/', '-', $saran['tanggal']))) }}
 														</td>
+														<td>{{ strtolower($saran['sender']) }}</td>
+														<td>{{ $saran['isi'] }}</td>
+														<!-- <td>
+															<button class="btn btn-circle m-r-5 btn-warning btn-reply" data-toggle="modal" data-target="#modal-reply" data-sender="{{ $saran['sender'] }}"><i class="ti-back-left"></i></button>
+														</td> -->
+														<td class="text-center" >
+															{!! 
+																($saran['read']) == 1 ? 
+																'<i style="color:green;" class="fa fa-check"></i><br><span style="color: white">1</span>' : 
+																'<i style="color:red;" class="fa fa-times"></i><br><span style="color: white">0</span>' 
+															!!}
+														</td>
+														@if($access['zupd'] == 'y' || $access['zdel'] == 'y')
+															<td class="col-md-1 text-center">
+																<form method="POST" action="/portal/internal/form/apprsaran">
+																	@csrf
+																	<input type="hidden" name="ids" value="{{ $saran['ids'] }}">
+																	<input type="hidden" name="read" value="{{ $saran['read'] }}">
+																	@if($saran['read'] == 1)
+																	<button type="submit" class="btn btn-circle m-r-5 btn-danger"><i class="ti-close"></i></button>
+																	@else
+																	<button type="submit" class="btn btn-circle m-r-5 btn-success"><i class="ti-check"></i></button>
+																	@endif
+																</form>
+															</td>
+														@endif
+													</tr>
 													@endif
-												</tr>
 												@endforeach
 											</tbody>
 										</table>
