@@ -57,6 +57,7 @@ Route::group(['prefix' => 'content'], function () {
 
 Route::group(['prefix' => 'notifikasi'], function () {
 	Route::get('/cek/{jenis}/{ids}', 'NotifikasiController@cek');
+	Route::get('/', 'NotifikasiController@notifall');
 });
 
 Route::group(['prefix' => 'booking'], function () {
