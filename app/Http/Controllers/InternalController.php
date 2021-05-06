@@ -341,7 +341,7 @@ class InternalController extends Controller
 
 	// ========== <SARAN> ========== //
 	
-	public function saran()
+	public function saran(Request $request)
 	{
 		$this->checkSessionTime();
 		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
@@ -349,13 +349,21 @@ class InternalController extends Controller
 		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
 		$access = $this->checkAccess($_SESSION['user_data']['idgroup'], $thismenu['ids']);
 
-		$sarans = Help::limit(100)
+		if ($request->yearnow) {
+			$yearnow = (int)$request->yearnow;
+		} else {
+			$yearnow = (int)date('Y');
+		}
+
+		$sarans = Help::
+					whereRaw('YEAR(tanggal) = '.$yearnow)
 					->orderBy('tanggal', 'desc')
 					->get();
 
 		return view('pages.bpadinternal.saran')
 				->with('access', $access)
-				->with('sarans', $sarans);
+				->with('sarans', $sarans)
+				->with('yearnow', $yearnow);
 	}
 
 	public function formapprsaran(Request $request)

@@ -66,6 +66,20 @@
 						<div class="panel-heading">Bantuan dan Saran</div>
 						<div class="panel-wrapper collapse in">
 							<div class="panel-body">
+								<div class="row" style="margin-bottom: 10px">
+									<form method="GET" action="/portal/internal/saran">
+										<div class=" col-md-2">
+											<?php date_default_timezone_set('Asia/Jakarta'); ?>
+											<select class="form-control" name="yearnow" id="yearnow" onchange="this.form.submit()">
+												<option <?php if ($yearnow == (int)date('Y')): ?> selected <?php endif ?> value="{{ (int)date('Y') }}">{{ (int)date('Y') }}</option>
+												<option <?php if ($yearnow == (int)date('Y') - 1): ?> selected <?php endif ?> value="{{ (int)date('Y') - 1 }}">{{ (int)date('Y') - 1 }}</option>
+												<option <?php if ($yearnow == (int)date('Y') - 2): ?> selected <?php endif ?> value="{{ (int)date('Y') - 2 }}">{{ (int)date('Y') - 2 }}</option>
+												<option <?php if ($yearnow == (int)date('Y') - 3): ?> selected <?php endif ?> value="{{ (int)date('Y') - 3 }}">{{ (int)date('Y') - 3 }}</option>
+												<option <?php if ($yearnow == (int)date('Y') - 4): ?> selected <?php endif ?> value="{{ (int)date('Y') - 4 }}">{{ (int)date('Y') - 4 }}</option>
+											</select>
+										</div>
+									</form>
+								</div>
 								<div class="row">
 									<div class="table-responsive">
 										<table class="myTable table table-hover table-striped">
