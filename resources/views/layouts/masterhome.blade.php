@@ -91,14 +91,14 @@
 									@endforeach
 								</div>
 							</li>
-							<li>
-								<a class="text-center" href="/portal/notifikasi/"> <strong>Lihat Semua Notifikasi</strong> <i class="fa fa-angle-right"></i> </a>
-							</li>
 							@else 
 							<li>
 								<div class="drop-title">You have 0 new notifications</div>
 							</li>
 							@endif
+							<li>
+								<a class="text-center" href="/portal/notifikasi/"> <strong>Lihat Semua Notifikasi</strong> <i class="fa fa-angle-right"></i> </a>
+							</li>
 						</ul>
 						<!-- /.dropdown-messages -->
 					</li>

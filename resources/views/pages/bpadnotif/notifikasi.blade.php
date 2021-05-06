@@ -135,4 +135,10 @@
 	<!-- Custom Theme JavaScript -->
 	<script src="{{ ('/portal/public/ample/js/custom.min.js') }}"></script>
 	<script src="{{ ('/portal/public/ample/plugins/bower_components/datatables/jquery.dataTables.min.js') }}"></script>
+
+	<script>
+		$(function () {
+			$('.myTable').DataTable();
+		});
+	</script>
 @endsection

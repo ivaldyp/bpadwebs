@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Traits\SessionCheckTraits;
+use App\Traits\SessionCheckNotif;
 
 use App\Emp_data;
 use App\Emp_dik;
@@ -44,6 +45,7 @@ session_start();
 class ProfilController extends Controller
 {
 	use SessionCheckTraits;
+	use SessionCheckNotif;
 
 	public function __construct()
 	{
@@ -131,7 +133,13 @@ class ProfilController extends Controller
 		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
 		$access = $this->checkAccess($_SESSION['user_data']['idgroup'], $thismenu['ids']);
 
-
+		unset($_SESSION['notifs']);
+		if (Auth::user()->usname) {
+			$notifs = $this->checknotif(Auth::user()->usname);
+		} else {
+			$notifs = $this->checknotif(Auth::user()->id_emp);
+		}
+		$_SESSION['notifs'] = $notifs;
 
 		// $accessid = $this->checkAccess($_SESSION['user_data']['idgroup'], 37);
 		// $accessdik = $this->checkAccess($_SESSION['user_data']['idgroup'], 65);
@@ -223,7 +231,8 @@ class ProfilController extends Controller
 				->with('kedudukans', $kedudukans)
 				->with('units', $units)
 				->with('keluargas', $keluargas)
-				->with('hukumans', $hukumans);
+				->with('hukumans', $hukumans)
+				->with('notifs', $notifs);
 	}
 
 	public function formupdateidpegawai(Request $request)

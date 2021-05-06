@@ -20,7 +20,7 @@ class NotifikasiController extends Controller
 {
 	use SessionCheckTraits;
 	use SessionCheckNotif;
-	
+
 	public function notifall(Request $request)
 	{
 		if (Auth::user()->id_emp) {

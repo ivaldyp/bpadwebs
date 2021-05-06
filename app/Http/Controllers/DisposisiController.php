@@ -12,7 +12,9 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+
 use App\Traits\SessionCheckTraits;
+use App\Traits\SessionCheckNotif;
 
 use App\Emp_data;
 use App\Emp_dik;
@@ -36,6 +38,7 @@ session_start();
 class DisposisiController extends Controller
 {
 	use SessionCheckTraits;
+	use SessionCheckNotif;
 
 	public function __construct()
 	{
@@ -161,6 +164,14 @@ class DisposisiController extends Controller
 		$currentpath = explode("?", $currentpath)[0];
 		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
 		$access = $this->checkAccess($_SESSION['user_data']['idgroup'], $thismenu['ids']);
+
+		unset($_SESSION['notifs']);
+		if (Auth::user()->usname) {
+			$notifs = $this->checknotif(Auth::user()->usname);
+		} else {
+			$notifs = $this->checknotif(Auth::user()->id_emp);
+		}
+		$_SESSION['notifs'] = $notifs;
 
 		if ($request->yearnow) {
 			$yearnow = (int)$request->yearnow;
@@ -505,7 +516,8 @@ class DisposisiController extends Controller
 				->with('signnow', $signnow)
 				->with('searchnow', $request->searchnow)
 				->with('monthnow', $monthnow)
-				->with('yearnow', $yearnow);
+				->with('yearnow', $yearnow)
+				->with('notifs', $notifs);
 	}
 
 	public function disposisitambah(Request $request)
@@ -1390,6 +1402,14 @@ class DisposisiController extends Controller
 		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
 		$access = $this->checkAccess($_SESSION['user_data']['idgroup'], $thismenu['ids']);
 
+		unset($_SESSION['notifs']);
+		if (Auth::user()->usname) {
+			$notifs = $this->checknotif(Auth::user()->usname);
+		} else {
+			$notifs = $this->checknotif(Auth::user()->id_emp);
+		}
+		$_SESSION['notifs'] = $notifs;
+
 		if ($request->yearnow) {
 			$yearnow = (int)$request->yearnow;
 		} else {
@@ -1765,7 +1785,8 @@ class DisposisiController extends Controller
 				->with('signnow', $signnow)
 				->with('searchnow', $request->searchnow)
 				->with('monthnow', $monthnow)
-				->with('yearnow', $yearnow);
+				->with('yearnow', $yearnow)
+				->with('notifs', $notifs);
 	}
 
 	public function disposisilihat(Request $request)
