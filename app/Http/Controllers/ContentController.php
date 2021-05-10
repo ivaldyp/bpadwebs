@@ -152,7 +152,7 @@ class ContentController extends Controller
 					->orderBy('tgl', 'desc')
 					->paginate(10);
 		}
-		$foto_list->appends($request->only('cari'));
+		$foto_list->appends($request->only('cari', 'subkategori'));
 		
 		$foto_kategori = Glo_subkategori::
 						where('idkat', 5)
