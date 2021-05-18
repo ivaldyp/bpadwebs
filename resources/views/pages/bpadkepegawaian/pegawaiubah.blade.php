@@ -856,7 +856,7 @@
 															<th>No</th>
 															<th>TMT</th>
 															<th>Unit</th>
-															<th>Jabatan</th>
+															{{-- <th>Jabatan</th> --}}
 															<th>File</th>
 															<th>Approve</th>
 															<th>Action</th>
@@ -871,10 +871,10 @@
 																{{ $jab['unit']['nm_unit'] }}<br>
 																<span class="text-muted">{{ $jab['lokasi']['nm_lok'] }}</span>
 															</td>
-															<td>
+															{{-- <td>
 																{{ $jab['jns_jab'] }}<br>
 																<span class="text-muted">{{ $jab['idjab'] }}</span >
-															</td>
+															</td> --}}
 															<td>
 																<span>{{ $jab['no_sk_jab'] }}</span><br>
 																<?php if ($jab['gambar'] && $jab['gambar'] != '') : ?> 
