@@ -937,8 +937,6 @@ class CmsController extends Controller
 				$tujuan_upload = config('app.savefileimginfografik');
 			} elseif (strtolower($kat['nmkat']) == 'infografik epem') {
 				$tujuan_upload = config('app.savefileimginfografikepem');
-			} else {
-				return redirect('/cms/content?katnow='.$request->idkat)->with('message', 'Kategori tersebut belum dapat digunakan');
 			}
 		
 			$file->move($tujuan_upload, $file_name);
