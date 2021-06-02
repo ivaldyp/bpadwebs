@@ -334,6 +334,8 @@
 	<script>
 		function goBack() {
 		  window.history.back();
+
+
 		}
 
 		$(document).ready(function() {
@@ -344,6 +346,12 @@
 				// $('.subkat-'+idkat).hide();
 			});
 
+			$('#tfile').bind('change', function() {
+  				if (this.files[0].size > 1024000) {
+  					alert("File yang dipilih terlalu besar, maksimal 1MB. Silahkan pilih file lain");
+  					$('#tfile').val(''); 
+  				}
+			});
 
 		});
 	</script>

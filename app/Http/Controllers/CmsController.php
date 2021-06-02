@@ -915,7 +915,8 @@ class CmsController extends Controller
 			$file = $request->tfile;
 
 			if ($file->getSize() > 1024000) {
-				return redirect('/cms/content?katnow='.$request->idkat)->with('message', 'Ukuran file terlalu besar (Maksimal 1MB)');     
+				// return redirect('/cms/content?katnow='.$request->idkat)->with('message', 'Ukuran file terlalu besar (Maksimal 1MB)');
+				return redirect()->back()->with('message', 'Ukuran file terlalu besar (Maksimal 1MB)');
 			} 
 			if (strtolower($file->getClientOriginalExtension()) != "png" && strtolower($file->getClientOriginalExtension()) != "jpg" && strtolower($file->getClientOriginalExtension()) != "jpeg") {
 				return redirect('/cms/content?katnow='.$request->idkat)->with('message', 'File yang diunggah harus berbentuk JPG / JPEG / PNG');     
