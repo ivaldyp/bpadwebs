@@ -76,7 +76,17 @@
 				<ul class="navbar-menu nav navbar-nav navbar-right">
 					<li><a href="{{ url('/') }}">Home</a></li>
 					<li><a href="{{ url('profil') }}">Profil</a></li>
-					<li><a href="http://aset.jakarta.go.id" target="_blank">Produk</a></li>
+					<li class="has-dropdown"><a href="#" target="_blank">Produk</a>
+						<ul class="dropdown" style="list-style: none; padding: 0;">
+							<li><a href="http://aset.jakarta.go.id" target="_blank">Internal</a></li>
+							<li class="has-dropdown"><a href="#">Publik</a>
+								<ul class="dropdown" style="list-style: none; padding: 0;">
+									<li><a href="https://bpad.jakarta.go.id/epemanfaatan/" target="_blank">Pemanfaatan</a></li>
+									<li><a href="https://bpad.jakarta.go.id/produkhukum/" target="_blank">Produk Hukum</a></li>
+								</ul>
+							</li>
+						</ul>
+					</li>
 					<li class="has-dropdown"><a href="#">Konten</a>
 						<ul class="dropdown" style="list-style: none; padding: 0;">
 							<li><a href="{{ url('content/berita') }}">Berita</a></li>
