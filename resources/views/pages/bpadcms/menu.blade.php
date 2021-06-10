@@ -70,7 +70,7 @@
 								<button class="btn btn-info btn-insert" style="margin-bottom: 10px" data-toggle="modal" data-target="#modal-insert" data-ids="0" data-desk="Tidak Ada">Tambah Level 0</button>
 								@endif
 								<div class="table-responsive">
-									<table id="myTable" class="table table-hover">
+									<table id="myTable" class="table table-hover compact">
 										<thead>
 											<tr>
 												<th>Level</th>
@@ -86,7 +86,7 @@
 												<th class="text-center">Tambah Anak</th>
 												@endif
 												@if($access['zupd'] == 'y' || $access['zdel'] == 'y')
-												<th class="col-md-2">Action</th>
+												<th class="">Action</th>
 												@endif
 											</tr>
 										</thead>

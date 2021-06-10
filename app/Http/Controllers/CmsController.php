@@ -65,6 +65,11 @@ class CmsController extends Controller
 
 		if (count($query) > 0) {
 			foreach ($query as $menu) {
+				// if (strlen($menu['url']) > 50) {
+				// 	$url = substr($menu['url'], 0, 47);
+				// } else {
+				// 	$url = $menu['url'];
+				// }
 				$padding = ($level * 20) + 8;
 				$result .= '<tr style="background-color:">
 								<td class="col-md-1">'.$level.'</td>
@@ -72,7 +77,7 @@ class CmsController extends Controller
 								<td style="padding-left:'.$padding.'px; '.(($level == 0) ? 'font-weight: bold;"' : '').'">'.$menu['desk'].' '.(($menu['child'] == 1)? '<i class="fa fa-arrow-down"></i>' : '').'</td>
 								<td>'.($menu['zket'] ? $menu['zket'] : '-').'</td>
 								<td>'.($menu['iconnew'] ? $menu['iconnew'] : '-').'</td>
-								<td style="word-wrap: normal;">'.($menu['urlnew'] ? wordwrap($menu['urlnew'],15,"<br>\n") : '-').'</td>
+								<td style="word-wrap: normal;">'.($menu['urlnew'] ? (strlen($menu['urlnew']) > 30 ? substr($menu['urlnew'],0,27) . " ..." : $menu['urlnew'] ) : '-').'</td>
 								<td class="text-center">'.intval($menu['urut']).'</td>
 								<td class="text-center">'.(($menu['child'] == 1)? '<i style="color:green;" class="fa fa-check"></i>' : '<i style="color:red;" class="fa fa-times"></i>').'</td>
 								<td class="text-center">'.(($menu['tampilnew'] == 1)? '<i style="color:green;" class="fa fa-check"></i>' : '<i style="color:red;" class="fa fa-times"></i>').'</td>
