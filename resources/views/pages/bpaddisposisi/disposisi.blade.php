@@ -104,6 +104,9 @@
 										</div>
 										<div class=" col-md-3">
 											<input type="text" name="searchnow" class="form-control" placeholder="Cari" value="{{ $searchnow }}" autocomplete="off">
+											<p class="text-muted">
+												Keyword: Perihal / No Surat / Asal Surat
+											</p>
 										</div>
 										<button type="submit" class="btn btn-primary">Cari</button>
 									</form>

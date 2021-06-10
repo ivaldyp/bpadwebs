@@ -1429,7 +1429,14 @@ class DisposisiController extends Controller
 		}
 
 		if ($request->searchnow) {
-			$qsearchnow = "and (m.kd_surat like '%".$request->searchnow."%' or m.no_form like '%".$request->searchnow."%' or m.perihal like '%".$request->searchnow."%' or m.asal_surat like '%".$request->searchnow."%' or m.no_surat like '%".$request->searchnow."%' or m.kode_disposisi like '%".$request->searchnow."%' or m.no_surat + '/' + m.kode_disposisi like '%".$request->searchnow."%')";
+			$qsearchnow = "and (
+									m.kd_surat like '%".$request->searchnow."%' or 
+									m.no_form like '%".$request->searchnow."%' or 
+									m.perihal like '%".$request->searchnow."%' or 
+									m.asal_surat like '%".$request->searchnow."%' or 
+									m.no_surat like '%".$request->searchnow."%' or 
+									m.kode_disposisi like '%".$request->searchnow."%' or 
+									m.no_surat + '/' + m.kode_disposisi like '%".$request->searchnow."%')";
 		} else {
 			$qsearchnow = "";
 		}
