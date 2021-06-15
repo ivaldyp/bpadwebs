@@ -18,6 +18,7 @@
 // Route::get('/home', function () {
 //     return view('index');
 // });
+Route::get('/mobilein', 'Auth\LoginController@attemptMobile');
 
 Route::get('/', 'LandingController@index');
 Route::get('/home', 'HomeController@index');
@@ -34,6 +35,11 @@ Route::get('/kkrekon/{selatan}', 'LandingController@kertaskerja');
 Route::get('/kkrekon/{seribu}', 'LandingController@kertaskerja');
 Route::get('/kkrekon/{provinsi}', 'LandingController@kertaskerja');
 
+// ------------- BPAD API -------------
+
+Route::group(['prefix' => 'api'], function () {
+	Route::get('/disposisi', 'ApiDisposisiController@disposisi');
+});
 
 // ------------- BPAD CMS -------------
 

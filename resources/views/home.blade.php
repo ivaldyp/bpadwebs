@@ -350,7 +350,7 @@
 @section('js')
 	<script src="{{ ('/portal/public/ample/plugins/bower_components/jquery/dist/jquery.min.js') }}"></script>
 	<!-- Bootstrap Core JavaScript -->
-	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+	<!-- <script src="https://code.jquery.com/jquery-3.4.1.js"></script> -->
 	<script src="{{ ('/portal/public/ample/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 	<!-- Menu Plugin JavaScript -->
 	<script src="{{ ('/portal/public/ample/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js') }}"></script>

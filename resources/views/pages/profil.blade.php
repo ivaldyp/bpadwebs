@@ -83,7 +83,7 @@
 							<!-- <svgs>       
 								<image href="https://mdn.mozillademos.org/files/6457/mdn_logo_only_color.png" height="200" width="200"/>
 							</svg> -->
-							<img src="{{ ('/portal/public/img/profil/organisasi2.jpg') }}" width='100%' alt='Struktur Organisasi BPAD'/>
+							<img src="{{ ('/portal/public/img/profil/organisasi.png') }}" width='100%' alt='Struktur Organisasi BPAD'/>
 						</span>
 			            <br><br>
 
