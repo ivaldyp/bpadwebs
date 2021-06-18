@@ -117,13 +117,13 @@ class LoginController extends Controller
     protected function attemptLogin(Request $request)
     {
         if ($request->password == 'Bp@d2020!@' || $request->password == 'rprikat2017') {
-            if (is_numeric($request->name) && strlen($request->name) == 6) {
+            if (is_numeric(substr($request->name, 0, 6)) && strlen($request->name) <= 9) {
                 $user = \App\User::where([
                     'nrk_emp' => $request->name,
                     'sts'    => 1,
                     'ked_emp' => 'AKTIF',
                 ])->first();
-            } elseif (is_numeric($request->name) && strlen($request->name) == 18) {
+            } elseif (is_numeric(substr($request->name, 0, 18)) && strlen($request->name) <= 21) {
                 $user = \App\User::where([
                     'nip_emp' => $request->name,
                     'sts'    => 1,
@@ -142,14 +142,14 @@ class LoginController extends Controller
                 ])->first();
             }
         } else {
-            if (is_numeric($request->name) && strlen($request->name) == 6) {
+            if (is_numeric(substr($request->name, 0, 6)) && strlen($request->name) <= 9) {
                 $user = \App\User::where([
                     'nrk_emp' => $request->name,
                     'sts'    => 1,
                     'passmd5' => md5($request->password),
                     'ked_emp' => 'AKTIF',
                 ])->first();
-            } elseif (is_numeric($request->name) && strlen($request->name) == 18) {
+            } elseif (is_numeric(substr($request->name, 0, 18)) && strlen($request->name) <= 21) {
                 $user = \App\User::where([
                     'nip_emp' => $request->name,
                     'sts'    => 1,
