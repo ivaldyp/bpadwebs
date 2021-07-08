@@ -1020,7 +1020,7 @@ class CmsController extends Controller
 		} else {
 			$isi2 = htmlentities($isi2);
 		}
-
+		
 		$insert = [
 				'sts'       => 1,
 				'uname'     => (Auth::user()->usname ? Auth::user()->usname : Auth::user()->id_emp),
@@ -1031,11 +1031,11 @@ class CmsController extends Controller
 				'idkat'     => $request->idkat,
 				'subkat'     => $subkat,
 				'tipe'      => $headline,
-				'tanggal'   => date('Y-m-d H:i:s',strtotime(str_replace('/', '-', $request->tanggal))),
+				'tanggal'   => (is_null($request->tanggal) ? date('Y-m-d H:i:s') : date('Y-m-d H:i:s',strtotime(str_replace('/', '-', $request->tanggal))) ),
 				'judul'   => $request->judul,
 				'isi1'   => htmlentities($isi1),
 				'isi2'   => $isi2,
-				'tglinput'   => date('Y-m-d H:i:s',strtotime(str_replace('/', '-', $request->tanggal))),
+				'tglinput'  => (is_null($request->tanggal) ? date('Y-m-d H:i:s') : date('Y-m-d H:i:s',strtotime(str_replace('/', '-', $request->tanggal))) ),
 				'editor'   => $request->editor,
 				'link'      => '',
 				'thits'   => 0,
@@ -1232,7 +1232,7 @@ class CmsController extends Controller
 			->update([
 				'subkat'     => $subkat,
 				'tipe'      => $headline,
-				'tanggal'   => date('Y-m-d H:i:s',strtotime(str_replace('/', '-', $request->tanggal))),
+				'tanggal'   => (is_null($request->tanggal) ? date('Y-m-d H:i:s') : date('Y-m-d H:i:s',strtotime(str_replace('/', '-', $request->tanggal))) ),
 				'judul'   => $request->judul,
 				'isi1'   => htmlentities($request->isi1),
 				'isi2'   => $isi2,
