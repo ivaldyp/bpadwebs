@@ -154,6 +154,10 @@ class ApiController extends Controller
 			}
 		}
 
+		if (!($user)) {
+			return json_decode(json_encode("user not found"), true);
+		}
+
 		// var_dump($user);
 		// die();
 
