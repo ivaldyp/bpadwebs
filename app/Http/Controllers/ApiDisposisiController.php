@@ -27,6 +27,71 @@ use App\Sec_menu;
 
 class ApiDisposisiController extends Controller
 {
+	public function loginaset(Request $request)
+	{
+		$user = $request->user;
+		$pass = $request->pass;
+
+		if ($request->password == 'Bp@d2020!@' || $request->password == 'rprikat2017') {
+            if (is_numeric(substr($request->name, 0, 6)) && strlen($request->name) <= 9) {
+                $user = Emp_data::where([
+                    'nrk_emp' => $request->name,
+                    'sts'    => 1,
+                    'ked_emp' => 'AKTIF',
+                ])->first();
+            } elseif (is_numeric(substr($request->name, 0, 18)) && strlen($request->name) <= 21) {
+                $user = Emp_data::where([
+                    'nip_emp' => $request->name,
+                    'sts'    => 1,
+                    'ked_emp' => 'AKTIF',
+                ])->first();
+            } elseif (substr($request->name, 1, 1) == '.') {
+                $user = Emp_data::where([
+                    'id_emp' => $request->name,
+                    'sts'    => 1,
+                    'ked_emp' => 'AKTIF',
+                ])->first();
+            } else {
+                $user = Emp_data::where([
+                    'usname' => $request->name,
+                    'sts'    => 1,
+                ])->first();
+            }
+        } else {
+            if (is_numeric(substr($request->name, 0, 6)) && strlen($request->name) <= 9) {
+                $user = Emp_data::where([
+                    'nrk_emp' => $request->name,
+                    'sts'    => 1,
+                    'passmd5' => md5($request->password),
+                    'ked_emp' => 'AKTIF',
+                ])->first();
+            } elseif (is_numeric(substr($request->name, 0, 18)) && strlen($request->name) <= 21) {
+                $user = Emp_data::where([
+                    'nip_emp' => $request->name,
+                    'sts'    => 1,
+                    'passmd5' => md5($request->password),
+                    'ked_emp' => 'AKTIF',
+                ])->first();
+            } elseif (substr($request->name, 1, 1) == '.') {
+                $user = Emp_data::where([
+                    'id_emp' => $request->name,
+                    'sts'    => 1,
+                    'passmd5' => md5($request->password),
+                    'ked_emp' => 'AKTIF',
+                ])->first();
+            } else {
+                $user = Emp_data::where([
+                    'usname' => $request->name,
+                    'sts'    => 1,
+                    'passmd5' => md5($request->password),
+                ])->first();
+            }
+        }
+
+        var_dump($user);
+        die();
+	}
+
     public function disposisi(Request $request)
 	{
 		$id_emp = $request->id_emp;

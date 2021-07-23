@@ -19,6 +19,8 @@
 //     return view('index');
 // });
 Route::get('/mobilein', 'Auth\LoginController@attemptMobile');
+Route::get('/loginaset', 'ApiController@loginaset');
+Route::get('/loginemp', 'ApiController@loginemp');
 
 Route::get('/', 'LandingController@index');
 Route::get('/home', 'HomeController@index');
