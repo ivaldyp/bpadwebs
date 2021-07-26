@@ -51,57 +51,87 @@ class ApiController extends Controller
 		$user = $request->user;
 		$pass = $request->pass;
 
-		if ($pass == 'Bp@d2020!@' || $pass == 'rprikat2017') {
-			if (is_numeric(substr($user, 0, 6)) && strlen($user) <= 9) {
-				$user = Emp_data::where([
-					'nrk_emp' => $user,
-					'sts'    => 1,
-					'ked_emp' => 'AKTIF',
-				])->first(['id_emp', 'nrk_emp', 'nip_emp', 'nm_emp']);
-			} elseif (is_numeric(substr($user, 0, 18)) && strlen($user) <= 21) {
-				$user = Emp_data::where([
-					'nip_emp' => $user,
-					'sts'    => 1,
-					'ked_emp' => 'AKTIF',
-				])->first(['id_emp', 'nrk_emp', 'nip_emp', 'nm_emp']);
-			} elseif (substr($user, 1, 1) == '.') {
-				$user = Emp_data::where([
-					'id_emp' => $user,
-					'sts'    => 1,
-					'ked_emp' => 'AKTIF',
-				])->first(['id_emp', 'nrk_emp', 'nip_emp', 'nm_emp']);
-			}
-		} else {
-			if (is_numeric(substr($user, 0, 6)) && strlen($user) <= 9) {
-				$user = Emp_data::where([
-					'nrk_emp' => $user,
-					'sts'    => 1,
-					'passmd5' => md5($pass),
-					'ked_emp' => 'AKTIF',
-				])->first(['id_emp', 'nrk_emp', 'nip_emp', 'nm_emp']);
-			} elseif (is_numeric(substr($user, 0, 18)) && strlen($user) <= 21) {
-				$user = Emp_data::where([
-					'nip_emp' => $user,
-					'sts'    => 1,
-					'passmd5' => md5($pass),
-					'ked_emp' => 'AKTIF',
-				])->first(['id_emp', 'nrk_emp', 'nip_emp', 'nm_emp']);
-			} elseif (substr($user, 1, 1) == '.') {
-				$user = Emp_data::where([
-					'id_emp' => $user,
-					'sts'    => 1,
-					'passmd5' => md5($pass),
-					'ked_emp' => 'AKTIF',
-				])->first(['id_emp', 'nrk_emp', 'nip_emp', 'nm_emp']);
-			}
-		}
 
-		if (!($user)) {
+		$query1 = Emp_data::where('ked_emp', 'AKTIF')
+							->where('sts', '1')
+							->where(function($q) use ($user) {
+				            $q->where('nrk_emp', $user)
+		                        ->orWhere('nip_emp', $user)
+		                        ->orWhere('id_emp', $user);
+				            })
+				            ->first(['id_emp', 'nrk_emp', 'nip_emp', 'nm_emp']);
+
+		if (is_null($query1)) {
 			return json_decode(json_encode("user not found"), true);
+		} else {
+			if ($pass == 'Bp@d2020!@' || $pass == 'rprikat2017') {
+				$user = Emp_data::where('nrk_emp', $user)
+		                        ->orWhere('nip_emp', $user)
+		                        ->orWhere('id_emp', $user)
+			            		->first(['id_emp', 'nrk_emp', 'nip_emp', 'nm_emp']);
+			} else {
+				$user = Emp_data::where('passmd5', md5($pass))
+							->where(function($q) use ($user) {
+				            $q->where('nrk_emp', $user)
+		                        ->orWhere('nip_emp', $user)
+		                        ->orWhere('id_emp', $user);
+				            })
+				            ->first(['id_emp', 'nrk_emp', 'nip_emp', 'nm_emp']);
+			}
+
+			if (is_null($user)) {
+				return json_decode(json_encode("password salah"), true);
+			}
 		}
 
-		// var_dump($user);
-		// die();
+		// if ($pass == 'Bp@d2020!@' || $pass == 'rprikat2017') {
+		// 	if (is_numeric(substr($user, 0, 6)) && strlen($user) <= 9) {
+		// 		$user = Emp_data::where([
+		// 			'nrk_emp' => $user,
+		// 			'sts'    => 1,
+		// 			'ked_emp' => 'AKTIF',
+		// 		])->first(['id_emp', 'nrk_emp', 'nip_emp', 'nm_emp']);
+		// 	} elseif (is_numeric(substr($user, 0, 18)) && strlen($user) <= 21) {
+		// 		$user = Emp_data::where([
+		// 			'nip_emp' => $user,
+		// 			'sts'    => 1,
+		// 			'ked_emp' => 'AKTIF',
+		// 		])->first(['id_emp', 'nrk_emp', 'nip_emp', 'nm_emp']);
+		// 	} elseif (substr($user, 1, 1) == '.') {
+		// 		$user = Emp_data::where([
+		// 			'id_emp' => $user,
+		// 			'sts'    => 1,
+		// 			'ked_emp' => 'AKTIF',
+		// 		])->first(['id_emp', 'nrk_emp', 'nip_emp', 'nm_emp']);
+		// 	}
+		// } else {
+		// 	if (is_numeric(substr($user, 0, 6)) && strlen($user) <= 9) {
+		// 		$user = Emp_data::where([
+		// 			'nrk_emp' => $user,
+		// 			'sts'    => 1,
+		// 			'passmd5' => md5($pass),
+		// 			'ked_emp' => 'AKTIF',
+		// 		])->first(['id_emp', 'nrk_emp', 'nip_emp', 'nm_emp']);
+		// 	} elseif (is_numeric(substr($user, 0, 18)) && strlen($user) <= 21) {
+		// 		$user = Emp_data::where([
+		// 			'nip_emp' => $user,
+		// 			'sts'    => 1,
+		// 			'passmd5' => md5($pass),
+		// 			'ked_emp' => 'AKTIF',
+		// 		])->first(['id_emp', 'nrk_emp', 'nip_emp', 'nm_emp']);
+		// 	} elseif (substr($user, 1, 1) == '.') {
+		// 		$user = Emp_data::where([
+		// 			'id_emp' => $user,
+		// 			'sts'    => 1,
+		// 			'passmd5' => md5($pass),
+		// 			'ked_emp' => 'AKTIF',
+		// 		])->first(['id_emp', 'nrk_emp', 'nip_emp', 'nm_emp']);
+		// 	}
+		// }
+
+		// if (!($user)) {
+		// 	return json_decode(json_encode("user not found"), true);
+		// }
 
 		$arr_result = [];
 
