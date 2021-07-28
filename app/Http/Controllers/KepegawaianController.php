@@ -650,7 +650,7 @@ class KepegawaianController extends Controller
 				'passmd5' => md5($request->passmd5),
 			]);
 
-		return redirect('/kepegawaian/data pegawai')
+		return redirect()->back()
 					->with('message', 'Password '.$request->nm_emp.' berhasil diubah')
 					->with('msg_num', 1);
 	}
