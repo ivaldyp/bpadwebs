@@ -69,7 +69,9 @@
 						<div class="col-md-6">
 							<div class="article">
 								<div class="berita" style="border-radius: 10px">
-									<a href="{{ url('/content/berita/' . $berita['ids'] . '/' . str_replace(' ', '_', $berita['judul']) ) }}">
+									<a href="{{ url('/content/berita/' . $berita['ids'] . '/' . 
+									str_replace(' ', '_', preg_replace('/[^\da-z ]/i', '', $berita['judul']))
+									) }}">
 										<img src="{{ $fullpath }}" alt="">
 									</a>
 								</div>
@@ -79,7 +81,8 @@
 										<i class="fa fa-user" style="color: #006cd8"></i> oleh {{ $berita['editor'] }}
 										<span class="pull-right"><i class="fa fa-calendar"></i> {{ $newDate }} <br></span>
 										<br><button class="copyBtn" style="background-color: transparent; border: none; padding-left: 0px" 
-									        data-clipboard-text="{{ url()->current() }}/{{$berita['ids']}}/{{str_replace(' ', '_', $berita['judul'])}}">
+									        data-clipboard-text="{{ url()->current() }}/{{$berita['ids']}}/
+									        	{{str_replace(' ', '_', preg_replace('/[^\da-z ]/i', '', $berita['judul'])) }}">
 									        <i class="fa fa-share-alt"></i> Share Link
 										</button>
 										<!-- <i class="fa fa-eye"></i> {{ $berita['thits'] }} views  -->

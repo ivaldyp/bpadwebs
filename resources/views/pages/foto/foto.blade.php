@@ -71,7 +71,8 @@
 										<span class="pull-right"><i class="fa fa-calendar"></i> {{ $newDate }} <br></span><br>
 										{{ $foto['subkat'] }}<br>
 										<button class="copyBtn" style="background-color: transparent; border: none; padding-left: 0px" 
-									        data-clipboard-text="{{ url()->current() }}/{{$foto['ids']}}/{{str_replace(' ', '_', $foto['judul'])}}">
+									        data-clipboard-text="{{ url()->current() }}/{{$foto['ids']}}/
+									        {{str_replace(' ', '_', preg_replace('/[^\da-z ]/i', '', $foto['judul'])) }}">
 									        <i class="fa fa-share-alt"></i> Share Link
 										</button>
 										<!-- <i class="fa fa-eye"></i> {{ $foto['thits'] }} views  -->
