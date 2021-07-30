@@ -340,7 +340,7 @@
 
 
 		<!-- /.container-fluid -->
-		<footer class="footer text-center"> {{ date('Y') }} &copy; Ample Admin brought to you by themedesigner.in </footer>
+		<footer class="footer text-center"> {{ date('Y') }} &copy; BPAD DKI Jakarta </footer>
 	</div>
 	
 @endsection
