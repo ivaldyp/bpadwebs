@@ -170,7 +170,7 @@
 													@endif
 													@if($access['zupd'] == 'y' || $access['zdel'] == 'y')
 														<td>
-															<form method="GET" action="/portal/kepegawaian/ubah pegawai">
+															<form method="GET" action="/portal/kepegawaian/ubah pegawai" target="_blank">
 															@if($access['zupd'] == 'y')
 																<input type="hidden" name="id_emp" value="{{ $employee['id_emp'] }}">
 																<button type="submit" class="btn btn-info btn-update"><i class="fa fa-edit"></i></button>

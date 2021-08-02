@@ -603,6 +603,7 @@ class KepegawaianController extends Controller
 				'no_askes' => ($request->no_askes ? $request->no_askes : ''),
 				'no_jamsos' => ($request->no_jamsos ? $request->no_jamsos : ''),
 				'idgroup' => $request->idgroup,
+				'idgroup_aset' => $request->idgroup_aset,
 			]);
 
 		return redirect('/kepegawaian/data pegawai')

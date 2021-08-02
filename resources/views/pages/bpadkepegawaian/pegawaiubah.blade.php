@@ -314,6 +314,20 @@
 													</div>
 												</div>
 
+												<div class="form-group">
+													<label for="idgroup_aset" class="col-md-2 control-label"> Grup User Aset</label>
+													<div class="col-md-8">
+														<select class="form-control select2" name="idgroup_aset" id="idgroup_aset">
+															@foreach($idgroups as $id)
+															<option 
+															
+															<?php if($emp_data['idgroup_aset'] == $id['idgroup']): ?> selected <?php endif ?> 
+															value="{{ $id['idgroup'] }}"> {{ $id['idgroup'] }} </option>
+															@endforeach
+														</select>
+													</div>
+												</div>
+
 												<!-- <div class="form-group">
 													<label for="filefoto" class="col-lg-2 control-label"> Upload Foto <br> <span style="font-size: 10px">Hanya berupa JPG, JPEG, dan PNG</span> </label>
 													<div class="col-lg-8">
@@ -336,7 +350,7 @@
 												<?php endif ?>
 											</div> -->
 											<button type="submit" class="m-b-20 m-t-10 btn btn-success pull-right"> Simpan </button>
-											<a href="/portal/kepegawaian/data pegawai"><button type="button" class="m-b-20 m-t-10 btn btn-default pull-right m-r-10"> Kembali </button></a>	
+											<a href="{{ url()->previous() }}"><button type="button" class="m-b-20 m-t-10 btn btn-default pull-right m-r-10"> Kembali </button></a>	
 										
 											</form>
 										</section>
@@ -369,7 +383,7 @@
 												</table>
 											</div>
 											@endif
-											<a href="/portal/kepegawaian/data pegawai"><button type="button" class="btn btn-default pull-right m-b-20 m-t-10"> Kembali </button></a>
+											<a href="{{ url()->previous() }}"><button type="button" class="btn btn-default pull-right m-b-20 m-t-10"> Kembali </button></a>
 										</section>
 										<section id="section-underline-2">
 											<div class="white-box">
@@ -546,7 +560,7 @@
 											</div>
 	
 
-											<a href="/portal/kepegawaian/data pegawai"><button type="button" class="btn btn-default pull-right m-b-20 m-t-10"> Kembali </button></a>	
+											<a href="{{ url()->previous() }}"><button type="button" class="btn btn-default pull-right m-b-20 m-t-10"> Kembali </button></a>	
 										</section>
 										<div id="modal-insert-dik" class="modal fade" role="dialog">
 											<div class="modal-dialog">
@@ -768,7 +782,7 @@
 												</table>
 											</div>
 											@endif
-											<a href="/portal/kepegawaian/data pegawai"><button type="button" class="btn btn-default pull-right m-b-20 m-t-10"> Kembali </button></a>
+											<a href="{{ url()->previous() }}"><button type="button" class="btn btn-default pull-right m-b-20 m-t-10"> Kembali </button></a>
 										</section>
 										<div id="modal-insert-gol" class="modal fade" role="dialog">
 											<div class="modal-dialog">
@@ -1037,7 +1051,7 @@
 												</table>
 											</div>
 											@endif
-											<a href="/portal/kepegawaian/data pegawai"><button type="button" class="btn btn-default pull-right m-b-20 m-t-10"> Kembali </button></a>
+											<a href="{{ url()->previous() }}"><button type="button" class="btn btn-default pull-right m-b-20 m-t-10"> Kembali </button></a>
 										</section>
 										<div id="modal-insert-jab" class="modal fade" role="dialog">
 											<div class="modal-dialog">
@@ -1196,7 +1210,7 @@
 												</table>
 											</div>
 											@endif
-											<a href="/portal/kepegawaian/data pegawai"><button type="button" class="btn btn-default pull-right m-b-20 m-t-10"> Kembali </button></a>
+											<a href="{{ url()->previous() }}"><button type="button" class="btn btn-default pull-right m-b-20 m-t-10"> Kembali </button></a>
 										</section>
 										<section id="section-underline-5">
 											<form class="form-horizontal" method="POST" action="/portal/kepegawaian/form/ubahstatuspegawai" data-toggle="validator" enctype="multipart/form-data">
@@ -1228,7 +1242,7 @@
 													</div>
 												</div>
 												<button type="submit" class="m-b-20 m-t-10 btn btn-success pull-right"> Simpan </button>
-												<a href="/portal/kepegawaian/data pegawai"><button type="button" class="m-b-20 m-t-10 btn btn-default pull-right m-r-10"> Kembali </button></a>	
+												<a href="{{ url()->previous() }}"><button type="button" class="m-b-20 m-t-10 btn btn-default pull-right m-r-10"> Kembali </button></a>	
 											</form>
 										</section>
 								</div>
