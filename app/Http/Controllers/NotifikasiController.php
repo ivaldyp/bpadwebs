@@ -38,7 +38,7 @@ class NotifikasiController extends Controller
 					where('id_emp', $ids)
 					->where('sts', 1)
 					->orderBy('tgl', 'desc')
-					->get();
+					->limit(3)->get();
 
 		return view('pages.bpadnotif.notifikasi')
 				->with('notifs', $notifs);
