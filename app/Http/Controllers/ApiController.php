@@ -84,55 +84,6 @@ class ApiController extends Controller
 			}
 		}
 
-		// if ($pass == 'Bp@d2020!@' || $pass == 'rprikat2017') {
-		// 	if (is_numeric(substr($user, 0, 6)) && strlen($user) <= 9) {
-		// 		$user = Emp_data::where([
-		// 			'nrk_emp' => $user,
-		// 			'sts'    => 1,
-		// 			'ked_emp' => 'AKTIF',
-		// 		])->first(['id_emp', 'nrk_emp', 'nip_emp', 'nm_emp']);
-		// 	} elseif (is_numeric(substr($user, 0, 18)) && strlen($user) <= 21) {
-		// 		$user = Emp_data::where([
-		// 			'nip_emp' => $user,
-		// 			'sts'    => 1,
-		// 			'ked_emp' => 'AKTIF',
-		// 		])->first(['id_emp', 'nrk_emp', 'nip_emp', 'nm_emp']);
-		// 	} elseif (substr($user, 1, 1) == '.') {
-		// 		$user = Emp_data::where([
-		// 			'id_emp' => $user,
-		// 			'sts'    => 1,
-		// 			'ked_emp' => 'AKTIF',
-		// 		])->first(['id_emp', 'nrk_emp', 'nip_emp', 'nm_emp']);
-		// 	}
-		// } else {
-		// 	if (is_numeric(substr($user, 0, 6)) && strlen($user) <= 9) {
-		// 		$user = Emp_data::where([
-		// 			'nrk_emp' => $user,
-		// 			'sts'    => 1,
-		// 			'passmd5' => md5($pass),
-		// 			'ked_emp' => 'AKTIF',
-		// 		])->first(['id_emp', 'nrk_emp', 'nip_emp', 'nm_emp']);
-		// 	} elseif (is_numeric(substr($user, 0, 18)) && strlen($user) <= 21) {
-		// 		$user = Emp_data::where([
-		// 			'nip_emp' => $user,
-		// 			'sts'    => 1,
-		// 			'passmd5' => md5($pass),
-		// 			'ked_emp' => 'AKTIF',
-		// 		])->first(['id_emp', 'nrk_emp', 'nip_emp', 'nm_emp']);
-		// 	} elseif (substr($user, 1, 1) == '.') {
-		// 		$user = Emp_data::where([
-		// 			'id_emp' => $user,
-		// 			'sts'    => 1,
-		// 			'passmd5' => md5($pass),
-		// 			'ked_emp' => 'AKTIF',
-		// 		])->first(['id_emp', 'nrk_emp', 'nip_emp', 'nm_emp']);
-		// 	}
-		// }
-
-		// if (!($user)) {
-		// 	return json_decode(json_encode("user not found"), true);
-		// }
-
 		$arr_result = [];
 
 		// ngambil data unit pegawai tsb
@@ -142,6 +93,28 @@ class ApiController extends Controller
 						CROSS APPLY (SELECT TOP 1 * FROM bpaddtfake.dbo.glo_org_unitkerja WHERE glo_org_unitkerja.kd_unit = tbjab.idunit) tbunit
 						,bpaddtfake.dbo.glo_skpd as b,bpaddtfake.dbo.glo_org_unitkerja as c,bpaddtfake.dbo.glo_org_lokasi as d WHERE tbjab.idskpd=b.skpd AND tbjab.idskpd+'::'+tbjab.idunit=c.kd_skpd+'::'+c.kd_unit AND tbjab.idskpd+'::'+tbjab.idlok=d.kd_skpd+'::'+d.kd_lok AND a.sts='1' AND b.sts='1' AND c.sts='1' AND d.sts='1' 
 						and id_emp = '$user->id_emp' and ked_emp = 'aktif'
+						order by tbunit.kd_unit") )[0];
+		// $q_pegawai = json_decode(json_encode($q_pegawai), true);
+
+		$unit_pegawai = $q_pegawai->idunit;
+		// $unit_pegawai = $q_pegawai['idunit'];
+		$arr_result['pegawai'] = $q_pegawai;
+
+		return json_decode(json_encode($arr_result, JSON_PRETTY_PRINT), true);
+	}
+
+	public function getuserdata(Request $request)
+	{
+		$arr_result = [];
+		$user = $request->user;
+
+		// ngambil data unit pegawai tsb
+		$q_pegawai = DB::select( DB::raw("  
+						SELECT id_emp, nrk_emp, nip_emp, nm_emp, a.idgroup_aset as idgroup, tgl_lahir, jnkel_emp, tgl_join, status_emp, tbjab.idjab, tbjab.idunit, tbunit.child, tbunit.nm_unit from bpaddtfake.dbo.emp_data as a
+						CROSS APPLY (SELECT TOP 1 tmt_jab,idskpd,idunit,idlok,tmt_sk_jab,no_sk_jab,jns_jab,replace(idjab,'NA::','') as idjab,eselon,gambar FROM bpaddtfake.dbo.emp_jab WHERE a.id_emp=emp_jab.noid AND emp_jab.sts='1' ORDER BY tmt_jab DESC) tbjab
+						CROSS APPLY (SELECT TOP 1 * FROM bpaddtfake.dbo.glo_org_unitkerja WHERE glo_org_unitkerja.kd_unit = tbjab.idunit) tbunit
+						,bpaddtfake.dbo.glo_skpd as b,bpaddtfake.dbo.glo_org_unitkerja as c,bpaddtfake.dbo.glo_org_lokasi as d WHERE tbjab.idskpd=b.skpd AND tbjab.idskpd+'::'+tbjab.idunit=c.kd_skpd+'::'+c.kd_unit AND tbjab.idskpd+'::'+tbjab.idlok=d.kd_skpd+'::'+d.kd_lok AND a.sts='1' AND b.sts='1' AND c.sts='1' AND d.sts='1' 
+						and id_emp = '$user' and ked_emp = 'aktif'
 						order by tbunit.kd_unit") )[0];
 		// $q_pegawai = json_decode(json_encode($q_pegawai), true);
 

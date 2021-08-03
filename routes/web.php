@@ -42,6 +42,7 @@ Route::get('/kkrekon/{provinsi}', 'LandingController@kertaskerja');
 Route::group(['prefix' => 'ws'], function () {
 	Route::get('/disposisi', 'ApiDisposisiController@disposisi');
 	Route::get('/kepegawaian', 'ApiController@kepegawaian');
+	Route::get('/getuserdata', 'ApiController@getuserdata');
 });
 
 // ------------- BPAD CMS -------------
