@@ -620,7 +620,7 @@ class CmsController extends Controller
 					  and con.sts = 1
 					  and month(con.tanggal) $signnow $monthnow
 					  and year(con.tanggal) = $yearnow
-					  order by con.tgl desc
+					  order by con.appr, con.tgl desc 
 				"));
 		$contents = json_decode(json_encode($contents), true);
 
