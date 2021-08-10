@@ -619,7 +619,7 @@ class CmsController extends Controller
 					  and suspend = '$suspnow'
 					  and con.sts = 1
 					  and month(con.tanggal) $signnow $monthnow
-					  and year(con.tanggal) = $yearnow
+					  and year(con.tanggal) $signnow $yearnow
 					  order by con.appr, con.tgl desc 
 				"));
 		$contents = json_decode(json_encode($contents), true);
