@@ -3,12 +3,14 @@
 @section('css')
 	<!-- Bootstrap Core CSS -->
 	<link href="{{ ('/portal/public/ample/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
-	<link href="{{ ('/portal/public/ample/plugins/bower_components/datatables/jquery.dataTables.min.css') }}" rel="stylesheet" type="text/css" />
-	<link href="https://cdn.datatables.net/buttons/1.2.2/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
 	<!-- summernotes CSS -->
 	<link href="{{ ('/portal/public/ample/plugins/bower_components/summernote/dist/summernote.css') }}" rel="stylesheet" />
 	<!-- Menu CSS -->
 	<link href="{{ ('/portal/public/ample/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css') }}" rel="stylesheet">
+	<!-- Page plugins css -->
+    <link href="{{ ('/portal/public/ample/plugins/bower_components/clockpicker/dist/jquery-clockpicker.min.css') }}" rel="stylesheet">
+	<!-- Date picker plugins css -->
+    <link href="{{ ('/portal/public/ample/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css" />
 	<!-- animation CSS -->
 	<link href="{{ ('/portal/public/ample/css/animate.css') }}" rel="stylesheet">
 	<!-- Custom CSS -->
@@ -319,6 +321,10 @@
 	<script src="{{ ('/portal/public/ample/js/custom.min.js') }}"></script>
 	<script src="{{ ('/portal/public/ample/js/validator.js') }}"></script>
 	<script src="{{ ('/portal/public/ample/plugins/bower_components/summernote/dist/summernote.min.js') }}"></script>
+	<!-- Clock Plugin JavaScript -->
+    <script src="{{ ('/portal/public/ample/plugins/bower_components/clockpicker/dist/jquery-clockpicker.min.js') }}"></script>
+    <!-- Date Picker Plugin JavaScript -->
+    <script src="{{ ('/portal/public/ample/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
 	<script>
 		jQuery(document).ready(function () {
 			$('.summernote').summernote({
@@ -334,7 +340,6 @@
 	<script>
 		function goBack() {
 		  window.history.back();
-
 
 		}
 
@@ -352,6 +357,8 @@
   					$('#tfile').val(''); 
   				}
 			});
+
+			
 
 		});
 	</script>
