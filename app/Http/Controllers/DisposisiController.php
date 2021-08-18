@@ -1778,9 +1778,6 @@ class DisposisiController extends Controller
 												  order by d.tgl_masuk desc, d.no_form desc, d.ids asc"));
 		$dispsentsurat = json_decode(json_encode($dispsentsurat), true);
 
-		// var_dump($dispsent);
-		// die();
-
 
 		return view('pages.bpaddisposisi.disposisi')
 				->with('access', $access)
@@ -1906,6 +1903,24 @@ class DisposisiController extends Controller
 						and tbunit.sao like '$kd_unit%' and ked_emp = 'aktif' order by nm_emp") );
 		$stafs = json_decode(json_encode($stafs), true);
 
+	// 	QUERY STAFS LEBIH PENDEK
+	
+	// 	select id_emp, nm_emp
+	//   from emp_data a
+	//   join emp_jab tbjab on tbjab.ids = (SELECT TOP 1 ids FROM bpaddtfake.dbo.emp_jab WHERE emp_jab.noid = a.id_emp and emp_jab.sts='1' ORDER BY tmt_jab DESC)
+	//   join glo_org_unitkerja tbunit on tbunit.kd_unit = (SELECT TOP 1 idunit FROM bpaddtfake.dbo.glo_org_unitkerja where tbunit.kd_unit = tbjab.idunit)
+	//   --(SELECT TOP 1 idunit FROM bpaddtfake.dbo.emp_jab WHERE a.id_emp=emp_jab.noid AND emp_jab.sts='1' ORDER BY tmt_jab DESC) tbjab,
+	//   --(SELECT TOP 1 * FROM bpaddtfake.dbo.glo_org_unitkerja WHERE glo_org_unitkerja.kd_unit = tbjab.idunit) tbunit,
+	//   --(SELECT sts, idunit, noid FROM bpaddtfake.dbo.emp_jab WHERE emp_jab.sts='1') tbjab,
+	//   --(SELECT * FROM bpaddtfake.dbo.glo_org_unitkerja) tbunit
+	//   --where tbunit.sao like '01010501%'
+	//   where a.ked_emp = 'AKTIF'
+	//   and a.sts = 1
+	//   and a.id_emp = tbjab.noid
+	//   and tbjab.sts = 1
+	//   and tbunit.sao like '$kd_unit%'
+	//   order by nm_emp
+
 		if (strlen($_SESSION['user_data']['idunit']) == 10 ) {
 			$jabatans = 0;
 			$stafs = 0;
@@ -1953,6 +1968,12 @@ class DisposisiController extends Controller
 		$penanganans = Glo_disposisi_penanganan::
 						orderBy('urut')
 						->get();
+
+		if($request->tipe) {
+			$tipe = $request->tipe;
+		} else {
+			$tipe = "inbox";
+		}
 		
 
 		return view('pages.bpaddisposisi.disposisilihat')
@@ -1964,7 +1985,8 @@ class DisposisiController extends Controller
 				->with('kddispos', $kddispos)
 				->with('unitkerjas', $unitkerjas)
 				->with('penanganans', $penanganans)
-				->with('jabatans', $jabatans);
+				->with('jabatans', $jabatans)
+				->with('tipe', $tipe);
 	}
 
 	public function formlihatdisposisi(Request $request)
@@ -1977,9 +1999,6 @@ class DisposisiController extends Controller
 					->with('signdate', $request->signdate)
 					->with('msg_num', 2);
 		}
-
-		// var_dump($request->all());
-		// die();
 
 		if (isset($request->btnDraft)) {
 			$rd = 'D';

@@ -403,6 +403,7 @@
 																	<input type="hidden" name="ids" value="{{ $sent['ids'] }}">
 																	<input type="hidden" name="no_form" value="{{ $sent['no_form'] }}">
 																	<input type="hidden" name="signdate" value="{{$yearnow}}::{{$signnow}}::{{$monthnow}}">
+																	<input type="hidden" name="tipe" value="sent">
 																	<button type="submit" class="btn btn-info btn-outline btn-circle m-r-5 btn-update"><i class="ti-pencil-alt"></i></button>
 																	@endif
 																	@if ($access['zdel'] == 'y')
@@ -704,6 +705,7 @@
 																	<input type="hidden" name="ids" value="{{ $sent['ids'] }}">
 																	<input type="hidden" name="no_form" value="{{ $sent['no_form'] }}">
 																	<input type="hidden" name="signdate" value="{{$yearnow}}::{{$signnow}}::{{$monthnow}}">
+																	<input type="hidden" name="tipe" value="sent">
 																	<button type="submit" class="btn btn-info btn-outline btn-circle m-r-5 btn-update"><i class="ti-pencil-alt"></i></button>
 																	@endif
 																	@if ($access['zdel'] == 'y')
