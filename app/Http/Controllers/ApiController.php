@@ -33,9 +33,14 @@ class ApiController extends Controller
 		$teks = substr($request->nama, 0, 10);
 		// $perihal = $teks;
 		// $rincian = $teks . "wowwowwow";
+		$hasil = json_decode($request->hasil);
 		$insertjabatan = [
-			'perihal' => $request->input('nama'), 
-			'kepada' => $request->input('nama') . "tesssssssssssss",
+			'perihal' => $hasil->nama, 
+			'kepada' => $hasil->nama . "tesssssssssssss",
+			'uname' => $hasil->id_emp,
+			'ket_lain' => $hasil->id_unit,
+			'catatan' => $hasil->tindak_lanjut,
+
 		];
 		Disposisi_tes::insert($insertjabatan);
 
