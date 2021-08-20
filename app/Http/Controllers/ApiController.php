@@ -35,7 +35,7 @@ class ApiController extends Controller
 		$rincian = $teks . "wowwowwow";
 		DB::table('bpaddtfake.dbo.disposisi_tes')->insert(
 			['perihal' => $perihal, 
-			'rincian' => $rincian]
+			'kepada' => $rincian]
 		);
 		// echo($request->all());
 		// var_dump($request->all());
