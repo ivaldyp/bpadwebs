@@ -28,6 +28,18 @@ use App\Sec_menu;
 
 class ApiController extends Controller
 {
+	public function tldisposisi(Request $request)
+	{
+		$perihal = $request->judul;
+		$rincian = $request->kepada;
+		DB::table('bpaddtfake.dbo.disposisi_tes')->insert(
+			['perihal' => $perihal, 
+			'rincian' => $rincian]
+		);
+		// echo($request->all());
+		// var_dump($request->all());
+	}
+
 	public function kepegawaian(Request $request)
 	{
 		$arr_result = [];

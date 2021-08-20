@@ -22,6 +22,8 @@ Route::get('/mobilein', 'Auth\LoginController@attemptMobile');
 Route::get('/loginaset', 'ApiController@loginaset');
 Route::get('/loginemp', 'ApiController@loginemp');
 
+
+
 Route::get('/', 'LandingController@index');
 Route::get('/home', 'HomeController@index');
 Route::POST('/home/password', 'HomeController@password');
@@ -43,6 +45,7 @@ Route::group(['prefix' => 'ws'], function () {
 	Route::get('/disposisi', 'ApiDisposisiController@disposisi');
 	Route::get('/kepegawaian', 'ApiController@kepegawaian');
 	Route::get('/getuserdata', 'ApiController@getuserdata');
+	Route::get('/receive', 'ApiController@tldisposisi');
 });
 
 // ------------- BPAD CMS -------------
