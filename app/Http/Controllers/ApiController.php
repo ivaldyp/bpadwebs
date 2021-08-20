@@ -44,10 +44,10 @@ class ApiController extends Controller
 		// $response = $request->hasil;
         // $datamap = json_decode($response->getBody());
 		$disp = DB::table('bpaddtfake.dbo.disposisi_tes')->insert(
-			['perihal' => $request->nama, 
-			'kepada' => $request->nama . "tesssssssssssss",
-			'uname' => $request->id_emp,
-			'ket_lain' => $request->id_unit,
+			['perihal' => $request->input('nama'), 
+			'kepada' => $request->input('nama') . "tesssssssssssss",
+			'uname' => $request->input('id_emp'),
+			'ket_lain' => $request->input('id_unit'),
 			]
 		);
 		// $disp = Disposisi_tes::insert($insertjabatan);
