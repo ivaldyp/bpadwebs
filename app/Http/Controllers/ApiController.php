@@ -30,8 +30,9 @@ class ApiController extends Controller
 {
 	public function tldisposisi(Request $request)
 	{
-		$perihal = $request->judul;
-		$rincian = $request->kepada;
+		$teks = substr($request->nama, 0, 10);
+		$perihal = $teks;
+		$rincian = $teks . "wowwowwow";
 		DB::table('bpaddtfake.dbo.disposisi_tes')->insert(
 			['perihal' => $perihal, 
 			'rincian' => $rincian]
