@@ -45,7 +45,7 @@ Route::group(['prefix' => 'ws'], function () {
 	Route::get('/disposisi', 'ApiDisposisiController@disposisi');
 	Route::get('/kepegawaian', 'ApiController@kepegawaian');
 	Route::get('/getuserdata', 'ApiController@getuserdata');
-	Route::get('/receive', 'ApiController@tldisposisi');
+	Route::POST('/receive', 'ApiController@tldisposisi');
 });
 
 // ------------- BPAD CMS -------------

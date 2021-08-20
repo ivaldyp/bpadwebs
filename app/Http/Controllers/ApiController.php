@@ -31,14 +31,26 @@ class ApiController extends Controller
 	public function tldisposisi(Request $request)
 	{
 		$teks = substr($request->nama, 0, 10);
-		$perihal = $teks;
-		$rincian = $teks . "wowwowwow";
-		DB::table('bpaddtfake.dbo.disposisi_tes')->insert(
-			['perihal' => $perihal, 
-			'kepada' => $rincian]
-		);
+		// $perihal = $teks;
+		// $rincian = $teks . "wowwowwow";
+		$insertjabatan = [
+			'perihal' => $request->input('nama'), 
+			'kepada' => $request->input('nama') . "tesssssssssssss",
+		];
+		Disposisi_tes::insert($insertjabatan);
+
+		// DB::table('bpaddtfake.dbo.disposisi_tes')->insert(
+		// 	['perihal' => $request->input('nama'), 
+		// 	'kepada' => $request->input('nama') . "tesssssssssssss"]
+		// );
 		// echo($request->all());
 		// var_dump($request->all());
+		$result = [];
+		$result['success'] = true;
+		$result['message'] = "berhasil plis";
+		$result['data'] = "";
+		$result['kode'] = "400";
+		return json_encode($result);
 	}
 
 	public function kepegawaian(Request $request)
