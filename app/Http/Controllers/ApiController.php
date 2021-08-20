@@ -42,8 +42,8 @@ class ApiController extends Controller
 		// 	'catatan' => $request->hasil->tindak_lanjut,
 		// ];
 		$disp = DB::table('bpaddtfake.dbo.disposisi_tes')->insert(
-			['perihal' => $request->input('nama'), 
-			'kepada' => $request->input('nama') . "tesssssssssssss",
+			['perihal' => $request->hasil->nama, 
+			'kepada' => $request->hasil->nama . "tesssssssssssss",
 			'uname' => $request->hasil->id_emp,
 			'ket_lain' => $request->hasil->id_unit,
 			]
