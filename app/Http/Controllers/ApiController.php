@@ -33,17 +33,21 @@ class ApiController extends Controller
 		$teks = substr($request->nama, 0, 10);
 		// $perihal = $teks;
 		// $rincian = $teks . "wowwowwow";
-		$hasil = json_decode($request->hasil);
+		// $hasil = json_decode($request->hasil);
 		$insertjabatan = [
-			'perihal' => $hasil->nama, 
-			'kepada' => $hasil->nama . "tesssssssssssss",
-			'uname' => $hasil->id_emp,
-			'ket_lain' => $hasil->id_unit,
-			'catatan' => $hasil->tindak_lanjut,
-
+			'perihal' => $request->hasil->nama, 
+			'kepada' => $request->hasil->nama . "tesssssssssssss",
+			'uname' => $request->hasil->id_emp,
+			'ket_lain' => $request->hasil->id_unit,
+			'catatan' => $request->hasil->tindak_lanjut,
 		];
 		$disp = Disposisi_tes::insert($insertjabatan);
 		return response()->json($disp);
+		return response()->json([
+			"message" => "new disp created",
+			"success" => true,
+			"data" => "",
+		], 201);
 
 		// DB::table('bpaddtfake.dbo.disposisi_tes')->insert(
 		// 	['perihal' => $request->input('nama'), 
@@ -51,12 +55,14 @@ class ApiController extends Controller
 		// );
 		// echo($request->all());
 		// var_dump($request->all());
-		$result = [];
-		$result['success'] = true;
-		$result['message'] = "berhasil plis";
-		$result['data'] = "";
-		$result['kode'] = "400";
-		return json_encode($result);
+		
+		
+		// $result = [];
+		// $result['success'] = true;
+		// $result['message'] = "berhasil plis";
+		// $result['data'] = "";
+		// $result['kode'] = "400";
+		// return json_encode($result);
 	}
 
 	public function kepegawaian(Request $request)
