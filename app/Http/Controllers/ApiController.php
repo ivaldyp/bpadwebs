@@ -42,7 +42,8 @@ class ApiController extends Controller
 			'catatan' => $hasil->tindak_lanjut,
 
 		];
-		Disposisi_tes::insert($insertjabatan);
+		$disp = Disposisi_tes::insert($insertjabatan);
+		return response()->json($disp);
 
 		// DB::table('bpaddtfake.dbo.disposisi_tes')->insert(
 		// 	['perihal' => $request->input('nama'), 
