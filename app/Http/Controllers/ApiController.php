@@ -34,25 +34,28 @@ class ApiController extends Controller
 		// $perihal = $teks;
 		// $rincian = $teks . "wowwowwow";
 		// $hasil = json_decode($request->hasil);
-		$insertjabatan = [
-			'perihal' => $request->hasil->nama, 
-			'kepada' => $request->hasil->nama . "tesssssssssssss",
+		// $insertjabatan = [
+		// 	'perihal' => $request->hasil->nama, 
+		// 	'kepada' => $request->hasil->nama . "tesssssssssssss",
+		// 	'uname' => $request->hasil->id_emp,
+		// 	'ket_lain' => $request->hasil->id_unit,
+		// 	'catatan' => $request->hasil->tindak_lanjut,
+		// ];
+		$disp = DB::table('bpaddtfake.dbo.disposisi_tes')->insert(
+			['perihal' => $request->input('nama'), 
+			'kepada' => $request->input('nama') . "tesssssssssssss",
 			'uname' => $request->hasil->id_emp,
 			'ket_lain' => $request->hasil->id_unit,
-			'catatan' => $request->hasil->tindak_lanjut,
-		];
-		$disp = Disposisi_tes::insert($insertjabatan);
-		return response()->json($disp);
+			]
+		);
+		// $disp = Disposisi_tes::insert($insertjabatan);
+		// return response()->json($disp);
 		return response()->json([
 			"message" => "new disp created",
 			"success" => true,
 			"data" => "",
 		], 201);
 
-		// DB::table('bpaddtfake.dbo.disposisi_tes')->insert(
-		// 	['perihal' => $request->input('nama'), 
-		// 	'kepada' => $request->input('nama') . "tesssssssssssss"]
-		// );
 		// echo($request->all());
 		// var_dump($request->all());
 		
