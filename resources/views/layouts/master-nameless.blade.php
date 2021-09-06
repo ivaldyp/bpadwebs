@@ -72,63 +72,7 @@
 				</div> -->
 				<!-- Search -->
 
-				<!-- Nav menu -->
-				<ul class="navbar-menu nav navbar-nav navbar-right">
-					<li><a href="{{ url('/') }}">Home</a></li>
-					<li><a href="{{ url('profil') }}">Profil</a></li>
-					<li class="has-dropdown"><a href="#" target="_blank">Produk</a>
-						<ul class="dropdown" style="list-style: none; padding: 0;">
-							<li><a href="http://aset.jakarta.go.id" target="_blank">Internal</a></li>
-							<li class="has-dropdown"><a href="#">Publik</a>
-								<ul class="dropdown" style="list-style: none; padding: 0;">
-									<li><a href="https://bpad.jakarta.go.id/epemanfaatan/" target="_blank">Pemanfaatan</a></li>
-									<li><a href="https://bpad.jakarta.go.id/produkhukum/" target="_blank">Produk Hukum</a></li>
-								</ul>
-							</li>
-						</ul>
-					</li>
-					<li class="has-dropdown"><a href="#">Konten</a>
-						<ul class="dropdown" style="list-style: none; padding: 0;">
-							<li><a href="{{ url('content/berita') }}">Berita</a></li>
-							<li><a href="{{ url('content/foto') }}">Foto</a></li>
-							<li><a href="{{ url('content/video') }}">Video</a></li>
-							<li><a href="http://simaster.jakarta.go.id/internal.download/index.php?x=Moderator&y=B5B320392109ABC1986FDBF67DB15E71" target="_blank">Download</a></li>
-							<!-- <li><a href="{{ url('content/Infografis') }}">Infografis</a></li> -->
-						</ul>
-					</li>
-					<li class="has-dropdown"><a href="#">Lainnya</a>
-						<ul class="dropdown" style="list-style: none; padding: 0;">
-							<li><a href="http://bpad.jakarta.go.id/portal/ceksurat" target="_blank">Cek Surat</a></li>
-							<li><a href="https://webmail.bpadjakarta.id/" target="_blank">Webmail</a></li>
-							<li><a href="https://ppid.jakarta.go.id/" target="_blank">PPID</a></li>
-							<li><a href="http://bpad.jakarta.go.id/brandgangpermohonan" target="_blank">Permohonan Brandgang</a></li>
-							<li><a href="http://bpad.jakarta.go.id/brandgangmonitoring" target="_blank">Monitoring Brandgang</a></li>
-							<li><a href="{{ url('absen/login') }}">Absensi Pegawai</a></li>
-							<!-- <li><a href="{{ url('content/Infografis') }}">Infografis</a></li> -->
-						</ul>
-					</li>	
-
-					<!-- <li>
-						<ul class="dropdown">
-							<li><a href="single-event.html">Produk Hukum</a></li>
-							<li><a href="single-event.html">Manual Book</a></li>
-							<li><a href="single-event.html">Aplikasi</a></li>
-						</ul>
-					</li> -->
-					<!-- <li class="has-dropdown"><a href="#">Blog</a>
-						<ul class="dropdown">
-							<li><a href="blog.html">Blog Page</a></li>
-							<li><a href="single-blog.html">Single Blog</a></li>
-						</ul>
-					</li> -->
-					<li style="background: #006cb8;"><a style="color: white" href="{{ url('login') }}">
-						@if(Auth::check())
-						Masuk
-						@else
-						Login
-						@endif
-					</a></li>
-				</ul>
+				
 
 				<!-- Nav menu -->
 			</div>
