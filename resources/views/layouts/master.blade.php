@@ -103,7 +103,7 @@
 							<li><a href="https://ppid.jakarta.go.id/" target="_blank">PPID</a></li>
 							<li><a href="http://bpad.jakarta.go.id/brandgangpermohonan" target="_blank">Permohonan Brandgang</a></li>
 							<li><a href="http://bpad.jakarta.go.id/brandgangmonitoring" target="_blank">Monitoring Brandgang</a></li>
-							<li><a href="{{ url('absen/login') }}">Absensi Pegawai</a></li>
+							<li><a href="{{ url('esiappe/masuk') }}">e-SIAPPE</a></li>
 							<!-- <li><a href="{{ url('content/Infografis') }}">Infografis</a></li> -->
 						</ul>
 					</li>	

@@ -41,9 +41,13 @@ Route::get('/kkrekon/{provinsi}', 'LandingController@kertaskerja');
 
 // --------- BPAD FOTO ABSEN-----------
 
-Route::group(['prefix' => 'absen'], function () {
-	Route::get('/login', 'AbsenController@login');
+Route::group(['prefix' => 'esiappe'], function () {
+	Route::get('/masuk', 'AbsenController@masuk');
+	// Route::post('/cekuser', 'AbsenController@cekuser');
+	Route::get('/cekabsen', 'AbsenController@cekabsen');
 	Route::post('/foto', 'AbsenController@foto');
+	Route::post('/simpan', 'AbsenController@simpan');
+	Route::get('/berhasil', 'AbsenController@berhasil');
 });
 
 // ------------- BPAD API -------------
