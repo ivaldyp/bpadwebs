@@ -179,7 +179,7 @@
 																			@endif
 																		</span><br>
 																		@if($laporans[$nownum]['foto_sore'])
-																		<button class="btn btn-info btn-sm" id="">Gambar</button>
+																		<a class="btn btn-info btn-sm" target="_blank" href="{{ config('app.openfileabsen')}}/{{ $laporans[$nownum]['absen_id']}}/{{ $now_year . '-' . str_pad($now_month, 2, '0', STR_PAD_LEFT) . '-' . str_pad($i, 2, '0', STR_PAD_LEFT) }}_{{$laporans[$nownum]['jenis_sore']}}.png">Gambar</a>
 																		@endif
 																	@else
 																		-
