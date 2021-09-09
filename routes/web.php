@@ -295,17 +295,19 @@ Route::group(['prefix' => 'kepegawaian'], function () {
 
 	Route::get('/laporan kinerja', 'KepegawaianController@laporankinerja');
 	Route::post('/form/formresetkinerja', 'KepegawaianController@formresetkinerja');
-
+	
+	
 	Route::get('/status disposisi', 'KepegawaianController@statusdisposisi');
-
+	
 	Route::get('/surat keluar', 'KepegawaianController@suratkeluar');
 	Route::get('/surat keluar tambah', 'KepegawaianController@suratkeluartambah');
 	Route::post('/surat keluar ubah', 'KepegawaianController@suratkeluarubah');
 	Route::post('/form/tambahsuratkeluar', 'KepegawaianController@forminsertsuratkeluar');
 	Route::post('/form/ubahsuratkeluar', 'KepegawaianController@formupdatesuratkeluar');
 	Route::post('/form/hapussuratkeluar', 'KepegawaianController@formdeletesuratkeluar');
-
+	
 	//////////////////////////////////////////////////////////////////////
+	Route::get('/laporan foto', 'Kepegawaian2Controller@laporanfoto');
 
 	Route::get('/peta jabatan', 'Kepegawaian2Controller@petajabatan');
 	Route::post('/form/insertjabchild', 'Kepegawaian2Controller@forminsertjabchild');

@@ -5,7 +5,7 @@
         <link rel="shortcut icon" type="image/x-icon" href="{{ ('/portal/public/img/photo/bpad-logo-00.png') }}" />
     </head>
     <body>
-        <h1>Foto berhasil tersimpan</h1><br><br>
+        <h1>FOTO BERHASIL TERSIMPAN</h1><br><br>
         <h1>Akan kembali ke halaman awal dalam <span id="seconds">6</span> detik......<br><br>
         Atau tekan <a href="/portal/esiappe/masuk">link ini untuk kembali ke halaman awal.</a></h1>
         
