@@ -55,7 +55,7 @@
 			</div>
 			
 			<div class="row ">
-				<div class="col-md-10 col-md-offset-1">
+				<div class="col-lg-10 col-lg-offset-1">
 					<!-- <div class="white-box"> -->
 					<div class="panel panel-default">
 						<div class="panel-heading"> Laporan e-SIAPPE </div>
@@ -160,7 +160,7 @@
 																			@endif
 																		</span><br>
 																		@if($laporans[$nownum]['foto_pagi'])
-																		<a class="btn btn-info btn-sm" target="_blank" href="{{ config('app.openfileabsen')}}/{{ $laporans[$nownum]['absen_id']}}/{{ $now_year . '-' . str_pad($now_month, 2, '0', STR_PAD_LEFT) . '-' . str_pad($i, 2, '0', STR_PAD_LEFT) }}_{{$laporans[$nownum]['jenis_pagi']}}.png">Gambar</a>
+																		<a class="btn btn-info btn-sm" target="_blank" href="{{ config('app.openfileabsen')}}/{{ $laporans[$nownum]['absen_id']}}/{{$laporans[$nownum]['foto_pagi']}}">Gambar</a>
 																		@endif
 																	@else
 																		-
@@ -179,7 +179,7 @@
 																			@endif
 																		</span><br>
 																		@if($laporans[$nownum]['foto_sore'])
-																		<a class="btn btn-info btn-sm" target="_blank" href="{{ config('app.openfileabsen')}}/{{ $laporans[$nownum]['absen_id']}}/{{ $now_year . '-' . str_pad($now_month, 2, '0', STR_PAD_LEFT) . '-' . str_pad($i, 2, '0', STR_PAD_LEFT) }}_{{$laporans[$nownum]['jenis_sore']}}.png">Gambar</a>
+																		<a class="btn btn-info btn-sm" target="_blank" href="{{ config('app.openfileabsen')}}/{{ $laporans[$nownum]['absen_id']}}/{{$laporans[$nownum]['foto_sore']}}">Gambar</a>
 																		@endif
 																	@else
 																		-
