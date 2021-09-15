@@ -78,11 +78,11 @@ class AbsenController extends Controller
     public function simpan(Request $request) 
     {
         $jam = $request->absenjam;
-        if($jam >= 0 && $jam < 6) {
+        if($jam >= 0 && $jam < 5) {
             return redirect()->back()
-            ->with('message', 'Tidak dapat menyimpan foto (Absen pagi pukul 06 - 08)')
+            ->with('message', 'Tidak dapat menyimpan foto (Absen pagi pukul 05 - 08)')
             ->with('msg_num', 2);
-        } else if ($jam >= 6 && $jam < 8) {
+        } else if ($jam >= 5 && $jam < 8) {
             $stat = "Tepat Waktu";
         } else if ($jam >= 8 && $jam < 12) {
             $stat = "Terlambat";
@@ -90,7 +90,7 @@ class AbsenController extends Controller
             $stat = "Pulang Cepat";
         } else if ($jam >= 16 && $jam < 20) {
             $stat = "Tepat Waktu";
-        } else if ($jam >= 21 && $jam < 24) {
+        } else if ($jam >= 20 && $jam < 24) {
             return redirect()->back()
             ->with('message', 'Tidak dapat menyimpan foto (Absen sore pukul 16 - 20)')
             ->with('msg_num', 2);
