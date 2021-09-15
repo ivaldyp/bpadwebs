@@ -32,7 +32,7 @@
         <div class="row" style="padding-top:50px">
             <div class="col-md-12 text-center">
                 <!-- <h1 class="title"><span style="background: linear-gradient(to right, #8C0606 0%, #FF0000 50%, #8C0606 100%); -webkit-background-clip: text;-webkit-text-fill-color: transparent; font-size: 64px">PROFIL BPAD</span></h1> -->
-                <h1 class="title" style="font-family: 'Century Gothic'; font-size: 64px;"><span style="color: #006cb8; font-weight: bold">e-SIAPPE</h1>
+                <h1 class="title" style="font-family: 'Century Gothic'; font-size: 64px;"><span style="color: #006cb8; font-weight: bold">ABSENSI e-SIAPPE</h1>
             </div>
         </div>
         <div class="row" style="margin-top: 60px;">
