@@ -170,8 +170,8 @@ class Kepegawaian2Controller extends Controller
 					a.absen_jenis as jenis_pagi, a.absen_waktu as waktu_pagi, a.absen_sts as sts_pagi, a.absen_img as foto_pagi, 
 					b.absen_jenis as jenis_sore, b.absen_waktu as waktu_sore, b.absen_sts as sts_sore, b.absen_img as foto_sore
 					from bpaddtfake.dbo.kinerja_foto foto
-					left join bpaddtfake.dbo.kinerja_foto a on foto.absen_tgl = a.absen_tgl and a.absen_jenis = 'pagi'
-					left join bpaddtfake.dbo.kinerja_foto b on foto.absen_tgl = b.absen_tgl and b.absen_jenis = 'sore'
+					left join bpaddtfake.dbo.kinerja_foto a on foto.absen_tgl = a.absen_tgl and a.absen_jenis = 'pagi' and a.absen_id = '$now_id_emp'
+					left join bpaddtfake.dbo.kinerja_foto b on foto.absen_tgl = b.absen_tgl and b.absen_jenis = 'sore' and b.absen_id = '$now_id_emp'
 					where foto.absen_id = '$now_id_emp'
 					and YEAR(foto.absen_tgl) = $now_year
 					and MONTH(foto.absen_tgl) = $now_month
