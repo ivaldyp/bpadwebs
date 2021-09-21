@@ -111,11 +111,11 @@
                     } else if (data == 0) {
                         var jam = $("#absenjam").val();
                 
-                        if(jam >= 0 && jam < 6) {
-                            alert("Tidak dapat menyimpan foto (Absen pagi pukul 06 - 08)");
-                        } else if (jam >= 6 && jam < 20) {
+                        if(jam >= 0 && jam < 5) {
+                            alert("Tidak dapat menyimpan foto (Absen pagi pukul 05 - 07)");
+                        } else if (jam >= 5 && jam < 20) {
                             $( "#fotosimpan" ).submit();
-                        } else if (jam >= 21 && jam < 24) {
+                        } else if (jam >= 20 && jam < 24) {
                             alert("Tidak dapat menyimpan foto (Absen sore pukul 16 - 20)");
                         }
                     }
@@ -170,9 +170,9 @@
             // render hasil dari canvas ke elemen img
             var newdate = new Date();
             var jam = newdate.getHours();
-            if (jam >= 0 && jam <=12) {
+            if (jam >= 0 && jam < 12) {
                 $("#nowjenis").text("Absen Pagi");
-            } else if (jam >= 13 && jam <= 24) {
+            } else if (jam >= 12 && jam < 24) {
                 $("#nowjenis").text("Absen Sore");
             }
             

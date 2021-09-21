@@ -80,11 +80,11 @@ class AbsenController extends Controller
         $jam = $request->absenjam;
         if($jam >= 0 && $jam < 5) {
             return redirect()->back()
-            ->with('message', 'Tidak dapat menyimpan foto (Absen pagi pukul 05 - 08)')
+            ->with('message', 'Tidak dapat menyimpan foto (Absen pagi pukul 05 - 07)')
             ->with('msg_num', 2);
-        } else if ($jam >= 5 && $jam < 8) {
+        } else if ($jam >= 5 && $jam < 7) {
             $stat = "Tepat Waktu";
-        } else if ($jam >= 8 && $jam < 12) {
+        } else if ($jam >= 7 && $jam < 12) {
             $stat = "Terlambat";
         } else if ($jam >= 12 && $jam < 16) {
             $stat = "Pulang Cepat";
