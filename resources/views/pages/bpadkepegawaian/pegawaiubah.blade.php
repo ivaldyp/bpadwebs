@@ -350,7 +350,7 @@
 												<?php endif ?>
 											</div> -->
 											<button type="submit" class="m-b-20 m-t-10 btn btn-success pull-right"> Simpan </button>
-											<a href="{{ url()->previous() }}"><button type="button" class="m-b-20 m-t-10 btn btn-default pull-right m-r-10"> Kembali </button></a>	
+											<a href="/portal/kepegawaian/data pegawai"><button type="button" class="m-b-20 m-t-10 btn btn-default pull-right m-r-10"> Kembali </button></a>	
 										
 											</form>
 										</section>
@@ -383,7 +383,7 @@
 												</table>
 											</div>
 											@endif
-											<a href="{{ url()->previous() }}"><button type="button" class="btn btn-default pull-right m-b-20 m-t-10"> Kembali </button></a>
+											<a href="/portal/kepegawaian/data pegawai"><button type="button" class="btn btn-default pull-right m-b-20 m-t-10"> Kembali </button></a>
 										</section>
 										<section id="section-underline-2">
 											<div class="white-box">
@@ -560,7 +560,7 @@
 											</div>
 	
 
-											<a href="{{ url()->previous() }}"><button type="button" class="btn btn-default pull-right m-b-20 m-t-10"> Kembali </button></a>	
+											<a href="/portal/kepegawaian/data pegawai"><button type="button" class="btn btn-default pull-right m-b-20 m-t-10"> Kembali </button></a>	
 										</section>
 										<div id="modal-insert-dik" class="modal fade" role="dialog">
 											<div class="modal-dialog">
@@ -782,7 +782,7 @@
 												</table>
 											</div>
 											@endif
-											<a href="{{ url()->previous() }}"><button type="button" class="btn btn-default pull-right m-b-20 m-t-10"> Kembali </button></a>
+											<a href="/portal/kepegawaian/data pegawai"><button type="button" class="btn btn-default pull-right m-b-20 m-t-10"> Kembali </button></a>
 										</section>
 										<div id="modal-insert-gol" class="modal fade" role="dialog">
 											<div class="modal-dialog">
@@ -1051,7 +1051,7 @@
 												</table>
 											</div>
 											@endif
-											<a href="{{ url()->previous() }}"><button type="button" class="btn btn-default pull-right m-b-20 m-t-10"> Kembali </button></a>
+											<a href="/portal/kepegawaian/data pegawai"><button type="button" class="btn btn-default pull-right m-b-20 m-t-10"> Kembali </button></a>
 										</section>
 										<div id="modal-insert-jab" class="modal fade" role="dialog">
 											<div class="modal-dialog">
@@ -1210,7 +1210,7 @@
 												</table>
 											</div>
 											@endif
-											<a href="{{ url()->previous() }}"><button type="button" class="btn btn-default pull-right m-b-20 m-t-10"> Kembali </button></a>
+											<a href="/portal/kepegawaian/data pegawai"><button type="button" class="btn btn-default pull-right m-b-20 m-t-10"> Kembali </button></a>
 										</section>
 										<section id="section-underline-5">
 											<form class="form-horizontal" method="POST" action="/portal/kepegawaian/form/ubahstatuspegawai" data-toggle="validator" enctype="multipart/form-data">
@@ -1242,7 +1242,7 @@
 													</div>
 												</div>
 												<button type="submit" class="m-b-20 m-t-10 btn btn-success pull-right"> Simpan </button>
-												<a href="{{ url()->previous() }}"><button type="button" class="m-b-20 m-t-10 btn btn-default pull-right m-r-10"> Kembali </button></a>	
+												<a href="/portal/kepegawaian/data pegawai"><button type="button" class="m-b-20 m-t-10 btn btn-default pull-right m-r-10"> Kembali </button></a>	
 											</form>
 										</section>
 								</div>
