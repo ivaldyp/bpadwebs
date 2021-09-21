@@ -39,6 +39,16 @@ Route::get('/kkrekon/{selatan}', 'LandingController@kertaskerja');
 Route::get('/kkrekon/{seribu}', 'LandingController@kertaskerja');
 Route::get('/kkrekon/{provinsi}', 'LandingController@kertaskerja');
 
+// --------- BPAD LINK FORM PUBLIK-----------
+
+Route::group(['prefix' => 'form'], function () {
+	Route::get('/{id}/thanks', 'InternalController@openthanksform');
+	Route::get('/{id}/excel', 'InternalController@openexcelform');
+	Route::get('/{id}/lihat', 'InternalController@openresponseform');
+	Route::get('/{id}/{judul}', 'InternalController@openform');
+	Route::post('/simpanform', 'InternalController@simpanform');
+});
+
 // --------- BPAD FOTO ABSEN-----------
 
 Route::group(['prefix' => 'esiappe'], function () {
@@ -246,6 +256,12 @@ Route::group(['prefix' => 'internal'], function () {
 	Route::get('/saran', 'InternalController@saran');
 	// Route::post('/form/reply', 'InternalController@formmailsaran');
 	Route::post('/form/apprsaran', 'InternalController@formapprsaran');
+
+	Route::get('/kehadiran', 'InternalController@kehadiranall');
+	Route::get('/kehadiran tambah', 'InternalController@kehadirantambah');
+	Route::post('/form/tambahkehadiran', 'InternalController@forminsertkehadiran');
+	Route::get('/kehadiran ubah', 'InternalController@kehadiranubah');
+	Route::post('/form/hapuskehadiran', 'InternalController@formdeletekehadiran');
 });
 
 Route::group(['prefix' => 'kepegawaian'], function () {

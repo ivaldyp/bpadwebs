@@ -58,6 +58,9 @@ class KepegawaianController extends Controller
 
 	public function pegawaiall(Request $request)
 	{
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
 		$this->checkSessionTime();
 		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
 		$currentpath = explode("?", $currentpath)[0];

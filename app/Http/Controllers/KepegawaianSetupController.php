@@ -81,7 +81,7 @@ class KepegawaianSetupController extends Controller
 				'tgl'		=> date('Y-m-d H:i:s'),
 				'ip'		=> '',
 				'logbuat'	=> '',
-				'kd_skpd'	=> '',
+				'kd_skpd'	=> '1.20.512',
 				'kd_unit'	=> $request->kd_unit,
 				'nm_unit'   => strtoupper($request->nm_unit),
 				'cp_unit'   => '',
@@ -92,6 +92,12 @@ class KepegawaianSetupController extends Controller
 			];
 
 		glo_org_unitkerja::insert($insert);
+
+		$query = glo_org_unitkerja::
+						where('kd_unit', $request->sao)
+						->update([
+							'child' => 1,
+						]);
 
 		return redirect('/kepegawaian/setup/unit')
 					->with('message', 'unit '.strtoupper($request->nm_unit).' berhasil ditambah')

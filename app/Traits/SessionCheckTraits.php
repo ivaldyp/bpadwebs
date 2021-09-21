@@ -9,6 +9,9 @@ trait SessionCheckTraits
 {
 	public function checkSessionTime()
 	{
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
 		if (Auth::check() == FALSE) {
 			redirect('login')->send()->with([
                         'message' => 'Session was expired. Please try again',
