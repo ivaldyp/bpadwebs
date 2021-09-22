@@ -135,17 +135,24 @@
 											</div>
 										</div>
 
-										<div class="form-group" id="input_lainnya">
+										<div class="form-group" id="input_uraian">
 											<label for="uraian" class="col-md-2 control-label"> Uraian </label>
 											<div class="col-md-8">
 												<textarea class="form-control" name="uraian" id="uraian"></textarea>
 											</div>
 										</div>
 
-										<div class="form-group" id="input_lainnya">
+										<div class="form-group" id="input_keterangan">
 											<label for="keterangan" class="col-md-2 control-label"> Keterangan </label>
 											<div class="col-md-8">
 												<textarea class="form-control" name="keterangan" id="keterangan"></textarea>
+											</div>
+										</div>
+
+										<div class="form-group" id="input_filefoto">
+											<label for="filefoto" class="col-md-2 control-label" > Foto </label>
+											<div class="col-md-8">
+												<input type="file" class="form-control" id="filefoto" accept="image/png, image/gif, image/jpeg, image/jpg">
 											</div>
 										</div>
 
