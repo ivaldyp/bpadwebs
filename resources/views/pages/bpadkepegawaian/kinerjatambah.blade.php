@@ -150,7 +150,7 @@
 										</div>
 
 										<div class="form-group" id="input_filefoto">
-											<label for="filefoto" class="col-md-2 control-label" > Foto </label>
+											<label for="filefoto" class="col-md-2 control-label" > Foto <br> <span style="font-size: 11px;">(Opsional)</span> </label>
 											<div class="col-md-8">
 												<input type="file" class="form-control" id="filefoto" accept="image/png, image/gif, image/jpeg, image/jpg">
 											</div>
