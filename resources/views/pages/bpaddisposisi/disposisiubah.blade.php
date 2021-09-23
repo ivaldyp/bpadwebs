@@ -315,14 +315,15 @@
 									$signnow = $splitsigndate[1];
 									$monthnow = $splitsigndate[2];
 								?>
-								<!-- <button type="submit" class="btn btn-success pull-right">Simpan</button> -->
+								{{-- <!-- <button type="submit" class="btn btn-success pull-right">Simpan</button> --> --}}
 								@if($dispmaster['status_surat'] == 'd' && isset($_SESSION['user_data']['usname']))
 								<input type="hidden" name="signdate" value="{{$signdate}}">
-								<input type="submit" name="btnKirim" class="btn btn-info pull-right m-r-10" value="Kirim">
+								
+								{{--<input type="submit" name="btnKirim" class="btn btn-info pull-right m-r-10" value="Kirim"> --}}
 								
 								<input type="submit" name="btnDraft" class="btn btn-warning pull-right m-r-10" value="Draft">
 								@endif
-								<!-- <button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Kembali</button> -->
+								{{-- <!-- <button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Kembali</button> --> --}}
 								<a href="/portal/disposisi/formdisposisi?yearnow={{$yearnow}}&signnow={{$signnow}}&monthnow={{$monthnow}}"><button type="button" class="btn btn-default pull-right m-r-10" onclick="goBack()">Kembali</button></a>
 								<div class="clearfix"></div>
 							</div>

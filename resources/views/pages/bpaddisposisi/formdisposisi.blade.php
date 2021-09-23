@@ -112,7 +112,7 @@
 									</form>
 								</div>
 								@if($access['zadd'] == 'y' && isset(Auth::user()->usname))
-								{{-- <a href="/portal/disposisi/tambah disposisi"><button class="btn btn-info" style="margin-bottom: 10px">Tambah </button></a> --}}
+								<a href="/portal/disposisi/tambah disposisi"><button class="btn btn-info" style="margin-bottom: 10px">Tambah </button></a>
 								@endif
 								<ul class="nav customtab nav-tabs" role="tablist">
 									<li role="presentation" class="active"><a href="#surat" aria-controls="surat" role="tab" data-toggle="tab" aria-expanded="true"><span class="visible-xs"><i class="ti-home"></i></span><span class="hidden-xs"> Surat</span></a></li>
