@@ -1068,6 +1068,10 @@ class ProfilController extends Controller
 			} elseif (substr($cutidunit, 0, 1) == '0') {
 				if ($cutidunit == '06') {
 					$idlok = Glo_org_lokasi::where('new_kd_lok', $cutidunit)->first(['kd_lok']);
+				} else if ($cutidunit == '07') {
+					$idlok = Glo_org_lokasi::where('new_kd_lok', $cutidunit)->first(['kd_lok']);
+				} else if ($cutidunit == '08') {
+					$idlok = Glo_org_lokasi::where('new_kd_lok', $cutidunit)->first(['kd_lok']);
 				} else {
 					$idlok = Glo_org_lokasi::where('new_kd_lok', '0')->first(['kd_lok']);
 				}
@@ -1144,6 +1148,10 @@ class ProfilController extends Controller
 				$idlok = Glo_org_lokasi::where('new_kd_lok', $cutidunit)->first(['kd_lok']);
 			} elseif (substr($cutidunit, 0, 1) == '0') {
 				if ($cutidunit == '06') {
+					$idlok = Glo_org_lokasi::where('new_kd_lok', $cutidunit)->first(['kd_lok']);
+				} else if ($cutidunit == '07') {
+					$idlok = Glo_org_lokasi::where('new_kd_lok', $cutidunit)->first(['kd_lok']);
+				} else if ($cutidunit == '08') {
 					$idlok = Glo_org_lokasi::where('new_kd_lok', $cutidunit)->first(['kd_lok']);
 				} else {
 					$idlok = Glo_org_lokasi::where('new_kd_lok', '0')->first(['kd_lok']);
