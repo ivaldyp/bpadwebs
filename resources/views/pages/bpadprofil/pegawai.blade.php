@@ -924,7 +924,7 @@
 
 							</div>
 							<div class="modal-footer">
-								<button type="submit" class="btn btn-danger pull-right">Simpan</button>
+								<button type="submit" class="btn btn-info pull-right">Simpan</button>
 								<button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
 							</div>
 						</form>
@@ -978,7 +978,7 @@
 
 							</div>
 							<div class="modal-footer">
-								<button type="submit" class="btn btn-danger pull-right">Simpan</button>
+								<button type="submit" class="btn btn-info pull-right">Simpan</button>
 								<button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
 							</div>
 						</form>
@@ -1105,7 +1105,7 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button type="submit" class="btn btn-danger pull-right">Simpan</button>
+								<button type="submit" class="btn btn-info pull-right">Simpan</button>
 								<button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
 							</div>
 						</form>
@@ -1190,7 +1190,7 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button type="submit" class="btn btn-danger pull-right">Simpan</button>
+								<button type="submit" class="btn btn-info pull-right">Simpan</button>
 								<button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
 							</div>
 						</form>
@@ -1509,7 +1509,7 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button type="submit" class="btn btn-danger pull-right">Simpan</button>
+								<button type="submit" class="btn btn-info pull-right">Simpan</button>
 								<button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
 							</div>
 						</form>
@@ -1596,7 +1596,7 @@
 								<div class="clearfix"></div>
 							</div>
 							<div class="modal-footer">
-								<button type="submit" class="btn btn-danger pull-right">Simpan</button>
+								<button type="submit" class="btn btn-info pull-right">Simpan</button>
 								<button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
 							</div>
 						</form>
@@ -1883,7 +1883,7 @@
 								<div class="clearfix"></div>
 							</div>
 							<div class="modal-footer">
-								<button type="submit" class="btn btn-danger pull-right">Simpan</button>
+								<button type="submit" class="btn btn-info pull-right">Simpan</button>
 								<button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
 							</div>
 						</form>
@@ -2001,7 +2001,7 @@
 
 							</div>
 							<div class="modal-footer">
-								<button type="submit" class="btn btn-danger pull-right">Simpan</button>
+								<button type="submit" class="btn btn-info pull-right">Simpan</button>
 								<button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
 							</div>
 						</form>
@@ -2069,7 +2069,7 @@
 
 							</div>
 							<div class="modal-footer">
-								<button type="submit" class="btn btn-danger pull-right">Simpan</button>
+								<button type="submit" class="btn btn-info pull-right">Simpan</button>
 								<button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
 							</div>
 						</form>
