@@ -236,11 +236,17 @@
 																				@elseif ( strlen($jabatan['kd_unit'] > 2) && substr($jabatan['kd_unit'], 4, 2) == '53' )
 																					- <b>JAKARTA BARAT</b>
 																				@elseif ( strlen($jabatan['kd_unit'] > 2) && substr($jabatan['kd_unit'], 4, 2) == '54' )
-																					- <b>JAKARTA SELATAR</b>
+																					- <b>JAKARTA SELATAN</b>
 																				@elseif ( strlen($jabatan['kd_unit'] > 2) && substr($jabatan['kd_unit'], 4, 2) == '55' )
 																					- <b>JAKARTA TIMUR</b>
 																				@elseif ( strlen($jabatan['kd_unit'] > 2) && substr($jabatan['kd_unit'], 4, 2) == '56' )
 																					- <b>KEPULAUAN SERIBU</b>
+																				@elseif ( strlen($jabatan['kd_unit'] > 2) && substr($jabatan['kd_unit'], 4, 2) == '06' )
+																					- <b>PPBD</b>
+																				@elseif ( strlen($jabatan['kd_unit'] > 2) && substr($jabatan['kd_unit'], 4, 2) == '07' )
+																					- <b>PUSDATIN ASET</b>
+																				@elseif ( strlen($jabatan['kd_unit'] > 2) && substr($jabatan['kd_unit'], 4, 2) == '08' )
+																					- <b>UPMA</b>
 																				@endif
 																			</option>
 																		@endforeach 

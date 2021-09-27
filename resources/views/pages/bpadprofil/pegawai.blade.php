@@ -1702,6 +1702,12 @@
 													<span style="font-weight: bold;">[JAKARTA TIMUR]</span>
 												@elseif(strlen($unit['kd_unit'] > 4) && substr($unit['kd_unit'], 4, 2) == '56')
 													<span style="font-weight: bold;">[PULAU SERIBU]</span>
+												@elseif(strlen($unit['kd_unit'] > 2) && substr($unit['kd_unit'], 4, 2) == '06')
+													<span style="font-weight: bold;">[PPBD]</span>
+												@elseif(strlen($unit['kd_unit'] > 2) && substr($unit['kd_unit'], 4, 2) == '07')
+													<span style="font-weight: bold;">[PUSDATIN ASET]</span>
+												@elseif(strlen($unit['kd_unit'] > 2) && substr($unit['kd_unit'], 4, 2) == '08')
+													<span style="font-weight: bold;">[UPMA]</span>
 												@endif
 												</option>
 											@endforeach
@@ -1820,6 +1826,12 @@
 													<span style="font-weight: bold;">[JAKARTA TIMUR]</span>
 												@elseif(strlen($unit['kd_unit'] > 4) && substr($unit['kd_unit'], 4, 2) == '56')
 													<span style="font-weight: bold;">[PULAU SERIBU]</span>
+												@elseif(strlen($unit['kd_unit'] > 2) && substr($unit['kd_unit'], 4, 2) == '06')
+													<span style="font-weight: bold;">[PPBD]</span>
+												@elseif(strlen($unit['kd_unit'] > 2) && substr($unit['kd_unit'], 4, 2) == '07')
+													<span style="font-weight: bold;">[PUSDATIN ASET]</span>
+												@elseif(strlen($unit['kd_unit'] > 2) && substr($unit['kd_unit'], 4, 2) == '08')
+													<span style="font-weight: bold;">[UPMA]</span>
 												@endif
 												</option>
 											@endforeach

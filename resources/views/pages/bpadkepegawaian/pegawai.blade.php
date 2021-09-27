@@ -110,7 +110,27 @@
 						                                 	echo "selected";
 						                                }
 					                              	?>
-					                            	>[{{ $unit['kd_unit'] }}] - {{ ($unit['kd_unit'] == '01' ? 'SEMUA' : $unit['notes'])   }}</option>
+					                            	>[{{ $unit['kd_unit'] }}]
+														@if ( strlen($unit['kd_unit'] > 2) && substr($unit['kd_unit'], 4, 2) == '51' )
+															[JAKARTA PUSAT]
+														@elseif ( strlen($unit['kd_unit'] > 2) && substr($unit['kd_unit'], 4, 2) == '52' )
+															[JAKARTA UTARA]
+														@elseif ( strlen($unit['kd_unit'] > 2) && substr($unit['kd_unit'], 4, 2) == '53' )
+															[JAKARTA BARAT]
+														@elseif ( strlen($unit['kd_unit'] > 2) && substr($unit['kd_unit'], 4, 2) == '54' )
+															[JAKARTA SELATAN]
+														@elseif ( strlen($unit['kd_unit'] > 2) && substr($unit['kd_unit'], 4, 2) == '55' )
+															[JAKARTA TIMUR]
+														@elseif ( strlen($unit['kd_unit'] > 2) && substr($unit['kd_unit'], 4, 2) == '56' )
+															[KEPULAUAN SERIBU]
+														@elseif ( strlen($unit['kd_unit'] > 2) && substr($unit['kd_unit'], 4, 2) == '06' )
+															[PPBD]
+														@elseif ( strlen($unit['kd_unit'] > 2) && substr($unit['kd_unit'], 4, 2) == '07' )
+															[PUSDATIN ASET]
+														@elseif ( strlen($unit['kd_unit'] > 2) && substr($unit['kd_unit'], 4, 2) == '08' )
+															[UPMA]
+														@endif
+														 - {{ ($unit['kd_unit'] == '01' ? 'SEMUA' : $unit['notes'])   }}</option>
 					                          	<?php } ?>
 					                        	</select>
 				                      		</div>
