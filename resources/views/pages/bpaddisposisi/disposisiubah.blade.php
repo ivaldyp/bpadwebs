@@ -319,7 +319,7 @@
 								@if($dispmaster['status_surat'] == 'd' && isset($_SESSION['user_data']['usname']))
 								<input type="hidden" name="signdate" value="{{$signdate}}">
 								
-								{{--<input type="submit" name="btnKirim" class="btn btn-info pull-right m-r-10" value="Kirim"> --}}
+								<input type="submit" name="btnKirim" class="btn btn-info pull-right m-r-10" value="Kirim">
 								
 								<input type="submit" name="btnDraft" class="btn btn-warning pull-right m-r-10" value="Draft">
 								@endif
