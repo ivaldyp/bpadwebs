@@ -128,7 +128,7 @@ class Kepegawaian2Controller extends Controller
 		and a.sts = 1
 		and a.id_emp = tbjab.noid
 		and tbjab.sts = 1
-		and tbunit.sao like '$idunit%'
+		and tbunit.sao like '01%'
 		and LEN(tbunit.kd_unit) = 10
 		order by tbunit.kd_unit, nm_emp") );
 		$pegawais = json_decode(json_encode($pegawais), true);
