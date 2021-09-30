@@ -43,8 +43,8 @@ Route::get('/kkrekon/{provinsi}', 'LandingController@kertaskerja');
 
 Route::group(['prefix' => 'form'], function () {
 	Route::get('/{id}/thanks', 'FormController@openthanksform');
-	Route::get('/{id}/excel', 'FormController@openexcelform');
-	Route::get('/{id}/lihat', 'FormController@openresponseform');
+	Route::get('/{id}/excel', 'InternalController@openexcelform');
+	Route::get('/{id}/lihat', 'InternalController@openresponseform');
 	Route::get('/{id}/{judul}', 'FormController@openform');
 	Route::post('/simpanform', 'FormController@simpanform');
 });
