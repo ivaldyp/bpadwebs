@@ -42,11 +42,11 @@ Route::get('/kkrekon/{provinsi}', 'LandingController@kertaskerja');
 // --------- BPAD LINK FORM PUBLIK-----------
 
 Route::group(['prefix' => 'form'], function () {
-	Route::get('/{id}/thanks', 'InternalController@openthanksform');
-	Route::get('/{id}/excel', 'InternalController@openexcelform');
-	Route::get('/{id}/lihat', 'InternalController@openresponseform');
-	Route::get('/{id}/{judul}', 'InternalController@openform');
-	Route::post('/simpanform', 'InternalController@simpanform');
+	Route::get('/{id}/thanks', 'FormController@openthanksform');
+	Route::get('/{id}/excel', 'FormController@openexcelform');
+	Route::get('/{id}/lihat', 'FormController@openresponseform');
+	Route::get('/{id}/{judul}', 'FormController@openform');
+	Route::post('/simpanform', 'FormController@simpanform');
 });
 
 // --------- BPAD FOTO ABSEN-----------
