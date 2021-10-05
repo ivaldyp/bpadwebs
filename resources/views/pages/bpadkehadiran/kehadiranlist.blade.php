@@ -121,7 +121,7 @@
 															@csrf
 															<input type="hidden" name="no_form" value="{{ $hadir['no_form'] }}">
 															<button type="submit" class="btn btn-info btn-outline btn-circle m-r-5 btn-update"><i class="ti-pencil-alt"></i></button>
-															<button type="button" class="btn btn-danger btn-outline btn-circle m-r-5 btn-delete" data-toggle="modal" data-target="#modal-delete" data-ids="{{ $hadir['ids'] }}"><i class="fa fa-trash"></i></button>
+															<button type="button" class="btn btn-danger btn-outline btn-circle m-r-5 btn-delete" data-toggle="modal" data-target="#modal-delete" data-ids="{{ $hadir['ids'] }}" data-no_form="{{ $hadir['no_form'] }}"><i class="fa fa-trash"></i></button>
 														</form>
 													</td>
 												</tr>
@@ -147,6 +147,7 @@
 							<div class="modal-body">
 								<h4 id="label_delete"></h4>
 								<input type="hidden" name="ids" id="modal_delete_ids" value="">
+								<input type="hidden" name="no_form" id="modal_delete_no_form" value="">
 							</div>
 							<div class="modal-footer">
 								<button type="submit" class="btn btn-danger pull-right">Hapus</button>
@@ -193,6 +194,7 @@
 				$("#label_delete").append('Apakah anda yakin ingin menghapus Form Kehadiran ini?');
 				console.log($el.data('ids'));
 				$("#modal_delete_ids").val($el.data('ids'));
+				$("#modal_delete_no_form").val($el.data('no_form'));
 			});
 
 			$("#modal-delete").on("hidden.bs.modal", function () {

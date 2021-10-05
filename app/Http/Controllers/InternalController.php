@@ -929,6 +929,10 @@ class InternalController extends Controller
 						'sts' => 0,
 					]);
 
+		Internal_responsehadir::
+					where('no_form', $request->no_form)
+					->delete();
+
 		return redirect('/internal/kehadiran')
 					->with('message', 'Form berhasil dihapus')
 					->with('msg_num', 1);

@@ -26,18 +26,6 @@ use App\Sec_menu;
 
 class FormController extends Controller
 {
-    public function formdeletekehadiran(Request $request)
-	{
-		Internal_kehadiran::where('ids', $request->ids)
-					->update([
-						'sts' => 0,
-					]);
-
-		return redirect('/internal/kehadiran')
-					->with('message', 'Form berhasil dihapus')
-					->with('msg_num', 1);
-	}
-
 	public function openform($id, $judul)
 	{
 		date_default_timezone_set('Asia/Jakarta');
