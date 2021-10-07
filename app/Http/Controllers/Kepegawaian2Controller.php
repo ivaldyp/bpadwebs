@@ -52,9 +52,15 @@ class Kepegawaian2Controller extends Controller
 		set_time_limit(300);
 	}
 
+	public function checksession() {
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+	}
+
 	public function petajabatan(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 		$units = glo_org_unitkerja::
 						where('sts', 1)
 						->orderByRaw('coalesce(kd_unit, sao), sao, kd_unit')
@@ -66,7 +72,7 @@ class Kepegawaian2Controller extends Controller
 
 	public function forminsertjabchild(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 		$isi_jab = $request->isi_jab;
 		(is_null($request->slot_jab) ? $slot_jab = 0 : $slot_jab = $request->slot_jab);
 		if ($isi_jab > $slot_jab) {
@@ -107,7 +113,7 @@ class Kepegawaian2Controller extends Controller
 
 	public function laporanfoto (Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
 		$currentpath = explode("?", $currentpath)[0];
 		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');

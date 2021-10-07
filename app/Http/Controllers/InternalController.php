@@ -35,11 +35,17 @@ class InternalController extends Controller
 		$this->middleware('auth');
 	}
 
+	public function checksession() {
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+	}
+
 	// ========== <AGENDA> ========== //
 	
 	public function agenda()
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
 		$currentpath = explode("?", $currentpath)[0];
 		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
@@ -56,14 +62,14 @@ class InternalController extends Controller
 
 	public function agendatambah()
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		return view('pages.bpadinternal.agendatambah');
 	}
 
 	public function agendaubah(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		$agenda = Agenda_tb::
 					where('ids', $request->ids)
@@ -76,7 +82,7 @@ class InternalController extends Controller
 
 	public function formappragenda(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		Agenda_tb::where('ids', $request->ids)
 			->update([
@@ -96,7 +102,7 @@ class InternalController extends Controller
 
 	public function forminsertagenda(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		$fileagenda = '';
 
@@ -150,7 +156,7 @@ class InternalController extends Controller
 
 	public function formupdateagenda(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		$fileagenda = '';
 
@@ -199,7 +205,7 @@ class InternalController extends Controller
 
 	public function formdeleteagenda(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		Agenda_tb::
 				where('ids', $request->ids)
@@ -224,7 +230,7 @@ class InternalController extends Controller
 
 	public function berita()
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
 		$currentpath = explode("?", $currentpath)[0];
 		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
@@ -241,14 +247,14 @@ class InternalController extends Controller
 
 	public function beritatambah()
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		return view('pages.bpadinternal.beritatambah');
 	}
 
 	public function beritaubah(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		$berita = Berita_tb::
 					where('ids', $request->ids)
@@ -261,7 +267,7 @@ class InternalController extends Controller
 
 	public function formapprberita(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		Berita_tb::where('ids', $request->ids)
 			->update([
@@ -281,7 +287,7 @@ class InternalController extends Controller
 
 	public function forminsertberita(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		if (is_null($request->isi)) {
 			$isi = '';
@@ -313,7 +319,7 @@ class InternalController extends Controller
 
 	public function formupdateberita(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		Berita_tb::where('ids', $request->ids)
 					->update([
@@ -329,7 +335,7 @@ class InternalController extends Controller
 
 	public function formdeleteberita(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		Berita_tb::
 				where('ids', $request->ids)
@@ -346,7 +352,7 @@ class InternalController extends Controller
 	
 	public function saran(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
 		$currentpath = explode("?", $currentpath)[0];
 		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
@@ -371,7 +377,7 @@ class InternalController extends Controller
 
 	public function formapprsaran(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		if ($request->read == 1) {
 			$read = 0;
@@ -455,7 +461,7 @@ class InternalController extends Controller
 
 	public function infoall(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
 		$currentpath = explode("?", $currentpath)[0];
 		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
@@ -483,14 +489,14 @@ class InternalController extends Controller
 
 	public function infotambah()
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		return view('pages.bpadinternal.infotambah');
 	}
 
 	public function infoubah(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		$infos = Internal_info::
 					where('ids', $request->ids)
@@ -503,7 +509,7 @@ class InternalController extends Controller
 
 	public function forminsertinfo(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		$fileinfo = '';
 
@@ -563,7 +569,7 @@ class InternalController extends Controller
 
 	public function formupdateinfo(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		Internal_info::where('ids', $request->ids)
 					->update([
@@ -617,7 +623,7 @@ class InternalController extends Controller
 
 	public function formdeleteinfo(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		Internal_info::where('ids', $request->ids)
 					->update([
@@ -635,7 +641,7 @@ class InternalController extends Controller
 
 	public function arsipall(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
 		$currentpath = explode("?", $currentpath)[0];
 		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
@@ -661,7 +667,7 @@ class InternalController extends Controller
 
 	public function arsiptambah()
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		$kats = Glo_arsip_kategori::
 				where('sts', 1)
@@ -674,7 +680,7 @@ class InternalController extends Controller
 
 	public function arsipubah(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		$arsips = Internal_arsip::
 					where('ids', $request->ids)
@@ -693,7 +699,7 @@ class InternalController extends Controller
 
 	public function forminsertarsip(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		$filearsip = '';
 
@@ -753,7 +759,7 @@ class InternalController extends Controller
 
 	public function formupdatearsip(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		Internal_arsip::where('ids', $request->ids)
 					->update([
@@ -807,7 +813,7 @@ class InternalController extends Controller
 
 	public function formdeletearsip(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		Internal_arsip::where('ids', $request->ids)
 					->update([
@@ -825,7 +831,7 @@ class InternalController extends Controller
 
 	public function kehadiranall(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
 		$currentpath = explode("?", $currentpath)[0];
 		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
@@ -850,7 +856,7 @@ class InternalController extends Controller
 
 	public function kehadirantambah(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		$maxnoform = DB::select( DB::raw("SELECT max(no_form) as maks
 										  FROM [bpaddtfake].[dbo].[internal_kehadiran]

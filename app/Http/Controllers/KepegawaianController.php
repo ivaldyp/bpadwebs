@@ -54,14 +54,19 @@ class KepegawaianController extends Controller
 		set_time_limit(300);
 	}
 
-	// ------------------ DATA PEGAWAI ------------------ //
-
-	public function pegawaiall(Request $request)
-	{
+	public function checksession() {
 		if(count($_SESSION) == 0) {
 			return redirect('home');
 		}
-		$this->checkSessionTime();
+	}
+
+	// ------------------ DATA PEGAWAI ------------------ //
+
+	
+
+	public function pegawaiall(Request $request)
+	{
+		$this->checksession(); //$this->checksession(); //$this->checkSessionTime();
 		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
 		$currentpath = explode("?", $currentpath)[0];
 		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
@@ -119,7 +124,7 @@ class KepegawaianController extends Controller
 
 	public function pegawaitambah()
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checksession(); //$this->checkSessionTime();
 
 		$id_emp = explode(".", Emp_data::max('id_emp'));
 
@@ -165,7 +170,7 @@ class KepegawaianController extends Controller
 
 	public function pegawaiubah(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checksession(); //$this->checkSessionTime();
 
 		$id_emp = $request->id_emp;
 
@@ -342,7 +347,7 @@ class KepegawaianController extends Controller
 
 	public function forminsertpegawai(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checksession(); //$this->checkSessionTime();
 
 		$id_emp = explode(".", Emp_data::max('id_emp'));
 		$new_id_emp = $id_emp[0] . "." . $id_emp[1] . "." . $id_emp[2] . "." . ($id_emp[3] + 1);
@@ -533,7 +538,7 @@ class KepegawaianController extends Controller
 
 	public function formupdatepegawai(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checksession(); //$this->checkSessionTime();
 
 		$id_emp = $request->id_emp;
 
@@ -620,7 +625,7 @@ class KepegawaianController extends Controller
 
 	public function formdeletepegawai(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checksession(); //$this->checkSessionTime();
 
 		Emp_data::where('id_emp', $request->id_emp)
 					->update([
@@ -650,7 +655,7 @@ class KepegawaianController extends Controller
 
 	public function formupdatepassuser(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checksession(); //$this->checkSessionTime();
 
 		Emp_data::
 			where('id_emp', $request->id_emp)
@@ -665,7 +670,7 @@ class KepegawaianController extends Controller
 
 	public function formupdatestatuspegawai(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checksession(); //$this->checkSessionTime();
 
 		if ($request->ked_emp == 'AKTIF') {
 			$tgl_end = null;
@@ -686,7 +691,7 @@ class KepegawaianController extends Controller
 
 	public function forminsertdikpegawai(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checksession(); //$this->checkSessionTime();
 
 		$insert_emp_dik = [
 				// PENDIDIKAN
@@ -716,7 +721,7 @@ class KepegawaianController extends Controller
 
 	public function formupdatedikpegawai(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checksession(); //$this->checkSessionTime();
 
 		Emp_dik::where('noid', $request->noid)
 			->where('ids', $request->ids)
@@ -737,7 +742,7 @@ class KepegawaianController extends Controller
 
 	public function formdeletedikpegawai(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checksession(); //$this->checkSessionTime();
 
 		Emp_dik::where('noid', $request->noid)
 			->where('ids', $request->ids)
@@ -754,7 +759,7 @@ class KepegawaianController extends Controller
 
 	public function forminsertgolpegawai(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checksession(); //$this->checkSessionTime();
 
 		$insert_emp_gol = [
 				// GOLONGAN
@@ -783,7 +788,7 @@ class KepegawaianController extends Controller
 
 	public function formupdategolpegawai(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checksession(); //$this->checkSessionTime();
 
 		Emp_gol::where('noid', $request->noid)
 			->where('ids', $request->ids)
@@ -804,7 +809,7 @@ class KepegawaianController extends Controller
 
 	public function formdeletegolpegawai(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checksession(); //$this->checkSessionTime();
 
 		$cekcountgol = Emp_gol::where('noid', $request->noid)->where('sts', 1)->count();
 		if ($cekcountgol == 1) {
@@ -826,7 +831,7 @@ class KepegawaianController extends Controller
 
 	public function forminsertjabpegawai(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checksession(); //$this->checkSessionTime();
 
 		// $jabatan = explode("||", $request->jabatan);
 		// $jns_jab = $jabatan[0];
@@ -897,7 +902,7 @@ class KepegawaianController extends Controller
 
 	public function formupdatejabpegawai(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checksession(); //$this->checkSessionTime();
 
 		// $jabatan = explode("||", $request->jabatan);
 		// $jns_jab = $jabatan[0];
@@ -943,7 +948,7 @@ class KepegawaianController extends Controller
 
 	public function formdeletejabpegawai(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checksession(); //$this->checkSessionTime();
 
 		$cekcountjab = Emp_jab::where('noid', $request->noid)->where('sts', 1)->count();
 		if ($cekcountjab == 1) {
@@ -967,7 +972,7 @@ class KepegawaianController extends Controller
 
 	public function strukturorganisasi()
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checksession(); //$this->checkSessionTime();
 
 		$employees = DB::select( DB::raw("  
 						SELECT id_emp, nm_emp, foto, tbjab.idjab, tbjab.idunit, tbunit.child, tbunit.sao, tbunit.nm_unit from bpaddtfake.dbo.emp_data as a
@@ -990,7 +995,7 @@ class KepegawaianController extends Controller
 
 	public function statusdisposisi()
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checksession(); //$this->checkSessionTime();
 		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
 		$currentpath = explode("?", $currentpath)[0];
 		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
@@ -1316,7 +1321,7 @@ class KepegawaianController extends Controller
 
 	public function suratkeluar()
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checksession(); //$this->checkSessionTime();
 		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
 		$currentpath = explode("?", $currentpath)[0];
 		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
@@ -1333,7 +1338,7 @@ class KepegawaianController extends Controller
 
 	public function suratkeluartambah()
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checksession(); //$this->checkSessionTime();
 
 		$disposisis = Fr_disposisi::
 						limit(200)
@@ -1351,7 +1356,7 @@ class KepegawaianController extends Controller
 
 	public function suratkeluarubah(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checksession(); //$this->checkSessionTime();
 
 		$surat = Fr_suratkeluar::
 					where('ids', $request->ids)
@@ -1374,7 +1379,7 @@ class KepegawaianController extends Controller
 
 	public function forminsertsuratkeluar(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checksession(); //$this->checkSessionTime();
 		$accessid = $this->checkAccess($_SESSION['user_data']['idgroup'], 1375);
 
 		$maxnoform = Fr_suratkeluar::max('no_form');
@@ -1436,7 +1441,7 @@ class KepegawaianController extends Controller
 
 	public function formupdatesuratkeluar(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checksession(); //$this->checkSessionTime();
 
 		$filesuratkeluar = '';
 
@@ -1484,7 +1489,7 @@ class KepegawaianController extends Controller
 
 	public function formdeletesuratkeluar(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checksession(); //$this->checkSessionTime();
 		$filepath = '';
 		$filepath .= config('app.savefilesuratkeluar');
 		$filepath .= '/' . $request->nm_file;
@@ -1509,7 +1514,7 @@ class KepegawaianController extends Controller
 
 	public function entrikinerja(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checksession(); //$this->checkSessionTime();
 		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
 		$currentpath = explode("?", $currentpath)[0];
 		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
@@ -1542,7 +1547,7 @@ class KepegawaianController extends Controller
 
 	public function kinerjatambah(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checksession(); //$this->checkSessionTime();
 
 		date_default_timezone_set('Asia/Jakarta');
 
@@ -1642,7 +1647,7 @@ class KepegawaianController extends Controller
 
 	public function forminsertkinerja(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checksession(); //$this->checkSessionTime();
 
 		$idemp = Auth::user()->id_emp;
 		$splittgltrans = explode("/", $request->tgl_trans);
@@ -1707,7 +1712,7 @@ class KepegawaianController extends Controller
 
 	public function formdeletekinerja(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checksession(); //$this->checkSessionTime();
 
 		Kinerja_data::	
 			where('idemp', $request->idemp)
@@ -1909,7 +1914,7 @@ class KepegawaianController extends Controller
 
 	public function approvekinerja(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checksession(); //$this->checkSessionTime();
 		// $currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
 		// $currentpath = explode("?", $currentpath)[0];
 		// $thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
@@ -1988,7 +1993,7 @@ class KepegawaianController extends Controller
 
 	public function formapprovekinerja(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checksession(); //$this->checkSessionTime();
 
 		foreach ($request->laporan as $key => $data) {
 			$idemp = $request->{'idemp_'.$data};
@@ -2036,7 +2041,7 @@ class KepegawaianController extends Controller
 
 	public function formapprovekinerjasingle(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checksession(); //$this->checkSessionTime();
 
 		$tgl_trans = date('Y-m-d',strtotime($request->tgl_trans));
 
@@ -2599,7 +2604,7 @@ class KepegawaianController extends Controller
 
 	public function laporankinerja(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checksession(); //$this->checkSessionTime();
 		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
 		$currentpath = explode("?", $currentpath)[0];
 		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');

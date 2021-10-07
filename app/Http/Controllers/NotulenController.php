@@ -25,9 +25,15 @@ class NotulenController extends Controller
 		set_time_limit(300);
 	}
 
+	public function checksession() {
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+	}
+
 	public function notulenall(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
 		$currentpath = explode("?", $currentpath)[0];
 		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
@@ -128,7 +134,7 @@ class NotulenController extends Controller
 
 	public function mynotulen(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
 		$currentpath = explode("?", $currentpath)[0];
 		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
@@ -252,7 +258,7 @@ class NotulenController extends Controller
 
     public function tambahnotulen(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
 		$currentpath = explode("?", $currentpath)[0];

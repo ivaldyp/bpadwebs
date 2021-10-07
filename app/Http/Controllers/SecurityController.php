@@ -20,6 +20,12 @@ class SecurityController extends Controller
 {
 	use SessionCheckTraits;
 
+	public function checksession() {
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+	}
+
 	// // // GRUP USER // // // 
 
 	public function display_roles($query, $idgroup, $access, $parent, $level = 0)
@@ -72,7 +78,7 @@ class SecurityController extends Controller
 
 	public function grupall()
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
 		$currentpath = explode("?", $currentpath)[0];
 		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
@@ -90,7 +96,7 @@ class SecurityController extends Controller
 
 	public function grupubah(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 		$access = json_decode('{"sts":"1","uname":"qnoy","tgl":"2019-08-16 08:51:44.000","ip":"10.192.153.42","logbuat":null,"idgroup":"SUPERUSER","idtop":"4.0","zviw":"y","zadd":"y","zupd":"y","zdel":"y","zapr":"y","zprint":null,"zdwd":null,"zfor":null,"zint":null}');
 		$access = json_decode(json_encode($access), true);
 
@@ -113,7 +119,7 @@ class SecurityController extends Controller
 
 	public function forminsertgrup(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 		// $access = $this->checkAccess($_SESSION['user_data']['idgroup'], 4);
 
 		$namecheck = Sec_access::
@@ -151,7 +157,7 @@ class SecurityController extends Controller
 
 	public function formupdategrup(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 		// $access = $this->checkAccess($_SESSION['user_data']['idgroup'], 4);
 
 		!(isset($request->zviw)) ? $zviw = '' : $zviw = 'y';
@@ -178,7 +184,7 @@ class SecurityController extends Controller
 
 	public function formdeletegrup(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 		// $access = $this->checkAccess($_SESSION['user_data']['idgroup'], 4);
 
 		$cari1 = Sec_logins::
@@ -212,7 +218,7 @@ class SecurityController extends Controller
 
 	public function tambahuser()
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
 		$currentpath = explode("?", $currentpath)[0];
 		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
@@ -230,7 +236,7 @@ class SecurityController extends Controller
 
 	public function forminsertuser(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 		// $access = $this->checkAccess($_SESSION['user_data']['idgroup'], 5);
 
 		$data = [
@@ -282,7 +288,7 @@ class SecurityController extends Controller
 
 	public function manageuser()
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
 		$currentpath = explode("?", $currentpath)[0];
 		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
@@ -306,7 +312,7 @@ class SecurityController extends Controller
 
 	public function formupdateuser(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 		// $access = $this->checkAccess($_SESSION['user_data']['idgroup'], 6);
 
 		$query = Sec_logins::
@@ -326,7 +332,7 @@ class SecurityController extends Controller
 
 	public function formupdatepassuser(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 		// $access = $this->checkAccess($_SESSION['user_data']['idgroup'], 6);
 		
 		Sec_logins::
@@ -342,7 +348,7 @@ class SecurityController extends Controller
 
 	public function formdeleteuser(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 		// $access = $this->checkAccess($_SESSION['user_data']['idgroup'], 6);
 
 		$query = Sec_logins::

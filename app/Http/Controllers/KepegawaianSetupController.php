@@ -25,9 +25,15 @@ class KepegawaianSetupController extends Controller
 		set_time_limit(300);
 	}
 
+	public function checksession() {
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+	}
+
 	public function unitall(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
 		$currentpath = explode("?", $currentpath)[0];
 		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');

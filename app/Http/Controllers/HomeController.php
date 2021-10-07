@@ -32,6 +32,12 @@ class HomeController extends Controller
 		set_time_limit(300);
 	}
 
+	public function checksession() {
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+	}
+
 	public function display_menus($query, $parent, $level = 0, $idgroup)
 	{
 		if ($parent == 0) {
@@ -125,7 +131,7 @@ class HomeController extends Controller
 
 	public function index(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 		
 		unset($_SESSION['user_data']);
 		unset($_SESSION['notifs']);

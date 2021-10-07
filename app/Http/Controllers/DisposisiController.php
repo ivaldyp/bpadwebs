@@ -46,6 +46,12 @@ class DisposisiController extends Controller
 		set_time_limit(600);
 	}
 
+	public function checksession() {
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+	}
+
 	public function log(Request $request)
 	{
 		$dispmaster = DB::select( DB::raw("SELECT TOP (100) [ids]
@@ -159,7 +165,7 @@ class DisposisiController extends Controller
 
 	public function formdisposisi(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
 		$currentpath = explode("?", $currentpath)[0];
 		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
@@ -522,7 +528,7 @@ class DisposisiController extends Controller
 
 	public function disposisitambah(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		// $maxnoform = Fr_disposisi::max('no_form');
 
@@ -843,7 +849,7 @@ class DisposisiController extends Controller
 
 	public function forminsertdisposisi(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		if (isset($request->jabatans) && isset($request->stafs)) {
 			return redirect('/disposisi/tambah disposisi')
@@ -1118,7 +1124,7 @@ class DisposisiController extends Controller
 
 	public function formupdatedisposisi(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		if (isset($request->jabatans) && isset($request->stafs)) {
 			return redirect('/disposisi/ubah disposisi?ids='.$request->ids)
@@ -1450,7 +1456,7 @@ class DisposisiController extends Controller
 
 	public function disposisi(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
 		$currentpath = explode("?", $currentpath)[0];
 		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
@@ -2012,7 +2018,9 @@ class DisposisiController extends Controller
 											      ,[sao]
 											      ,[tgl_unit]
 											  FROM [bpaddtfake].[dbo].[glo_org_unitkerja]
-											  WHERE LEN(kd_unit) < 10  
+											  WHERE LEN(kd_unit) < 10
+											  and len(kd_unit) >= LEN($kd_unit)
+											  and kd_unit <> '$kd_unit'
 											  ORDER BY LEN(kd_unit), kd_unit asc") );
 			$jabatans = json_decode(json_encode($jabatans), true);
 
@@ -2047,7 +2055,7 @@ class DisposisiController extends Controller
 
 	public function formlihatdisposisi(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		if (isset($request->jabatans) && isset($request->stafs)) {
 			return redirect('/disposisi/lihat disposisi?ids='.$request->ids)

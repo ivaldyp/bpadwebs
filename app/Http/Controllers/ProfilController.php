@@ -52,6 +52,12 @@ class ProfilController extends Controller
 		$this->middleware('auth');
 	}
 
+	public function checksession() {
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+	}
+
 	public function printdrh(Request $request)
 	{
 		if (Auth::user()->id_emp) {
@@ -127,7 +133,7 @@ class ProfilController extends Controller
 
 	public function pegawai(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
 		$currentpath = explode("?", $currentpath)[0];
 		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
@@ -237,7 +243,7 @@ class ProfilController extends Controller
 
 	public function formupdateidpegawai(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		$id_emp = $request->id_emp;
 		$filefoto = '';
@@ -404,7 +410,7 @@ class ProfilController extends Controller
 
 	public function forminsertkelpegawai (Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		$id_emp = $_SESSION['user_data']['id_emp'];
 
@@ -429,7 +435,7 @@ class ProfilController extends Controller
 
 	public function formupdatekelpegawai (Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		$id_emp = $_SESSION['user_data']['id_emp'];
 
@@ -450,7 +456,7 @@ class ProfilController extends Controller
 
 	public function formdeletekelpegawai(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		$id_emp = $_SESSION['user_data']['id_emp'];
 
@@ -495,7 +501,7 @@ class ProfilController extends Controller
 
 	public function forminsertdikpegawai (Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		$id_emp = $_SESSION['user_data']['id_emp'];
 		$fileijazah = '';
@@ -557,7 +563,7 @@ class ProfilController extends Controller
 
 	public function formupdatedikpegawai (Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		$id_emp = $_SESSION['user_data']['id_emp'];
 		$fileijazah = '';
@@ -620,7 +626,7 @@ class ProfilController extends Controller
 
 	public function formdeletedikpegawai(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		$id_emp = $_SESSION['user_data']['id_emp'];
 
@@ -665,7 +671,7 @@ class ProfilController extends Controller
 
 	public function forminsertnonpegawai (Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		$id_emp = $_SESSION['user_data']['id_emp'];
 		$filenon = '';
@@ -730,7 +736,7 @@ class ProfilController extends Controller
 
 	public function formupdatenonpegawai (Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		$id_emp = $_SESSION['user_data']['id_emp'];
 		$filenon = '';
@@ -790,7 +796,7 @@ class ProfilController extends Controller
 
 	public function formdeletenonpegawai(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		$id_emp = $_SESSION['user_data']['id_emp'];
 
@@ -835,7 +841,7 @@ class ProfilController extends Controller
 
 	public function forminsertgolpegawai (Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		$id_emp = $_SESSION['user_data']['id_emp'];
 		$filegol = '';
@@ -896,7 +902,7 @@ class ProfilController extends Controller
 
 	public function formupdategolpegawai (Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		$id_emp = $_SESSION['user_data']['id_emp'];
 		$filegol = '';
@@ -957,7 +963,7 @@ class ProfilController extends Controller
 
 	public function formdeletegolpegawai(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		$id_emp = $_SESSION['user_data']['id_emp'];
 
@@ -1007,7 +1013,7 @@ class ProfilController extends Controller
 
 	public function forminsertjabpegawai (Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		$id_emp = $_SESSION['user_data']['id_emp'];
 		$filejab = '';
@@ -1109,7 +1115,7 @@ class ProfilController extends Controller
 
 	public function formupdatejabpegawai(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		$id_emp = $_SESSION['user_data']['id_emp'];
 		$filejab = '';
@@ -1190,7 +1196,7 @@ class ProfilController extends Controller
 
 	public function formdeletejabpegawai(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		$id_emp = $_SESSION['user_data']['id_emp'];
 
@@ -1240,7 +1246,7 @@ class ProfilController extends Controller
 
 	public function forminserthukpegawai (Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		$id_emp = $_SESSION['user_data']['id_emp'];
 		$filehuk = '';
@@ -1305,7 +1311,7 @@ class ProfilController extends Controller
 
 	public function formupdatehukpegawai (Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		$id_emp = $_SESSION['user_data']['id_emp'];
 		$filehuk = '';
@@ -1363,7 +1369,7 @@ class ProfilController extends Controller
 
 	public function formdeletehukpegawai(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		$id_emp = $_SESSION['user_data']['id_emp'];
 
@@ -1408,7 +1414,7 @@ class ProfilController extends Controller
 
 	public function disposisi(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
 		$currentpath = explode("?", $currentpath)[0];
 		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
@@ -1548,7 +1554,7 @@ class ProfilController extends Controller
 
 	public function disposisilihat (Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		if (Auth::user()->id_emp == $request->to_id) {
 			$rd_status = Fr_disposisi::
@@ -1676,7 +1682,7 @@ class ProfilController extends Controller
 
 	public function disposisitambah (Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		$maxnoform = Fr_disposisi::max('no_form');
 		$kddispos = Glo_disposisi_kode::orderBy('kd_jnssurat')->get();
@@ -1731,7 +1737,7 @@ class ProfilController extends Controller
 
 	public function formviewdisposisi(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 		//kalo dia orang TU brarti ngubah form doang
 
 		if (is_null($_SESSION['user_data']['id_emp'])) {
@@ -2125,7 +2131,7 @@ class ProfilController extends Controller
 
 	public function forminsertdisposisi(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		// (IDENTITAS) cek dan set variabel untuk file foto pegawai
 		$file = $request->nm_file;
@@ -2305,7 +2311,7 @@ class ProfilController extends Controller
 
 	public function formdeletedisposisi(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		$this->deleteLoopDisposisi($request->ids);
 

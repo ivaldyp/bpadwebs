@@ -42,6 +42,12 @@ class CmsController extends Controller
 		$this->middleware('auth');
 	}
 
+	public function checksession() {
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+	}
+
 	// ------------------ MENU ------------------ //
 
 	public function display_roles($query, $idgroup, $access, $parent, $level = 0)
@@ -112,7 +118,7 @@ class CmsController extends Controller
 
 	public function menuall(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
 		$currentpath = explode("?", $currentpath)[0];
 		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
@@ -129,7 +135,7 @@ class CmsController extends Controller
 
 	public function forminsertmenu(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		$maxids = Sec_menu::max('ids');
 		$urut = intval(Sec_menu::where('sao', $request->sao)
@@ -206,7 +212,7 @@ class CmsController extends Controller
 
 	public function formupdatemenu(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		Sec_menu::
 			where('ids', $request->ids)
@@ -258,7 +264,7 @@ class CmsController extends Controller
 
 	public function formdeletemenu(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		// hapus menu dari tabel access
 		$this->deleteLoopAccess($request->ids);
@@ -294,7 +300,7 @@ class CmsController extends Controller
 
 	public function menuakses(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		$idtop = $request->menu;
 		$desk = $request->nama;
@@ -311,7 +317,7 @@ class CmsController extends Controller
 
 	public function formupdateaccess(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		$idtop = $request->idtop;
 		$desk = $request->desk;
@@ -381,7 +387,7 @@ class CmsController extends Controller
 
 	public function kategoriall(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
 		$currentpath = explode("?", $currentpath)[0];
 		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
@@ -398,7 +404,7 @@ class CmsController extends Controller
 
 	public function forminsertkategori(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		$result = [
 				'sts'       => $request->sts,
@@ -423,7 +429,7 @@ class CmsController extends Controller
 
 	public function formupdatekategori(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		Glo_kategori::
 			where('ids', $request->ids)
@@ -439,7 +445,7 @@ class CmsController extends Controller
 
 	public function formdeletekategori(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		// hapus menu dari tabel kategori
 		$delete = Glo_kategori::
@@ -459,7 +465,7 @@ class CmsController extends Controller
 
 	public function subkategoriall(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
 		$currentpath = explode("?", $currentpath)[0];
 		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
@@ -482,7 +488,7 @@ class CmsController extends Controller
 
 	public function forminsertsubkategori(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		$maxurut = Glo_subkategori::max('urut_subkat');
 		$maxurut = $maxurut+1;
@@ -508,7 +514,7 @@ class CmsController extends Controller
 
 	public function formupdatesubkategori(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		Glo_subkategori::
 			where('ids', $request->ids)
@@ -524,7 +530,7 @@ class CmsController extends Controller
 
 	public function formdeletesubkategori(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		// hapus menu dari tabel kategori
 		$delete = Glo_subkategori::
@@ -544,7 +550,7 @@ class CmsController extends Controller
 
 	public function contentall(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
 		$currentpath = explode("?", $currentpath)[0];
 		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
@@ -839,7 +845,7 @@ class CmsController extends Controller
 
 	public function contenttambah(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		$subkats = Glo_subkategori::
 					where('idkat', $request->kat)
@@ -857,7 +863,7 @@ class CmsController extends Controller
 
 	public function contentubah(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		$ids = $request->ids;
 		$idkat = $request->idkat;
@@ -910,7 +916,7 @@ class CmsController extends Controller
 
 	public function forminsertcontent(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		$kat = Glo_kategori::
 					where('ids', $request->idkat)
@@ -1059,7 +1065,7 @@ class CmsController extends Controller
 
 	public function formupdatecontent(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		$kat = Glo_kategori::
 					where('ids', $request->idkat)
@@ -1261,7 +1267,7 @@ class CmsController extends Controller
 
 	public function formapprcontent(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		Content_tb::
 			where('ids', $request->ids)
@@ -1276,7 +1282,7 @@ class CmsController extends Controller
 
 	public function formdeletecontent(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		// hapus menu dari tabel kategori
 		Content_tb::
@@ -1354,7 +1360,7 @@ class CmsController extends Controller
 
 	public function produkall(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
 		$currentpath = explode("?", $currentpath)[0];
 		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
@@ -1372,7 +1378,7 @@ class CmsController extends Controller
 
 	public function forminsertproduk(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		$cekexists = New_icon_produk::where('name', $request->name)->count();
 		if ($cekexists > 0) {
@@ -1452,7 +1458,7 @@ class CmsController extends Controller
 
 	public function formupdateproduk(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		if (isset($request->imgstatic)) {
 			$file = $request->imgstatic;
@@ -1536,7 +1542,7 @@ class CmsController extends Controller
 
 	public function formdeleteproduk(Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		// hapus produk
 
@@ -1555,7 +1561,7 @@ class CmsController extends Controller
 
 	public function approve (Request $request)
 	{
-		$this->checkSessionTime();
+		$this->checksession(); //$this->checkSessionTime();
 
 		$approveds = Setup_can_approve::first();
 
