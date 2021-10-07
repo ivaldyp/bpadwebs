@@ -73,7 +73,7 @@
 								<div class="panel-body">
 									<div class="col-md-6">
 
-										<div class="form-group">
+										<!-- <div class="form-group"> 
 											<label class="col-md-2 control-label"> No Form </label>
 											<div class="col-md-8">
 												<?php 
@@ -83,9 +83,9 @@
 												?>
 												<input autocomplete="off" type="text" class="form-control" value="{{ $maxnoform }}" disabled>
 												<input autocomplete="off" type="hidden" name="newnoform" class="form-control" id="newnoform" value="{{ $maxnoform }}">
-												<!-- <p>{{ $newnoform[0] . '.' . $newnoform[1] . '.' . $newnoform[2] . '.' . ($newnoform[3]+1) }}</p> -->
+												
 											</div>
-										</div>
+										</div>  -->
 
 										<div class="form-group">
 											<label class="col-md-2 control-label"> Kode Surat </label>
