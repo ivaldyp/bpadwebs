@@ -581,6 +581,36 @@ class DisposisiController extends Controller
 		// 											  order by jabatan asc") );
 		// $jabatans = json_decode(json_encode($jabatans), true);
 
+		var_dump($_SESSION['user_data']['deskripsi_user']);
+		die;
+
+		if(!(is_null($_SESSION['user_data']['deskripsi_user'])) && $_SESSION['user_data']['deskripsi_user'] != '') {
+			if(strlen($_SESSION['user_data']['deskripsi_user']) == 2) {
+				if ($_SESSION['user_data']['deskripsi_user'] == '51' )
+					$kd_unit = '010151';
+				elseif ($_SESSION['user_data']['deskripsi_user'] == '52' )
+					$kd_unit = '010152';
+				elseif ($_SESSION['user_data']['deskripsi_user'] == '53' )
+					$kd_unit = '010153';
+				elseif ($_SESSION['user_data']['deskripsi_user'] == '54' )
+					$kd_unit = '010154';
+				elseif ($_SESSION['user_data']['deskripsi_user'] == '55' )
+					$kd_unit = '010155';
+				elseif ($_SESSION['user_data']['deskripsi_user'] == '56' )
+					$kd_unit = '010156';
+				elseif ($_SESSION['user_data']['deskripsi_user'] == '06' )
+					$kd_unit = '010106';
+				elseif ($_SESSION['user_data']['deskripsi_user'] == '07' )
+					$kd_unit = '010107';
+				elseif ($_SESSION['user_data']['deskripsi_user'] == '08' )
+					$kd_unit = '010108';
+				else 
+					$kd_unit = '01';
+			} else {
+				$kd_unit = '01';
+			}
+		}
+
 		$jabatans = DB::select( DB::raw("SELECT [sts]
 										      ,[uname]
 										      ,[tgl]
@@ -595,7 +625,7 @@ class DisposisiController extends Controller
 										      ,[sao]
 										      ,[tgl_unit]
 										  FROM [bpaddtfake].[dbo].[glo_org_unitkerja]
-										  WHERE LEN(kd_unit) = 2  
+										  WHERE kd_unit = '$kd_unit'  
 										  ORDER BY kd_unit asc, nm_unit asc ") );
 		$jabatans = json_decode(json_encode($jabatans), true);
 
