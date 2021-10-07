@@ -581,9 +581,6 @@ class DisposisiController extends Controller
 		// 											  order by jabatan asc") );
 		// $jabatans = json_decode(json_encode($jabatans), true);
 
-		var_dump($_SESSION['user_data']['deskripsi_user']);
-		die;
-
 		if(!(is_null($_SESSION['user_data']['deskripsi_user'])) && $_SESSION['user_data']['deskripsi_user'] != '') {
 			if(strlen($_SESSION['user_data']['deskripsi_user']) == 2) {
 				if ($_SESSION['user_data']['deskripsi_user'] == '51' )
