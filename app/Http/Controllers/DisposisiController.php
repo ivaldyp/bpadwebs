@@ -893,24 +893,35 @@ class DisposisiController extends Controller
 					->with('msg_num', 2);
 		}
 
-		$ceknoform = Fr_disposisi::where('no_form', $request->newnoform)
-									->where('sts', 1)
-									->count();
-		if ($ceknoform != 0) {
-			$maxnoform = DB::select( DB::raw("SELECT max(no_form) as maks
+		// $ceknoform = Fr_disposisi::where('no_form', $request->newnoform)
+		// 							->where('sts', 1)
+		// 							->count();
+		// if ($ceknoform != 0) {
+		// 	$maxnoform = DB::select( DB::raw("SELECT max(no_form) as maks
+		// 								  FROM [bpaddtfake].[dbo].[fr_disposisi]
+		// 								  where sts = 1") );
+		// 	$maxnoform = json_decode(json_encode($maxnoform), true);
+		// 	if (is_null($maxnoform)) {
+		// 	$maxnoform = '1.20.512.'.substr(date('Y'), -2).'100001';
+		// 	} else {
+		// 		$splitmaxform = explode(".", $maxnoform[0]['maks']);
+		// 		$maxnoform = $splitmaxform[0] . '.' . $splitmaxform[1] . '.' . $splitmaxform[2] . '.' . substr(date('Y'), -2) . substr(($splitmaxform[3]+1), -6);
+		// 	}
+		// } else {
+		// 	$maxnoform = $request->newnoform;
+		// 	$splitmaxform = explode(".", $maxnoform);
+		// 	$maxnoform = $splitmaxform[0] . '.' . $splitmaxform[1] . '.' . $splitmaxform[2] . '.' . substr(date('Y'), -2) . substr(($splitmaxform[3]), -6);
+		// }
+
+		$maxnoform = DB::select( DB::raw("SELECT max(no_form) as maks
 										  FROM [bpaddtfake].[dbo].[fr_disposisi]
 										  where sts = 1") );
-			$maxnoform = json_decode(json_encode($maxnoform), true);
-			if (is_null($maxnoform)) {
-			$maxnoform = '1.20.512.'.substr(date('Y'), -2).'100001';
-			} else {
-				$splitmaxform = explode(".", $maxnoform[0]['maks']);
-				$maxnoform = $splitmaxform[0] . '.' . $splitmaxform[1] . '.' . $splitmaxform[2] . '.' . substr(date('Y'), -2) . substr(($splitmaxform[3]+1), -6);
-			}
+		$maxnoform = json_decode(json_encode($maxnoform), true);
+		if (is_null($maxnoform)) {
+		$maxnoform = '1.20.512.'.substr(date('Y'), -2).'100001';
 		} else {
-			$maxnoform = $request->newnoform;
-			$splitmaxform = explode(".", $maxnoform);
-			$maxnoform = $splitmaxform[0] . '.' . $splitmaxform[1] . '.' . $splitmaxform[2] . '.' . substr(date('Y'), -2) . substr(($splitmaxform[3]), -6);
+			$splitmaxform = explode(".", $maxnoform[0]['maks']);
+			$maxnoform = $splitmaxform[0] . '.' . $splitmaxform[1] . '.' . $splitmaxform[2] . '.' . substr(date('Y'), -2) . substr(($splitmaxform[3]+1), -6);
 		}
 
 		$diryear = (isset($request->tgl_masuk) ? date('Y',strtotime(str_replace('/', '-', $request->tgl_masuk))) : date('Y'));

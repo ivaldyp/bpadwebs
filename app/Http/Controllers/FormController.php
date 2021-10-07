@@ -68,6 +68,37 @@ class FormController extends Controller
 	
 	public function simpanform(Request $request)
 	{
+		var_dump($request->all());
+		die;
+
+		$filefoto = '';
+
+		// (IDENTITAS) cek dan set variabel untuk file foto pegawai
+		if (isset($request->fotohadir)) {
+
+            $data = $request->fotohadir;
+            list($type, $data) = explode(';', $data);
+            list(, $data)      = explode(',', $data);
+            $data = base64_decode($data);
+
+            $filefoto .= $request->absentgl . "_" . $request->absenjenis . ".png";
+            
+			$tujuan_upload = config('app.savefilekehadiran');
+			$tujuan_upload .= "\\" . $request->absenid . "\\";
+            $tujuan_upload .= "\\" . $filefoto;
+
+            if (!is_dir(config('app.savefilekehadiran') . "\\" . $request->absenid)) {
+                // dir doesn'kt exist, make it
+                mkdir(config('app.savefilekehadiran') . "\\" . $request->absenid);
+            }
+
+            file_put_contents($tujuan_upload, $data);   
+		}
+			
+		if (!(isset($filefoto))) {
+			$filefoto = '';
+		}
+
 		date_default_timezone_set('Asia/Jakarta');
 		$insert = [
 				'tgl'       	=> date('Y-m-d H:i:s'),	

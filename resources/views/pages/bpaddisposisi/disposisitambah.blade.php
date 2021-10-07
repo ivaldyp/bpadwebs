@@ -73,19 +73,22 @@
 								<div class="panel-body">
 									<div class="col-md-6">
 
+										<?php 
+											$newnoform = explode(".", $maxnoform); 
+											$randomletter = substr(str_shuffle("123456789ABCDEFGHIJKLMNPQRSTUVWXYZ"), 0, 6);
+											$randomletter .= substr(($newnoform[3]), -3);
+										?>
+
 										<!-- <div class="form-group"> 
 											<label class="col-md-2 control-label"> No Form </label>
 											<div class="col-md-8">
-												<?php 
-													$newnoform = explode(".", $maxnoform); 
-													$randomletter = substr(str_shuffle("123456789ABCDEFGHIJKLMNPQRSTUVWXYZ"), 0, 6);
-													$randomletter .= substr(($newnoform[3]), -3);
-												?>
+												
 												<input autocomplete="off" type="text" class="form-control" value="{{ $maxnoform }}" disabled>
 												<input autocomplete="off" type="hidden" name="newnoform" class="form-control" id="newnoform" value="{{ $maxnoform }}">
 												
 											</div>
-										</div>  -->
+										</div> -->
+										<input autocomplete="off" type="hidden" name="newnoform" class="form-control" id="newnoform" value="{{ $maxnoform }}">
 
 										<div class="form-group">
 											<label class="col-md-2 control-label"> Kode Surat </label>
