@@ -68,31 +68,52 @@ class FormController extends Controller
 	
 	public function simpanform(Request $request)
 	{
-		var_dump($request->all());
-		die;
-
 		$filefoto = '';
+
+		// // (IDENTITAS) cek dan set variabel untuk file foto pegawai
+
+		// if (isset($request->fotohadir)) {
+		// 	$file = $request->fotohadir;
+			
+        //     // $filefoto .= $request->absentgl . "_" . $request->absenjenis . ".png";
+		// 	$filefoto .= str_replace(".", "", $request->id_emp) . "." . $file->getClientOriginalExtension();
+            
+		// 	$tujuan_upload = config('app.savefilekehadiran');
+		// 	$tujuan_upload .= "\\" . $request->form;
+		// 	// $tujuan_upload .= "\\" . $request->id_emp;
+        //     $tujuan_upload .= "\\" . $filefoto;
+
+        //     if (!is_dir(config('app.savefilekehadiran') . "\\" . $request->form)) {
+        //         // dir doesn'kt exist, make it
+        //         mkdir(config('app.savefilekehadiran') . "\\" . $request->form);
+        //     }
+
+        //     file_put_contents($tujuan_upload, $filefoto);   
+		// }
+			
+		// if (!(isset($filefoto))) {
+		// 	$filefoto = '';
+		// }
 
 		// (IDENTITAS) cek dan set variabel untuk file foto pegawai
 		if (isset($request->fotohadir)) {
+			$file = $request->fotohadir;
 
-            $data = $request->fotohadir;
-            list($type, $data) = explode(';', $data);
-            list(, $data)      = explode(',', $data);
-            $data = base64_decode($data);
+			$filefoto .= $request->id_emp . "." . $file->getClientOriginalExtension();
 
-            $filefoto .= $request->absentgl . "_" . $request->absenjenis . ".png";
-            
+			// $tujuan_upload = config('app.savefilekehadiran');
+			// $tujuan_upload .= "\\" . $id_emp . "\\profil";
+
 			$tujuan_upload = config('app.savefilekehadiran');
-			$tujuan_upload .= "\\" . $request->absenid . "\\";
-            $tujuan_upload .= "\\" . $filefoto;
+			$tujuan_upload .= "\\" . $request->form;
+			// $tujuan_upload .= "\\" . $request->id_emp;
+            // $tujuan_upload .= "\\" . $filefoto;
 
-            if (!is_dir(config('app.savefilekehadiran') . "\\" . $request->absenid)) {
-                // dir doesn'kt exist, make it
-                mkdir(config('app.savefilekehadiran') . "\\" . $request->absenid);
-            }
+			// var_dump($tujuan_upload);
+			// var_dump($filefoto);
+			// die;
 
-            file_put_contents($tujuan_upload, $data);   
+			$file->move($tujuan_upload, $filefoto);
 		}
 			
 		if (!(isset($filefoto))) {
@@ -105,6 +126,7 @@ class FormController extends Controller
 				'no_form'      	=> $request->form,
 				'id_emp'     	=> $request->id_emp,
 				'hadir'       	=> $request->tampil,
+				'foto'			=> $filefoto,
 			];
 		Internal_responsehadir::insert($insert);
 
@@ -143,7 +165,7 @@ class FormController extends Controller
 		$query = ($ref_form['ket_tujuan'] ?? '');
 
 		$emps = DB::select( DB::raw("  
-				SELECT distinct(a.id_emp), a.nip_emp, a.nrk_emp, a.nm_emp, res.hadir as sts, tbunit.kd_unit, tbunit.nm_unit, totalhadir,
+				SELECT distinct(a.id_emp), a.nip_emp, a.nrk_emp, a.nm_emp, res.hadir as sts, tbunit.kd_unit, tbunit.nm_unit, totalhadir, res.foto as foto_emp,
 				CASE WHEN res.hadir = 1
 					THEN 'HADIR'
 					ELSE 'TIDAK HADIR'

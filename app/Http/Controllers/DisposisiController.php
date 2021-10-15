@@ -198,7 +198,14 @@ class DisposisiController extends Controller
 		}
 
 		if ($request->searchnow) {
-			$qsearchnow = "and (kd_surat like '%".$request->searchnow."%' or no_form like '%".$request->searchnow."%' or perihal like '%".$request->searchnow."%' or asal_surat like '%".$request->searchnow."%' or no_surat like '%".$request->searchnow."%' or kode_disposisi like '%".$request->searchnow."%' or no_surat + '/' + kode_disposisi like '%".$request->searchnow."%')";
+			$qsearchnow = "and (kd_surat like '%".$request->searchnow."%' 
+			or no_form like '%".$request->searchnow."%' 
+			or perihal like '%".$request->searchnow."%' 
+			or asal_surat like '%".$request->searchnow."%' 
+			or no_surat like '%".$request->searchnow."%' 
+			or kode_disposisi like '%".$request->searchnow."%' 
+			or usr_input like '%".$request->searchnow."%'
+			or no_surat + '/' + kode_disposisi like '%".$request->searchnow."%')";
 		} else {
 			$qsearchnow = "";
 		}

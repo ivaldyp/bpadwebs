@@ -109,7 +109,7 @@ class AbsenController extends Controller
             $filefoto .= $request->absentgl . "_" . $request->absenjenis . ".png";
             
 			$tujuan_upload = config('app.savefileabsen');
-			$tujuan_upload .= "\\" . $request->absenid . "\\";
+			$tujuan_upload .= "\\" . $request->absenid;
             $tujuan_upload .= "\\" . $filefoto;
 
             if (!is_dir(config('app.savefileabsen') . "\\" . $request->absenid)) {

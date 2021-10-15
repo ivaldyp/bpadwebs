@@ -82,7 +82,7 @@
 
                     @else
 
-                    <form method="POST" action="/portal/form/simpanform">
+                    <form method="POST" action="/portal/form/simpanform" data-toggle="validator" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div
@@ -130,10 +130,21 @@
 										</div>
 									</div>
                                 </div>
+
+                                <div class="card-body">
+                                    <div class="form-group">
+										<label for="id_emp" class="col-md-12 control-label"><h4>Foto<span style="color: red">*</span></h4><span class="text-muted">JPG, JPEG, GIF, PNG</span> </label>
+										<div class="col-md-12">
+                                            <input type="file" class="form-control" id="fotohadir" name="fotohadir" accept="image/png, image/gif, image/jpeg, image/jpg" required>
+											<div class="help-block with-errors"></div>  
+										</div>
+									</div>
+                                </div>
+                                
                             </div>
                             <input type="hidden" name="form" value="{{ $form['no_form'] }}">
                         </div>
-                        <div class="row" style="justify-content: right; display: flex;">
+                        <div class="row" style="justify-content: right; display: flex; margin-bottom: 100px;">
                             <button class="btn btn-success" style="font-size: 20px;">SIMPAN</button>
                         </div>
                     </form>
