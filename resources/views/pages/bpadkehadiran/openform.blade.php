@@ -133,9 +133,9 @@
 
                                 <div class="card-body">
                                     <div class="form-group">
-										<label for="id_emp" class="col-md-12 control-label"><h4>Foto<span style="color: red">*</span></h4><span class="text-muted">JPG, JPEG, GIF, PNG</span> </label>
+										<label for="id_emp" class="col-md-12 control-label"><h4>Foto</h4><span class="text-muted">JPG, JPEG, GIF, PNG</span> </label>
 										<div class="col-md-12">
-                                            <input type="file" class="form-control" id="fotohadir" name="fotohadir" accept="image/png, image/gif, image/jpeg, image/jpg" required>
+                                            <input type="file" class="form-control" id="fotohadir" name="fotohadir" accept="image/png, image/gif, image/jpeg, image/jpg">
 											<div class="help-block with-errors"></div>  
 										</div>
 									</div>
