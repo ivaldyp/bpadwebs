@@ -88,6 +88,13 @@ Route::group(['prefix' => 'content'], function () {
 });
 
 // ------------- BPAD DT --------------
+Route::group(['prefix' => 'mobile'], function () {
+	Route::get('/notif', 'MobileController@notifall');
+	Route::get('/tambah notif', 'MobileController@tambahnotif');
+	Route::post('/form/tambahnotif', 'MobileController@forminsertnotif');
+	Route::post('/form/approvenotif', 'MobileController@formapprovenotif');
+	Route::post('/form/hapusnotif', 'MobileController@formdeletenotif');
+});
 
 Route::group(['prefix' => 'notifikasi'], function () {
 	Route::get('/cek/{jenis}/{ids}', 'NotifikasiController@cek');
