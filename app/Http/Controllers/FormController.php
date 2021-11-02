@@ -165,7 +165,7 @@ class FormController extends Controller
 		$query = ($ref_form['ket_tujuan'] ?? '');
 
 		$emps = DB::select( DB::raw("  
-				SELECT distinct(a.id_emp), a.nip_emp, a.nrk_emp, a.nm_emp, res.hadir as sts, tbunit.kd_unit, tbunit.nm_unit, totalhadir, res.foto as foto_emp,
+				SELECT distinct(a.id_emp), a.nip_emp, a.nrk_emp, a.nm_emp, res.hadir as sts, tbunit.kd_unit, tbunit.nm_unit, totalhadir, res.foto as foto,
 				CASE WHEN res.hadir = 1
 					THEN 'HADIR'
 					ELSE 'TIDAK HADIR'
