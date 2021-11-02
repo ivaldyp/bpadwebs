@@ -109,7 +109,7 @@
                                                         <td style="vertical-align: middle;">{{ $emp['nm_emp'] }}</td>
                                                         <td style="vertical-align: middle;">{{ $emp['nm_unit'] }}</td>
                                                         <td style="vertical-align: middle;">{{ $emp['hadir'] }}</td>
-														<td style="vertical-align: middle;">{{ $emp['foto_emp'] }}</td>
+														<td style="vertical-align: middle;">{{ $emp['foto'] }}</td>
                                                     </tr>
                                                     @endforeach
                                                 </tbody>
