@@ -25,7 +25,7 @@
 							<div class="section-bg" style="background-image: url('{{ ('/portal/public/img/profil/image-01-full.jpg') }}') ; background-size: contain; background-repeat: no-repeat;"></div>
 						</div>
 						<div class="home-item" style="height: 600px">
-							<div class="section-bg" style="background-image: url('{{ ('/portal/public/img/profil/image-02-full.jpg') }}') ; background-size: contain; background-repeat: no-repeat;"></div>
+							<div class="section-bg" style="background-image: url('{{ ('/portal/public/img/profil/image-02-full-2021-2.jpg') }}') ; background-size: contain; background-repeat: no-repeat;"></div>
 						</div>
 						<div class="home-item" style="height: 600px">
 							<div class="section-bg" style="background-image: url('{{ ('/portal/public/img/profil/image-03-full.jpg') }}') ; background-size: contain; background-repeat: no-repeat;"></div>
@@ -37,7 +37,7 @@
 							<div class="section-bg" style="background-image: url('{{ ('/portal/public/img/profil/image-05-full.jpg') }}') ; background-size: contain; background-repeat: no-repeat;"></div>
 						</div>
 						<div class="home-item" style="height: 600px">
-							<div class="section-bg" style="background-image: url('{{ ('/portal/public/img/profil/image-06-full.jpg') }}') ; background-size: contain; background-repeat: no-repeat;"></div>
+							<div class="section-bg" style="background-image: url('{{ ('/portal/public/img/profil/image-06-full-2021-6.jpg') }}') ; background-size: contain; background-repeat: no-repeat;"></div>
 						</div>
 					</div>
 					<!-- <div class="article-img">
