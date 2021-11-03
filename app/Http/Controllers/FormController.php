@@ -16,6 +16,7 @@ use PHPMailer\PHPMailer\Exception;
 use App\Agenda_tb;
 use App\Berita_tb;
 use App\Glo_arsip_kategori;
+use App\Glo_profile_skpd;
 use App\Glo_tujuan_kehadiran;
 use App\Help;
 use App\Internal_arsip;
@@ -50,15 +51,22 @@ class FormController extends Controller
 
 		$query = ($ref_form['ket_tujuan'] ?? '');
 
-		$emps = DB::select( DB::raw("  
-					SELECT id_emp, nrk_emp, nip_emp, nm_emp, a.idgroup_aset as idgroup, tgl_lahir, jnkel_emp, tgl_join, status_emp, tbjab.idjab, tbjab.idunit, tbunit.child, tbunit.nm_unit, d.nm_lok as nm_lok, d.kd_lok as kd_lok  from bpaddtfake.dbo.emp_data as a
-					CROSS APPLY (SELECT TOP 1 tmt_jab,idskpd,idunit,idlok,tmt_sk_jab,no_sk_jab,jns_jab,replace(idjab,'NA::','') as idjab,eselon,gambar FROM bpaddtfake.dbo.emp_jab WHERE a.id_emp=emp_jab.noid AND emp_jab.sts='1' ORDER BY tmt_jab DESC) tbjab
-					CROSS APPLY (SELECT TOP 1 * FROM bpaddtfake.dbo.glo_org_unitkerja WHERE glo_org_unitkerja.kd_unit = tbjab.idunit) tbunit
-					,bpaddtfake.dbo.glo_skpd as b,bpaddtfake.dbo.glo_org_unitkerja as c,bpaddtfake.dbo.glo_org_lokasi as d WHERE tbjab.idskpd=b.skpd AND tbjab.idskpd+'::'+tbjab.idunit=c.kd_skpd+'::'+c.kd_unit AND tbjab.idskpd+'::'+tbjab.idlok=d.kd_skpd+'::'+d.kd_lok AND a.sts='1' AND b.sts='1' AND c.sts='1' AND d.sts='1' 
-					$query
-					and ked_emp = 'aktif'
-					order by tbunit.kd_unit, a.nm_emp"));
-		$emps = json_decode(json_encode($emps), true);
+		if($form['sts'] == 2) {
+			$emps = Glo_profile_skpd::
+					where('tahun', '2022')
+					->orderBy('kolok')
+					->get(['tahun', 'kolokskpd', 'kolok', 'kolokdagri', 'nalok']);
+		} else {
+			$emps = DB::select( DB::raw("  
+			SELECT id_emp, nrk_emp, nip_emp, nm_emp, a.idgroup_aset as idgroup, tgl_lahir, jnkel_emp, tgl_join, status_emp, tbjab.idjab, tbjab.idunit, tbunit.child, tbunit.nm_unit, d.nm_lok as nm_lok, d.kd_lok as kd_lok  from bpaddtfake.dbo.emp_data as a
+			CROSS APPLY (SELECT TOP 1 tmt_jab,idskpd,idunit,idlok,tmt_sk_jab,no_sk_jab,jns_jab,replace(idjab,'NA::','') as idjab,eselon,gambar FROM bpaddtfake.dbo.emp_jab WHERE a.id_emp=emp_jab.noid AND emp_jab.sts='1' ORDER BY tmt_jab DESC) tbjab
+			CROSS APPLY (SELECT TOP 1 * FROM bpaddtfake.dbo.glo_org_unitkerja WHERE glo_org_unitkerja.kd_unit = tbjab.idunit) tbunit
+			,bpaddtfake.dbo.glo_skpd as b,bpaddtfake.dbo.glo_org_unitkerja as c,bpaddtfake.dbo.glo_org_lokasi as d WHERE tbjab.idskpd=b.skpd AND tbjab.idskpd+'::'+tbjab.idunit=c.kd_skpd+'::'+c.kd_unit AND tbjab.idskpd+'::'+tbjab.idlok=d.kd_skpd+'::'+d.kd_lok AND a.sts='1' AND b.sts='1' AND c.sts='1' AND d.sts='1' 
+			$query
+			and ked_emp = 'aktif'
+			order by tbunit.kd_unit, a.nm_emp"));
+			$emps = json_decode(json_encode($emps), true);
+		}
 
 		return view('pages.bpadkehadiran.openform')
 				->with('form', $form)
@@ -120,14 +128,39 @@ class FormController extends Controller
 			$filefoto = '';
 		}
 
+		$form = Internal_kehadiran::
+			join('bpaddtfake.dbo.glo_tujuan_kehadiran', 'bpaddtfake.dbo.glo_tujuan_kehadiran.ids', '=', 'bpaddtfake.dbo.internal_kehadiran.tujuan_id')
+			->where('bpaddtfake.dbo.internal_kehadiran.sts', '1')
+			->where('no_form', $request->form)
+			->orderBy('tgl_mulai', 'desc')
+			->first();
+
 		date_default_timezone_set('Asia/Jakarta');
-		$insert = [
+		if($form['sts'] == 2){
+			$insert = [
 				'tgl'       	=> date('Y-m-d H:i:s'),	
 				'no_form'      	=> $request->form,
 				'id_emp'     	=> $request->id_emp,
 				'hadir'       	=> $request->tampil,
 				'foto'			=> $filefoto,
+				'nama'      	=> $request->nama ?? '',
+				'nip'	      	=> $request->nip ?? '',
+				'nrk'   	   	=> $request->nrk ?? '',
+				'telp'      	=> $request->telp ?? '',
+				'email'      	=> $request->email ?? '',
+				'stat_emp'      => $request->stat_emp,
 			];
+		} else {
+			$insert = [
+					'tgl'       	=> date('Y-m-d H:i:s'),	
+					'no_form'      	=> $request->form,
+					'id_emp'     	=> $request->id_emp,
+					'hadir'       	=> $request->tampil,
+					'foto'			=> $filefoto,
+				];
+		}
+
+		
 		Internal_responsehadir::insert($insert);
 
 		$nextpage = "/form/" . $request->form . "/thanks";

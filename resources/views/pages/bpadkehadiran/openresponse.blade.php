@@ -69,14 +69,25 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <table class="table table-bordered" style="font-weight:bold">
+											@if($form['sts'] == 2)
+											<tr>
+                                                <td>Hadir</td>
+                                                <td>{{ $emps[0]['totalhadir'] }}</td>
+                                            </tr>
+											<tr>
+                                                <td>Tidak Hadir</td>
+                                                <td>{{ $total - $emps[0]['totalhadir'] }}</td>
+                                            </tr>
+											@else
                                             <tr>
                                                 <td>Hadir</td>
                                                 <td>{{ $emps[0]['totalhadir'] }}</td>
                                             </tr>
                                             <tr>
                                                 <td>Tidak Hadir</td>
-                                                <td>{{ count($emps) - $emps[0]['totalhadir'] }}</td>
+                                                <td>{{ $total - $emps[0]['totalhadir'] }}</td>
                                             </tr>
+											@endif
                                         </table>
                                     </div>
                                 </div>
@@ -89,6 +100,34 @@
                                     <div class="col-md-12">
                                         <div class="table-responsive">
                                             <table id="myTable" class=" table table-hover">
+												@if($form['sts'] == 2)
+												<thead>
+                                                    <tr>
+                                                        <th>No</th>
+														<th>OPD</th>
+                                                        <th>Nama</th>
+                                                        <th>NIP & NRK</th>
+                                                        <th>Telp & Email</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach($emps as $key => $emp)
+                                                    <tr>
+                                                        <td style="vertical-align: middle;">{{ $key + 1 }}</td>
+                                                        <td style="vertical-align: middle;">{{ $emp['nalok'] }}</td>
+                                                        <td style="vertical-align: middle;">{{ $emp['nama'] ?? '-' }}</td>
+                                                        <td style="vertical-align: middle;">
+															{{ $emp['nrk'] ?? '-' }}<br>
+															<span class="text-muted">{{ $emp['nip'] ?? '-' }}</span>
+														</td>
+                                                        <td style="vertical-align: middle;">
+															{{ $emp['telp'] ?? '-' }}<br>
+															<span class="text-muted">{{ $emp['email'] ?? '-' }}</span>
+														</td>
+                                                    </tr>
+                                                    @endforeach
+                                                </tbody>
+												@else
                                                 <thead>
                                                     <tr>
                                                         <th>No</th>
@@ -113,6 +152,7 @@
                                                     </tr>
                                                     @endforeach
                                                 </tbody>
+												@endif
                                             </table>
                                         </div>
                                     </div>

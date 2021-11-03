@@ -15,8 +15,10 @@ use PHPMailer\PHPMailer\Exception;
 
 use App\Agenda_tb;
 use App\Berita_tb;
+use App\Emp_data;
 use App\Glo_arsip_kategori;
 use App\Glo_tujuan_kehadiran;
+use App\Glo_profile_skpd;
 use App\Help;
 use App\Internal_arsip;
 use App\Internal_info;
@@ -860,7 +862,8 @@ class InternalController extends Controller
 
 		$maxnoform = DB::select( DB::raw("SELECT max(no_form) as maks
 										  FROM [bpaddtfake].[dbo].[internal_kehadiran]
-										  where sts = 1") );
+										  --where sts = 1
+										  ") );
 		$maxnoform = json_decode(json_encode($maxnoform), true);
 
 		if (is_null($maxnoform[0]['maks'])) {
@@ -871,7 +874,7 @@ class InternalController extends Controller
 		}
 
 		$kats = Glo_tujuan_kehadiran::
-				where('sts', 1)
+				where('sts', '<>', 0)
 				->orderBy('ids')
 				->get();
 
@@ -915,6 +918,7 @@ class InternalController extends Controller
 				'tgl_end'   	=> ($request->tgl_end ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tgl_end))) : ''),	
 				'tujuan_id'     => $request->tujuan_id,
 				'tampil'   		=> $request->tampil,
+				'allow_foto'	=> $request->allow_foto,
 			];
 		Internal_kehadiran::insert($insert);
 
@@ -1029,29 +1033,47 @@ class InternalController extends Controller
 
 		$query = ($ref_form['ket_tujuan'] ?? '');
 
-		$emps = DB::select( DB::raw("  
-				SELECT distinct(a.id_emp), a.nip_emp, a.nrk_emp, a.nm_emp, res.hadir as sts, tbunit.kd_unit, tbunit.nm_unit, totalhadir,
-				CASE WHEN res.hadir = 1
-					THEN 'HADIR'
-					ELSE 'TIDAK HADIR'
-				END as hadir
-				from (select count(id_emp) as totalhadir from bpaddtfake.dbo.internal_responsehadir where hadir = '1' and no_form = '$no_form') counthadir, bpaddtfake.dbo.emp_data a
-				join bpaddtfake.dbo.emp_jab tbjab on tbjab.ids = (SELECT TOP 1 ids FROM bpaddtfake.dbo.emp_jab WHERE emp_jab.noid = a.id_emp and emp_jab.sts='1' ORDER BY tmt_jab DESC)
-				join bpaddtfake.dbo.glo_org_unitkerja tbunit on tbunit.kd_unit = (SELECT TOP 1 idunit FROM bpaddtfake.dbo.glo_org_unitkerja where tbunit.kd_unit = tbjab.idunit)
-				left join bpaddtfake.dbo.internal_responsehadir res on a.id_emp = res.id_emp and res.no_form = '$no_form'
-				where a.ked_emp = 'AKTIF'
-				and a.sts = 1
-				and a.id_emp = tbjab.noid
-				and tbjab.sts = 1
-				$query
-				order by tbunit.kd_unit, nm_emp
-				"));
-		$emps = json_decode(json_encode($emps), true);	
+		if($form['sts'] == 2) {
+			$total = Glo_profile_skpd::count();
+			$emps = DB::select( DB::raw("
+			select opd.kolok, opd.kolokdagri, opd.nalok, res.nama, res.nip, res.nrk, res.telp, res.email, res.stat_emp, totalhadir,
+			CASE WHEN res.hadir = 1
+				THEN 'HADIR'
+				ELSE 'TIDAK HADIR'
+			END as hadir
+			from (select count(id_emp) as totalhadir from bpaddtfake.dbo.internal_responsehadir where hadir = '1' and no_form = '$no_form') counthadir, bpaddtfake.dbo.glo_profile_skpd opd
+			join bpaddtfake.dbo.internal_responsehadir res on opd.kolok = res.id_emp and res.no_form = '$no_form'
+			order by opd.kolok
+			"));
+			$emps = json_decode(json_encode($emps), true);	
+		} else {
+			$total = Emp_data::count();
+			$emps = DB::select( DB::raw("  
+			SELECT max(res.tgl) as tgl, a.id_emp, a.nip_emp, a.nrk_emp, a.nm_emp, res.hadir as sts, tbunit.kd_unit, tbunit.nm_unit, totalhadir, max(res.foto) as foto,
+			CASE WHEN res.hadir = 1
+				THEN 'HADIR'
+				ELSE 'TIDAK HADIR'
+			END as hadir
+			from (select count(distinct(id_emp)) as totalhadir from bpaddtfake.dbo.internal_responsehadir where hadir = '1' and no_form = '$no_form') counthadir, bpaddtfake.dbo.emp_data a
+			join bpaddtfake.dbo.emp_jab tbjab on tbjab.ids = (SELECT TOP 1 ids FROM bpaddtfake.dbo.emp_jab WHERE emp_jab.noid = a.id_emp and emp_jab.sts='1' ORDER BY tmt_jab DESC)
+			join bpaddtfake.dbo.glo_org_unitkerja tbunit on tbunit.kd_unit = (SELECT TOP 1 idunit FROM bpaddtfake.dbo.glo_org_unitkerja where tbunit.kd_unit = tbjab.idunit)
+			left join bpaddtfake.dbo.internal_responsehadir res on a.id_emp = res.id_emp and res.no_form = '$no_form'
+			where a.ked_emp = 'AKTIF'
+			and a.sts = 1
+			and a.id_emp = tbjab.noid
+			and tbjab.sts = 1
+			$query
+			group by a.id_emp, a.nip_emp, a.nrk_emp, a.nm_emp, res.hadir, tbunit.kd_unit, tbunit.nm_unit, totalhadir
+			order by tbunit.kd_unit, nm_emp
+					"));
+			$emps = json_decode(json_encode($emps), true);	
+		}
 
 		return view('pages.bpadkehadiran.openresponse')
 				->with('form', $form)
 				->with('ref_form', $ref_form)
-				->with('emps', $emps);
+				->with('emps', $emps)
+				->with('total', $total);
 	}
 
 	// ========== </FORM KEHADIRAN> ========== //

@@ -130,6 +130,25 @@
 									</div>
 
 									<div class="form-group">
+										<label class="col-md-2 control-label"> Gunakan Foto? </label>
+										<div class="radio-list col-md-8">
+											<label class="radio-inline">
+												<div class="radio radio-info">
+													<input type="radio" name="allow_foto" id="allow_foto1" value="1" data-error="Pilih salah satu" required="" checked="">
+													<label for="allow_foto1">Ya</label> 
+												</div>
+											</label>
+											<label class="radio-inline">
+												<div class="radio radio-info">
+													<input type="radio" name="allow_foto" id="allow_foto2" value="0" >
+													<label for="allow_foto2">Tidak</label>
+												</div>
+											</label>
+											<div class="help-block with-errors"></div>  
+										</div>
+									</div>
+
+									<div class="form-group">
 										<label class="col-md-2 control-label"> Tampilkan? </label>
 										<div class="radio-list col-md-8">
 											<label class="radio-inline">
