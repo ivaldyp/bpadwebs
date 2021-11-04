@@ -45,6 +45,7 @@ Route::group(['prefix' => 'form'], function () {
 	Route::get('/{id}/thanks', 'FormController@openthanksform');
 	Route::get('/{id}/excel', 'InternalController@openexcelform');
 	Route::get('/{id}/lihat', 'InternalController@openresponseform');
+	Route::get('/{id}/lihattt', 'InternalController@openresponseformlihattt');
 	Route::get('/{id}/{judul}', 'FormController@openform');
 	Route::post('/simpanform', 'FormController@simpanform');
 });

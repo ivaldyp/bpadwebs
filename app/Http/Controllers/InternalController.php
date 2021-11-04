@@ -1042,7 +1042,7 @@ class InternalController extends Controller
 				ELSE 'TIDAK HADIR'
 			END as hadir
 			from (select count(distinct(id_emp)) as totalhadir, count(id_emp) as totalorang from bpaddtfake.dbo.internal_responsehadir where hadir = '1' and no_form = '$no_form') counthadir, bpaddtfake.dbo.glo_profile_skpd opd
-			join bpaddtfake.dbo.internal_responsehadir res on opd.kolok = res.id_emp and res.no_form = '$no_form'
+			left join bpaddtfake.dbo.internal_responsehadir res on opd.kolok = res.id_emp and res.no_form = '$no_form'
 			order by opd.kolok
 			"));
 			$emps = json_decode(json_encode($emps), true);	
