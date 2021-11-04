@@ -1036,12 +1036,12 @@ class InternalController extends Controller
 		if($form['sts'] == 2) {
 			$total = Glo_profile_skpd::count();
 			$emps = DB::select( DB::raw("
-			select opd.kolok, opd.kolokdagri, opd.nalok, res.nama, res.nip, res.nrk, res.telp, res.email, res.stat_emp, totalhadir,
+			select opd.kolok, opd.kolokdagri, opd.nalok, res.nama, res.nip, res.nrk, res.telp, res.email, res.stat_emp, totalhadir, totalorang,
 			CASE WHEN res.hadir = 1
 				THEN 'HADIR'
 				ELSE 'TIDAK HADIR'
 			END as hadir
-			from (select count(id_emp) as totalhadir from bpaddtfake.dbo.internal_responsehadir where hadir = '1' and no_form = '$no_form') counthadir, bpaddtfake.dbo.glo_profile_skpd opd
+			from (select count(distinct(id_emp)) as totalhadir, count(id_emp) as totalorang from bpaddtfake.dbo.internal_responsehadir where hadir = '1' and no_form = '$no_form') counthadir, bpaddtfake.dbo.glo_profile_skpd opd
 			join bpaddtfake.dbo.internal_responsehadir res on opd.kolok = res.id_emp and res.no_form = '$no_form'
 			order by opd.kolok
 			"));

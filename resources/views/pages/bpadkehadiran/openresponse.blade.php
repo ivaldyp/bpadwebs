@@ -71,8 +71,16 @@
                                         <table class="table table-bordered" style="font-weight:bold">
 											@if($form['sts'] == 2)
 											<tr>
-                                                <td>Hadir</td>
+                                                <td>Peserta Hadir</td>
+                                                <td>{{ $emps[0]['totalorang'] }}</td>
+                                            </tr>
+											<tr>
+                                                <td>OPD Hadir</td>
                                                 <td>{{ $emps[0]['totalhadir'] }}</td>
+                                            </tr>
+											<tr>
+                                                <td>Hadir</td>
+                                                <td>{{ $total - $emps[0]['totalhadir'] }}</td>
                                             </tr>
 											@else
                                             <tr>
