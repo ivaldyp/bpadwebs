@@ -104,9 +104,10 @@
 														<button style="background-color: transparent; border: none; padding-left: 0px">
 															<i class="fa fa-eye" style="color: #2cabe3;"></i> Lihat
 														</button></a><br>
+														<a href="/portal/form/{{ $hadir['no_form'] }}/excel" target="_blank">
 														<button style="background-color: transparent; border: none; padding-left: 0px">
 															<i class="fa fa-file-excel-o" style="color: forestgreen;"></i> Excel
-														</button>
+														</button></a>
                                                     </td>
                                                     <td style="vertical-align: middle;">
 														<!-- URL -->
