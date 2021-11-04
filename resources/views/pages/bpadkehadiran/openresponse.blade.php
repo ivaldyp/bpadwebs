@@ -108,6 +108,7 @@
 												<thead>
                                                     <tr>
                                                         <th>No</th>
+														<th>Kolok</th>
 														<th>OPD</th>
                                                         <th>Nama</th>
                                                         <th>NIP & NRK</th>
@@ -118,6 +119,10 @@
                                                     @foreach($emps as $key => $emp)
                                                     <tr>
                                                         <td style="vertical-align: middle;">{{ $key + 1 }}</td>
+														<td style="vertical-align: middle;">
+															{{ $emp['kolok'] }}<br>
+															<span class="text-muted">{{ $emp['kolokdagri'] }}</span>
+														</td>
                                                         <td style="vertical-align: middle;">{{ $emp['nalok'] }}</td>
                                                         <td style="vertical-align: middle;">{{ $emp['nama'] ?? '-' }}</td>
                                                         <td style="vertical-align: middle;">
