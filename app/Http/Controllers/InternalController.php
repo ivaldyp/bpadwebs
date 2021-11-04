@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 
+require 'vendor/autoload.php';
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
@@ -1074,6 +1079,207 @@ class InternalController extends Controller
 				->with('ref_form', $ref_form)
 				->with('emps', $emps)
 				->with('total', $total);
+	}
+
+	public function openexcelform($id)
+	{
+		$form = Internal_kehadiran::
+			join('bpaddtfake.dbo.glo_tujuan_kehadiran', 'bpaddtfake.dbo.glo_tujuan_kehadiran.ids', '=', 'bpaddtfake.dbo.internal_kehadiran.tujuan_id')
+			->where('bpaddtfake.dbo.internal_kehadiran.sts', '1')
+			->where('no_form', $id)
+			->orderBy('tgl_mulai', 'desc')
+			->first();
+
+		$no_form = $form['no_form'];
+
+		$ref_form = Glo_tujuan_kehadiran::
+			where('ids', $form['tujuan_id'])
+			->first();
+
+		$query = ($ref_form['ket_tujuan'] ?? '');
+
+		if($form['sts'] == 2) {
+			$total = Glo_profile_skpd::count();
+			$emps = DB::select( DB::raw("
+			select opd.kolok, opd.kolokdagri, opd.nalok, res.nama, res.nip, res.nrk, res.telp, res.email, res.stat_emp, totalhadir, totalorang,
+			CASE WHEN res.hadir = 1
+				THEN 'HADIR'
+				ELSE 'TIDAK HADIR'
+			END as hadir
+			from (select count(distinct(id_emp)) as totalhadir, count(id_emp) as totalorang from bpaddtfake.dbo.internal_responsehadir where hadir = '1' and no_form = '$no_form') counthadir, bpaddtfake.dbo.glo_profile_skpd opd
+			left join bpaddtfake.dbo.internal_responsehadir res on opd.kolok = res.id_emp and res.no_form = '$no_form'
+			order by opd.kolok
+			"));
+			$emps = json_decode(json_encode($emps), true);	
+		} else {
+			$total = Emp_data::count();
+			$emps = DB::select( DB::raw("  
+			SELECT max(res.tgl) as tgl, a.id_emp, a.nip_emp, a.nrk_emp, a.nm_emp, res.hadir as sts, tbunit.kd_unit, tbunit.nm_unit, totalhadir, max(res.foto) as foto,
+			CASE WHEN res.hadir = 1
+				THEN 'HADIR'
+				ELSE 'TIDAK HADIR'
+			END as hadir
+			from (select count(distinct(id_emp)) as totalhadir from bpaddtfake.dbo.internal_responsehadir where hadir = '1' and no_form = '$no_form') counthadir, bpaddtfake.dbo.emp_data a
+			join bpaddtfake.dbo.emp_jab tbjab on tbjab.ids = (SELECT TOP 1 ids FROM bpaddtfake.dbo.emp_jab WHERE emp_jab.noid = a.id_emp and emp_jab.sts='1' ORDER BY tmt_jab DESC)
+			join bpaddtfake.dbo.glo_org_unitkerja tbunit on tbunit.kd_unit = (SELECT TOP 1 idunit FROM bpaddtfake.dbo.glo_org_unitkerja where tbunit.kd_unit = tbjab.idunit)
+			left join bpaddtfake.dbo.internal_responsehadir res on a.id_emp = res.id_emp and res.no_form = '$no_form'
+			where a.ked_emp = 'AKTIF'
+			and a.sts = 1
+			and a.id_emp = tbjab.noid
+			and tbjab.sts = 1
+			$query
+			group by a.id_emp, a.nip_emp, a.nrk_emp, a.nm_emp, res.hadir, tbunit.kd_unit, tbunit.nm_unit, totalhadir
+			order by tbunit.kd_unit, nm_emp
+					"));
+			$emps = json_decode(json_encode($emps), true);	
+		}
+
+		date_default_timezone_set('Asia/Jakarta');
+
+		$spreadsheet = new Spreadsheet();
+		$sheet = $spreadsheet->getActiveSheet();
+		$sheet->mergeCells('A2:G2');
+		$sheet->mergeCells('A3:G3');
+		$sheet->setCellValue('A2', 'RESPON '.strtoupper($form['judul']));
+		$sheet->setCellValue('A3', date('Y-m-d H:i:s'));
+		$sheet->getStyle('a2:a3')->getFont()->setBold( true );
+		$sheet->getStyle('a2:a3')->getAlignment()->setHorizontal('center');
+
+		if($form['sts'] == 2) {	
+			$styleArray = [
+				'font' => [
+					'size' => 12,
+					'name' => 'Trebuchet MS',
+				]
+			];
+			$sheet->getStyle('A1:J5')->applyFromArray($styleArray);
+			$sheet->setCellValue('A5', 'NO');
+			$sheet->setCellValue('B5', 'KOLOK SIERA');
+			$sheet->setCellValue('C5', 'KOLOK DAGRI');
+			$sheet->setCellValue('D5', 'OPD');
+			$sheet->setCellValue('E5', 'NAMA');
+			$sheet->setCellValue('F5', 'NRK');
+			$sheet->setCellValue('G5', 'NIP');
+			$sheet->setCellValue('H5', 'TELP');
+			$sheet->setCellValue('I5', 'EMAIL');
+			$sheet->setCellValue('J5', 'KEHADIRAN');
+			$colorArrayhead = [
+				'fill' => [
+					'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+					'startColor' => [
+						'rgb' => 'F79646',
+					],
+				],
+			];
+			$sheet->getStyle('A5:J5')->applyFromArray($colorArrayhead);
+			$sheet->getStyle('A5:J5')->getFont()->setBold( true );
+			$sheet->getStyle('A5:J5')->getAlignment()->setHorizontal('center');
+	
+			$colorArrayV1 = [
+				'fill' => [
+					'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+					'startColor' => [
+						'rgb' => 'FDE9D9',
+					],
+				],
+			];
+	
+			$nowrow = 6;
+			$rowstart = $nowrow - 1;
+			foreach ($emps as $key => $emp) {
+				if ($key%2 == 0) {
+					$sheet->getStyle('A'.$nowrow.':J'.$nowrow)->applyFromArray($colorArrayV1);
+				}
+	
+				$sheet->setCellValue('A'.$nowrow, $key+1);
+				$sheet->setCellValue('B'.$nowrow, '\''.$emp['kolok']);
+				$sheet->setCellValue('C'.$nowrow, '\''.$emp['kolokdagri']);
+				$sheet->setCellValue('D'.$nowrow, strtoupper($emp['nalok']));
+				$sheet->setCellValue('E'.$nowrow, ($emp['nama'] && $emp['nama']!='' ? strtoupper($emp['nama']) : '-'));
+				$sheet->setCellValue('F'.$nowrow, ($emp['nrk'] && $emp['nrk']!='' ? '\''.$emp['nrk'] : '-') );
+				$sheet->setCellValue('G'.$nowrow, ($emp['nip'] && $emp['nip']!='' ? '\''.$emp['nip'] : '-') );
+				$sheet->setCellValue('H'.$nowrow, ($emp['telp'] && $emp['telp']!='' ? '\''.$emp['telp'] : '-') );
+				$sheet->setCellValue('I'.$nowrow, ($emp['email'] && $emp['email']!='' ? $emp['email'] : '-'));
+				$sheet->setCellValue('J'.$nowrow, $emp['hadir']);
+	
+				$nowrow++;
+			}
+		} else if($form['sts'] == 1) {
+			$styleArray = [
+				'font' => [
+					'size' => 12,
+					'name' => 'Trebuchet MS',
+				]
+			];
+			$sheet->getStyle('A1:F5')->applyFromArray($styleArray);
+			$sheet->setCellValue('A5', 'NO');
+			$sheet->setCellValue('B5', 'NIP');
+			$sheet->setCellValue('C5', 'NRK');
+			$sheet->setCellValue('D5', 'NAMA');
+			$sheet->setCellValue('E5', 'UNIT');
+			$sheet->setCellValue('F5', 'KEHADIRAN');
+			$colorArrayhead = [
+				'fill' => [
+					'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+					'startColor' => [
+						'rgb' => 'F79646',
+					],
+				],
+			];
+			$sheet->getStyle('A5:F5')->applyFromArray($colorArrayhead);
+			$sheet->getStyle('A5:F5')->getFont()->setBold( true );
+			$sheet->getStyle('A5:F5')->getAlignment()->setHorizontal('center');
+	
+			$colorArrayV1 = [
+				'fill' => [
+					'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+					'startColor' => [
+						'rgb' => 'FDE9D9',
+					],
+				],
+			];
+
+			$nowrow = 6;
+			$rowstart = $nowrow - 1;
+			foreach ($emps as $key => $emp) {
+				if ($key%2 == 0) {
+					$sheet->getStyle('A'.$nowrow.':F'.$nowrow)->applyFromArray($colorArrayV1);
+				}
+	
+				$sheet->setCellValue('A'.$nowrow, $key+1);
+				$sheet->setCellValue('B'.$nowrow, ($emp['nip_emp'] && $emp['nip_emp']!='' ? '\''.$emp['nip_emp'] : '-') );
+				$sheet->setCellValue('C'.$nowrow, ($emp['nrk_emp'] && $emp['nrk_emp']!='' ? '\''.$emp['nrk_emp'] : '-') );
+				$sheet->setCellValue('D'.$nowrow, ($emp['nm_emp'] && $emp['nm_emp']!='' ? strtoupper($emp['nm_emp']) : '-'));
+				$sheet->setCellValue('E'.$nowrow, strtoupper($emp['nm_unit']));
+				$sheet->setCellValue('F'.$nowrow, $emp['hadir']);
+
+				if (strlen($emp['kd_unit']) < 10) {
+					$sheet->getStyle('A'.$nowrow.':F'.$nowrow)->getFont()->setBold( true );
+				}
+	
+				$nowrow++;
+			}
+		}
+
+		$filename = date('dmy').'_Respon.xlsx';
+
+		// Redirect output to a client's web browser (Xlsx)
+		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+		header('Content-Disposition: attachment;filename="'.$filename.'"');
+		header('Cache-Control: max-age=0');
+		// If you're serving to IE 9, then the following may be needed
+		header('Cache-Control: max-age=1');
+		 
+		// If you're serving to IE over SSL, then the following may be needed
+		header('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
+		header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT'); // always modified
+		header('Cache-Control: cache, must-revalidate'); // HTTP/1.1
+		header('Pragma: public'); // HTTP/1.
+
+		$writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+		$writer->save('php://output');
+
+		
 	}
 
 	// ========== </FORM KEHADIRAN> ========== //

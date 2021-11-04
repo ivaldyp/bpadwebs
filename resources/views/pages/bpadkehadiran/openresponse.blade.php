@@ -89,7 +89,7 @@
                                             </tr>
                                             <tr>
                                                 <td>Tidak Hadir</td>
-                                                <td>{{ $total - $emps[0]['totalhadir'] }}</td>
+                                                <td>{{ count($emps) - $emps[0]['totalhadir'] }}</td>
                                             </tr>
 											@endif
                                         </table>
@@ -97,7 +97,8 @@
                                 </div>
 								<div class="row m-t-20">
 									<div class="col-md-3">
-										<button id="to-excel" class="btn btn-success">Export to Excel</button>
+										{{-- <button id="to-excel" class="btn btn-success">Export to Excel</button> --}}
+										<a href="/portal/form/{{$form['no_form']}}/excel" target="_blank"><button class="btn btn-success">Export to Excel</button></a>
 									</div>
 								</div>
 								<div class="row m-t-20">
