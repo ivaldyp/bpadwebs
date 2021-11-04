@@ -74,10 +74,6 @@
                                                 <td>Hadir</td>
                                                 <td>{{ $emps[0]['totalhadir'] }}</td>
                                             </tr>
-											<tr>
-                                                <td>Tidak Hadir</td>
-                                                <td>{{ $total - $emps[0]['totalhadir'] }}</td>
-                                            </tr>
 											@else
                                             <tr>
                                                 <td>Hadir</td>
