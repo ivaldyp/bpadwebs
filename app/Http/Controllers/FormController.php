@@ -39,7 +39,7 @@ class FormController extends Controller
 					->orderBy('tgl_mulai', 'desc')
 					->first();
 
-		if($nowtime > $form['tgl_end']) {
+		if($nowtime > $form['tgl_end'] || $nowtime < $form['tgl_mulai']) {
 			$flaglewat = 1;
 		} else {
 			$flaglewat = 0;
