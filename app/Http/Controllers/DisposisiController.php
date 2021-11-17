@@ -54,6 +54,10 @@ class DisposisiController extends Controller
 
 	public function log(Request $request)
 	{
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+
 		$dispmaster = DB::select( DB::raw("SELECT TOP (100) [ids]
 												  ,[sts]
 												  ,[uname]
@@ -119,6 +123,10 @@ class DisposisiController extends Controller
 
 	public function display_disposisi($no_form, $idtop, $level = 0)
 	{
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+
 		// $query = Fr_disposisi::
 		// 			leftJoin('bpaddtfake.dbo.emp_data as emp1', 'emp1.id_emp', '=', 'bpaddtfake.dbo.fr_disposisi.to_pm')
 		// 			->where('no_form', $no_form)
@@ -165,7 +173,11 @@ class DisposisiController extends Controller
 
 	public function formdisposisi(Request $request)
 	{
-		$this->checksession(); //$this->checkSessionTime();
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+
+		// $this->checksession(); //$this->checkSessionTime();
 		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
 		$currentpath = explode("?", $currentpath)[0];
 		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
@@ -535,7 +547,11 @@ class DisposisiController extends Controller
 
 	public function disposisitambah(Request $request)
 	{
-		$this->checksession(); //$this->checkSessionTime();
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+
+		// $this->checksession(); //$this->checkSessionTime();
 
 		// $maxnoform = Fr_disposisi::max('no_form');
 
@@ -654,6 +670,10 @@ class DisposisiController extends Controller
 
 	public function disposisiubah(Request $request)
 	{
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+
 		// if (file_exists("C:/xampp/htdocs/portal/public/publicfile/disp/1.20.512.20102228/disp19.pdf" )) {
 		$dispmaster = DB::select( DB::raw("SELECT TOP (100) [ids]
 												  ,[sts]
@@ -830,6 +850,10 @@ class DisposisiController extends Controller
 
 	public function disposisihapusfile(Request $request)
 	{
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+
 		$splittahun = explode(".", $request->no_form)[3];
 		$splittahun = substr($splittahun, 0, 2);
 		unlink(config('app.savefiledisposisi') . "/20" . $splittahun . "/" . $request->no_form . "/" . $request->nm_file );
@@ -856,7 +880,11 @@ class DisposisiController extends Controller
 
 	public function forminsertdisposisi(Request $request)
 	{
-		$this->checksession(); //$this->checkSessionTime();
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+
+		// $this->checksession(); //$this->checkSessionTime();
 
 		if (isset($request->jabatans) && isset($request->stafs)) {
 			return redirect('/disposisi/tambah disposisi')
@@ -1142,7 +1170,10 @@ class DisposisiController extends Controller
 
 	public function formupdatedisposisi(Request $request)
 	{
-		$this->checksession(); //$this->checkSessionTime();
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+		// $this->checksession(); //$this->checkSessionTime();
 
 		if (isset($request->jabatans) && isset($request->stafs)) {
 			return redirect('/disposisi/ubah disposisi?ids='.$request->ids)
@@ -1438,6 +1469,10 @@ class DisposisiController extends Controller
 
 	public function formdeletedisposisi(Request $request)
 	{
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+
 		Fr_disposisi::where('no_form', $request->no_form)
 		->update([
 			'sts' => 0,
@@ -1448,6 +1483,10 @@ class DisposisiController extends Controller
 
 	public function formresetdisposisi(Request $request)
 	{
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+		
 		$thisdisp = Fr_disposisi::where('no_form', $request->no_form)->get();
 		foreach ($thisdisp as $key => $dis) {
 			if ($dis['status_surat'] == 's') {
@@ -1474,7 +1513,10 @@ class DisposisiController extends Controller
 
 	public function disposisi(Request $request)
 	{
-		$this->checksession(); //$this->checkSessionTime();
+		// $this->checksession(); //$this->checkSessionTime();
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
 		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
 		$currentpath = explode("?", $currentpath)[0];
 		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
@@ -1873,6 +1915,10 @@ class DisposisiController extends Controller
 
 	public function disposisilihat(Request $request)
 	{
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+
 		$dispmaster = DB::select( DB::raw("SELECT d.[ids]
 												  ,m.ids as idmaster
 												  ,d.[sts]
@@ -2073,7 +2119,11 @@ class DisposisiController extends Controller
 
 	public function formlihatdisposisi(Request $request)
 	{
-		$this->checksession(); //$this->checkSessionTime();
+		// $this->checksession(); //$this->checkSessionTime();
+
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
 
 		if (isset($request->jabatans) && isset($request->stafs)) {
 			return redirect('/disposisi/lihat disposisi?ids='.$request->ids)
@@ -2449,6 +2499,10 @@ class DisposisiController extends Controller
 
 	public function formdeletedisposisiemp(Request $request)
 	{
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+
 		Fr_disposisi::where('ids', $request->ids)
 		->update([
 			'sts' => 0,
@@ -2477,6 +2531,9 @@ class DisposisiController extends Controller
 
 	public function printexcel(Request $request)
 	{
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
 
 		$spreadsheet = new Spreadsheet();
 		$sheet = $spreadsheet->getActiveSheet();
