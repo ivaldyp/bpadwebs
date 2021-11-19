@@ -25,15 +25,12 @@ class NotulenController extends Controller
 		set_time_limit(300);
 	}
 
-	public function checksession() {
+	public function notulenall(Request $request)
+	{
 		if(count($_SESSION) == 0) {
 			return redirect('home');
 		}
-	}
-
-	public function notulenall(Request $request)
-	{
-		$this->checksession(); //$this->checkSessionTime();
+		//$this->checkSessionTime();
 		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
 		$currentpath = explode("?", $currentpath)[0];
 		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
@@ -134,7 +131,10 @@ class NotulenController extends Controller
 
 	public function mynotulen(Request $request)
 	{
-		$this->checksession(); //$this->checkSessionTime();
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+		//$this->checkSessionTime();
 		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
 		$currentpath = explode("?", $currentpath)[0];
 		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
@@ -258,7 +258,10 @@ class NotulenController extends Controller
 
     public function tambahnotulen(Request $request)
 	{
-		$this->checksession(); //$this->checkSessionTime();
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+		//$this->checkSessionTime();
 
 		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
 		$currentpath = explode("?", $currentpath)[0];
@@ -280,6 +283,10 @@ class NotulenController extends Controller
 
 	public function forminsertnotulen(Request $request)
 	{
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+
 		date_default_timezone_set('Asia/Jakarta');
 
 		if ($request->btnDraft) {
@@ -325,6 +332,10 @@ class NotulenController extends Controller
 
 	public function ubahnotulen(Request $request)
 	{
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+
 		$idunit = $_SESSION['user_data']['idunit'];
 
 		$units = GLo_org_unitkerja::
@@ -347,6 +358,10 @@ class NotulenController extends Controller
 
 	public function formdeletenotulen(Request $request)
 	{
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+		
 		Notulen::where('ids', $request->ids)
 			->update([
 				'sts' => 0,

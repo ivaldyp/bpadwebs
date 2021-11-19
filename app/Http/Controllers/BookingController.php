@@ -27,15 +27,13 @@ class BookingController extends Controller
 		set_time_limit(300);
 	}
 
-	public function checksession() {
+	public function manageruang(Request $request)
+	{
 		if(count($_SESSION) == 0) {
 			return redirect('home');
 		}
-	}
 
-	public function manageruang(Request $request)
-	{
-		$this->checksession(); //$this->checkSessionTime();
+		//$this->checkSessionTime();
 
 		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
 		$currentpath = explode("?", $currentpath)[0];
@@ -66,6 +64,9 @@ class BookingController extends Controller
 
 	public function forminsertruang(Request $request)
 	{
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
 
 		$splitunit = explode("::", $request->unit);
 		$kd_unit = $splitunit[0];
@@ -98,6 +99,9 @@ class BookingController extends Controller
 
 	public function formupdateruang(Request $request)
 	{
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
 
 		$splitunit = explode("::", $request->unit);
 		$kd_unit = $splitunit[0];
@@ -126,6 +130,9 @@ class BookingController extends Controller
 
 	public function formdeleteruang(Request $request)
 	{
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
 
 		Book_ruang::where('ids', $request->ids)
 			->update([
@@ -139,6 +146,10 @@ class BookingController extends Controller
 
 	public function lihatpinjam(Request $request)
 	{
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+
 		$booking = Book_transact::
 					where('ids', $request->ids)
 					->first();
@@ -161,7 +172,11 @@ class BookingController extends Controller
 
 	public function formpinjam(Request $request)
 	{
-		$this->checksession(); //$this->checkSessionTime();
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+
+		//$this->checkSessionTime();
 
 		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
 		$currentpath = explode("?", $currentpath)[0];
@@ -187,6 +202,10 @@ class BookingController extends Controller
 
 	public function forminsertpinjam(Request $request)
 	{
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+
 		$tgl_pinjam = date('Y-m-d',strtotime(str_replace('/', '-', $request->tgl_pinjam)));
 		$jam_mulai = $request->time1;
 		$jam_selesai = $request->time2;
@@ -270,6 +289,10 @@ class BookingController extends Controller
 
 	public function ubahpinjam(Request $request)
 	{
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+
 		$booking = Book_transact::
 					where('ids', $request->ids)
 					->first();
@@ -291,11 +314,17 @@ class BookingController extends Controller
 
 	public function formupdatepinjam(Request $request)
 	{
-		
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
 	}
 
 	public function formdeletepinjam(Request $request)
 	{
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+
 		Book_transact::where('ids', $request->ids)
 			->update([
 				'status' => 'N',
@@ -308,7 +337,10 @@ class BookingController extends Controller
 
 	public function listpinjam(Request $request)
 	{
-		$this->checksession(); //$this->checkSessionTime();
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+		//$this->checkSessionTime();
 
 		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
 		$currentpath = explode("?", $currentpath)[0];
@@ -465,7 +497,11 @@ class BookingController extends Controller
 
 	public function requestpinjam(Request $request)
 	{
-		$this->checksession(); //$this->checkSessionTime();
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+		
+		//$this->checkSessionTime();
 
 		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
 		$currentpath = explode("?", $currentpath)[0];

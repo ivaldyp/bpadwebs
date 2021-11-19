@@ -113,7 +113,11 @@ class Kepegawaian2Controller extends Controller
 
 	public function laporanfoto (Request $request)
 	{
-		$this->checksession(); //$this->checkSessionTime();
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+
+		//$this->checkSessionTime();
 		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
 		$currentpath = explode("?", $currentpath)[0];
 		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');

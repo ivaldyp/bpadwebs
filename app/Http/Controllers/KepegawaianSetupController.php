@@ -33,7 +33,10 @@ class KepegawaianSetupController extends Controller
 
 	public function unitall(Request $request)
 	{
-		$this->checksession(); //$this->checkSessionTime();
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+		//$this->checkSessionTime();
 		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
 		$currentpath = explode("?", $currentpath)[0];
 		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
@@ -51,6 +54,10 @@ class KepegawaianSetupController extends Controller
 
 	public function forminsertunit(Request $request)
 	{
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+
 		$cekunit = glo_org_unitkerja::
 						where('kd_unit', $request->kd_unit)
 						->orWhere('nm_unit', strtoupper($request->nm_unit))
@@ -112,6 +119,10 @@ class KepegawaianSetupController extends Controller
 
 	public function formupdateunit(Request $request)
 	{
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+		
 		$cekunit = glo_org_unitkerja::
 						where('kd_unit', $request->kd_unit)
 						->orWhere('nm_unit', strtoupper($request->nm_unit))
@@ -145,6 +156,10 @@ class KepegawaianSetupController extends Controller
 
 	public function formdeleteunit(Request $request)
 	{
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+		
 		glo_org_unitkerja::
 			where('kd_unit', 'like', $request['kd_unit'] . '%')
 			->delete();

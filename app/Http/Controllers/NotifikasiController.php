@@ -28,6 +28,10 @@ class NotifikasiController extends Controller
 
 	public function notifall(Request $request)
 	{
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+
 		if (Auth::user()->id_emp) {
 			$ids = Auth::user()->id_emp;
 		} elseif (Auth::user()->usname) {
@@ -46,6 +50,10 @@ class NotifikasiController extends Controller
 
     public function cek($jenis, $id)
     {
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+		
     	Emp_notif::where('ids', $id)
 		->update([
 			'rd' => 'Y',
