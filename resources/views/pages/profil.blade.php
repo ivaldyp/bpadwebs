@@ -139,7 +139,7 @@
 				<!-- category widget -->
 				<div class="widget">
 					<h3 class="widget-title">VISI</h3>
-					<p>Mewujudkan penyelenggaraan pengelolaan aset daerah yang akuntabel, transparan, responsif, dan partisipatif dalam rangka Menuju Jakarta Baru.</p>
+					<p>Pengelolaan Aset Daerah yang Unggul di Lingkup Pemerintah Daerah.</p>
 				</div>
 				<!-- /category widget -->
 
@@ -148,9 +148,8 @@
 					<h3 class="widget-title">MISI</h3>
 					<div class="widget-category">
 						<ol>
-							<li>Melaksanakan pengelolaan aset melalui sistem informasi aset untuk mewujudkan akuntabilitas aset daerah;</li>
-							<li>Melaksanakan sistem dan prosedur pengelolaan aset daerah yang profesional untuk mewujudkan pelayanan kepada stakeholder secara cepat dan akurat;</li>
-							<li>Meningkatkan profesionalisme aparatur pengelolaan aset daerah;</li>
+							<li>Menjadikan tata kelola aset daerah yang akuntabel dan transparan; dan</li>
+							<li>Menjadikan aparatur pengelola aset daerah yang profesional</li>
 						</ol>
 					</div>
 				</div>
