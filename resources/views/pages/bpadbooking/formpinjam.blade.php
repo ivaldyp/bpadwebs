@@ -148,9 +148,10 @@
 									</div>
 
 									<div class="form-group">
-                                        <label for="nm_file" class="col-md-2 control-label"> File</label>
+                                        <label for="nm_file" class="col-md-2 control-label"> File </label>
                                         <div class="col-md-8">
-                                            <input type="file" class="form-control" id="nm_file" name="nm_file" required>
+                                            <input type="file" class="form-control" id="nm_file" name="nm_file">
+											<p class="text-muted">Undangan / Surat Pengantar</p>
                                         </div>
                                     </div>
 								</div>
