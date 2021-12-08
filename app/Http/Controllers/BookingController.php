@@ -433,6 +433,7 @@ class BookingController extends Controller
 							      ,[alasan_tolak]
 							      ,[appr_usr]
 							      ,[appr_time]
+								  ,[catatan]
 						  	FROM [bpaddtfake].[dbo].[book_transact] tr
 						  	join bpaddtfake.dbo.book_ruang ruang on ruang.ids = tr.ruang
 						  	where status = 'S'
@@ -465,6 +466,7 @@ class BookingController extends Controller
 							      ,[alasan_tolak]
 							      ,[appr_usr]
 							      ,[appr_time]
+								  ,[catatan]
 						  	FROM [bpaddtfake].[dbo].[book_transact] tr
 						  	join bpaddtfake.dbo.book_ruang ruang on ruang.ids = tr.ruang
 						  	where status = 'N'
@@ -496,6 +498,7 @@ class BookingController extends Controller
 							      ,[alasan_tolak]
 							      ,[appr_usr]
 							      ,[appr_time]
+								  ,[catatan]
 						  	FROM [bpaddtfake].[dbo].[book_transact] tr
 						  	join bpaddtfake.dbo.book_ruang ruang on ruang.ids = tr.ruang
 						  	where status = 'Y'
@@ -595,6 +598,7 @@ class BookingController extends Controller
 							      ,[alasan_tolak]
 							      ,[appr_usr]
 							      ,[appr_time]
+								  ,[catatan]
 						  	FROM [bpaddtfake].[dbo].[book_transact] tr
 						  	join bpaddtfake.dbo.book_ruang ruang on ruang.ids = tr.ruang
 						  	where status = 'S'
@@ -628,6 +632,7 @@ class BookingController extends Controller
 							      ,[alasan_tolak]
 							      ,[appr_usr]
 							      ,[appr_time]
+								  ,[catatan]
 						  	FROM [bpaddtfake].[dbo].[book_transact] tr
 						  	join bpaddtfake.dbo.book_ruang ruang on ruang.ids = tr.ruang
 						  	where status = 'N'
@@ -660,6 +665,7 @@ class BookingController extends Controller
 							      ,[alasan_tolak]
 							      ,[appr_usr]
 							      ,[appr_time]
+								  ,[catatan]
 						  	FROM [bpaddtfake].[dbo].[book_transact] tr
 						  	join bpaddtfake.dbo.book_ruang ruang on ruang.ids = tr.ruang
 						  	where status = 'Y'
