@@ -329,7 +329,8 @@ class BookingController extends Controller
 
 		Book_transact::where('ids', $request->ids)
 			->update([
-				'status' => 'N',
+				// 'status' => 'N',
+				'sts' => 0,
 			]);
 
 		return redirect('/booking/'.$request->hal)
