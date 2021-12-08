@@ -150,8 +150,15 @@
 									<div class="form-group">
                                         <label for="nm_file" class="col-md-2 control-label"> File </label>
                                         <div class="col-md-8">
-                                            <input type="file" class="form-control" id="nm_file" name="nm_file">
-											<p class="text-muted">Undangan / Surat Pengantar</p>
+                                            <input type="file" class="form-control" id="nm_file" name="nm_file" accept="application/pdf">
+											<p class="text-muted">Undangan / Surat Pengantar, MAX 1MB</p>
+                                        </div>
+                                    </div>
+
+									<div class="form-group">
+                                        <label for="catatan" class="col-md-2 control-label"> Catatan </label>
+                                        <div class="col-md-8">
+											<textarea name="catatan" id="catatan" class="form-control"></textarea>
                                         </div>
                                     </div>
 								</div>

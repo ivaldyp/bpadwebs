@@ -125,6 +125,7 @@
 														<th>Tujuan</th>
 														<th>Ruang</th>
 														<th>File</th>
+														<th>Catatan</th>
 														@if($access['zupd'] == 'y' || $access['zdel'] == 'y')
 														<th>Action</th>
 														@endif
@@ -146,6 +147,7 @@
 														$thisalasan = $yes['alasan_tolak'];
 														$thisusrinput = $yes['appr_usr'];
 														$thistglinput = $yes['appr_time'];
+														$thiscatatan = $yes['catatan'];
 														?>
 
 														<tr>
@@ -158,6 +160,7 @@
 																<?php $namafolder = $thisidruang . date('H',strtotime($thismulai)) . date('dmY',strtotime($thistgl)); ?>
 																<a target="_blank" href="{{ config('app.openfilebooking') }}/{{$namafolder}}/{{ $thisfile }}">{{ $thisfile }}</a>
 															</td>
+															<td> {{ $thiscatatan }}</td>
 															
 															<td style="vertical-align: middle;">
 																
@@ -188,6 +191,7 @@
 														<th>Tujuan</th>
 														<th>Ruang</th>
 														<th>File</th>
+														<th>Catatan</th>
 														@if($access['zupd'] == 'y' || $access['zdel'] == 'y')
 														<th>Action</th>
 														@endif
@@ -210,6 +214,7 @@
 														$thisalasan = $wait['alasan_tolak'];
 														$thisusrinput = $wait['appr_usr'];
 														$thistglinput = $wait['appr_time'];
+														$thiscatatan = $wait['catatan'];
 														?>
 
 														<tr>
@@ -222,6 +227,7 @@
 																<?php $namafolder = $thisidruang . date('H',strtotime($thismulai)) . date('dmY',strtotime($thistgl)); ?>
 																<a target="_blank" href="{{ config('app.openfilebooking') }}/{{$namafolder}}/{{ $thisfile }}">{{ $thisfile }}</a>
 															</td>
+															<td>{{ $thiscatatan }}</td>
 															
 															<td style="vertical-align: middle;">
 																
@@ -261,6 +267,7 @@
 														<th>Tujuan</th>
 														<th>Ruang</th>
 														<th>File</th>
+														<th>Catatan</th>
 														<th>Action</th>
 													</tr>
 												</thead>
@@ -280,6 +287,7 @@
 														$thisalasan = $no['alasan_tolak'];
 														$thisusrinput = $no['appr_usr'];
 														$thistglinput = $no['appr_time'];
+														$thiscatatan = $no['catatan'];
 														?>
 
 														<tr>
@@ -292,6 +300,7 @@
 																<?php $namafolder = $thisidruang . date('H',strtotime($thismulai)) . date('dmY',strtotime($thistgl)); ?>
 																<a target="_blank" href="{{ config('app.openfilebooking') }}/{{$namafolder}}/{{ $thisfile }}">{{ $thisfile }}</a>
 															</td>
+															<td>{{ $thiscatatan }}</td>
 															<td>
 																<form method="POST" action="/portal/booking/lihat">
 																	@csrf

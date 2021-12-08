@@ -246,8 +246,8 @@ class BookingController extends Controller
 		if (isset($request->nm_file)) {
 			$file = $request->nm_file;
 
-			if ($file->getSize() > 5500000) {
-				return redirect('/booking/pinjam')->with('message', 'Ukuran file terlalu besar (Maksimal 5MB)');     
+			if ($file->getSize() > 1000000) {
+				return redirect('/booking/pinjam')->with('message', 'Ukuran file terlalu besar (Maksimal 1MB)');     
 			} 
 
 			$filebook .= $file->getClientOriginalName();
@@ -279,6 +279,7 @@ class BookingController extends Controller
 			'status'	=> $status,
 			'appr_time' => $appr_time,
 			'appr_usr' 	=> $appr_usr,
+			'catatan'	=> ($request->catatan ? $request->catatan : ''),
 		];
 
 		Book_transact::insert($insertpinjam);
