@@ -240,7 +240,7 @@
 															</td>
 															<td style="vertical-align: middle;"> 
 
-																<button type="button" class="btn btn-success btn-approve btn-outline btn-circle m-r-5" data-ids="{{ $wait['ids'] }}" data-hal="request"><i class="ti-check"></i></button>
+																<button type="button" class="btn btn-success btn-approve btn-outline btn-circle m-r-5" data-toggle="modal" data-target="#modal-approve" data-ids="{{ $wait['ids'] }}" data-hal="request"><i class="ti-check"></i></button>
 															</td>
 														</tr>
 													
@@ -362,7 +362,7 @@
 										</label>
 										<label class="radio-inline">
 											<div class="radio radio-info">
-												<input type="radio" name="status" id="status2" value="N" checked>
+												<input type="radio" name="status" id="status2" value="N" >
 												<label for="status2">Tidak</label>
 											</div>
 										</label>
@@ -371,16 +371,16 @@
 								</div>
 
 								<div class="form-group">
-									<label for="nmkat" class="col-md-2 control-label"><span style="color: red">*</span> Kategori </label>
+									<label for="alasan" class="col-md-2 control-label"> Alasan </label>
 									<div class="col-md-8">
-										<input type="text" name="nmkat" id="modal_insert_nmkat" class="form-control" data-error="Masukkan nama kategori" autocomplete="off" required>
+										<input type="text" name="alasan" id="modal_approve_alasan" class="form-control" data-error="Masukkan asalan approval" autocomplete="off">
 										<div class="help-block with-errors"></div>
 									</div>
 								</div>
 								
 							</div>
 							<div class="modal-footer">
-								<button type="submit" class="btn btn-danger pull-right">Hapus</button>
+								<button type="submit" class="btn btn-success pull-right">Simpan</button>
 								<button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
 							</div>
 						</form>
@@ -429,6 +429,7 @@
 
 			$('.btn-approve').on('click', function () {
 				var $el = $(this);
+				console.log($el.data('ids'));
 
 				$("#modal_approve_ids").val($el.data('ids'));
 				$("#modal_approve_hal").val($el.data('hal'));

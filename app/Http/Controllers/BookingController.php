@@ -210,21 +210,22 @@ class BookingController extends Controller
 		$jam_mulai = $request->time1;
 		$jam_selesai = $request->time2;
 
-		// $findbooking = DB::select( DB::raw("
-		// 					SELECT ids
-		// 					FROM bpaddtfake.dbo.book_transact
-		// 					WHERE ruang = '$request->ruang'
-		// 					and tgl_pinjam = '$tgl_pinjam'
-		// 					and (jam_mulai <= '$jam_mulai' 
-		// 					and jam_selesai > '$jam_mulai')
-		// 				") );
-		// $findbooking = json_decode(json_encode($findbooking), true);
+		$findbooking = DB::select( DB::raw("
+							SELECT ids
+							FROM bpaddtfake.dbo.book_transact
+							WHERE ruang = '$request->ruang'
+							and tgl_pinjam = '$tgl_pinjam'
+							and (jam_mulai <= '$jam_mulai' 
+							and jam_selesai > '$jam_mulai'
+							and status = 'S')
+						") );
+		$findbooking = json_decode(json_encode($findbooking), true);
 
-		// if (count($findbooking) > 0) {
-		// 	return redirect('/booking/pinjam')
-		// 			->with('message', 'Jadwal yang dipilih telah terisi')
-		// 			->with('msg_num', 2);
-		// } 
+		if (count($findbooking) > 0) {
+			return redirect('/booking/pinjam')
+					->with('message', 'Jadwal yang dipilih telah terisi')
+					->with('msg_num', 2);
+		} 
 
 		$filebook = '';
 
@@ -333,6 +334,32 @@ class BookingController extends Controller
 		return redirect('/booking/'.$request->hal)
 				->with('message', 'Pinjaman tersebut berhasil dihapus')
 				->with('msg_num', 1);
+	}
+
+	public function formapprovepinjam(Request $request)
+	{
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+
+		if ($request->status == 'N') {
+			$status = 'N';
+			$alasan = $request->alasan;
+		} else {
+			$status = 'S';
+			$alasan = null;
+		}
+		Book_transact::where('ids', $request->ids)
+			->update([
+				'status' => $status,
+				'alasan_tolak' => $alasan,
+				'appr_usr' => $_SESSION['user_data']['id_emp'],
+				'appr_time' => date('Y-m-d H:i:s'),
+			]);
+
+		return redirect('/booking/request')
+			->with('message', 'Proses approval selesai')
+			->with('msg_num', 1);
 	}
 
 	public function listpinjam(Request $request)
