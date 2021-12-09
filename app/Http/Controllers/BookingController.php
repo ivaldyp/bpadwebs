@@ -319,6 +319,7 @@ class BookingController extends Controller
 		if(count($_SESSION) == 0) {
 			return redirect('home');
 		}
+		
 	}
 
 	public function formdeletepinjam(Request $request)
