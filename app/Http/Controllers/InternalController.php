@@ -1231,7 +1231,7 @@ class InternalController extends Controller
 		$sheet->mergeCells('A2:G2');
 		$sheet->mergeCells('A3:G3');
 		$sheet->setCellValue('A2', 'RESPON '.strtoupper($form['judul']));
-		$sheet->setCellValue('A3', date('Y-m-d H:i:s'));
+		$sheet->setCellValue('A3', date('d/M/Y', strtotime($form['tgl_mulai'])) . '-' . date('d/M/Y', strtotime($form['tgl_end'])));
 		$sheet->getStyle('a2:a3')->getFont()->setBold( true );
 		$sheet->getStyle('a2:a3')->getAlignment()->setHorizontal('center');
 
