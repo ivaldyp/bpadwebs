@@ -117,7 +117,8 @@
 												</div>
 
 												<div class="form-group">
-													<label for="nrk_emp" class="col-md-2 control-label"> NRK </label>
+													<label for="nrk_emp" class="col-md-2 control-label"> NRK<br><span class="text-muted">NRK akan terisi sendiri apabila dikosongkan</span> </label>
+													
 													<div class="col-md-8">
 														<input autocomplete="off" type="text" name="nrk_emp" class="form-control" id="nrk_emp">
 													</div>

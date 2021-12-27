@@ -388,6 +388,13 @@ class KepegawaianController extends Controller
 		$id_emp = explode(".", Emp_data::max('id_emp'));
 		$new_id_emp = $id_emp[0] . "." . $id_emp[1] . "." . $id_emp[2] . "." . ($id_emp[3] + 1);
 
+		if($request->nrk_emp == '' or is_null($request->nrk_emp)){
+			$new_nrk = Emp_data::whereRaw('LEN(nrk_emp) = 4')->max('nrk_emp');
+			$new_nrk = $new_nrk + 1;
+		} else {
+			$new_nrk = $request->nrk_emp;
+		}
+
 		$filefoto = '';
 
 		$cekangkapenting = Emp_data::where('id_emp', $request->id_emp)->first(['nik_emp', 'nrk_emp', 'nip_emp']);
@@ -441,7 +448,7 @@ class KepegawaianController extends Controller
 				'createdate' => date('Y-m-d H:i:s'),
 				'id_emp' => $new_id_emp,
 				'nip_emp' => ($request->nip_emp ? $request->nip_emp : ''),
-				'nrk_emp' => ($request->nrk_emp ? $request->nrk_emp : ''),
+				'nrk_emp' => $new_nrk,
 				'nm_emp' => ($request->nm_emp ? $request->nm_emp : ''),
 				'nik_emp' => ($request->nik_emp ? $request->nik_emp : ''),
 				'gelar_dpn' => ($request->gelar_dpn ? $request->gelar_dpn : ''),
