@@ -260,7 +260,7 @@ class KepegawaianController extends Controller
 
 		$idgroups = Sec_access::
 					distinct('idgroup')
-					->where('zfor', '2,')
+					// ->where('zfor', '2,')
 					->orderBy('idgroup')
 					->get('idgroup');
 
@@ -549,6 +549,10 @@ class KepegawaianController extends Controller
 			$idlok = ['kd_lok' => '00'];
 		}
 
+		$splitidunit = explode("::", $request->idunit);
+		$idunit = $splitidunit[0];
+		$nmunit = $splitidunit[1];
+
 		$insert_emp_jab = [
 				// JABATAN
 				'sts' => 1,
@@ -559,13 +563,14 @@ class KepegawaianController extends Controller
 				'noid' => $new_id_emp,
 				'tmt_jab' => (isset($request->tmt_jab) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_jab))) : date('Y-m-d')),
 				'idskpd' => '1.20.512',
-				'idunit' => $request->idunit,
+				'idunit' => $idunit,
 				'idlok' => $idlok['kd_lok'],
 				'tmt_sk_jab' => (isset($request->tmt_sk_jab) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_sk_jab))) : date('Y-m-d')),
 				'no_sk_jab' => ($request->no_sk_jab ? $request->no_sk_jab : ''),
 				'jns_jab' => $request->jns_jab,
 				'idjab' => $request->idjab,
 				'eselon' => $request->eselon,
+				'nmunit' => $nmunit,
 				// 'tampilnew' => 1,
 			];
 
@@ -1006,17 +1011,22 @@ class KepegawaianController extends Controller
 			$idlok = ['kd_lok' => '00'];
 		}
 
+		$splitidunit = explode("::", $request->idunit);
+		$idunit = $splitidunit[0];
+		$nmunit = $splitidunit[1];
+
 		Emp_jab::where('noid', $request->noid)
 			->where('ids', $request->ids)
 			->update([
 				'tmt_jab' => (isset($request->tmt_jab) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_jab))) : null),
-				'idunit' => $request->idunit,
+				'idunit' => $idunit,
 				'idlok' => $idlok['kd_lok'],
 				'tmt_sk_jab' => (isset($request->tmt_sk_jab) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_sk_jab))) : null),
 				'no_sk_jab' => ($request->no_sk_jab ? $request->no_sk_jab : ''),
 				'jns_jab' => $request->jns_jab,
 				'idjab' => $request->idjab,
 				'eselon' => $request->eselon,
+				'nmunit' => $nmunit,
 				// 'tampilnew' => 1,
 			]);
 

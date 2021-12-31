@@ -482,7 +482,7 @@
 													<div class="col-md-8">
 														<select class="form-control select2" name="idunit" id="idunit">
 															@foreach($units as $unit)
-																<option value="{{ $unit['kd_unit'] }}"> {{ $unit['kd_unit'] }} - {{ $unit['notes'] }}
+																<option value="{{ $unit['kd_unit'] }}::{{ $unit['notes'] }}"> {{ $unit['kd_unit'] }} - {{ $unit['notes'] }}
 																	@if(strlen($unit['kd_unit'] > 4) && substr($unit['kd_unit'], 4, 2) == '51')
 																		<span style="font-weight: bold;">[JAKARTA PUSAT]</span>
 																	@elseif(strlen($unit['kd_unit'] > 4) && substr($unit['kd_unit'], 4, 2) == '52')
