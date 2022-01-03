@@ -97,6 +97,16 @@ Route::group(['prefix' => 'mobile'], function () {
 	Route::post('/form/hapusnotif', 'MobileController@formdeletenotif');
 });
 
+Route::group(['prefix' => 'pemanfaatan'], function () {
+	Route::get('/images', 'PemanfaatanController@carouselall');
+	Route::get('/tambah carousel', 'PemanfaatanController@tambahcarousel');
+	Route::post('/form/tambahcarousel', 'PemanfaatanController@forminsertcarousel');
+	Route::get('/ubah carousel', 'PemanfaatanController@ubahcarousel');
+	Route::post('/form/ubahcarousel', 'PemanfaatanController@formupdatecarousel');
+	Route::post('/form/approvecarousel', 'PemanfaatanController@formapprovecarousel');
+	Route::post('/form/hapuscarousel', 'PemanfaatanController@formdeletecarousel');
+});
+
 Route::group(['prefix' => 'notifikasi'], function () {
 	Route::get('/cek/{jenis}/{ids}', 'NotifikasiController@cek');
 	Route::get('/', 'NotifikasiController@notifall');
@@ -116,8 +126,8 @@ Route::group(['prefix' => 'booking'], function () {
 	Route::post('form/hapuspinjam', 'BookingController@formdeletepinjam');
 	Route::post('form/approvepinjam', 'BookingController@formapprovepinjam');
 
+	Route::get('kalender', 'BookingController@kalenderpinjam');
 	Route::get('list', 'BookingController@listpinjam');
-
 	Route::get('request', 'BookingController@requestpinjam');
 });
 
