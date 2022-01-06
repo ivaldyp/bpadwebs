@@ -70,9 +70,17 @@ class KepegawaianSetupController extends Controller
 					->with('msg_num', 0);
 		}
 
+		// if ($cekunit['nm_unit'] == strtoupper($request->nm_unit)) {
 		// 	return redirect('/kepegawaian/setup/unit')
-
+		// 			->with('message', 'unit dengan nama '.strtoupper($request->nm_unit).' sudah ada di dalam database')
 		// 			->with('msg_num', 0);
+		// }
+
+		// if ($cekunit['notes'] == strtoupper($request->notes)) {
+		// 	return redirect('/kepegawaian/setup/unit')
+		// 			->with('message', 'unit dengan notes '.strtoupper($request->notes).' sudah ada di dalam database')
+		// 			->with('msg_num', 0);
+		// }
 
 		$unitpertama = glo_org_unitkerja::
 						where('kd_unit', '01')
@@ -121,9 +129,17 @@ class KepegawaianSetupController extends Controller
 						->orWhere('notes', strtoupper($request->notes))
 						->first();
 
+		// if ($cekunit['nm_unit'] == strtoupper($request->nm_unit)) {
+		// 	return redirect('/kepegawaian/setup/unit')
 		// 			->with('message', 'unit dengan nama '.strtoupper($request->nm_unit).' sudah ada di dalam database')
+		// 			->with('msg_num', 0);
+		// }
 
+		// if ($cekunit['notes'] == strtoupper($request->notes)) {
+		// 	return redirect('/kepegawaian/setup/unit')
 		// 			->with('message', 'unit dengan notes '.strtoupper($request->notes).' sudah ada di dalam database')
+		// 			->with('msg_num', 0);
+		// }
 
 		glo_org_unitkerja::where('kd_unit', $request->kd_unit)
 					->update([
