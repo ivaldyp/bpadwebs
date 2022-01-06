@@ -1507,7 +1507,7 @@ class KepegawaianController extends Controller
 
 			if ($file->getSize() > 2222222) {
 				return redirect('/kepegawaian/surat keluar tambah')->with('message', 'Ukuran file terlalu besar (Maksimal 2MB)');     
-			} 
+			}
 
 			$filesuratkeluar .= $file->getClientOriginalName();
 

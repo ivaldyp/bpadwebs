@@ -717,7 +717,7 @@
 													</td>
 													@endif
 													<td style="vertical-align: middle;">
-														<strong>{!! wordwrap(ucwords(strtolower($jab['unit']['nm_unit'])), 30, "<br>\n", TRUE ) !!}</strong>
+														<strong>{!! wordwrap(ucwords(strtolower($jab['nmunit'])), 30, "<br>\n", TRUE ) !!}</strong>
 														<br>{!! wordwrap($jab['idjab'], 50, "<br>\n", TRUE) !!}
 													</td>
 
@@ -766,6 +766,7 @@
 															data-idunit="{{$jab['idunit']}}"
 															data-idlok="{{$jab['idlok']}}"
 															data-eselon="{{$jab['eselon']}}"
+															data-notes="{{$jab['nmunit']}}"
 														><i class="ti-pencil-alt"></i></button>
 														<button type="button" class="btn btn-danger btn-delete-jab btn-outline btn-circle m-r-5" data-toggle="modal" data-target="#modal-delete-jab"
 															data-ids="{{$jab['ids']}}"
@@ -1812,7 +1813,7 @@
 									<div class="col-md-8">
 										<select class="form-control select2" name="idunit" id="modal_update_jab_idunit">
 											@foreach($units as $unit)
-												<option value="{{ $unit['kd_unit'] }}" > {{ $unit['kd_unit'] }} - {{ $unit['notes'] }}
+												<option value="{{ $unit['kd_unit'] }}::{{ $unit['notes'] }}" > {{ $unit['kd_unit'] }} - {{ $unit['notes'] }}
 
 												@if(strlen($unit['kd_unit'] > 4) && substr($unit['kd_unit'], 4, 2) == '51')
 													<span style="font-weight: bold;">[JAKARTA PUSAT]</span>
@@ -2422,7 +2423,7 @@
 				$("#modal_update_jab_jns_jab").select2("val", $el.data('jns_jab'));
 				// $("#modal_update_jab_idjab").select2("val", $el.data('idjab'));
 				$(".modal_update_idjab").select2().select2('val', $el.data('idjab'));;
-				$("#modal_update_jab_idunit").select2("val", $el.data('idunit'));
+				$("#modal_update_jab_idunit").select2("val", $el.data('idunit') + "::" + $el.data('notes'));
 				$("#modal_update_jab_idlok").val($el.data('idlok'));
 				$("#modal_update_jab_eselon").select2("val", $el.data('eselon'));
 				$("#datepicker-autoclose5").val($el.data('tmt_jab'));
