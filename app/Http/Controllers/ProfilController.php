@@ -25,6 +25,7 @@ use App\Emp_jab;
 use App\Emp_non;
 use App\Emp_kel;
 use App\Emp_huk;
+use App\Emp_skp;
 use App\Fr_disposisi;
 use App\Glo_dik;
 use App\Glo_disposisi_kode;
@@ -189,6 +190,12 @@ class ProfilController extends Controller
 					->orderBy('urut', 'asc')
 					->get();
 
+		$emp_skp = Emp_skp::
+					where('sts', 1)
+					->where('noid', Auth::user()->id_emp)
+					->orderBy('skp_tgl', 'desc')
+					->get();		
+
 		$emp_huk = Emp_huk::
 					where('sts', 1)
 					->where('noid', Auth::user()->id_emp)
@@ -228,6 +235,7 @@ class ProfilController extends Controller
 				->with('emp_jab', $emp_jab)
 				->with('emp_non', $emp_non)
 				->with('emp_kel', $emp_kel)
+				->with('emp_skp', $emp_skp)
 				->with('emp_huk', $emp_huk)
 				->with('statuses', $statuses)
 				->with('pendidikans', $pendidikans)
@@ -250,8 +258,9 @@ class ProfilController extends Controller
 
 		$id_emp = $request->id_emp;
 		$filefoto = '';
-		$fileskcpns = '';
-		$fileskpns = '';
+		$filecpns = '';
+		$filepns = '';
+		$karpeg = '';
 
 		$cekangkapenting = Emp_data::where('id_emp', $request->id_emp)->first(['nik_emp', 'nrk_emp', 'nip_emp']);
 
@@ -327,53 +336,89 @@ class ProfilController extends Controller
 			$file->move($tujuan_upload, $filefoto);
 		}
 
-		// if (isset($request->fileskcpns)) {
-		// 	$file = $request->fileskcpns;
+		if (isset($request->fileskcpns)) {
+			$file = $request->fileskcpns;
 
-		// 	if ($file->getSize() > 300000) {
-		// 		return redirect('/profil/pegawai')->with('message', 'Ukuran file SK CPNS terlalu besar (Maksimal 300KB)');     
-		// 	}
+			if ($file->getSize() > 300000) {
+				return redirect('/profil/pegawai')->with('message', 'Ukuran file SK CPNS terlalu besar (Maksimal 300KB)');     
+			}
 
-		// 	if (strtolower($file->getClientOriginalExtension()) != "png" && strtolower($file->getClientOriginalExtension()) != "jpg" && strtolower($file->getClientOriginalExtension()) != "jpeg" && strtolower($file->getClientOriginalExtension()) != "pdf") {
-		// 		return redirect('/profil/pegawai')->with('message', 'File yang diunggah harus berbentuk JPG / JPEG / PNG / PDF');     
-		// 	}
+			if (strtolower($file->getClientOriginalExtension()) != "png" && strtolower($file->getClientOriginalExtension()) != "jpg" && strtolower($file->getClientOriginalExtension()) != "jpeg" && strtolower($file->getClientOriginalExtension()) != "pdf") {
+				return redirect('/profil/pegawai')->with('message', 'File yang diunggah harus berbentuk JPG / JPEG / PNG / PDF');     
+			}
 
-		// 	$filegol .= "cpns_" . $id_emp . ".". $file->getClientOriginalExtension();
+			$filecpns .= "cpns_" . $id_emp . ".". $file->getClientOriginalExtension();
 
-		// 	$tujuan_upload = config('app.savefileimg');
-		// 	$tujuan_upload .= "\\" . $id_emp . "\\skcpns\\";
+			$tujuan_upload = config('app.savefileimg');
+			$tujuan_upload .= "\\" . $id_emp . "\\skcpns\\";
 
-		// 	if (file_exists($tujuan_upload . $filegol )) {
-		// 		unlink($tujuan_upload . $filegol);
-		// 	}
+			// if (file_exists($tujuan_upload . $filecpns )) {
+			// 	unlink($tujuan_upload . $filecpns);
+			// }
 
-		// 	$file->move($tujuan_upload, $filegol);
+			// $file->move($tujuan_upload, $filecpns);
+		}
 
-		// 	/////////////////////////////////////////////////////
+		if (isset($request->fileskpns)) {
+			$file = $request->fileskpns;
 
-		// 	$fileskcpns .= $id_emp . ".". $file->getClientOriginalExtension();
+			if ($file->getSize() > 300000) {
+				return redirect('/profil/pegawai')->with('message', 'Ukuran file SK PNS terlalu besar (Maksimal 300KB)');     
+			}
 
-		// 	$tujuan_upload = config('app.savefileimg');
-		// 	$tujuan_upload .= "\\" . $id_emp . "\\profil";
+			if (strtolower($file->getClientOriginalExtension()) != "png" && strtolower($file->getClientOriginalExtension()) != "jpg" && strtolower($file->getClientOriginalExtension()) != "jpeg" && strtolower($file->getClientOriginalExtension()) != "pdf") {
+				return redirect('/profil/pegawai')->with('message', 'File yang diunggah harus berbentuk JPG / JPEG / PNG / PDF');     
+			}
 
-		// 	// List of name of files inside 
-		// 	// specified folder 
-		// 	$allfiles = glob($tujuan_upload.'/*');  
-			   
-		// 	// Deleting all the files in the list 
-		// 	foreach($allfiles as $all) { 
-			   
-		// 	    if(is_file($all))  
-			    
-		// 	        // Delete the given file 
-		// 	        unlink($all);  
-		// 	} 
+			$filepns .= "pns_" . $id_emp . ".". $file->getClientOriginalExtension();
 
-		// 	$file->move($tujuan_upload, $fileskcpns);
-		// }
+			$tujuan_upload = config('app.savefileimg');
+			$tujuan_upload .= "\\" . $id_emp . "\\skpns\\";
+
+			// if (file_exists($tujuan_upload . $filepns )) {
+			// 	unlink($tujuan_upload . $filepns);
+			// }
+
+			// $file->move($tujuan_upload, $filepns);
+		}
+
+		if (isset($request->karpeg)) {
+			$file = $request->karpeg;
+
+			if ($file->getSize() > 300000) {
+				return redirect('/profil/pegawai')->with('message', 'Ukuran file Kartu Pegawai terlalu besar (Maksimal 300KB)');     
+			}
+
+			if (strtolower($file->getClientOriginalExtension()) != "png" && strtolower($file->getClientOriginalExtension()) != "jpg" && strtolower($file->getClientOriginalExtension()) != "jpeg" && strtolower($file->getClientOriginalExtension()) != "pdf") {
+				return redirect('/profil/pegawai')->with('message', 'File yang diunggah harus berbentuk JPG / JPEG / PNG / PDF');     
+			}
+
+			$karpeg .= "karpeg_" . $id_emp . ".". $file->getClientOriginalExtension();
+
+			$tujuan_upload = config('app.savefileimg');
+			$tujuan_upload .= "\\" . $id_emp . "\\karpeg\\";
+
+			// if (file_exists($tujuan_upload . $karpeg )) {
+			// 	unlink($tujuan_upload . $karpeg);
+			// }
+
+			// $file->move($tujuan_upload, $karpeg);
+		}
 			
 		if (!(isset($filefoto))) {
 			$filefoto = '';
+		}
+
+		if (!(isset($filecpns))) {
+			$filecpns = '';
+		}
+
+		if (!(isset($filepns))) {
+			$filepns = '';
+		}
+
+		if (!(isset($karpeg))) {
+			$karpeg = '';
 		}
 
 		if (isset($request->tgl_join)) {
@@ -422,6 +467,30 @@ class ProfilController extends Controller
 			->update([
 				// 'tampilnew' => 1,
 				'foto' => $filefoto,
+			]);
+		}
+
+		if ($filecpns != '') {
+			Emp_data::where('id_emp', $id_emp)
+			->update([
+				// 'tampilnew' => 1,
+				'sk_cpns' => $filecpns,
+			]);
+		}
+
+		if ($filepns != '') {
+			Emp_data::where('id_emp', $id_emp)
+			->update([
+				// 'tampilnew' => 1,
+				'sk_pns' => $filepns,
+			]);
+		}
+
+		if ($karpeg != '') {
+			Emp_data::where('id_emp', $id_emp)
+			->update([
+				// 'tampilnew' => 1,
+				'karpeg' => $karpeg,
 			]);
 		}
 
@@ -1302,6 +1371,104 @@ class ProfilController extends Controller
 					->with('message', 'Data jabatan pegawai berhasil dihapus')
 					->with('msg_num', 1);
 	}
+
+	// -------SKP-------------------------------------------------------------------- //
+	// -------SKP-------------------------------------------------------------------- //
+	// -------SKP-------------------------------------------------------------------- //
+	// -------SKP-------------------------------------------------------------------- //
+	// -------SKP-------------------------------------------------------------------- //
+	// -------SKP-------------------------------------------------------------------- //
+// -------SKP-------------------------------------------------------------------- //
+	// -------SKP-------------------------------------------------------------------- //
+	// -------SKP-------------------------------------------------------------------- //
+// -------SKP-------------------------------------------------------------------- //
+	// -------SKP-------------------------------------------------------------------- //
+	// -------SKP-------------------------------------------------------------------- //
+// -------SKP-------------------------------------------------------------------- //
+	// -------SKP-------------------------------------------------------------------- //
+	// -------SKP-------------------------------------------------------------------- //
+	// -------SKP-------------------------------------------------------------------- //
+	// -------SKP-------------------------------------------------------------------- //
+	// -------SKP-------------------------------------------------------------------- //
+// -------SKP-------------------------------------------------------------------- //
+	// -------SKP-------------------------------------------------------------------- //
+	// -------SKP-------------------------------------------------------------------- //
+// -------SKP-------------------------------------------------------------------- //
+	// -------SKP-------------------------------------------------------------------- //
+	// -------SKP-------------------------------------------------------------------- //
+// -------SKP-------------------------------------------------------------------- //
+	// -------SKP-------------------------------------------------------------------- //
+	// -------SKP-------------------------------------------------------------------- //
+
+
+	public function forminsertskppegawai (Request $request)
+	{
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+
+		$id_emp = $_SESSION['user_data']['id_emp'];
+		$fileskp = '';
+
+		$insert_emp_huk = [
+				// PENDIDIKAN
+				'sts' => 1,
+				'uname'     => (Auth::user()->usname ? Auth::user()->usname : Auth::user()->id_emp),
+				'tgl'       => date('Y-m-d H:i:s'),
+				'noid' => $id_emp,
+				'jns_huk' => $request->jns_huk,
+				'tgl_mulai' => ($request->tgl_mulai ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tgl_mulai))) : ''),
+				'tgl_akhir' => ($request->tgl_akhir ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tgl_akhir))) : ''),
+				'no_sk' => $request->no_sk ?? '-',
+				'tgl_sk' => ($request->tgl_sk ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tgl_sk))) : ''),
+			];
+
+		$nowid = Emp_huk::insertGetId($insert_emp_huk);
+
+		// (IDENTITAS) cek dan set variabel untuk file foto pegawai
+		if (isset($request->filehuk)) {
+			
+			$file = $request->filehuk;
+
+			if ($file->getSize() > 5555555) {
+				return redirect('/profil/pegawai')->with('message', 'Ukuran file terlalu besar (Maksimal 5MB)');     
+			}
+
+			if (strtolower($file->getClientOriginalExtension()) != "png" && strtolower($file->getClientOriginalExtension()) != "jpg" && strtolower($file->getClientOriginalExtension()) != "jpeg" && strtolower($file->getClientOriginalExtension()) != "pdf") {
+				return redirect('/profil/pegawai')->with('message', 'File yang diunggah harus berbentuk PDF / JPG / JPEG / PNG');     
+			}
+
+			$filehuk .= $nowid . "_" . $id_emp . ".". $file->getClientOriginalExtension();
+
+			$tujuan_upload = config('app.savefileimg');
+			$tujuan_upload .= "\\" . $id_emp . "\\huk\\";
+
+			if (file_exists($tujuan_upload . $filehuk )) {
+				unlink($tujuan_upload . $filehuk);
+			}
+
+			$file->move($tujuan_upload, $filehuk);
+		}
+			
+		if (!(isset($filehuk))) {
+			$filehuk = '';
+		}
+
+		if ($filehuk != '') {
+			Emp_huk::where('noid', $id_emp)
+			->where('ids', $nowid)
+			->update([
+				'gambar' => $filehuk,
+			]);
+		}
+		
+
+		return redirect('/profil/pegawai')
+					->with('message', 'Data hukuman disiplin pegawai berhasil ditambah')
+					->with('msg_num', 1);
+	}
+
+
 
 	// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
 	// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
