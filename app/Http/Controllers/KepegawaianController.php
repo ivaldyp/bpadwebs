@@ -935,6 +935,10 @@ class KepegawaianController extends Controller
 		// 	}
 		// }
 
+		$splitidunit = explode("::", $request->idunit);
+		$idunit = $splitidunit[0];
+		$nmunit = $splitidunit[1];
+
 		if (strlen($request->idunit) > 2) {
 			$cutidunit = substr($request->idunit, 4, 2);
 			if (substr($cutidunit, 0, 1) == '5') {
@@ -964,13 +968,14 @@ class KepegawaianController extends Controller
 				'noid' => $request->noid,
 				'tmt_jab' => (isset($request->tmt_jab) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_jab))) : null),
 				'idskpd' => '1.20.512',
-				'idunit' => $request->idunit,
+				'idunit' => $idunit,
 				'idlok' => $idlok['kd_lok'],
 				'tmt_sk_jab' => (isset($request->tmt_sk_jab) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_sk_jab))) : null),
 				'no_sk_jab' => ($request->no_sk_jab ? $request->no_sk_jab : ''),
 				'jns_jab' => $request->jns_jab,
 				'idjab' => $request->idjab,
 				'eselon' => $request->eselon,
+				'nmunit' => $nmunit,
 				// 'tampilnew' => 1,
 			];
 

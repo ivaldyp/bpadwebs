@@ -1842,7 +1842,7 @@
 									<div class="col-md-8">
 										<select class="form-control select2" name="idunit" id="idunit">
 											@foreach($units as $unit)
-												<option value="{{ $unit['kd_unit'] }}"> {{ $unit['kd_unit'] }} - {{ $unit['notes'] }}
+												<option value="{{ $unit['kd_unit'] }}::{{ $unit['notes'] }}"> {{ $unit['kd_unit'] }} - {{ $unit['notes'] }}
 
 												@if(strlen($unit['kd_unit'] > 4) && substr($unit['kd_unit'], 4, 2) == '51')
 													<span style="font-weight: bold;">[JAKARTA PUSAT]</span>
@@ -1965,8 +1965,8 @@
 									<label for="idunit" class="col-md-2 control-label"> Unit Organisasi </label>
 									<div class="col-md-8">
 										<select class="form-control select2" name="idunit" id="modal_update_jab_idunit">
-											@foreach($units as $unit)
-												<option value="{{ $unit['kd_unit'] }}::{{ $unit['notes'] }}" > {{ $unit['kd_unit'] }} - {{ $unit['notes'] }}
+											@foreach($units as $key => $unit)
+												<option @if($key==0) selected @endif value="{{ $unit['kd_unit'] }}::{{ $unit['notes'] }}" > {{ $unit['kd_unit'] }} - {{ $unit['notes'] }}
 
 												@if(strlen($unit['kd_unit'] > 4) && substr($unit['kd_unit'], 4, 2) == '51')
 													<span style="font-weight: bold;">[JAKARTA PUSAT]</span>
@@ -2770,7 +2770,7 @@
 				$("#modal_update_jab_noid").val($el.data('noid'));
 				$("#modal_update_jab_jns_jab").select2("val", $el.data('jns_jab'));
 				// $("#modal_update_jab_idjab").select2("val", $el.data('idjab'));
-				$(".modal_update_idjab").select2().select2('val', $el.data('idjab'));;
+				$(".modal_update_idjab").select2('val', $el.data('idjab'));
 				$("#modal_update_jab_idunit").select2("val", $el.data('idunit') + "::" + $el.data('notes'));
 				$("#modal_update_jab_idlok").val($el.data('idlok'));
 				$("#modal_update_jab_eselon").select2("val", $el.data('eselon'));

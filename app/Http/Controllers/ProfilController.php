@@ -1233,6 +1233,10 @@ class ProfilController extends Controller
 			$idlok = ['kd_lok' => '00'];
 		}
 
+		$splitidunit = explode("::", $request->idunit);
+		$idunit = $splitidunit[0];
+		$nmunit = $splitidunit[1];
+
 		$insert_emp_jab = [
 				// JABATAN
 				'sts' => 1,
@@ -1243,7 +1247,7 @@ class ProfilController extends Controller
 				'noid' => $request->noid,
 				'tmt_jab' => (isset($request->tmt_jab) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_jab))) : null),
 				'idskpd' => '1.20.512',
-				'idunit' => $request->idunit,
+				'idunit' => $idunit,
 				'idlok' => $idlok['kd_lok'],
 				'tmt_sk_jab' => (isset($request->tmt_sk_jab) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_sk_jab))) : null),
 				'no_sk_jab' => ($request->no_sk_jab ? $request->no_sk_jab : ''),
@@ -1251,6 +1255,7 @@ class ProfilController extends Controller
 				'idjab' => $request->idjab,
 				'eselon' => $request->eselon,
 				'gambar' => $filejab,
+				'nmunit' => $nmunit,
 			];
 
 		Emp_jab::insert($insert_emp_jab);
