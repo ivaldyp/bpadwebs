@@ -882,7 +882,7 @@
 															<td>{{ $key+1 }}</td>
 															<td>{{ date('d/M/Y', strtotime(str_replace('/', '-', $jab['tmt_jab']))) }}</td>
 															<td>
-																{{ $jab['unit']['nm_unit'] }}<br>
+																{{ $jab['nmunit'] }}<br>
 																<span class="text-muted">{{ $jab['lokasi']['nm_lok'] }}</span>
 															</td>
 															{{-- <td>

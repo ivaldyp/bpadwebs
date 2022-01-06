@@ -84,7 +84,8 @@
 								{{ ucwords(strtolower($emp_data['nm_emp'])) }}
 							</h1>
 							<h3><strong>
-								{{ ucwords(strtolower($emp_jab[0]['unit']['nm_unit'])) }}
+								{{-- ucwords(strtolower($emp_jab[0]['unit']['nm_unit'])) --}}
+								{{ ucwords(strtolower($emp_jab[0]['nmunit'])) }}
 							</strong></h3>
 							<a href="/portal/profil/printdrh"><button class="btn btn-warning btn-rounded">Cetak Riwayat</button></a>
 						</div>
@@ -112,6 +113,7 @@
 							<li role="presentation" class=""><a href="#tabs2" aria-controls="profile" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs">Dik</span> <span class="hidden-xs"> Pendidikan </span></a></li>
 							<li role="presentation" class=""><a href="#tabs3" aria-controls="messages" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs">Gol</i></span> <span class="hidden-xs">Golongan</span></a></li>
 							<li role="presentation" class=""><a href="#tabs4" aria-controls="settings" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs">Jab</span> <span class="hidden-xs">Jabatan</span></a></li>
+							<li role="presentation" class=""><a href="#tabs7" aria-controls="settings" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs">SKP</span> <span class="hidden-xs">SKP</span></a></li>
 							<li role="presentation" class=""><a href="#tabs6" aria-controls="settings" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs">HukDis</span> <span class="hidden-xs">Hukuman Disiplin</span></a></li>
 						</ul>
 						<!-- Tab panes -->
@@ -319,7 +321,82 @@
 											</div>
 										</div>
 										<div class="panel">
-											<div class="panel-heading" style="background-color: #edf1f5" id="exampleHeadingDefaultThree" role="tab"> <a class="panel-title collapsed" data-toggle="collapse" href="#exampleCollapseDefaultThree" data-parent="#exampleAccordionDefault" aria-expanded="false" aria-controls="exampleCollapseDefaultThree"> Nomor Penting </a> </div>
+											<div class="panel-heading" style="background-color: #edf1f5" id="exampleHeadingDefaultFour" role="tab"> <a class="panel-title collapsed" data-toggle="collapse" href="#exampleCollapseDefaultFour" data-parent="#exampleAccordionDefault" aria-expanded="false" aria-controls="exampleCollapseDefaultFour"> Data Penting </a> </div>
+											<div class="panel-collapse collapse" id="exampleCollapseDefaultFour" aria-labelledby="exampleHeadingDefaultFour" role="tabpanel">
+												<div class="table-responsive">
+													<table class="table table-hover">
+														<tr>
+															<td class="col-md-6 p-l-30">
+																<h4>SK CPNS</h4>
+																<div class="data-input">
+																	<br>
+																	<p class="text-muted"><span style="color:red;">Hanya bisa upload gambar / PDF maksimal 300KB</span></p>
+																</div>
+															</td>
+															<td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">
+																<?php if ($emp_data['sk_cpns'] && $emp_data['sk_cpns'] != '') : ?>
+																	{{ $emp_data['sk_cpns'] }}
+																<?php else : ?>
+																	-
+																<?php endif ?>
+															</h4></td>
+															<td class="col-md-6 data-input" style="vertical-align:middle;">
+																<input type="file" name="fileskcpns" accept="image/jpeg, image/jpg, image/gif, image/png, application/pdf">
+																@if($emp_data['sk_cpns'] && $emp_data['sk_cpns'] != '')
+																<br><a target="_blank" href="{{ config('app.openfileimg') }}/{{ Auth::user()->id_emp }}/skcpns/{{ $emp_data['sk_cpns'] }}">[SK CPNS]</a>
+																@endif
+															</td>
+														</tr>
+														<tr>
+															<td class="col-md-6 p-l-30">
+																<h4>SK PNS</h4>
+																<div class="data-input">
+																	<br>
+																	<p class="text-muted"><span style="color:red;">Hanya bisa upload gambar / PDF maksimal 300KB</span></p>
+																</div>
+															</td>
+															<td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">
+																<?php if ($emp_data['sk_pns'] && $emp_data['sk_pns'] != '') : ?>
+																	{{ $emp_data['sk_pns'] }}
+																<?php else : ?>
+																	-
+																<?php endif ?>
+															</h4></td>
+															<td class="col-md-6 data-input" style="vertical-align:middle;">
+																<input type="file" name="fileskpns" accept="image/jpeg, image/jpg, image/gif, image/png, application/pdf">
+																@if($emp_data['sk_pns'] && $emp_data['sk_pns'] != '')
+																<br><a target="_blank" href="{{ config('app.openfileimg') }}/{{ Auth::user()->id_emp }}/skpns/{{ $emp_data['sk_pns'] }}">[SK PNS]</a>
+																@endif
+															</td>
+														</tr>
+														<tr>
+															<td class="col-md-6 p-l-30">
+																<h4>Kartu Pegawai</h4>
+																<div class="data-input">
+																	<br>
+																	<p class="text-muted"><span style="color:red;">Hanya bisa upload gambar / PDF maksimal 300KB</span></p>
+																</div>
+															</td>
+															<td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">
+																<?php if ($emp_data['karpeg'] && $emp_data['karpeg'] != '') : ?>
+																	{{ $emp_data['karpeg'] }}
+																<?php else : ?>
+																	-
+																<?php endif ?>
+															</h4></td>
+															<td class="col-md-6 data-input" style="vertical-align:middle;">
+																<input type="file" name="karpeg" accept="image/jpeg, image/jpg, image/gif, image/png, application/pdf">
+																@if($emp_data['karpeg'] && $emp_data['karpeg'] != '')
+																<br><a target="_blank" href="{{ config('app.openfileimg') }}/{{ Auth::user()->id_emp }}/karpeg/{{ $emp_data['karpeg'] }}">[KARPEG]</a>
+																@endif
+															</td>
+														</tr>
+													</table>
+												</div>
+											</div>
+										</div>
+										<div class="panel">
+											<div class="panel-heading" style="background-color: #edf1f5" id="exampleHeadingDefaultThree" role="tab"> <a class="panel-title collapsed" data-toggle="collapse" href="#exampleCollapseDefaultThree" data-parent="#exampleAccordionDefault" aria-expanded="false" aria-controls="exampleCollapseDefaultThree"> Data Lain </a> </div>
 											<div class="panel-collapse collapse" id="exampleCollapseDefaultThree" aria-labelledby="exampleHeadingDefaultThree" role="tabpanel">
 												<div class="table-responsive">
 													<table class="table table-hover">
@@ -428,7 +505,7 @@
 										<h4>Ubah Foto 
 											<br><span class="text-danger" style="font-size: 14px">Hanya berupa JPG, JPEG, dan PNG</span>
 											<br><span class="text-danger" style="font-size: 14px">Ukuran foto 3x4</span>
-											<br><span class="text-danger" style="font-size: 14px">Size max 2MB</span>
+											<br><span class="text-danger" style="font-size: 14px">Size max 300KB</span>
 										</h4>
 										<input type="file" name="filefoto">
 									</div>
@@ -773,6 +850,82 @@
 															data-noid="{{$jab['noid']}}"
 															data-idjab="{{$jab['idjab']}}"
 															data-nm_unit="{{ucwords(strtolower($jab['unit']['nm_unit']))}}"
+														><i class="ti-trash"></i></button>
+													</td>
+												</tr>
+											@endforeach
+										</tbody>
+									</table>
+								</div>
+								@endif
+								<div class="clearfix"></div>
+							</div>
+							<div role="tabpanel" class="tab-pane fade" id="tabs7">
+								<button class="btn btn-info m-b-20 btn-insert-skp" type="button" data-toggle="modal" data-target="#modal-insert-skp">Tambah</button>
+
+								@if(count($emp_skp) > 0)
+								<div class="table-responsive">
+									<table class="table table-hover manage-u-table">
+										<tbody>
+											@foreach($emp_skp as $key => $skp)
+												<tr>
+													@if (count($emp_skp) > 1)
+													<td>
+														<h1>{{ $skp['skp_tahun'] }}</h1>
+													</td>
+													@endif
+													<td style="vertical-align: middle;">
+														<strong>{{ strtoupper($skp['skp_judul']) }}</strong>
+														<br>{{ date('d/M/Y',strtotime($skp['tgl_mulai'])) }} - {{ date('d/M/Y',strtotime($skp['tgl_akhir'])) }}
+													</td>
+
+													<td style="vertical-align: middle;">
+														Nilai Capaian
+														<?php if ($skp['skp_capaian']) : ?> 
+															<strong>{{ $skp['skp_capaian'] }}</strong>
+														<?php else : ?>
+															-
+														<?php endif ?>
+														
+														</strong><br>Nilai Perilaku
+														<?php if ($skp['skp_nilai_perilaku']) : ?> 
+															<strong>{{ $skp['skp_nilai_perilaku'] }}</strong>
+														<?php else : ?>
+															-
+														<?php endif ?>
+													</td>
+
+													<td style="vertical-align: middle;">
+														<strong>File</strong><br>
+														<?php if ($skp['skp_file']) : ?> 
+															<a target="_blank" href="{{ config('app.openfileimg') }}/{{ Auth::user()->id_emp }}/skp/{{ $skp['skp_file'] }}">[Unduh File]</a>
+														<?php else : ?>
+															[File tidak tersedia]
+														<?php endif ?>
+														<?php if ($skp['appr'] == '1') : ?> 
+															<i class="fa fa-check" style="color: #2ECC40;" data-toggle="tooltip" title="Sudah Di Approve"></i>
+														<?php else : ?>
+															<i class="fa fa-close" style="color: #FF4136;" data-toggle="tooltip" title="Belum di approve, {{ $skp != '' && !(is_null($skp)) ?  $skp['alasan'] : '' }}"></i>
+														<?php endif ?>
+													</td>
+
+
+													<td style="vertical-align: middle;">
+														
+														<button type="button" class="btn btn-info btn-outline btn-circle m-r-5 btn-update-skp" data-toggle="modal" data-target="#modal-update-skp" 
+															data-ids="{{$skp['ids']}}"
+															data-noid="{{$skp['noid']}}"
+															data-tgl_mulai="{{ date('d/m/Y',strtotime($skp['tgl_mulai'])) }}"
+															data-tgl_akhir="{{ date('d/m/Y',strtotime($skp['tgl_akhir'])) }}"
+															data-skp_judul="{{$skp['skp_judul']}}"
+															data-skp_tahun="{{$skp['skp_tahun']}}"
+															data-skp_capaian="{{$skp['skp_capaian']}}"
+															data-skp_tgl="{{ date('d/m/Y',strtotime($skp['skp_tgl'])) }}"
+															data-skp_nilai_perilaku="{{$skp['skp_nilai_perilaku']}}"
+														><i class="ti-pencil-alt"></i></button>
+														<button type="button" class="btn btn-danger btn-delete-skp btn-outline btn-circle m-r-5" data-toggle="modal" data-target="#modal-delete-skp"
+															data-ids="{{$skp['ids']}}"
+															data-noid="{{$skp['noid']}}"
 														><i class="ti-trash"></i></button>
 													</td>
 												</tr>
@@ -1925,7 +2078,202 @@
 				</div>
 			</div>
 
+			
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			<!-- MODAL SKP -->
+			<!-- 
+			SKP
+			SKP
+			SKP
+			-->
+			<div id="modal-insert-skp" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content modal-lg">
+						<form method="POST" action="/portal/profil/form/tambahskppegawai" class="form-horizontal" enctype="multipart/form-data">
+						@csrf
+							<div class="modal-header">
+								<h4 class="modal-title"><b>Tambah SKP</b></h4>
+							</div>
+							<div class="modal-body">
+
+								<div class="form-group">
+									<label for="skp_judul" class="col-lg-2 control-label"> Judul </label>
+									<div class="col-md-8">
+										<input autocomplete="off" type="text" name="skp_judul" class="form-control" id="modal_insert_skp_skp_judul" required="">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="skp_tahun" class="col-lg-2 control-label"> Tahun </label>
+									<div class="col-md-4">
+										<input autocomplete="off" type="text" name="skp_tahun" class="form-control" id="modal_insert_skp_skp_tahun" required="">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="tgl_mulai" class="col-lg-2 control-label"> Tanggal Mulai </label>
+									<div class="col-md-4">
+										<input autocomplete="off" type="text" name="tgl_mulai" class="form-control datepicker-autoclose-def" id="modal_insert_skp_tgl_mulai" placeholder="dd/mm/yyyy" required="">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="tgl_akhir" class="col-lg-2 control-label"> Tanggal Akhir </label>
+									<div class="col-md-4">
+										<input autocomplete="off" type="text" name="tgl_akhir" class="form-control datepicker-autoclose-def" id="modal_insert_skp_tgl_akhir" placeholder="dd/mm/yyyy" required="">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="skp_capaian" class="col-lg-2 control-label"> Nilai Capaian </label>
+									<div class="col-md-4">
+										<input autocomplete="off" type="text" name="skp_capaian" class="form-control" id="modal_insert_skp_skp_capaian">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="skp_nilai_perilaku" class="col-lg-2 control-label"> Nilai Perilaku </label>
+									<div class="col-md-4">
+										<input autocomplete="off" type="text" name="skp_nilai_perilaku" class="form-control" id="modal_insert_skp_skp_nilai_perilaku">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="skp_tgl" class="col-lg-2 control-label"> Tanggal SKP </label>
+									<div class="col-md-4">
+										<input autocomplete="off" type="text" name="skp_tgl" class="form-control datepicker-autoclose-def" id="modal_insert_skp_skp_tgl" placeholder="dd/mm/yyyy" required="">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="skp_file" class="col-lg-2 control-label"> Upload File <br> <span style="font-size: 12px; color:red">Size Max 2MB<br>File PDF</span> </label>
+									<div class="col-lg-8">
+										<input type="file" class="form-control" id="modal_insert_skp_skp_file" name="skp_file" accept="application/pdf">
+									</div>
+								</div>
+
+							</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-info pull-right">Simpan</button>
+								<button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div id="modal-update-huk" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content modal-lg">
+						<form method="POST" action="/portal/profil/form/ubahhukpegawai" class="form-horizontal" enctype="multipart/form-data">
+						@csrf
+							<div class="modal-header">
+								<h4 class="modal-title"><b>Ubah Hukuman Disiplin</b></h4>
+							</div>
+							<div class="modal-body">
+								
+								<input type="hidden" name="ids" id="modal_update_huk_ids">
+								<input type="hidden" name="noid" id="modal_update_huk_noid">
+
+								<div class="form-group">
+									<label for="jns_huk" class="col-lg-2 control-label"> Pilih </label>
+									<div class="col-md-4">
+										<select class="form-control" name="jns_huk" id="modal_update_huk_jns_huk">
+											<option value="Ringan"> Ringan </option>
+											<option value="Sedang"> Sedang </option>
+											<option value="Berat"> Berat </option>
+										</select>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="tgl_mulai" class="col-lg-2 control-label"> Tanggal Mulai </label>
+									<div class="col-md-4">
+										<input autocomplete="off" type="text" name="tgl_mulai" class="form-control datepicker-autoclose-def" id="modal_update_huk_tgl_mulai" placeholder="dd/mm/yyyy" required="">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="tgl_akhir" class="col-lg-2 control-label"> Tanggal Akhir </label>
+									<div class="col-md-4">
+										<input autocomplete="off" type="text" name="tgl_akhir" class="form-control datepicker-autoclose-def" id="modal_update_huk_tgl_akhir" placeholder="dd/mm/yyyy" required="">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="no_sk" class="col-lg-2 control-label"> No SK </label>
+									<div class="col-md-8">
+										<input autocomplete="off" type="text" name="no_sk" class="form-control" id="modal_update_huk_no_sk" required="">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="tgl_sk" class="col-lg-2 control-label"> Tanggal SK </label>
+									<div class="col-md-4">
+										<input autocomplete="off" type="text" name="tgl_sk" class="form-control datepicker-autoclose-def" id="modal_update_huk_tgl_sk" placeholder="dd/mm/yyyy" required="">
+									</div>
+								</div>
+
+								<div class="form-group ">
+									<label for="filehuk" class="col-lg-2 control-label"> Upload File <br> <span style="font-size: 12px; color:red">Size Max 5MB</span> </label>
+									<div class="col-lg-8">
+										<input type="file" class="form-control" id="modal_update_huk_file" name="filehuk">
+									</div>
+								</div>
+
+							</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-info pull-right">Simpan</button>
+								<button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="modal fade modal-delete" id="modal-delete-huk">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<form method="POST" action="/portal/profil/form/hapushukpegawai" class="form-horizontal">
+						@csrf
+							<div class="modal-header">
+								<h4 class="modal-title"><b>Hapus Hukuman Disiplin</b></h4>
+							</div>
+							<div class="modal-body">
+								<h4 class="label_delete"></h4>
+								<input type="hidden" name="ids" id="modal_delete_huk_ids" value="">
+								<input type="hidden" name="noid" id="modal_delete_huk_noid" value="">
+							</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-danger pull-right">Hapus</button>
+								<button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
+			
 
 
 
