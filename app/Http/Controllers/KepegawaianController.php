@@ -492,6 +492,7 @@ class KepegawaianController extends Controller
 				'ttd' => '',
 				'telegram_id' => '',
 				'passmd5' => md5($request->passmd5),
+				'idgroup_aset' => 'EMPLOYEE',
 				// 'tampilnew' => 1,
 			];
 
