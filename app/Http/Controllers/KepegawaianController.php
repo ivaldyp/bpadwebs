@@ -397,11 +397,15 @@ class KepegawaianController extends Controller
 
 		$filefoto = '';
 
-		$cekangkapenting = Emp_data::where('id_emp', $request->id_emp)->first(['nik_emp', 'nrk_emp', 'nip_emp']);
+		$cekangkapenting = Emp_data::where('id_emp', $request->id_emp)
+									->where('ked_emp', 'aktif')
+									->where('sts', 1)
+									->first(['nik_emp', 'nrk_emp', 'nip_emp']);
 
 		if ($request->nip_emp && $request->nip_emp != '' && $request->nip_emp != $cekangkapenting['nip_emp']) {
 			$ceknip = Emp_data::
 						where('nip_emp', $request->nip_emp)
+						->where('ked_emp', 'aktif')
 						->where('sts', '1')
 						->count();
 			if ($ceknip > 0) {
@@ -415,6 +419,7 @@ class KepegawaianController extends Controller
 		if ($request->nrk_emp && $request->nrk_emp != '' && $request->nrk_emp != $cekangkapenting['nrk_emp']) {
 			$ceknrk = Emp_data::
 						where('nrk_emp', $request->nrk_emp)
+						->where('ked_emp', 'aktif')
 						->where('sts', '1')
 						->count();
 			if ($ceknrk > 0) {
@@ -428,6 +433,7 @@ class KepegawaianController extends Controller
 		if ($request->nik_emp && $request->nik_emp != '' && $request->nik_emp != $cekangkapenting['nik_emp']) {
 			$ceknrk = Emp_data::
 						where('nik_emp', $request->nik_emp)
+						->where('ked_emp', 'aktif')
 						->where('sts', '1')
 						->count();
 			if ($ceknrk > 0) {
