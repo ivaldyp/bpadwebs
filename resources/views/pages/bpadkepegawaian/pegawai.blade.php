@@ -154,9 +154,7 @@
 													{{-- <th class="col-md-1" >Kel</th> --}}
 													<th class="col-md-1">TMT</th>
 													<th>Status</th>
-													@if(Auth::user()->usname)
 													<th>DRH</th>
-													@endif
 													@if($access['zupd'] == 'y' || $access['zdel'] == 'y')
 													<th class="col-md-2">Action</th>
 													@endif
@@ -183,11 +181,9 @@
 													{{-- <td>{{ $employee['jnkel_emp'] }}</td> --}}
 													<td>{{ date('d/M/Y', strtotime(str_replace('/', '-', $employee['tgl_join'] ))) }}</td>
 													<td>{{ $employee['status_emp'] }}</td>
-													@if(Auth::user()->usname)
 													<td>
 														<a href="/portal/profil/printdrh?emp={{ $employee['id_emp'] }}"><button type="button" class="btn btn-primary btn-drh"><i class="fa fa-file-pdf-o"></i></button></a>
 													</td>
-													@endif
 													@if($access['zupd'] == 'y' || $access['zdel'] == 'y')
 														<td>
 															<form method="GET" action="/portal/kepegawaian/ubah pegawai" target="_blank">
