@@ -1145,6 +1145,8 @@ class DisposisiController extends Controller
 							],
 						],
 					]);
+
+					sleep(2);
 				}
 					
 			}
@@ -1436,6 +1438,8 @@ class DisposisiController extends Controller
 							],
 						],
 					]);
+
+					sleep(2);
 				}
 					
 			}
@@ -2449,6 +2453,8 @@ class DisposisiController extends Controller
 								],
 							],
 						]);
+
+						sleep(2);
 					}
 				}
 			}
@@ -2529,6 +2535,8 @@ class DisposisiController extends Controller
 								],
 							],
 						]);
+
+						sleep(2);
 					}
 				}
 			}
