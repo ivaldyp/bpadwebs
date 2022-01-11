@@ -1340,8 +1340,8 @@ class CmsController extends Controller
 					'Content-Type' => 'application/x-www-form-urlencoded',
 				],
 				'form_params' => [
-					"title" => "Broadcast",
-					"message" => "Pesan broadcast",
+					"title" => "Berita BPAD",
+					"message" => "Yuk cek berita terbaru BPAD tentang ".ucwords($request->judul),
 					"data" => [
 						"type" => "news",
 						"id_berita" => 1,
