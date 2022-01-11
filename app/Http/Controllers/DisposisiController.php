@@ -1140,7 +1140,7 @@ class DisposisiController extends Controller
 							'Content-Type' => 'application/x-www-form-urlencoded',
 						],
 						'form_params' => [
-							"id_emp" => $findidemp[0]['id_emp'],
+							"id_emp" => $findidemp['id_emp'],
 							"title" => "Disposisi",
 							"message" => "Anda baru saja mendapatkan disposisi baru!! Segera cek aplikasi anda",
 							"data" => [
