@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 require 'vendor/autoload.php';
 
+
+use GuzzleHttp\Client;
+
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -29,6 +32,7 @@ use App\Sec_access;
 use App\Sec_menu;
 use App\Sec_logins;
 use App\Setup_can_approve;
+use Psr\Http\Message\RequestInterface;
 
 session_start();
 
@@ -595,6 +599,7 @@ class CmsController extends Controller
 		if(count($_SESSION) == 0) {
 			return redirect('home');
 		}
+
 		//$this->checkSessionTime();
 		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
 		$currentpath = explode("?", $currentpath)[0];
@@ -1317,6 +1322,34 @@ class CmsController extends Controller
 			$suspnow = 'N';
 		}
 
+		// NOTIFIKASI BROADCAST kalau ada BERITA yang di APPROVE dan merupakan HEADLINE
+		if($request->appr == 'Y' && $headline == 'H,' && $subkat == 1) {
+			// $url = "http://10.15.38.80/mobileaset/notif/bulk"; //release
+			$url = "http://10.15.38.82/mobileasetstaging/notif/bulk"; //staging
+
+			// $handler = new CurlHandler();
+			// $stack = HandlerStack::create($handler);
+			
+			// $stack->push(Middleware::mapRequest(function (RequestInterface $request) {
+			// 	return $request->withHeader('X-Foo', 'bar');
+			// }));
+			
+			$client = new Client();
+			$res = $client->request('GET', $url, [
+				'headers' => [
+					'Content-Type' => 'application/x-www-form-urlencoded',
+				],
+				'form_params' => [
+					"title" => "Broadcast",
+					"message" => "Pesan broadcast",
+					"data" => [
+						"type" => "news",
+						"id_berita" => 1,
+					],
+				],
+			]);
+		}		
+
 		return redirect('/cms/content?katnow='.$request->idkat.'&suspnow='.$suspnow)
 					->with('message', 'Konten berhasil diubah')
 					->with('msg_num', 1);
@@ -1334,6 +1367,8 @@ class CmsController extends Controller
 			->update([
 				'appr' => $request->appr,
 			]);
+
+		
 
 		return redirect('/cms/content?katnow='.$request->idkat)
 					->with('message', 'Konten berhasil diubah')
