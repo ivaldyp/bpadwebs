@@ -1323,7 +1323,7 @@ class CmsController extends Controller
 		}
 
 		// NOTIFIKASI BROADCAST kalau ada BERITA yang di APPROVE dan merupakan HEADLINE
-		if($request->appr == 'Y' && $headline == 'H,' && $subkat == 1) {
+		if($request->appr == 'Y' && $headline == 'H,' && $idkat == 1) {
 			// $url = "http://10.15.38.80/mobileaset/notif/bulk"; //release
 			$url = "http://10.15.38.82/mobileasetstaging/notif/bulk"; //staging
 
