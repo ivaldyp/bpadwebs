@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 require 'vendor/autoload.php';
 
-
 use GuzzleHttp\Client;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -1326,13 +1325,6 @@ class CmsController extends Controller
 		if($request->appr == 'Y' && $headline == 'H,' && $request->idkat == 1) {
 			// $url = "http://10.15.38.80/mobileaset/notif/bulk"; //release
 			$url = "http://10.15.38.82/mobileasetstaging/notif/bulk"; //staging
-
-			// $handler = new CurlHandler();
-			// $stack = HandlerStack::create($handler);
-			
-			// $stack->push(Middleware::mapRequest(function (RequestInterface $request) {
-			// 	return $request->withHeader('X-Foo', 'bar');
-			// }));
 			
 			$client = new Client();
 			$res = $client->request('GET', $url, [
@@ -1348,7 +1340,7 @@ class CmsController extends Controller
 					],
 				],
 			]);
-		}		
+		}	
 
 		return redirect('/cms/content?katnow='.$request->idkat.'&suspnow='.$suspnow)
 					->with('message', 'Konten berhasil diubah')

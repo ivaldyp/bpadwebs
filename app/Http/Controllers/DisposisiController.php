@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 require 'vendor/autoload.php';
+
+use GuzzleHttp\Client;
+
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -1126,6 +1129,26 @@ class DisposisiController extends Controller
 						'child' => 0,
 					];
 					Fr_disposisi::insert($insertsurat);
+
+					// NOTIFIKASI BROADCAST kalau ada DISPOSISI BARU 
+					// $url = "http://10.15.38.80/mobileaset/notif/bulk"; //release
+					$url = "http://10.15.38.82/mobileasetstaging/notif/bulk"; //staging
+					
+					$client = new Client();
+					$res = $client->request('GET', $url, [
+						'headers' => [
+							'Content-Type' => 'application/x-www-form-urlencoded',
+						],
+						'form_params' => [
+							"id_emp" => $findidemp[0]['id_emp'],
+							"title" => "Disposisi",
+							"message" => "Anda baru saja mendapatkan disposisi baru!! Segera cek aplikasi anda",
+							"data" => [
+								"type" => "news",
+								"id_berita" => 1,
+							],
+						],
+					]);
 				}
 					
 			}
@@ -2390,6 +2413,26 @@ class DisposisiController extends Controller
 							'child' => 0,
 						];
 						Fr_disposisi::insert($insertjabatan);
+
+						// NOTIFIKASI BROADCAST kalau ada DISPOSISI BARU 
+						// $url = "http://10.15.38.80/mobileaset/notif/bulk"; //release
+						$url = "http://10.15.38.82/mobileasetstaging/notif/bulk"; //staging
+						
+						$client = new Client();
+						$res = $client->request('GET', $url, [
+							'headers' => [
+								'Content-Type' => 'application/x-www-form-urlencoded',
+							],
+							'form_params' => [
+								"id_emp" => $findidjabatan[0]['id_emp'],
+								"title" => "Disposisi",
+								"message" => "Anda baru saja mendapatkan disposisi baru!! Segera cek aplikasi anda sekarang.",
+								"data" => [
+									"type" => "news",
+									"id_berita" => 1,
+								],
+							],
+						]);
 					}
 				}
 			}
@@ -2450,6 +2493,26 @@ class DisposisiController extends Controller
 							'child' => 0,
 						];
 						Fr_disposisi::insert($insertstaf);
+
+						// NOTIFIKASI BROADCAST kalau ada DISPOSISI BARU 
+						// $url = "http://10.15.38.80/mobileaset/notif/bulk"; //release
+						$url = "http://10.15.38.82/mobileasetstaging/notif/bulk"; //staging
+						
+						$client = new Client();
+						$res = $client->request('GET', $url, [
+							'headers' => [
+								'Content-Type' => 'application/x-www-form-urlencoded',
+							],
+							'form_params' => [
+								"id_emp" => $findidstaf[0]['id_emp'],
+								"title" => "Disposisi",
+								"message" => "Anda baru saja mendapatkan disposisi baru!! Segera cek aplikasi anda",
+								"data" => [
+									"type" => "news",
+									"id_berita" => 1,
+								],
+							],
+						]);
 					}
 				}
 			}
