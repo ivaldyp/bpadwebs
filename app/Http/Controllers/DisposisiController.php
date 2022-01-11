@@ -1131,8 +1131,8 @@ class DisposisiController extends Controller
 					Fr_disposisi::insert($insertsurat);
 
 					// NOTIFIKASI BROADCAST kalau ada DISPOSISI BARU 
-					// $url = "http://10.15.38.80/mobileaset/notif/bulk"; //release
-					$url = "http://10.15.38.82/mobileasetstaging/notif/bulk"; //staging
+					// $url = "http://10.15.38.80/mobileaset/notif/send"; //release
+					$url = "http://10.15.38.82/mobileasetstaging/notif/send"; //staging
 					
 					$client = new Client();
 					$res = $client->request('GET', $url, [
@@ -2415,8 +2415,8 @@ class DisposisiController extends Controller
 						Fr_disposisi::insert($insertjabatan);
 
 						// NOTIFIKASI BROADCAST kalau ada DISPOSISI BARU 
-						// $url = "http://10.15.38.80/mobileaset/notif/bulk"; //release
-						$url = "http://10.15.38.82/mobileasetstaging/notif/bulk"; //staging
+						// $url = "http://10.15.38.80/mobileaset/notif/send"; //release
+						$url = "http://10.15.38.82/mobileasetstaging/notif/send"; //staging
 						
 						$client = new Client();
 						$res = $client->request('GET', $url, [
@@ -2495,8 +2495,8 @@ class DisposisiController extends Controller
 						Fr_disposisi::insert($insertstaf);
 
 						// NOTIFIKASI BROADCAST kalau ada DISPOSISI BARU 
-						// $url = "http://10.15.38.80/mobileaset/notif/bulk"; //release
-						$url = "http://10.15.38.82/mobileasetstaging/notif/bulk"; //staging
+						// $url = "http://10.15.38.80/mobileaset/notif/send"; //release
+						$url = "http://10.15.38.82/mobileasetstaging/notif/send"; //staging
 						
 						$client = new Client();
 						$res = $client->request('GET', $url, [
