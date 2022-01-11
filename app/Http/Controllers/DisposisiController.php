@@ -1008,10 +1008,6 @@ class DisposisiController extends Controller
 			$filedispo = '';
 		}
 
-
-		// var_dump($request->all());
-		// die();
-
 		$kepada = '';
 		if (isset($request->jabatans)) {
 			for ($i=0; $i < count($request->jabatans); $i++) { 
@@ -1420,6 +1416,26 @@ class DisposisiController extends Controller
 						'child' => 0,
 					];
 					Fr_disposisi::insert($insertsurat);
+
+					// NOTIFIKASI BROADCAST kalau ada DISPOSISI BARU 
+					// $url = "http://10.15.38.80/mobileaset/notif/send"; //release
+					$url = "http://10.15.38.82/mobileasetstaging/notif/send"; //staging
+					
+					$client = new Client();
+					$res = $client->request('GET', $url, [
+						'headers' => [
+							'Content-Type' => 'application/x-www-form-urlencoded',
+						],
+						'form_params' => [
+							"id_emp" => $findidemp['id_emp'],
+							"title" => "Disposisi",
+							"message" => "Anda baru saja mendapatkan disposisi baru!! Segera cek aplikasi anda",
+							"data" => [
+								"type" => "news",
+								"id_berita" => 1,
+							],
+						],
+					]);
 				}
 					
 			}
