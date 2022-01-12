@@ -365,6 +365,45 @@ class BookingController extends Controller
 			->with('msg_num', 1);
 	}
 
+	public function kalenderpinjam(Request $request)
+	{
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+
+		if ($request->ruangnow) {
+			$ruangnow = $request->ruangnow;
+		} else {
+			$ruangnow = '004';
+		}
+		
+		$lokasis = Book_ruang::
+					where('sts', 1)
+					->groupBy('kd_lokasi')
+					->groupBy('lokasi')
+					->groupBy('lantai')
+					->orderBy('kd_lokasi')
+					->orderBy('lantai')
+					->get(['kd_lokasi', 'lokasi', 'lantai']);
+
+		return view('pages.bpadbooking.kalender')
+				->with('lokasis', $lokasis)
+				->with('ruangnow', $ruangnow);
+	}
+
+	public function requestkalenderall(Request $request)
+	{
+		$booking = Book_transact::
+					join('bpaddtfake.dbo.book_ruang', 'book_ruang.ids', '=', 'book_transact.ruang')
+					->where('kd_lokasi', $request->kd_lokasi)
+					->where('lantai', $request->lantai)
+					->orderBy('tgl_pinjam')
+					->orderBy('jam_mulai')
+					->get();
+
+		return json_encode($booking);
+	}
+
 	public function listpinjam(Request $request)
 	{
 		if(count($_SESSION) == 0) {
