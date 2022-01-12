@@ -174,7 +174,7 @@
 														<span class="text-muted">{{ $employee['nrk_emp'] ? $employee['nrk_emp'] :'' }}</span>
 													</td>
 													<td>{{ $employee['nm_emp'] }}</td>
-													<td>{{ $employee['nmunit'] }}<br>
+													<td>{{ $employee['notes'] }}<br>
 														<span class="text-muted">{{ $employee['nm_lok'] }}</span>
 													</td>
 													<td>{{ date('d/M/Y', strtotime(str_replace('/', '-', $employee['tgl_lahir'] ))) }}</td>

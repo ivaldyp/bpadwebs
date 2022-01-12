@@ -2721,7 +2721,7 @@ class KepegawaianController extends Controller
 			$sheet->setCellValue('D'.$nowrow, $employee['nrk_emp'] ? $employee['nrk_emp'] : '-' );
 			$sheet->getStyle('D'.$nowrow)->getAlignment()->setHorizontal('right');
 			$sheet->setCellValue('E'.$nowrow, strtoupper($employee['nm_emp']));
-			$sheet->setCellValue('F'.$nowrow, strtoupper($employee['nm_unit']));
+			$sheet->setCellValue('F'.$nowrow, strtoupper($employee['notes']));
 			$sheet->setCellValue('G'.$nowrow, $employee['nm_lok']);
 			$sheet->setCellValue('H'.$nowrow, date('d-m-Y', strtotime($employee['tgl_lahir'])));
 			$sheet->setCellValue('I'.$nowrow, $employee['status_emp']);
