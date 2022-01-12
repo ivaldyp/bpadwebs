@@ -127,6 +127,9 @@ Route::group(['prefix' => 'booking'], function () {
 	Route::post('form/approvepinjam', 'BookingController@formapprovepinjam');
 
 	Route::get('kalender', 'BookingController@kalenderpinjam');
+	Route::get('request/getallkalender', 'BookingController@requestkalenderall');
+
+
 	Route::get('list', 'BookingController@listpinjam');
 	Route::get('request', 'BookingController@requestpinjam');
 });

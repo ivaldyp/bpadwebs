@@ -44,72 +44,95 @@ $(document).ready(function() {
     var day = date.getDate();
     var month = date.getMonth();
     var year = date.getFullYear();
-    
-    $('#calendar').fullCalendar({
-       
-            header: {
-                left: 'prev,next today',
-                center: 'title',
-                right: 'month,agendaWeek,agendaDay'
-            },
-            editable: true,
-            droppable: true, // this allows things to be dropped onto the calendar
-            eventLimit: true, // allow "more" link when too many events
-            events: [
-                {
-                    title: 'All Day Event',
-                    start: new Date(year, month, day-8)
+
+    $.ajax({ 
+        type: "GET", 
+        url: "/portal/booking/request/getallkalender",
+        // data: { ids : ids, no_form : no_form },
+        dataType: "JSON",
+        success: function(data){
+            var allbooking=[];
+            for(var i=0; i<data.length; i++) {
+                allbooking.push({
+                    title: 'New Event '+i, 
+                    start: new Date(year, month, day+i),
+                    end: new Date(year, month, day+i),
+                    className: 'bg-info',
+                });
+            }
+            
+            $('#calendar').fullCalendar({
+           
+                
+
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
                 },
-                {
-                    title: 'Long Event',
-                    start: new Date(year, month, day-5),
-                    end: new Date(year, month, day-2)
-                },
-                {
-                    id: 999,
-                    title: 'Repeating Event',
-                    start: new Date(year, month, day)
-                },
-                {
-                    id: 999,
-                    title: 'Repeating Event',
-                    start: new Date(year, month, day+7)
-                },
-                {
-                    title: 'Conference',
-                    start: new Date(year, month, day+3),
-                    end: new Date(year, month, day+6)
-                },
-                {
-                    title: 'Meeting',
-                    start: new Date(year, month, day+5)
-                },
-                {
-                    title: 'Lunch',
-                    start: new Date(year, month, day+7)
-                },
-                {
-                    title: 'Meeting',
-                    start: new Date(year, month, day+10)
-                },
-                {
-                    title: 'Happy Hour',
-                    start: new Date(year, month, day+10)
-                },
-                {
-                    title: 'Dinner',
-                    start: new Date(year, month, day+13)
-                },
-                {
-                    title: 'Birthday Party',
-                    start: new Date(year, month, day+15)
-                },
-                {
-                    title: 'Click for Google',
-                    url: 'http://google.com/',
-                    start: new Date(year, month, day+18)
-                }
-            ]
-        });
+                editable: true,
+                droppable: true, // this allows things to be dropped onto the calendar
+                eventLimit: true, // allow "more" link when too many events
+                events: allbooking,
+                // events: [
+                //     {
+                //         title: 'All Day Event',
+                //         start: new Date(year, month, day-8)
+                //     },
+                //     {
+                //         title: 'Long Event',
+                //         start: new Date(year, month, day-5),
+                //         end: new Date(year, month, day-2),
+                //         className: 'bg-danger',
+                //     },
+                //     {
+                //         id: 999,
+                //         title: 'Repeating Event',
+                //         start: new Date(year, month, day),
+                //         className: 'bg-warning',
+                //     },
+                //     {
+                //         id: 999,
+                //         title: 'Repeating Event',
+                //         start: new Date(year, month, day+7)
+                //     },
+                //     {
+                //         title: 'Conference',
+                //         start: new Date(year, month, day+3),
+                //         end: new Date(year, month, day+6)
+                //     },
+                //     {
+                //         title: 'Meeting',
+                //         start: new Date(year, month, day+5)
+                //     },
+                //     {
+                //         title: 'Lunch',
+                //         start: new Date(year, month, day+7)
+                //     },
+                //     {
+                //         title: 'Meeting',
+                //         start: new Date(year, month, day+10)
+                //     },
+                //     {
+                //         title: 'Happy Hour',
+                //         start: new Date(year, month, day+10)
+                //     },
+                //     {
+                //         title: 'Dinner',
+                //         start: new Date(year, month, day+13)
+                //     },
+                //     {
+                //         title: 'Birthday Party',
+                //         start: new Date(year, month, day+15)
+                //     },
+                //     {
+                //         title: 'Click for Google',
+                //         url: 'http://google.com/',
+                //         start: new Date(year, month, day+18)
+                //     }
+                // ]
+            }); 
+        }
+    });
     
 });

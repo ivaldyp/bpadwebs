@@ -120,8 +120,8 @@
         });
     }
     /* Initializing */
-    CalendarApp.prototype.init = function() {
-        this.enableDrag();
+    CalendarApp.prototype.init = function(result) {
+        // this.enableDrag();
         /*  Initialize the calendar  */
         var date = new Date();
         var d = date.getDate();
@@ -129,53 +129,77 @@
         var y = date.getFullYear();
         var form = '';
         var today = new Date($.now());
+        var defaultEvents = [];
+        var eventsColors = ['bg-info', 'bg-danger', 'bg-warning', 'bg-purple', 'bg-success'];
+        
+        for(var i=0; i<result.length; i++) {
 
-        var defaultEvents =  [{
-                title: 'Released Ample Admin!',
-                start: new Date($.now() + 506800000),
-                className: 'bg-info'
-            }, {
-                title: 'This is today check date',
-                start: today,
-                end: today,
-                className: 'bg-danger'
-            }, {
-                title: 'This is your birthday',
-                start: new Date($.now() + 848000000),
-                className: 'bg-info'
-            },{
-                title: 'your meeting with john',
-                start: new Date($.now() - 1099000000),
-                end:  new Date($.now() - 919000000),
-                className: 'bg-warning'
-            },{
-                title: 'your meeting with john',
-                start: new Date($.now() - 1199000000),
-                end: new Date($.now() - 1199000000),
-                className: 'bg-purple'
-            },{
-                title: 'your meeting with john',
-                start: new Date($.now() - 399000000),
-                end: new Date($.now() - 219000000),
-                className: 'bg-info'
-            },  
-              {
-                title: 'Hanns birthday',
-                start: new Date($.now() + 868000000),
-                className: 'bg-danger'
-            },{
-                title: 'Like it?',
-                start: new Date($.now() + 348000000),
-                className: 'bg-success'
-            }];
+            var splitdate = result[i]['tgl_pinjam'].split(" ");
+            var splittime_s = result[i]['jam_mulai'].split(".");
+            var splittime_e = result[i]['jam_selesai'].split(".");
+
+            var newstart = splitdate[0] + ' ' + splittime_s[0];
+            var newend = splitdate[0] + ' ' + splittime_e[0];
+
+            defaultEvents.push({
+                title: result[i]['tujuan']+' '+result[i]['nm_ruang'], 
+                start: new Date(newstart),
+                end: new Date(newend),
+                allDay: false,
+                // end: new Date(y, m, d+i),
+                className: eventsColors[Math.floor(Math.random() * 5)],
+            });
+        }
+
+        // var defaultEvents =  [
+        //     {
+        //         title: 'Released Ample Admin!',
+        //         start: new Date($.now() + 506800000),
+        //         className: 'bg-info'
+        //     }, {
+        //         title: 'This is today check date',
+        //         start: today,
+        //         end: today,
+        //         className: 'bg-danger'
+        //     }, {
+        //         title: 'This is your birthday',
+        //         start: new Date($.now() + 848000000),
+        //         className: 'bg-info'
+        //     },{
+        //         title: 'your meeting with john',
+        //         start: new Date($.now() - 1099000000),
+        //         end:  new Date($.now() - 919000000),
+        //         className: 'bg-warning'
+        //     },{
+        //         title: 'your meeting with john',
+        //         start: new Date($.now() - 1199000000),
+        //         end: new Date($.now() - 1199000000),
+        //         className: 'bg-purple'
+        //     },{
+        //         title: 'your meeting with john',
+        //         start: new Date($.now() - 399000000),
+        //         end: new Date($.now() - 219000000),
+        //         className: 'bg-info'
+        //     },  
+        //       {
+        //         title: 'Hanns birthday',
+        //         start: new Date($.now() + 868000000),
+        //         className: 'bg-danger'
+        //     },{
+        //         title: 'Like it?',
+        //         start: new Date($.now() + 348000000),
+        //         className: 'bg-success'
+        //     },
+        // ];
 
         var $this = this;
         $this.$calendarObj = $this.$calendar.fullCalendar({
             slotDuration: '00:15:00', /* If we want to split day time each 15minutes */
             minTime: '08:00:00',
-            maxTime: '19:00:00',  
-            defaultView: 'month',  
+            maxTime: '17:00:00',  
+            defaultView: 'agendaDay',  
             handleWindowResize: true,   
+            slotEventOverlap: false,
              
             header: {
                 left: 'prev,next today',
@@ -183,6 +207,7 @@
                 right: 'month,agendaWeek,agendaDay'
             },
             events: defaultEvents,
+            timeFormat: 'H:mm',
             editable: true,
             droppable: true, // this allows things to be dropped onto the calendar !!!
             eventLimit: true, // allow "more" link when too many events
@@ -213,5 +238,20 @@
 //initializing CalendarApp
 function($) {
     "use strict";
-    $.CalendarApp.init()
+    var ruangnow = $("#ruangnow").val();
+    var varkd_lokasi = ruangnow.substring(0, 2);
+    var varlantai = ruangnow.substring(2);
+
+    $.ajax({ 
+        type: "GET", 
+        url: "/portal/booking/request/getallkalender?lok="+ruangnow,
+        data: {kd_lokasi : varkd_lokasi, lantai : varlantai},
+        dataType: "JSON",
+        }).done(function( result ) { 
+            $.CalendarApp.init(result)
+        
+        // success: function(result){
+           
+        // }
+    });
 }(window.jQuery);
