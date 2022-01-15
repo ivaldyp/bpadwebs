@@ -73,7 +73,7 @@
                         >
                             <div class="card-body" style="padding: 10px;">
                                 <div class="form-group">
-                                    <p style="font-size: 30px; text-align:center; color:red;">Maaf, form ini sudah tidak dapat diisi</p>
+                                    <p style="font-size: 30px; text-align:center; color:red;">Maaf, form ini tidak dapat diisi</p>
                                 </div>
                             </div>
 
@@ -209,6 +209,57 @@
 											<div class="help-block with-errors"></div>  
 										</div>
 									</div>
+                                    <div class="form-group" id="tidak-hadir">
+                                        <label class="col-md-12 control-label"><h4> Alasan Tidak Hadir </h4> </label>
+										<div class="radio-list col-md-6">
+											<label class="radio-inline">
+												<div class="radio radio-info">
+													<input type="radio" name="alasan" id="alasan1" value="SAKIT">
+													<label for="alasan1">SAKIT</label> 
+												</div>
+											</label>
+                                        </div>
+                                        <div class="radio-list col-md-6">
+											<label class="radio-inline">
+												<div class="radio radio-info">
+													<input type="radio" name="alasan" id="alasan2" value="IZIN">
+													<label for="alasan2">IZIN</label> 
+												</div>
+											</label>
+                                        </div>
+                                        <div class="radio-list col-md-6">
+											<label class="radio-inline">
+												<div class="radio radio-info">
+													<input type="radio" name="alasan" id="alasan3" value="CUTI">
+													<label for="alasan3">CUTI</label> 
+												</div>
+											</label>
+                                        </div>
+                                        <div class="radio-list col-md-6">
+											<label class="radio-inline">
+												<div class="radio radio-info">
+													<input type="radio" name="alasan" id="alasan4" value="DINAS LUAR">
+													<label for="alasan4">DINAS LUAR</label> 
+												</div>
+											</label>
+                                        </div>
+                                        <div class="radio-list col-md-6">
+											<label class="radio-inline">
+												<div class="radio radio-info">
+													<input type="radio" name="alasan" id="alasan5" value="TIDAK WAJIB APEL">
+													<label for="alasan5">TIDAK WAJIB APEL</label> 
+												</div>
+											</label>
+                                        </div>
+                                        <div class="radio-list col-md-6">
+											<label class="radio-inline">
+												<div class="radio radio-info">
+													<input type="radio" name="alasan" id="alasan6" value="TANPA KETERANGAN">
+													<label for="alasan6">TANPA KETERANGAN</label> 
+												</div>
+											</label>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 @if($form['allow_foto'] != '0')
@@ -248,6 +299,19 @@
 
                 $(".select2").select2();
 
+                $("#tidak-hadir").hide();
+
+                $('input:radio[name="tampil"]').change(
+                function(){
+                    if (this.checked && this.value == '0') {
+                        $("#tidak-hadir").show();
+                        $("#alasan1").prop('required',true);
+                    } else {
+                        $('input[name="alasan"]').prop('checked', false);
+                        $("#tidak-hadir").hide();
+                        $("#alasan1").prop('required',false);
+                    }
+                });
             });
         </script>
     </body>

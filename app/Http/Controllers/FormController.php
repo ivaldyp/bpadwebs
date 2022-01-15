@@ -30,7 +30,7 @@ class FormController extends Controller
 	public function openform($id, $judul)
 	{
 		date_default_timezone_set('Asia/Jakarta');
-		$nowtime = date('Y-m-d');
+		$nowtime = date('Y-m-d H:i:s');
 		
 		$form = Internal_kehadiran::
 					join('bpaddtfake.dbo.glo_tujuan_kehadiran', 'bpaddtfake.dbo.glo_tujuan_kehadiran.ids', '=', 'bpaddtfake.dbo.internal_kehadiran.tujuan_id')
@@ -39,7 +39,7 @@ class FormController extends Controller
 					->orderBy('tgl_mulai', 'desc')
 					->first();
 
-		if($nowtime > $form['tgl_end'] || $nowtime < $form['tgl_mulai']) {
+		if($nowtime > date('Y-m-d', strtotime($form['tgl_end'])) || $nowtime < date('Y-m-d', strtotime($form['tgl_mulai']))) {
 			$flaglewat = 1;
 		} else {
 			$flaglewat = 0;
@@ -157,6 +157,7 @@ class FormController extends Controller
 					'id_emp'     	=> $request->id_emp,
 					'hadir'       	=> $request->tampil,
 					'foto'			=> $filefoto,
+					'ket_tdk_hadir'	=> $request->alasan,
 				];
 		}
 

@@ -146,6 +146,7 @@
                                                         <th>Nama</th>
                                                         <th>Unit</th>
                                                         <th class="col-md-2">Kehadiran</th>
+														<th>Keterangan</th>
 														<th>Foto</th>
                                                     </tr>
                                                 </thead>
@@ -158,6 +159,7 @@
                                                         <td style="vertical-align: middle;">{{ $emp['nm_emp'] }}</td>
                                                         <td style="vertical-align: middle;">{{ $emp['nm_unit'] }}</td>
                                                         <td style="vertical-align: middle;">{{ $emp['hadir'] }}</td>
+														<td style="vertical-align: middle;">{{ $emp['ket_tdk_hadir'] }}</td>
 														<td style="vertical-align: middle;">{{ $emp['foto'] }}</td>
                                                     </tr>
                                                     @endforeach

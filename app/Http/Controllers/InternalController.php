@@ -1144,7 +1144,7 @@ class InternalController extends Controller
 		} else {
 			$total = Emp_data::count();
 			$emps = DB::select( DB::raw("  
-			SELECT max(res.tgl) as tgl, a.id_emp, a.nip_emp, a.nrk_emp, a.nm_emp, res.hadir as sts, tbunit.kd_unit, tbunit.nm_unit, totalhadir, max(res.foto) as foto,
+			SELECT max(res.tgl) as tgl, a.id_emp, a.nip_emp, a.nrk_emp, a.nm_emp, res.hadir as sts, tbunit.kd_unit, tbunit.nm_unit, totalhadir, max(res.foto) as foto, res.ket_tdk_hadir as ket_tdk_hadir,
 			CASE WHEN res.hadir = 1
 				THEN 'HADIR'
 				ELSE 'TIDAK HADIR'
@@ -1158,7 +1158,7 @@ class InternalController extends Controller
 			and a.id_emp = tbjab.noid
 			and tbjab.sts = 1
 			$query
-			group by a.id_emp, a.nip_emp, a.nrk_emp, a.nm_emp, res.hadir, tbunit.kd_unit, tbunit.nm_unit, totalhadir
+			group by a.id_emp, a.nip_emp, a.nrk_emp, a.nm_emp, res.hadir, tbunit.kd_unit, tbunit.nm_unit, totalhadir, res.ket_tdk_hadir
 			order by tbunit.kd_unit, nm_emp
 					"));
 			$emps = json_decode(json_encode($emps), true);	
@@ -1204,7 +1204,7 @@ class InternalController extends Controller
 		} else {
 			$total = Emp_data::count();
 			$emps = DB::select( DB::raw("  
-			SELECT max(res.tgl) as tgl, a.id_emp, a.nip_emp, a.nrk_emp, a.nm_emp, res.hadir as sts, tbunit.kd_unit, tbunit.nm_unit, totalhadir, max(res.foto) as foto,
+			SELECT max(res.tgl) as tgl, a.id_emp, a.nip_emp, a.nrk_emp, a.nm_emp, res.hadir as sts, tbunit.kd_unit, tbunit.nm_unit, totalhadir, max(res.foto) as foto, res.ket_tdk_hadir as ket_tdk_hadir,
 			CASE WHEN res.hadir = 1
 				THEN 'HADIR'
 				ELSE 'TIDAK HADIR'
@@ -1218,7 +1218,7 @@ class InternalController extends Controller
 			and a.id_emp = tbjab.noid
 			and tbjab.sts = 1
 			$query
-			group by a.id_emp, a.nip_emp, a.nrk_emp, a.nm_emp, res.hadir, tbunit.kd_unit, tbunit.nm_unit, totalhadir
+			group by a.id_emp, a.nip_emp, a.nrk_emp, a.nm_emp, res.hadir, tbunit.kd_unit, tbunit.nm_unit, totalhadir, res.ket_tdk_hadir
 			order by tbunit.kd_unit, nm_emp
 					"));
 			$emps = json_decode(json_encode($emps), true);	
@@ -1301,13 +1301,16 @@ class InternalController extends Controller
 					'name' => 'Trebuchet MS',
 				]
 			];
-			$sheet->getStyle('A1:F5')->applyFromArray($styleArray);
+			$sheet->getStyle('A1:H5')->applyFromArray($styleArray);
 			$sheet->setCellValue('A5', 'NO');
 			$sheet->setCellValue('B5', 'NIP');
 			$sheet->setCellValue('C5', 'NRK');
 			$sheet->setCellValue('D5', 'NAMA');
 			$sheet->setCellValue('E5', 'UNIT');
 			$sheet->setCellValue('F5', 'KEHADIRAN');
+			$sheet->setCellValue('G5', 'KETERANGAN');
+			$sheet->setCellValue('H5', 'TIMESTAMP');
+
 			$colorArrayhead = [
 				'fill' => [
 					'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
@@ -1316,9 +1319,9 @@ class InternalController extends Controller
 					],
 				],
 			];
-			$sheet->getStyle('A5:F5')->applyFromArray($colorArrayhead);
-			$sheet->getStyle('A5:F5')->getFont()->setBold( true );
-			$sheet->getStyle('A5:F5')->getAlignment()->setHorizontal('center');
+			$sheet->getStyle('A5:H5')->applyFromArray($colorArrayhead);
+			$sheet->getStyle('A5:H5')->getFont()->setBold( true );
+			$sheet->getStyle('A5:H5')->getAlignment()->setHorizontal('center');
 	
 			$colorArrayV1 = [
 				'fill' => [
@@ -1333,7 +1336,7 @@ class InternalController extends Controller
 			$rowstart = $nowrow - 1;
 			foreach ($emps as $key => $emp) {
 				if ($key%2 == 0) {
-					$sheet->getStyle('A'.$nowrow.':F'.$nowrow)->applyFromArray($colorArrayV1);
+					$sheet->getStyle('A'.$nowrow.':H'.$nowrow)->applyFromArray($colorArrayV1);
 				}
 	
 				$sheet->setCellValue('A'.$nowrow, $key+1);
@@ -1342,9 +1345,11 @@ class InternalController extends Controller
 				$sheet->setCellValue('D'.$nowrow, ($emp['nm_emp'] && $emp['nm_emp']!='' ? strtoupper($emp['nm_emp']) : '-'));
 				$sheet->setCellValue('E'.$nowrow, strtoupper($emp['nm_unit']));
 				$sheet->setCellValue('F'.$nowrow, $emp['hadir']);
+				$sheet->setCellValue('G'.$nowrow, $emp['ket_tdk_hadir']);
+				$sheet->setCellValue('H'.$nowrow, $emp['tgl']);
 
 				if (strlen($emp['kd_unit']) < 10) {
-					$sheet->getStyle('A'.$nowrow.':F'.$nowrow)->getFont()->setBold( true );
+					$sheet->getStyle('A'.$nowrow.':H'.$nowrow)->getFont()->setBold( true );
 				}
 	
 				$nowrow++;
