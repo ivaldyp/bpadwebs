@@ -1433,8 +1433,8 @@ class DisposisiController extends Controller
 							"title" => "Disposisi",
 							"message" => "Anda baru saja mendapatkan disposisi baru!! Segera cek aplikasi anda",
 							"data" => [
-								"type" => "news",
-								"id_berita" => 1,
+								"type" => "disposisi",
+								"ids" => 1,
 							],
 						],
 					]);

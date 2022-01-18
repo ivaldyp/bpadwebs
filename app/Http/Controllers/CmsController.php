@@ -1132,6 +1132,8 @@ class CmsController extends Controller
 					where('ids', $request->idkat)
 					->first();
 
+		$thiscontent = Content_tb::where('ids', $request->ids)->first();
+
 		if (isset($request->tfile)) {
 			$file = $request->tfile;
 
@@ -1321,6 +1323,29 @@ class CmsController extends Controller
 			$suspnow = 'N';
 		}
 
+		// NOTIFIKASI KE USER PEMBUAT KONTEN kalau ada KONTEN yang di APPROVE
+		// $url = "http://10.15.38.80/mobileaset/notif/bulk"; //release
+		$url = "http://10.15.38.82/mobileasetstaging/notif/send"; //staging
+		
+		$client = new Client();
+		$res = $client->request('GET', $url, [
+			'headers' => [
+				'Content-Type' => 'application/x-www-form-urlencoded',
+			],
+			'form_params' => [
+				"id_emp" => $thiscontent['usrinput'],
+				"title" => "Konten Buatan Anda",
+				"message" => "Konten anda tentang ".ucwords($request->judul). "telah mendapatkan approval oleh admin dan berhasil di publish!!",
+				"image" => "https://bpad.jakarta.go.id/portal/public/publicimg/images/cms/1.20.512/1/file/".$thiscontent['tfile'],
+				"data" => [
+					"type" => "news",
+					"ids" => $thiscontent['ids'],
+					// "url"
+					// "image"
+				],
+			],
+		]);	
+
 		// NOTIFIKASI BROADCAST kalau ada BERITA yang di APPROVE dan merupakan HEADLINE
 		if($request->appr == 'Y' && $headline == 'H,' && $request->idkat == 1) {
 			// $url = "http://10.15.38.80/mobileaset/notif/bulk"; //release
@@ -1332,11 +1357,38 @@ class CmsController extends Controller
 					'Content-Type' => 'application/x-www-form-urlencoded',
 				],
 				'form_params' => [
-					"title" => "Berita BPAD",
+					"title" => "Berita Terkini",
 					"message" => "Yuk cek berita terbaru BPAD tentang ".ucwords($request->judul),
+					"image" => "https://bpad.jakarta.go.id/portal/public/publicimg/images/cms/1.20.512/1/file/".$thiscontent['tfile'],
 					"data" => [
 						"type" => "news",
-						"id_berita" => 1,
+						"ids" => $thiscontent['ids'],
+						// "url"
+						// "image"
+					],
+				],
+			]);
+		}	
+
+		// NOTIFIKASI BROADCAST kalau ada FOTO yang di APPROVE
+		if($request->appr == 'Y' && $request->idkat == 5) {
+			// $url = "http://10.15.38.80/mobileaset/notif/bulk"; //release
+			$url = "http://10.15.38.82/mobileasetstaging/notif/bulk"; //staging
+			
+			$client = new Client();
+			$res = $client->request('GET', $url, [
+				'headers' => [
+					'Content-Type' => 'application/x-www-form-urlencoded',
+				],
+				'form_params' => [
+					"title" => "Foto BPAD Terbaru",
+					"message" => "Yuk cek foto terbaru dari BPAD tentang ".ucwords($request->judul),
+					"image" => "https://bpad.jakarta.go.id/portal/public/publicimg/images/cms/1.20.512/5/file/".$thiscontent['tfile'],
+					"data" => [
+						"type" => "image",
+						"ids" => $thiscontent['ids'],
+						// "url"
+						// "image"
 					],
 				],
 			]);
