@@ -1325,7 +1325,7 @@ class CmsController extends Controller
 
 		// NOTIFIKASI KE USER PEMBUAT KONTEN kalau ada KONTEN yang di APPROVE
 		if($request->appr == 'Y' && $headline == 'H,' && $request->idkat == 1) {
-			// $url = "http://10.15.38.80/mobileaset/notif/bulk"; //release
+			// $url = "http://10.15.38.80/mobileaset/notif/send"; //release
 			$url = "http://10.15.38.82/mobileasetstaging/notif/send"; //staging
 			
 			$client = new Client();
@@ -1336,7 +1336,7 @@ class CmsController extends Controller
 				'form_params' => [
 					"id_emp" => $thiscontent['usrinput'],
 					"title" => "Konten Buatan Anda",
-					"message" => "Konten anda tentang ".ucwords($request->judul). "telah mendapatkan approval oleh admin dan berhasil di publish!!",
+					"message" => "Konten anda tentang ".ucwords($request->judul). " telah mendapatkan approval oleh admin dan berhasil di publish!!",
 					"image" => "https://bpad.jakarta.go.id/portal/public/publicimg/images/cms/1.20.512/1/file/".$thiscontent['tfile'],
 					"data" => [
 						"type" => "news",
