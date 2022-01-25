@@ -73,11 +73,9 @@
 										<div class=" col-md-2">
 											<?php date_default_timezone_set('Asia/Jakarta'); ?>
 											<select class="form-control" name="yearnow" id="yearnow" onchange="this.form.submit()">
-												<option <?php if ($yearnow == (int)date('Y')): ?> selected <?php endif ?> value="{{ (int)date('Y') }}">{{ (int)date('Y') }}</option>
-												<option <?php if ($yearnow == (int)date('Y') - 1): ?> selected <?php endif ?> value="{{ (int)date('Y') - 1 }}">{{ (int)date('Y') - 1 }}</option>
-												<option <?php if ($yearnow == (int)date('Y') - 2): ?> selected <?php endif ?> value="{{ (int)date('Y') - 2 }}">{{ (int)date('Y') - 2 }}</option>
-												<option <?php if ($yearnow == (int)date('Y') - 3): ?> selected <?php endif ?> value="{{ (int)date('Y') - 3 }}">{{ (int)date('Y') - 3 }}</option>
-												<option <?php if ($yearnow == (int)date('Y') - 4): ?> selected <?php endif ?> value="{{ (int)date('Y') - 4 }}">{{ (int)date('Y') - 4 }}</option>
+												@foreach($distinctyear as $key => $year)
+												<option <?php if ($yearnow == $year['year']): ?> selected <?php endif ?> value="{{ $year['year'] }}">{{ $year['year'] }}</option>
+												@endforeach	
 											</select>
 										</div>
 										<div class=" col-md-1">

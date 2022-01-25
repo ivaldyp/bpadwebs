@@ -228,6 +228,12 @@ class DisposisiController extends Controller
 		// $tglnow = (int)date('d');
 		// $tgllengkap = $yearnow . "-" . $monthnow . "-" . $tglnow;
 
+		$distinctyear = Fr_disposisi::distinct()
+						->whereRaw('YEAR(tgl_masuk) > 2016')
+						->whereRaw('YEAR(tgl_masuk) <= '.date('Y'))
+						->orderBy('year', 'desc')
+						->get([DB::raw('YEAR(tgl_masuk) as year')]);
+
 		$dateofmonth = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 		$tglnow = $dateofmonth[$monthnow];
 
@@ -541,6 +547,7 @@ class DisposisiController extends Controller
 				->with('disposisiundangans', $disposisiundangans)
 				->with('disposisisurats', $disposisisurats)
 				->with('disposisidrafts', $disposisidrafts)
+				->with('distinctyear', $distinctyear)
 				->with('signnow', $signnow)
 				->with('searchnow', $request->searchnow)
 				->with('monthnow', $monthnow)
@@ -1611,6 +1618,12 @@ class DisposisiController extends Controller
 			$qid = "and d.to_pm = '".$idgroup."'";
 		}
 
+		$distinctyear = Fr_disposisi::distinct()
+						->whereRaw('YEAR(tgl_masuk) > 2016')
+						->whereRaw('YEAR(tgl_masuk) <= '.date('Y'))
+						->orderBy('year', 'desc')
+						->get([DB::raw('YEAR(tgl_masuk) as year')]);
+
 		$tglnow = (int)date('d');
 		$tgllengkap = $yearnow . "-" . $monthnow . "-" . $tglnow;
 
@@ -1949,6 +1962,7 @@ class DisposisiController extends Controller
 				->with('dispsentundangan', $dispsentundangan)
 				->with('dispsentsurat', $dispsentsurat)
 				->with('dispdraft', $dispdraft)
+				->with('distinctyear', $distinctyear)
 				->with('signnow', $signnow)
 				->with('searchnow', $request->searchnow)
 				->with('monthnow', $monthnow)
