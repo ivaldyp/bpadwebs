@@ -1147,7 +1147,7 @@ class DisposisiController extends Controller
 							"title" => "Disposisi",
 							"message" => "Anda baru saja mendapatkan disposisi baru!! Segera cek aplikasi anda",
 							"data" => [
-								"type" => "news",
+								"type" => "disposisi",
 								"id_berita" => 1,
 							],
 						],
@@ -2462,7 +2462,7 @@ class DisposisiController extends Controller
 								"title" => "Disposisi",
 								"message" => "Anda baru saja mendapatkan disposisi baru!! Segera cek aplikasi anda sekarang.",
 								"data" => [
-									"type" => "news",
+									"type" => "disposisi",
 									"id_berita" => 1,
 								],
 							],
@@ -2544,7 +2544,7 @@ class DisposisiController extends Controller
 								"title" => "Disposisi",
 								"message" => "Anda baru saja mendapatkan disposisi baru!! Segera cek aplikasi anda",
 								"data" => [
-									"type" => "news",
+									"type" => "disposisi",
 									"id_berita" => 1,
 								],
 							],
