@@ -1133,6 +1133,12 @@ class DisposisiController extends Controller
 					];
 					Fr_disposisi::insert($insertsurat);
 
+					$getlastinsertid = Fr_disposisi::
+										where('sts', 1)
+										->where('no_form', $maxnoform)
+										->orderBy('ids', 'desc')
+										->first();
+
 					// NOTIFIKASI BROADCAST kalau ada DISPOSISI BARU 
 					// $url = "http://10.15.38.80/mobileaset/notif/send"; //release
 					$url = "http://10.15.38.82/mobileasetstaging/notif/send"; //staging
@@ -1148,7 +1154,7 @@ class DisposisiController extends Controller
 							"message" => "Anda baru saja mendapatkan disposisi baru!! Segera cek aplikasi anda",
 							"data" => [
 								"type" => "disposisi",
-								"id_berita" => 1,
+								"ids" => $getlastinsertid['ids'],
 							],
 						],
 					]);
@@ -1426,6 +1432,12 @@ class DisposisiController extends Controller
 					];
 					Fr_disposisi::insert($insertsurat);
 
+					$getlastinsertid = Fr_disposisi::
+										where('sts', 1)
+										->where('no_form', $request->no_form)
+										->orderBy('ids', 'desc')
+										->first();
+
 					// NOTIFIKASI BROADCAST kalau ada DISPOSISI BARU 
 					// $url = "http://10.15.38.80/mobileaset/notif/send"; //release
 					$url = "http://10.15.38.82/mobileasetstaging/notif/send"; //staging
@@ -1441,7 +1453,7 @@ class DisposisiController extends Controller
 							"message" => "Anda baru saja mendapatkan disposisi baru!! Segera cek aplikasi anda",
 							"data" => [
 								"type" => "disposisi",
-								"ids" => 1,
+								"ids" => $getlastinsertid['ids'],
 							],
 						],
 					]);
@@ -2448,6 +2460,12 @@ class DisposisiController extends Controller
 						];
 						Fr_disposisi::insert($insertjabatan);
 
+						$getlastinsertid = Fr_disposisi::
+											where('sts', 1)
+											->where('no_form', $request->no_form)
+											->orderBy('ids', 'desc')
+											->first();
+
 						// NOTIFIKASI BROADCAST kalau ada DISPOSISI BARU 
 						// $url = "http://10.15.38.80/mobileaset/notif/send"; //release
 						$url = "http://10.15.38.82/mobileasetstaging/notif/send"; //staging
@@ -2463,7 +2481,7 @@ class DisposisiController extends Controller
 								"message" => "Anda baru saja mendapatkan disposisi baru!! Segera cek aplikasi anda sekarang.",
 								"data" => [
 									"type" => "disposisi",
-									"id_berita" => 1,
+									"ids" => $getlastinsertid['ids'],
 								],
 							],
 						]);
@@ -2530,6 +2548,12 @@ class DisposisiController extends Controller
 						];
 						Fr_disposisi::insert($insertstaf);
 
+						$getlastinsertid = Fr_disposisi::
+											where('sts', 1)
+											->where('no_form', $request->no_form)
+											->orderBy('ids', 'desc')
+											->first();
+
 						// NOTIFIKASI BROADCAST kalau ada DISPOSISI BARU 
 						// $url = "http://10.15.38.80/mobileaset/notif/send"; //release
 						$url = "http://10.15.38.82/mobileasetstaging/notif/send"; //staging
@@ -2545,7 +2569,7 @@ class DisposisiController extends Controller
 								"message" => "Anda baru saja mendapatkan disposisi baru!! Segera cek aplikasi anda",
 								"data" => [
 									"type" => "disposisi",
-									"id_berita" => 1,
+									"ids" => $getlastinsertid['ids'],
 								],
 							],
 						]);
