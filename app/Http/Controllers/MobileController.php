@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+require 'vendor/autoload.php';
+
+use GuzzleHttp\Client;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
@@ -20,7 +24,7 @@ class MobileController extends Controller
         $notifs = Mob_pushnotif::
 					join('glo_mob_notiftipe', 'glo_mob_notiftipe.ids', '=', 'mob_pushnotif.tipe')	
 					->where('mob_pushnotif.sts', 1)
-					->get();
+					->get(['mob_pushnotif.ids', 'mob_pushnotif.sts', 'mob_pushnotif.judul', 'mob_pushnotif.isi', 'mob_pushnotif.url', 'mob_pushnotif.img', 'mob_pushnotif.appr', 'mob_pushnotif.tipe', 'mob_pushnotif.tujuan']);
 
         return view('pages.bpadmobile.notifall')
                 ->with('notifs', $notifs);
@@ -94,6 +98,28 @@ class MobileController extends Controller
 						->update([
 							'appr' => 1,
 						]);
+
+		$thisnotif = Mob_pushnotif::where('ids', $request->ids)->first();
+
+		// NOTIFIKASI BROADCAST kalau ada DISPOSISI BARU 
+		// $url = "http://10.15.38.80/mobileaset/notif/bulk"; //release
+		$url = "http://10.15.38.82/mobileasetstaging/notif/bulk"; //staging
+		
+		$client = new Client();
+		$res = $client->request('GET', $url, [
+			'headers' => [
+				'Content-Type' => 'application/x-www-form-urlencoded',
+			],
+			'form_params' => [
+				"title" => $thisnotif['judul'],
+				"message" => $thisnotif['isi'],
+				"image" => "https://bpad.jakarta.go.id/portal/public/publicimg/mobilenotif/".$thisnotif['img'],	
+				"data" => [
+					"type" => "blast",
+					"ids" => $thisnotif['ids'],
+				],
+			],
+		]);
 
 		return redirect('/mobile/notif')
 				->with('message', 'Approval Notifikasi berhasil')
