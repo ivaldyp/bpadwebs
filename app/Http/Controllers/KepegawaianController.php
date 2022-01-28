@@ -740,8 +740,10 @@ class KepegawaianController extends Controller
 		//$this->checkSessionTime();
 
 		if ($request->ked_emp == 'AKTIF') {
+			$sts = 1;
 			$tgl_end = null;
 		} else {
+			$sts = 0;
 			$tgl_end = (isset($request->tgl_end) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tgl_end))) : null);
 		}
 
@@ -749,6 +751,7 @@ class KepegawaianController extends Controller
 			->update([
 				'tgl_end' => $tgl_end,
 				'ked_emp' => $request->ked_emp,
+				'sts'	  => $sts,
 			]);
 
 		return redirect('/kepegawaian/data pegawai')
