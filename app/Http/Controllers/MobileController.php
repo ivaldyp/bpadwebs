@@ -102,8 +102,8 @@ class MobileController extends Controller
 		$thisnotif = Mob_pushnotif::where('ids', $request->ids)->first();
 
 		// NOTIFIKASI BROADCAST kalau ada DISPOSISI BARU 
-		// $url = "http://10.15.38.80/mobileaset/notif/bulk"; //release
-		$url = "http://10.15.38.82/mobileasetstaging/notif/bulk"; //staging
+		$url = "http://10.15.38.80/mobileaset/notif/bulk"; //release
+		// $url = "http://10.15.38.82/mobileasetstaging/notif/bulk"; //staging
 		
 		$client = new Client();
 		$res = $client->request('GET', $url, [

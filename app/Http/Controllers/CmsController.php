@@ -1325,8 +1325,8 @@ class CmsController extends Controller
 
 		// NOTIFIKASI KE USER PEMBUAT KONTEN kalau ada KONTEN yang di APPROVE
 		if($request->appr == 'Y' && $headline == 'H,' && $request->idkat == 1) {
-			// $url = "http://10.15.38.80/mobileaset/notif/send"; //release
-			$url = "http://10.15.38.82/mobileasetstaging/notif/send"; //staging
+			$url = "http://10.15.38.80/mobileaset/notif/send"; //release
+			// $url = "http://10.15.38.82/mobileasetstaging/notif/send"; //staging
 			
 			$client = new Client();
 			$res = $client->request('GET', $url, [
@@ -1351,8 +1351,8 @@ class CmsController extends Controller
 
 		// NOTIFIKASI BROADCAST kalau ada BERITA yang di APPROVE dan merupakan HEADLINE
 		if($request->appr == 'Y' && $headline == 'H,' && $request->idkat == 1) {
-			// $url = "http://10.15.38.80/mobileaset/notif/bulk"; //release
-			$url = "http://10.15.38.82/mobileasetstaging/notif/bulk"; //staging
+			$url = "http://10.15.38.80/mobileaset/notif/bulk"; //release
+			// $url = "http://10.15.38.82/mobileasetstaging/notif/bulk"; //staging
 			
 			$client = new Client();
 			$res = $client->request('GET', $url, [
@@ -1361,7 +1361,7 @@ class CmsController extends Controller
 				],
 				'form_params' => [
 					"title" => "Berita Terkini",
-					"message" => "Yuk cek berita terbaru BPAD tentang ".ucwords($request->judul),
+					"message" => "Yuk cek berita terbaru dari BPAD tentang ".ucwords($request->judul),
 					"image" => "https://bpad.jakarta.go.id/portal/public/publicimg/images/cms/1.20.512/1/file/".$thiscontent['tfile'],
 					"data" => [
 						"type" => "news",
@@ -1375,8 +1375,8 @@ class CmsController extends Controller
 
 		// NOTIFIKASI BROADCAST kalau ada FOTO yang di APPROVE
 		if($request->appr == 'Y' && $request->idkat == 5) {
-			// $url = "http://10.15.38.80/mobileaset/notif/bulk"; //release
-			$url = "http://10.15.38.82/mobileasetstaging/notif/bulk"; //staging
+			$url = "http://10.15.38.80/mobileaset/notif/bulk"; //release
+			// $url = "http://10.15.38.82/mobileasetstaging/notif/bulk"; //staging
 			
 			$client = new Client();
 			$res = $client->request('GET', $url, [
