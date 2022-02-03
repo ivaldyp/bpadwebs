@@ -110,6 +110,7 @@
 												<select class="form-control" name="catatan_final" id="catatan_final">
 													<option <?php if (strtolower($dispmaster['catatan_final']) == "surat"): ?> selected <?php endif ?> value="Surat"> Surat </option>
 													<option <?php if (strtolower($dispmaster['catatan_final']) == "undangan"): ?> selected <?php endif ?> value="Undangan"> Undangan </option>
+													<option <?php if (strtolower($dispmaster['catatan_final']) == "ppid"): ?> selected <?php endif ?> value="PPID"> PPID </option>
 												</select>
 											</div>
 										</div>
