@@ -149,9 +149,9 @@
 																	<input type="hidden" name="ids" value="{{ $surat['ids'] }}">
 																	<input type="hidden" name="no_form" value="{{ $surat['no_form'] }}">
 																	<button type="submit" class="btn btn-info btn-outline btn-circle m-r-5 btn-update"><i class="ti-pencil-alt"></i></button>
+																	<button type="button" class="btn btn-danger btn-outline btn-circle m-r-5 btn-delete" data-toggle="modal" data-target="#modal-delete" data-ids="{{ $surat['ids'] }}" data-noform="{{ $surat['no_form'] }}" data-nmfile="{{ $surat['nm_file'] }}" ><i class="fa fa-trash"></i></button>
 																</form>
 															@endif
-															<button type="button" class="btn btn-danger btn-outline btn-circle m-r-5 btn-delete" data-toggle="modal" data-target="#modal-delete" data-ids="{{ $surat['ids'] }}" data-noform="{{ $surat['no_form'] }}" data-nmfile="{{ $surat['nm_file'] }}" ><i class="fa fa-trash"></i></button>
 														</td>
 													@endif
 												</tr>
