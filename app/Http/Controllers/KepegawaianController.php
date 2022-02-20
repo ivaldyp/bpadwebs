@@ -1432,7 +1432,7 @@ class KepegawaianController extends Controller
 		}	
 	}
 
-	public function suratkeluar()
+	public function suratkeluar(Request $request)
 	{
 		if(count($_SESSION) == 0) {
 			return redirect('home');
@@ -1443,12 +1443,29 @@ class KepegawaianController extends Controller
 		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
 		$access = $this->checkAccess($_SESSION['user_data']['idgroup'], $thismenu['ids']);
 
+		$units = glo_org_unitkerja::whereRaw('LEN(kd_unit) = 6')
+				->orderBy('kd_unit')
+				->get();
+
+		if (is_null($request->unit)) {
+			if (Auth::user()->id_emp) {
+				$idunit = $_SESSION['user_data']['idunit'];
+			} else {
+				$idunit = '01';
+			}
+		} else {
+			$idunit = $request->unit;
+		}
+
 		$surats = Fr_suratkeluar::
-					orderBy('tgl_input', 'desc')
+					where('unit', $idunit)
+					->orderBy('tgl_input', 'desc')
 					->get();
 
 		return view('pages.bpadkepegawaian.suratkeluar')
 				->with('access', $access)
+				->with('idunit', $idunit)
+				->with('units', $units)
 				->with('surats', $surats);
 	}
 
@@ -1458,6 +1475,10 @@ class KepegawaianController extends Controller
 			return redirect('home');
 		}
 		//$this->checkSessionTime();
+
+		$units = glo_org_unitkerja::whereRaw('LEN(kd_unit) = 6')
+				->orderBy('kd_unit')
+				->get();
 
 		$disposisis = Fr_disposisi::
 						limit(200)
@@ -1470,7 +1491,8 @@ class KepegawaianController extends Controller
 
 		return view('pages.bpadkepegawaian.suratkeluartambah')
 				->with('disposisis', $disposisis)
-				->with('dispkodes', $dispkodes);
+				->with('dispkodes', $dispkodes)
+				->with('units', $units);
 	}
 
 	public function suratkeluarubah(Request $request)
@@ -1480,22 +1502,27 @@ class KepegawaianController extends Controller
 		}
 		//$this->checkSessionTime();
 
+		$units = glo_org_unitkerja::whereRaw('LEN(kd_unit) = 6')
+				->orderBy('kd_unit')
+				->get();
+
 		$surat = Fr_suratkeluar::
 					where('ids', $request->ids)
 					->first();
 
-		$disposisis = Fr_disposisi::
-						limit(200)
-						->whereNotNull('kode_disposisi')
-						->Where('kode_disposisi', '<>', '')
-						->orderBy('no_form', 'desc')
-						->get();
+		// $disposisis = Fr_disposisi::
+		// 				limit(200)
+		// 				->whereNotNull('kode_disposisi')
+		// 				->Where('kode_disposisi', '<>', '')
+		// 				->orderBy('no_form', 'desc')
+		// 				->get();
 
 		$dispkodes = Glo_disposisi_kode::orderBy('kd_jnssurat')->get();
 
 		return view('pages.bpadkepegawaian.suratkeluarubah')
 				->with('surat', $surat)
-				->with('disposisis', $disposisis)
+				->with('units', $units)
+				// ->with('disposisis', $disposisis)
 				->with('dispkodes', $dispkodes);
 	}
 
@@ -1514,6 +1541,9 @@ class KepegawaianController extends Controller
 			$splitnoform = explode(".", $maxnoform); 
 			$newnoform = $splitnoform[0] . "." . $splitnoform[1] . "." . $splitnoform[2] . "." . ($splitnoform[3]+1);
 		}
+
+		$randomletter = substr(str_shuffle("123456789ABCDEFGHIJKLMNPQRSTUVWXYZ"), 0, 6);
+		$randomletter .= substr(($newnoform[3]), -3);
 
 		$filesuratkeluar = '';
 
@@ -1542,8 +1572,8 @@ class KepegawaianController extends Controller
 			'logbuat'   => '',
 			'kd_skpd' => '1.20.512',
 			'kd_unit' => '01',
-			'no_form' => $newnoform,
-			'tgl_terima' => (isset($request->tgl_terima) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tgl_terima))) : null),
+			'no_form' => $randomletter,
+			// 'tgl_terima' => (isset($request->tgl_terima) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tgl_terima))) : null),
 			'usr_input' => (isset(Auth::user()->usname) ? Auth::user()->usname : Auth::user()->id_emp),
 			'tgl_input' => date('Y-m-d H:i:s'),
 			'kode_disposisi' => $request->kode_disposisi,
@@ -1554,7 +1584,8 @@ class KepegawaianController extends Controller
 			'ket_lain' => ($request->ket_lain ? $request->ket_lain : ''),
 			'nm_file' => $filesuratkeluar,
 			'kepada' => ($request->kepada ? $request->kepada : ''),
-			'no_form_in' => $request->no_form_in,
+			// 'no_form_in' => $request->no_form_in,
+			'unit' => $request->unit,
 		];
 
 		Fr_suratkeluar::insert($insertsurat);
@@ -1592,7 +1623,7 @@ class KepegawaianController extends Controller
 
 		Fr_suratkeluar::where('ids', $request->ids)
 						->update([
-							'tgl_terima' => date('Y-m-d',strtotime(str_replace('/', '-', $request->tgl_terima))),
+							// 'tgl_terima' => date('Y-m-d',strtotime(str_replace('/', '-', $request->tgl_terima))),
 							'kode_disposisi' => $request->kode_disposisi,
 							'perihal' => ($request->perihal ? $request->perihal : ''),
 							'tgl_surat' => ($request->tgl_surat ? $request->tgl_surat : ''),
@@ -1600,7 +1631,9 @@ class KepegawaianController extends Controller
 							'asal_surat' => ($request->asal_surat ? $request->asal_surat : ''),
 							'ket_lain' => ($request->ket_lain ? $request->ket_lain : ''),
 							'kepada' => ($request->kepada ? $request->kepada : ''),
-							'no_form_in' => $request->no_form_in,
+							// 'no_form_in' => $request->no_form_in,
+							'unit' => $request->unit,
+
 						]);
 		
 		if ($filesuratkeluar != '') {
@@ -1628,7 +1661,6 @@ class KepegawaianController extends Controller
 		Fr_suratkeluar::
 				where('ids', $request->ids)
 				->delete();
-
 
 		if ($request->nm_file) {
 			unlink($filepath);

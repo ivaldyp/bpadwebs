@@ -72,6 +72,41 @@
 										<a href="/portal/kepegawaian/surat keluar tambah"><button class="btn btn-info" style="margin-bottom: 10px">Tambah </button></a> 
 										@endif
 									</div>
+									<form method="GET" action="/portal/kepegawaian/surat keluar">
+										<div class=" col-md-6">
+											<select class="form-control select2" name="unit" id="unit" required onchange="this.form.submit()">
+											  <?php foreach ($units as $key => $unit) { ?>
+												<option value="{{ $unit['kd_unit'] }}" 
+												  <?php 
+													if ($idunit == $unit['kd_unit']) {
+														 echo "selected";
+													}
+												  ?>
+												>[{{ $unit['kd_unit'] }}]
+													@if ( strlen($unit['kd_unit'] > 2) && substr($unit['kd_unit'], 4, 2) == '51' )
+														[JAKARTA PUSAT]
+													@elseif ( strlen($unit['kd_unit'] > 2) && substr($unit['kd_unit'], 4, 2) == '52' )
+														[JAKARTA UTARA]
+													@elseif ( strlen($unit['kd_unit'] > 2) && substr($unit['kd_unit'], 4, 2) == '53' )
+														[JAKARTA BARAT]
+													@elseif ( strlen($unit['kd_unit'] > 2) && substr($unit['kd_unit'], 4, 2) == '54' )
+														[JAKARTA SELATAN]
+													@elseif ( strlen($unit['kd_unit'] > 2) && substr($unit['kd_unit'], 4, 2) == '55' )
+														[JAKARTA TIMUR]
+													@elseif ( strlen($unit['kd_unit'] > 2) && substr($unit['kd_unit'], 4, 2) == '56' )
+														[KEPULAUAN SERIBU]
+													@elseif ( strlen($unit['kd_unit'] > 2) && substr($unit['kd_unit'], 4, 2) == '06' )
+														[PPBD]
+													@elseif ( strlen($unit['kd_unit'] > 2) && substr($unit['kd_unit'], 4, 2) == '07' )
+														[PUSDATIN ASET]
+													@elseif ( strlen($unit['kd_unit'] > 2) && substr($unit['kd_unit'], 4, 2) == '08' )
+														[UPMA]
+													@endif
+													 - {{ ($unit['kd_unit'] == '01' ? 'SEMUA' : $unit['notes'])   }}</option>
+											  <?php } ?>
+											</select>
+										  </div>
+									</form>
 								</div>
 								<div class="row">
 									<div class="table-responsive">
@@ -80,10 +115,10 @@
 												<tr>
 													<th>No</th>
 													<th>No Form</th>
-													<th>Tgl Terima</th>
+													<th>Tgl Surat</th>
+													<th>No Surat</th>
 													<th>Kode</th>
 													<th>Perihal</th>
-													<th>Nomor Surat</th>
 													<th>Dari</th>
 													<th>File</th>
 													@if($access['zupd'] == 'y' || $access['zdel'] == 'y')
@@ -94,22 +129,20 @@
 											<tbody>
 												@foreach($surats as $key => $surat)
 												<tr>
-													<td>{{ $key + 1 }}</td>
-													<td>{{ $surat['no_form'] }}</td>
-													<td>{{ date('d-M-Y',strtotime($surat['tgl_terima'])) }}</td>
-													<td>{{ $surat['kode_disposisi'] }}</td>
-													<td>{{ $surat['perihal'] }}</td>
-													<td>
+													<td style="vertical-align: middle;">{{ $key + 1 }}</td>
+													<td style="vertical-align: middle;">{{ $surat['no_form'] }}</td>
+													<td style="vertical-align: middle;">{{ date('d-M-Y',strtotime(str_replace('/', '-', $surat['tgl_surat']))) }}</td>
+													<td style="vertical-align: middle;">
 														@if($surat['no_surat'])
 														{{ $surat['no_surat'] }}
-														<br>
 														@endif
-														<span class="text-muted">{{ date('d-M-Y',strtotime(str_replace('/', '-', $surat['tgl_surat']))) }}</span>
 													</td>
-													<td>{{ $surat['asal_surat'] }}</td>
-													<td><a target="_blank" href="{{ config('app.openfilesuratkeluar') }}/{{ $surat['nm_file'] }}"><i class="fa fa-download"></i> {{ $surat['nm_file'] }}</a></td>
+													<td style="vertical-align: middle;">{{ $surat['kode_disposisi'] }}</td>
+													<td style="vertical-align: middle;">{{ $surat['perihal'] }}</td>
+													<td style="vertical-align: middle;">{{ $surat['asal_surat'] }}</td>
+													<td style="vertical-align: middle;"><a target="_blank" href="{{ config('app.openfilesuratkeluar') }}/{{ $surat['nm_file'] }}"><i class="fa fa-download"></i> {{ $surat['nm_file'] }}</a></td>
 													@if($access['zupd'] == 'y' || $access['zdel'] == 'y')
-														<td class="col-md-1">
+														<td style="vertical-align: middle;">
 															@if($access['zupd'] == 'y')
 																<form method="POST" action="/portal/kepegawaian/surat keluar ubah">
 																	@csrf

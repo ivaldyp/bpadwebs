@@ -80,7 +80,18 @@
 									</div>
 
 									<div class="form-group">
-										<label for="kode_disposisi" class="col-md-2 control-label"> No Disposisi </label>
+										<label for="unit" class="col-md-2 control-label"> Unit Kerja </label>
+										<div class="col-md-8">
+											<select class="form-control select2" name="unit" id="unit">
+												@foreach($units as $unit)
+													<option value="{{ $unit['kd_unit'] }}"> [{{ $unit['kd_unit'] }}] - [{{ $unit['nm_unit'] }}] </option>
+												@endforeach
+											</select>
+										</div>
+									</div>
+
+									{{-- <div class="form-group">
+										<label for="no_form_in" class="col-md-2 control-label"> No Disposisi </label>
 										<div class="col-md-8">
 											<select class="form-control select2" name="no_form_in" id="no_form_in">
 												@foreach($disposisis as $disp)
@@ -88,14 +99,21 @@
 												@endforeach
 											</select>
 										</div>
-									</div>
+									</div> --}}
 
-									<div class="form-group">
+									{{-- <div class="form-group">
+										<label for="no_form_in" class="col-md-2 control-label"> No Disposisi <span style="color: red;">*</span> </label>
+										<div class="col-md-8">
+											<input autocomplete="off" type="text" name="no_form_in" class="form-control" id="no_form_in" required>
+										</div>
+									</div> --}}
+
+									{{-- <div class="form-group">
 										<label for="tgl_masuk" class="col-md-2 control-label"> Tgl Terima </label>
 										<div class="col-md-8">
 											<input type="text" name="tgl_terima" class="form-control" id="datepicker-autoclose" autocomplete="off" placeholder="dd/mm/yyyy">
 										</div>
-									</div>
+									</div> --}}
 
 									<div class="form-group">
 										<label for="kode_disposisi" class="col-md-2 control-label"> Kode Disposisi </label>
@@ -106,36 +124,36 @@
 												@endforeach
 											</select>
 										</div>
-									</div>
+									</div> 
 
 									<div class="form-group">
-										<label for="asal_surat" class="col-md-2 control-label"> Dari </label>
+										<label for="asal_surat" class="col-md-2 control-label"> Dari <span style="color: red;">*</span> </label>
 										<div class="col-md-8">
-											<input autocomplete="off" type="text" name="asal_surat" class="form-control" id="asal_surat">
+											<input autocomplete="off" type="text" name="asal_surat" class="form-control" id="asal_surat" required>
 										</div>
 									</div>
 
 									<div class="form-group">
-										<label for="asal_surat" class="col-md-2 control-label"> Kepada </label>
+										<label for="asal_surat" class="col-md-2 control-label"> Kepada <span style="color: red;">*</span> </label>
 										<div class="col-md-8">
-											<input autocomplete="off" type="text" name="kepada" class="form-control" id="kepada">
+											<input autocomplete="off" type="text" name="kepada" class="form-control" id="kepada" required>
 										</div>
 									</div>
 
 									<div class="form-group">
-										<label for="tgl_masuk" class="col-md-2 control-label"> Tgl & No Surat </label>
+										<label for="tgl_masuk" class="col-md-2 control-label"> Tgl & No Surat <span style="color: red;">*</span> </label>
 										<div class="col-md-4">
-											<input type="text" name="tgl_surat" class="form-control" id="datepicker-autoclose2" autocomplete="off" placeholder="dd/mm/yyyy">
+											<input type="text" name="tgl_surat" class="form-control" id="datepicker-autoclose2" autocomplete="off" placeholder="dd/mm/yyyy" required>
 										</div>
 										<div class="col-md-4">
-											<input type="text" name="no_surat" class="form-control" autocomplete="off" placeholder="No Surat">
+											<input type="text" name="no_surat" class="form-control" autocomplete="off" placeholder="No Surat" required>
 										</div>
 									</div>
 
 									<div class="form-group">
-										<label for="perihal" class="col-md-2 control-label"> Perihal </label>
+										<label for="perihal" class="col-md-2 control-label"> Perihal <span style="color: red;">*</span> </label>
 										<div class="col-md-8">
-											<textarea name="perihal" class="form-control" rows="3"></textarea>
+											<textarea name="perihal" class="form-control" rows="3" required></textarea>
 										</div>
 									</div>
 
@@ -160,12 +178,10 @@
                                 <button type="button" class="btn btn-default pull-right m-r-10" onclick="goBack()">Kembali</button>
                                 <div class="clearfix"></div>
                             </div>
-						</div>	
-						<div class="panel panel-info">
 							<div class="panel-heading">  
 								
 							</div>
-						</div>
+						</div>	
 					</form>
 				</div>
 			</div>

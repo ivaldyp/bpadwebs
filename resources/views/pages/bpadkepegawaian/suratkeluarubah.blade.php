@@ -83,22 +83,33 @@
 									</div>
 
 									<div class="form-group">
-										<label for="kode_disposisi" class="col-md-2 control-label"> No Disposisi </label>
+										<label for="unit" class="col-md-2 control-label"> Unit Kerja </label>
 										<div class="col-md-8">
-											<select class="form-control select2" name="no_form_in" id="no_form_in">
-												@foreach($disposisis as $disp)
-													<option value="{{ $disp['no_form'] }}" <?php if ($surat['no_form_in'] == $disp['no_form'] ): ?> selected <?php endif ?>> [{{ $disp['no_form'] }}] - [{{ date('d-M-Y', strtotime($disp['tgl'])) }}] - [{{ $disp['perihal'] }}] </option>
+											<select class="form-control select2" name="unit" id="unit">
+												@foreach($units as $unit)
+													<option <?php if ($surat['unit'] == $unit['kd_unit'] ): ?> selected <?php endif ?> value="{{ $unit['kd_unit'] }}"> [{{ $unit['kd_unit'] }}] - [{{ $unit['nm_unit'] }}] </option>
 												@endforeach
 											</select>
 										</div>
 									</div>
 
-									<div class="form-group">
+									{{-- <div class="form-group">
+										<label for="kode_disposisi" class="col-md-2 control-label"> No Disposisi </label>
+										<div class="col-md-8">
+											<select class="form-control select2" name="no_form_in" id="no_form_in">
+												@foreach($disposisis as $disp)
+													<option value="{{ $disp['no_form'] }}" > [{{ $disp['no_form'] }}] - [{{ date('d-M-Y', strtotime($disp['tgl'])) }}] - [{{ $disp['perihal'] }}] </option>
+												@endforeach
+											</select>
+										</div>
+									</div> --}}
+
+									{{-- <div class="form-group">
 										<label for="tgl_masuk" class="col-md-2 control-label"> Tgl Terima </label>
 										<div class="col-md-8">
 											<input type="text" name="tgl_terima" class="form-control" id="datepicker-autoclose" autocomplete="off" placeholder="dd/mm/yyyy" value="{{ date('d/m/Y', strtotime(str_replace('/', '-', $surat['tgl_terima']))) }}">
 										</div>
-									</div>
+									</div> --}}
 
 									<div class="form-group">
 										<label for="kode_disposisi" class="col-md-2 control-label"> Kode Disposisi </label>
