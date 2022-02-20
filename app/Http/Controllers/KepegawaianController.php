@@ -1464,6 +1464,7 @@ class KepegawaianController extends Controller
 
 		$surats = Fr_suratkeluar::
 					where('unit', $idunit)
+					->where('sts', 1)
 					->orderBy('tgl_input', 'desc')
 					->get();
 
@@ -1671,17 +1672,41 @@ class KepegawaianController extends Controller
 			return redirect('home');
 		}
 		//$this->checkSessionTime();
+
+		$nowsurat = Fr_suratkeluar::
+					where('ids', $request->ids)
+					->first();
+
+		if (Auth::user()->id_emp) {
+			if(strlen($_SESSION['user_data']['idunit']) > 6) {
+				$idunit = substr($_SESSION['user_data']['idunit'], 0, 6);
+			} elseif(strlen($_SESSION['user_data']['idunit']) > 6){
+				$idunit = '010101';
+			} else {
+				$idunit = $_SESSION['user_data']['idunit'];
+			}
+			
+			if($nowsurat['unit'] != $idunit) {
+				return redirect('/kepegawaian/surat keluar')->with('message', 'Anda tidak dapat menghapus surat ini');     
+			}
+		}
+
 		$filepath = '';
 		$filepath .= config('app.savefilesuratkeluar');
 		$filepath .= '/' . $request->nm_file;
 
-		Fr_suratkeluar::
-				where('ids', $request->ids)
-				->delete();
+		// Fr_suratkeluar::
+		// 		where('ids', $request->ids)
+		// 		->delete();
 
-		if ($request->nm_file) {
-			unlink($filepath);
-		}
+		Fr_suratkeluar::where('ids', $request->ids)
+				->update([
+					'sts' => 0,
+				]);
+
+		// if ($request->nm_file) {
+		// 	unlink($filepath);
+		// }
 
 		return redirect('/kepegawaian/surat keluar')
 					->with('message', 'Surat Keluar berhasil dihapus')
