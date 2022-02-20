@@ -1447,9 +1447,14 @@ class KepegawaianController extends Controller
 				->orderBy('kd_unit')
 				->get();
 
+				
 		if (is_null($request->unit)) {
 			if (Auth::user()->id_emp) {
-				$idunit = $_SESSION['user_data']['idunit'];
+				if(strlen($_SESSION['user_data']['idunit']) > 6) {
+					$idunit = substr($_SESSION['user_data']['idunit'], 0, 6);
+				} else {
+					$idunit = $_SESSION['user_data']['idunit'];
+				}
 			} else {
 				$idunit = '01';
 			}
@@ -1476,6 +1481,16 @@ class KepegawaianController extends Controller
 		}
 		//$this->checkSessionTime();
 
+		if (Auth::user()->id_emp) {
+			if(strlen($_SESSION['user_data']['idunit']) > 6) {
+				$idunit = substr($_SESSION['user_data']['idunit'], 0, 6);
+			} else {
+				$idunit = $_SESSION['user_data']['idunit'];
+			}
+		} else {
+			$idunit = '01';
+		}
+
 		$units = glo_org_unitkerja::whereRaw('LEN(kd_unit) = 6')
 				->orderBy('kd_unit')
 				->get();
@@ -1492,6 +1507,7 @@ class KepegawaianController extends Controller
 		return view('pages.bpadkepegawaian.suratkeluartambah')
 				->with('disposisis', $disposisis)
 				->with('dispkodes', $dispkodes)
+				->with('idunit', $idunit)
 				->with('units', $units);
 	}
 
@@ -1522,6 +1538,7 @@ class KepegawaianController extends Controller
 		return view('pages.bpadkepegawaian.suratkeluarubah')
 				->with('surat', $surat)
 				->with('units', $units)
+				->with('idunit', $idunit)
 				// ->with('disposisis', $disposisis)
 				->with('dispkodes', $dispkodes);
 	}
@@ -1534,16 +1551,16 @@ class KepegawaianController extends Controller
 		//$this->checkSessionTime();
 		$accessid = $this->checkAccess($_SESSION['user_data']['idgroup'], 1375);
 
-		$maxnoform = Fr_suratkeluar::max('no_form');
-		if (is_null($maxnoform)) {
-			$newnoform = '1.20.512.20200001';
-		} else {
-			$splitnoform = explode(".", $maxnoform); 
-			$newnoform = $splitnoform[0] . "." . $splitnoform[1] . "." . $splitnoform[2] . "." . ($splitnoform[3]+1);
-		}
+		// $maxnoform = Fr_suratkeluar::max('no_form');
+		// if (is_null($maxnoform)) {
+		// 	$newnoform = '1.20.512.20200001';
+		// } else {
+		// 	$splitnoform = explode(".", $maxnoform); 
+		// 	$newnoform = $splitnoform[0] . "." . $splitnoform[1] . "." . $splitnoform[2] . "." . ($splitnoform[3]+1);
+		// }
 
-		$randomletter = substr(str_shuffle("123456789ABCDEFGHIJKLMNPQRSTUVWXYZ"), 0, 6);
-		$randomletter .= substr(($newnoform[3]), -3);
+		$randomletter = substr(str_shuffle("123456789ABCDEFGHIJKLMNPQRSTUVWXYZ"), 0, 9);
+		// $randomletter .= substr(($newnoform[3]), -3);
 
 		$filesuratkeluar = '';
 
