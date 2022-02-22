@@ -118,7 +118,7 @@
 													<option value="<?php echo NULL; ?>" selected>-</option>
 													<option value="Surat"> Surat </option>
 													<option value="Undangan"> Undangan </option>
-													<option value="PPID"> PPID </option>
+													<!-- <option value="PPID"> PPID </option> -->
 												</select>
 											</div>
 										</div>

@@ -240,312 +240,216 @@ class DisposisiController extends Controller
 		$tgllengkap = $yearnow . "-" . $monthnow . "-" . $tglnow;
 
 		$idgroup = $_SESSION['user_data']['id_emp'];
-		if (is_null($idgroup)) {
-			$disposisiundangans = DB::select( DB::raw("SELECT TOP (1000) [ids]
-												  ,[sts]
-												  ,[uname]
-												  ,[tgl]
-												  ,[ip]
-												  ,[logbuat]
-												  ,[kd_skpd]
-												  ,[kd_unit]
-												  ,[no_form]
-												  ,[kd_surat]
-												  ,[status_surat]
-												  ,[idtop]
-												  ,[tgl_masuk]
-												  ,[usr_input]
-												  ,[tgl_input]
-												  ,[no_index]
-												  ,[kode_disposisi]
-												  ,[perihal]
-												  ,[tgl_surat]
-												  ,[no_surat]
-												  ,[asal_surat]
-												  ,[kepada_surat]
-												  ,[sifat1_surat]
-												  ,[sifat2_surat]
-												  ,[ket_lain]
-												  ,[nm_file]
-												  ,[kepada]
-												  ,[noid]
-												  ,[penanganan]
-												  ,[catatan]
-												  ,[from_user]
-												  ,[from_pm]
-												  ,[to_user]
-												  ,[to_pm]
-												  ,[rd]
-												  ,[usr_rd]
-												  ,[tgl_rd]
-												  ,[selesai]
-												  ,[child]
-												  ,[penanganan_final]
-												  ,[catatan_final]
-												  FROM [bpaddtfake].[dbo].[fr_disposisi]
-												  where status_surat like 's'
-												  $qsearchnow
-												  and month(tgl_masuk) $signnow $monthnow
-												  and year(tgl_masuk) = $yearnow
-												  and sts = 1
-												  and catatan_final = 'undangan'
-												  order by tgl_masuk desc, no_form desc"));
-			$disposisisurats = DB::select( DB::raw("SELECT TOP (1000) [ids]
-												  ,[sts]
-												  ,[uname]
-												  ,[tgl]
-												  ,[ip]
-												  ,[logbuat]
-												  ,[kd_skpd]
-												  ,[kd_unit]
-												  ,[no_form]
-												  ,[kd_surat]
-												  ,[status_surat]
-												  ,[idtop]
-												  ,[tgl_masuk]
-												  ,[usr_input]
-												  ,[tgl_input]
-												  ,[no_index]
-												  ,[kode_disposisi]
-												  ,[perihal]
-												  ,[tgl_surat]
-												  ,[no_surat]
-												  ,[asal_surat]
-												  ,[kepada_surat]
-												  ,[sifat1_surat]
-												  ,[sifat2_surat]
-												  ,[ket_lain]
-												  ,[nm_file]
-												  ,[kepada]
-												  ,[noid]
-												  ,[penanganan]
-												  ,[catatan]
-												  ,[from_user]
-												  ,[from_pm]
-												  ,[to_user]
-												  ,[to_pm]
-												  ,[rd]
-												  ,[usr_rd]
-												  ,[tgl_rd]
-												  ,[selesai]
-												  ,[child]
-												  ,[penanganan_final]
-												  ,[catatan_final]
-												  FROM [bpaddtfake].[dbo].[fr_disposisi]
-												  where status_surat like 's'
-												  $qsearchnow
-												  and month(tgl_masuk) $signnow $monthnow
-												  and year(tgl_masuk) = $yearnow
-												  and sts = 1
-												  and (catatan_final <> 'undangan' or catatan_final is null)
-												  order by tgl_masuk desc, no_form desc"));
-			$disposisidrafts = DB::select( DB::raw("SELECT TOP (1000) [ids]
-												  ,[sts]
-												  ,[uname]
-												  ,[tgl]
-												  ,[ip]
-												  ,[logbuat]
-												  ,[kd_skpd]
-												  ,[kd_unit]
-												  ,[no_form]
-												  ,[kd_surat]
-												  ,[status_surat]
-												  ,[idtop]
-												  ,[tgl_masuk]
-												  ,[usr_input]
-												  ,[tgl_input]
-												  ,[no_index]
-												  ,[kode_disposisi]
-												  ,[perihal]
-												  ,[tgl_surat]
-												  ,[no_surat]
-												  ,[asal_surat]
-												  ,[kepada_surat]
-												  ,[sifat1_surat]
-												  ,[sifat2_surat]
-												  ,[ket_lain]
-												  ,[nm_file]
-												  ,[kepada]
-												  ,[noid]
-												  ,[penanganan]
-												  ,[catatan]
-												  ,[from_user]
-												  ,[from_pm]
-												  ,[to_user]
-												  ,[to_pm]
-												  ,[rd]
-												  ,[usr_rd]
-												  ,[tgl_rd]
-												  ,[selesai]
-												  ,[child]
-												  ,[penanganan_final]
-												  ,[catatan_final]
-												  FROM [bpaddtfake].[dbo].[fr_disposisi]
-												  where status_surat like 'd'
-												  $qsearchnow
-												  and month(tgl_masuk) $signnow $monthnow
-												  and year(tgl_masuk) = $yearnow
-												  and sts = 1
-												  order by tgl_masuk desc, no_form desc"));
-			
-		} else {
-			$disposisiundangans = DB::select( DB::raw("SELECT TOP (1000) [ids]
-												  ,[sts]
-												  ,[uname]
-												  ,[tgl]
-												  ,[ip]
-												  ,[logbuat]
-												  ,[kd_skpd]
-												  ,[kd_unit]
-												  ,[no_form]
-												  ,[kd_surat]
-												  ,[status_surat]
-												  ,[idtop]
-												  ,[tgl_masuk]
-												  ,[usr_input]
-												  ,[tgl_input]
-												  ,[no_index]
-												  ,[kode_disposisi]
-												  ,[perihal]
-												  ,[tgl_surat]
-												  ,[no_surat]
-												  ,[asal_surat]
-												  ,[kepada_surat]
-												  ,[sifat1_surat]
-												  ,[sifat2_surat]
-												  ,[ket_lain]
-												  ,[nm_file]
-												  ,[kepada]
-												  ,[noid]
-												  ,[penanganan]
-												  ,[catatan]
-												  ,[from_user]
-												  ,[from_pm]
-												  ,[to_user]
-												  ,[to_pm]
-												  ,[rd]
-												  ,[usr_rd]
-												  ,[tgl_rd]
-												  ,[selesai]
-												  ,[child]
-												  ,[penanganan_final]
-												  ,[catatan_final]
-												  FROM [bpaddtfake].[dbo].[fr_disposisi]
-												  where status_surat like 's'
-												  $qsearchnow
-												  and month(tgl_masuk) $signnow $monthnow
-												  and year(tgl_masuk) = $yearnow
-												  and sts = 1
-												  and catatan_final = 'undangan'
-												  order by tgl_masuk desc, no_form desc"));
-			$disposisisurats = DB::select( DB::raw("SELECT TOP (1000) [ids]
-												  ,[sts]
-												  ,[uname]
-												  ,[tgl]
-												  ,[ip]
-												  ,[logbuat]
-												  ,[kd_skpd]
-												  ,[kd_unit]
-												  ,[no_form]
-												  ,[kd_surat]
-												  ,[status_surat]
-												  ,[idtop]
-												  ,[tgl_masuk]
-												  ,[usr_input]
-												  ,[tgl_input]
-												  ,[no_index]
-												  ,[kode_disposisi]
-												  ,[perihal]
-												  ,[tgl_surat]
-												  ,[no_surat]
-												  ,[asal_surat]
-												  ,[kepada_surat]
-												  ,[sifat1_surat]
-												  ,[sifat2_surat]
-												  ,[ket_lain]
-												  ,[nm_file]
-												  ,[kepada]
-												  ,[noid]
-												  ,[penanganan]
-												  ,[catatan]
-												  ,[from_user]
-												  ,[from_pm]
-												  ,[to_user]
-												  ,[to_pm]
-												  ,[rd]
-												  ,[usr_rd]
-												  ,[tgl_rd]
-												  ,[selesai]
-												  ,[child]
-												  ,[penanganan_final]
-												  ,[catatan_final]
-												  FROM [bpaddtfake].[dbo].[fr_disposisi]
-												  where status_surat like 's'
-												  $qsearchnow
-												  and month(tgl_masuk) $signnow $monthnow
-												  and year(tgl_masuk) = $yearnow
-												  and sts = 1
-												  and (catatan_final <> 'undangan' or catatan_final is null)
-												  order by tgl_masuk desc, no_form desc"));
-			$disposisidrafts = DB::select( DB::raw("SELECT TOP (1000) [ids]
-												  ,[sts]
-												  ,[uname]
-												  ,[tgl]
-												  ,[ip]
-												  ,[logbuat]
-												  ,[kd_skpd]
-												  ,[kd_unit]
-												  ,[no_form]
-												  ,[kd_surat]
-												  ,[status_surat]
-												  ,[idtop]
-												  ,[tgl_masuk]
-												  ,[usr_input]
-												  ,[tgl_input]
-												  ,[no_index]
-												  ,[kode_disposisi]
-												  ,[perihal]
-												  ,[tgl_surat]
-												  ,[no_surat]
-												  ,[asal_surat]
-												  ,[kepada_surat]
-												  ,[sifat1_surat]
-												  ,[sifat2_surat]
-												  ,[ket_lain]
-												  ,[nm_file]
-												  ,[kepada]
-												  ,[noid]
-												  ,[penanganan]
-												  ,[catatan]
-												  ,[from_user]
-												  ,[from_pm]
-												  ,[to_user]
-												  ,[to_pm]
-												  ,[rd]
-												  ,[usr_rd]
-												  ,[tgl_rd]
-												  ,[selesai]
-												  ,[child]
-												  ,[penanganan_final]
-												  ,[catatan_final]
-												  FROM [bpaddtfake].[dbo].[fr_disposisi]
-												  where status_surat like 'd'
-												  $qsearchnow
-												  and month(tgl_masuk) $signnow $monthnow
-												  and year(tgl_masuk) = $yearnow
-												  and sts = 1
-												  order by tgl_masuk desc, no_form desc"));
-			
-		}
+		
+		$disposisiundangans = DB::select( DB::raw("SELECT TOP (1000) [ids]
+												,[sts]
+												,[uname]
+												,[tgl]
+												,[ip]
+												,[logbuat]
+												,[kd_skpd]
+												,[kd_unit]
+												,[no_form]
+												,[kd_surat]
+												,[status_surat]
+												,[idtop]
+												,[tgl_masuk]
+												,[usr_input]
+												,[tgl_input]
+												,[no_index]
+												,[kode_disposisi]
+												,[perihal]
+												,[tgl_surat]
+												,[no_surat]
+												,[asal_surat]
+												,[kepada_surat]
+												,[sifat1_surat]
+												,[sifat2_surat]
+												,[ket_lain]
+												,[nm_file]
+												,[kepada]
+												,[noid]
+												,[penanganan]
+												,[catatan]
+												,[from_user]
+												,[from_pm]
+												,[to_user]
+												,[to_pm]
+												,[rd]
+												,[usr_rd]
+												,[tgl_rd]
+												,[selesai]
+												,[child]
+												,[penanganan_final]
+												,[catatan_final]
+												FROM [bpaddtfake].[dbo].[fr_disposisi]
+												where status_surat like 's'
+												$qsearchnow
+												and month(tgl_masuk) $signnow $monthnow
+												and year(tgl_masuk) = $yearnow
+												and sts = 1
+												and catatan_final = 'undangan'
+												order by tgl_masuk desc, no_form desc"));
+		$disposisisurats = DB::select( DB::raw("SELECT TOP (1000) [ids]
+												,[sts]
+												,[uname]
+												,[tgl]
+												,[ip]
+												,[logbuat]
+												,[kd_skpd]
+												,[kd_unit]
+												,[no_form]
+												,[kd_surat]
+												,[status_surat]
+												,[idtop]
+												,[tgl_masuk]
+												,[usr_input]
+												,[tgl_input]
+												,[no_index]
+												,[kode_disposisi]
+												,[perihal]
+												,[tgl_surat]
+												,[no_surat]
+												,[asal_surat]
+												,[kepada_surat]
+												,[sifat1_surat]
+												,[sifat2_surat]
+												,[ket_lain]
+												,[nm_file]
+												,[kepada]
+												,[noid]
+												,[penanganan]
+												,[catatan]
+												,[from_user]
+												,[from_pm]
+												,[to_user]
+												,[to_pm]
+												,[rd]
+												,[usr_rd]
+												,[tgl_rd]
+												,[selesai]
+												,[child]
+												,[penanganan_final]
+												,[catatan_final]
+												FROM [bpaddtfake].[dbo].[fr_disposisi]
+												where status_surat like 's'
+												$qsearchnow
+												and month(tgl_masuk) $signnow $monthnow
+												and year(tgl_masuk) = $yearnow
+												and sts = 1
+												and ((catatan_final <> 'undangan' and catatan_final <> 'ppid') or catatan_final is null)
+												order by tgl_masuk desc, no_form desc"));
+
+		$disposisippids = DB::select( DB::raw("SELECT TOP (1000) [ids]
+												,[sts]
+												,[uname]
+												,[tgl]
+												,[ip]
+												,[logbuat]
+												,[kd_skpd]
+												,[kd_unit]
+												,[no_form]
+												,[kd_surat]
+												,[status_surat]
+												,[idtop]
+												,[tgl_masuk]
+												,[usr_input]
+												,[tgl_input]
+												,[no_index]
+												,[kode_disposisi]
+												,[perihal]
+												,[tgl_surat]
+												,[no_surat]
+												,[asal_surat]
+												,[kepada_surat]
+												,[sifat1_surat]
+												,[sifat2_surat]
+												,[ket_lain]
+												,[nm_file]
+												,[kepada]
+												,[noid]
+												,[penanganan]
+												,[catatan]
+												,[from_user]
+												,[from_pm]
+												,[to_user]
+												,[to_pm]
+												,[rd]
+												,[usr_rd]
+												,[tgl_rd]
+												,[selesai]
+												,[child]
+												,[penanganan_final]
+												,[catatan_final]
+												FROM [bpaddtfake].[dbo].[fr_disposisi]
+												where status_surat like 's'
+												$qsearchnow
+												and month(tgl_masuk) $signnow $monthnow
+												and year(tgl_masuk) = $yearnow
+												and sts = 1
+												and catatan_final = 'ppid'
+												order by tgl_masuk desc, no_form desc"));
+
+		
+		$disposisidrafts = DB::select( DB::raw("SELECT TOP (1000) [ids]
+												,[sts]
+												,[uname]
+												,[tgl]
+												,[ip]
+												,[logbuat]
+												,[kd_skpd]
+												,[kd_unit]
+												,[no_form]
+												,[kd_surat]
+												,[status_surat]
+												,[idtop]
+												,[tgl_masuk]
+												,[usr_input]
+												,[tgl_input]
+												,[no_index]
+												,[kode_disposisi]
+												,[perihal]
+												,[tgl_surat]
+												,[no_surat]
+												,[asal_surat]
+												,[kepada_surat]
+												,[sifat1_surat]
+												,[sifat2_surat]
+												,[ket_lain]
+												,[nm_file]
+												,[kepada]
+												,[noid]
+												,[penanganan]
+												,[catatan]
+												,[from_user]
+												,[from_pm]
+												,[to_user]
+												,[to_pm]
+												,[rd]
+												,[usr_rd]
+												,[tgl_rd]
+												,[selesai]
+												,[child]
+												,[penanganan_final]
+												,[catatan_final]
+												FROM [bpaddtfake].[dbo].[fr_disposisi]
+												where status_surat like 'd'
+												$qsearchnow
+												and month(tgl_masuk) $signnow $monthnow
+												and year(tgl_masuk) = $yearnow
+												and sts = 1
+												order by tgl_masuk desc, no_form desc"));
 
 		$disposisiundangans = json_decode(json_encode($disposisiundangans), true);
 		$disposisisurats = json_decode(json_encode($disposisisurats), true);
+		$disposisippids = json_decode(json_encode($disposisippids), true);
 		$disposisidrafts = json_decode(json_encode($disposisidrafts), true);
 
 		return view('pages.bpaddisposisi.formdisposisi')
 				->with('access', $access)
 				->with('disposisiundangans', $disposisiundangans)
 				->with('disposisisurats', $disposisisurats)
+				->with('disposisippids', $disposisippids)
 				->with('disposisidrafts', $disposisidrafts)
 				->with('distinctyear', $distinctyear)
 				->with('signnow', $signnow)
@@ -1782,7 +1686,7 @@ class DisposisiController extends Controller
 												  and year(m.tgl_masuk) = $yearnow
 												  and m.sts = 1
 												  and d.sts = 1
-												  and (m.catatan_final <> 'undangan' or m.catatan_final is null )
+												  and ((m.catatan_final <> 'undangan' and m.catatan_final <> 'ppid') or m.catatan_final is null )
 												  AND d.idtop > 0 AND d.child = 0
 												  $qid
 												  $qsearchnow
@@ -2046,7 +1950,7 @@ class DisposisiController extends Controller
 												  and year(m.tgl_masuk) = $yearnow
 												  and m.sts = 1
 												  and d.sts = 1
-												  and (m.catatan_final <> 'undangan' or m.catatan_final is null )
+												  and ((m.catatan_final <> 'undangan' and m.catatan_final <> 'ppid') or m.catatan_final is null )
 												  $qsearchnow
 												  and (
 												  ($rd $qid)
