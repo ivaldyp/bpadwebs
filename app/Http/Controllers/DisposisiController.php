@@ -1468,6 +1468,8 @@ class DisposisiController extends Controller
 		Fr_disposisi::where('no_form', $request->no_form)
 		->update([
 			'sts' => 0,
+            'delete_date' => date('Y-m-d H:i:s'),
+            'delete_user' => (Auth::user()->usname ? Auth::user()->usname : Auth::user()->id_emp),
 		]);
 
 		return 0;
