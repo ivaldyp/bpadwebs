@@ -1386,12 +1386,11 @@ class CmsController extends Controller
 				'form_params' => [
 					"title" => "Foto BPAD Terbaru",
 					"message" => "Yuk cek foto terbaru dari BPAD tentang ".ucwords($request->judul),
-					"image" => "https://bpad.jakarta.go.id/portal/public/publicimg/images/cms/1.20.512/5/file/".$thiscontent['tfile'],
+                    "image" => "https://bpad.jakarta.go.id/portal/public/publicimg/images/cms/1.20.512/5/file/".$thiscontent['tfile'],
 					"data" => [
-						"type" => "image",
+                        "type" => "image",
 						"ids" => $thiscontent['ids'],
-						// "url"
-						// "image"
+                        "link" => "https://bpad.jakarta.go.id/portal/public/publicimg/images/cms/1.20.512/5/file/".$thiscontent['tfile'],
 					],
 				],
 			]);
