@@ -1390,6 +1390,9 @@ class CmsController extends Controller
 					"data" => [
                         "type" => "image",
 						"ids" => $thiscontent['ids'],
+                        "judul" => $thiscontent['judul'],
+                        "editor" => $thiscontent['editor'],
+                        "tgl_create" => $thiscontent['tgl'],
                         "link" => "https://bpad.jakarta.go.id/portal/public/publicimg/images/cms/1.20.512/5/file/".$thiscontent['tfile'],
 					],
 				],
