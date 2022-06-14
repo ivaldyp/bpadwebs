@@ -113,7 +113,7 @@
 							<li role="presentation" class=""><a href="#tabs2" aria-controls="profile" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs">Dik</span> <span class="hidden-xs"> Pendidikan </span></a></li>
 							<li role="presentation" class=""><a href="#tabs3" aria-controls="messages" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs">Gol</i></span> <span class="hidden-xs">Golongan</span></a></li>
 							<li role="presentation" class=""><a href="#tabs4" aria-controls="settings" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs">Jab</span> <span class="hidden-xs">Jabatan</span></a></li>
-							<li role="presentation" class=""><a href="#tabs7" aria-controls="settings" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs">SKP</span> <span class="hidden-xs">SKP</span></a></li>
+							<!-- <li role="presentation" class=""><a href="#tabs7" aria-controls="settings" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs">SKP</span> <span class="hidden-xs">SKP</span></a></li> -->
 							<li role="presentation" class=""><a href="#tabs6" aria-controls="settings" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs">HukDis</span> <span class="hidden-xs">Hukuman Disiplin</span></a></li>
 						</ul>
 						<!-- Tab panes -->

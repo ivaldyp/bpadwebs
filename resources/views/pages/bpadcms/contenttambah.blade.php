@@ -246,6 +246,9 @@
 										<div class="form-group">
 											<label for="isi1" class="col-md-2 control-label"> Ringkasan </label>
 											<div class="col-md-8">
+												<div class="alert alert-warning col-md-11">
+													Ringkasan hanya berisi teks 1 paragraf, tidak dapat diisi gambar.
+												</div>
 												<textarea class="summernote form-control" rows="15" placeholder="Enter text ..." name="isi1"></textarea>
 											</div>
 										</div>
