@@ -264,6 +264,10 @@ class ProfilController extends Controller
 
 		$cekangkapenting = Emp_data::where('id_emp', $request->id_emp)->first(['nik_emp', 'nrk_emp', 'nip_emp']);
 
+        if(empty($request->nm_emp)) {
+            return redirect('/profil/pegawai')->with('message', 'Nama Tidak Boleh Kosong!');
+        }
+
 		if ($request->nip_emp && $request->nip_emp != '' && $request->nip_emp != $cekangkapenting['nip_emp']) {
 			$ceknip = Emp_data::
 						where('nip_emp', $request->nip_emp)
