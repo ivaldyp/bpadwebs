@@ -58,10 +58,10 @@ class ProfilController extends Controller
 
 	public function printdrh(Request $request)
 	{
-		if (Auth::user()->id_emp) {
+		if (is_null($request->emp)) {
 			$id_emp = Auth::user()->id_emp;
 		} else {
-			$id_emp = $request->emp;
+            $id_emp = $request->emp;
 		}
 		
 		$emp_data = Emp_data::
