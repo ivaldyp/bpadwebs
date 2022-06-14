@@ -1165,6 +1165,9 @@ class ProfilController extends Controller
 		$id_emp = $_SESSION['user_data']['id_emp'];
 		$filejab = '';
 
+        if(empty($request->idjab)) {
+            $idjab = NULL;
+        }
 		// // ---CEK JABATAN UDAH TERISI--- //
 		// if (strlen($request->idunit) < 10) {
 		// 	$findidjabatan = DB::select( DB::raw("
@@ -1253,7 +1256,7 @@ class ProfilController extends Controller
 				'tmt_sk_jab' => (isset($request->tmt_sk_jab) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_sk_jab))) : null),
 				'no_sk_jab' => ($request->no_sk_jab ? $request->no_sk_jab : ''),
 				'jns_jab' => $request->jns_jab,
-				'idjab' => $request->idjab,
+				'idjab' => $idjab,
 				'eselon' => $request->eselon,
 				'gambar' => $filejab,
 				'nmunit' => $nmunit,
@@ -1274,6 +1277,10 @@ class ProfilController extends Controller
 
 		$id_emp = $_SESSION['user_data']['id_emp'];
 		$filejab = '';
+
+        if(empty($request->idjab)) {
+            $idjab = NULL;
+        }
 
 		// (IDENTITAS) cek dan set variabel untuk file foto pegawai
 		if (isset($request->filejab)) {
@@ -1336,7 +1343,7 @@ class ProfilController extends Controller
 				'tmt_sk_jab' => (isset($request->tmt_sk_jab) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_sk_jab))) : null),
 				'no_sk_jab' => ($request->no_sk_jab ? $request->no_sk_jab : ''),
 				'jns_jab' => $request->jns_jab,
-				'idjab' => $request->idjab,
+				'idjab' => $idjab,
 				'eselon' => $request->eselon,
 				'nmunit' => $nmunit,
 				// 'tampilnew' => 1,
