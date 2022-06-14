@@ -126,7 +126,7 @@ class ProfilController extends Controller
 							'emp_huk' => $emp_huk,
 						]);
 		// return $pdf->stream('preview.pdf');
-		return $pdf->download($id_emp.'_DAFTAR RIWAYAT HIDUP.pdf');
+		return $pdf->download($id_emp.'_'.strtoupper($emp_data['nm_emp']).'_'.'DRH.pdf');
 	}
 
 	public function pegawai(Request $request)
