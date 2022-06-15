@@ -823,6 +823,11 @@ class KepegawaianController extends Controller
 		}
 		//$this->checkSessionTime();
 
+        $cekcountdik = Emp_dik::where('noid', $request->noid)->where('sts', 1)->count();
+		if ($cekcountdik == 1) {
+			return redirect('/kepegawaian/ubah pegawai?id_emp='.$request->noid)->with('message', 'Tidak dapat menghapus habis data pendidikan pegawai');
+		}
+
 		Emp_dik::where('noid', $request->noid)
 			->where('ids', $request->ids)
 			->update([

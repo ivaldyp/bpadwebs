@@ -767,6 +767,11 @@ class ProfilController extends Controller
 
 		$id_emp = $_SESSION['user_data']['id_emp'];
 
+        $cekcountdik = Emp_dik::where('noid', $id_emp)->where('sts', 1)->count();
+		if ($cekcountdik == 1) {
+			return redirect('/profil/pegawai')->with('message', 'Tidak dapat menghapus habis data pendidikan pegawai');
+		}
+
 		Emp_dik::where('noid', $id_emp)
 		->where('ids', $request->ids)
 		->update([
@@ -1041,7 +1046,7 @@ class ProfilController extends Controller
 		Emp_gol::insert($insert_emp_gol);
 
 		return redirect('/profil/pegawai')
-					->with('message', 'Data golongan pegawai berhasil ditambah')
+					->with('message', 'Data golongan pegawai berhasil ditambah. Buat golongan baru lalu hapus yang lama.')
 					->with('msg_num', 1);
 	}
 
@@ -1118,7 +1123,7 @@ class ProfilController extends Controller
 
 		$cekcountgol = Emp_gol::where('noid', $id_emp)->where('sts', 1)->count();
 		if ($cekcountgol == 1) {
-			return redirect('/profil/pegawai')->with('message', 'Tidak dapat menghapus habis golongan pegawai');
+			return redirect('/profil/pegawai')->with('message', 'Tidak dapat menghapus habis golongan pegawai. Buat jabatan baru lalu hapus yang lama.');
 		}
 
 		Emp_gol::where('noid', $id_emp)
