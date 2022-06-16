@@ -238,7 +238,7 @@
 	</div>
 
 	<div class="row" style="padding-left: 70px">
-		<label class="section-title"><h4>IV. RIWAYAT JABATAN</h4></label>
+		<label class="section-title"><h4>IV. RIWAYAT UNIT KERJA</h4></label>
 		<table class="table tablelaporan table-bordered" style="border: solid 1px black">
 			<thead>
 				<tr class="headclrblue">
