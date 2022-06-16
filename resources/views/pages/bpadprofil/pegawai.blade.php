@@ -1195,7 +1195,7 @@
 							<div class="modal-body">
 
 								<div class="form-group">
-									<label for="iddik" class="col-md-3 control-label"> Pendidikan Terakhir </label>
+									<label for="iddik" class="col-md-3 control-label"> Jenjang Pendidikan </label>
 									<div class="col-md-9">
 										<select class="form-control" name="iddik" id="modal_insert_dik_iddik">
 											@foreach($pendidikans as $pendidikan)
