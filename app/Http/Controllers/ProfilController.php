@@ -1274,7 +1274,7 @@ class ProfilController extends Controller
 		Emp_jab::insert($insert_emp_jab);
 
 		return redirect('/profil/pegawai')
-					->with('message', 'Data jabatan pegawai berhasil ditambah')
+					->with('message', 'Data Unit Kerja pegawai berhasil ditambah')
 					->with('msg_num', 1);
 	}
 
@@ -1339,22 +1339,22 @@ class ProfilController extends Controller
 			$idlok = ['kd_lok' => '00'];
 		}
 
-		$splitidunit = explode("::", $request->idunit);
-		$idunit = $splitidunit[0];
-		$nmunit = $splitidunit[1];
+		// $splitidunit = explode("::", $request->idunit);
+		// $idunit = $splitidunit[0];
+		// $nmunit = $splitidunit[1];
 
 		Emp_jab::where('noid', $request->noid)
 			->where('ids', $request->ids)
 			->update([
 				'tmt_jab' => (isset($request->tmt_jab) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_jab))) : null),
-				'idunit' => $idunit,
+				// 'idunit' => $idunit,
 				'idlok' => $idlok['kd_lok'],
 				'tmt_sk_jab' => (isset($request->tmt_sk_jab) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_sk_jab))) : null),
 				'no_sk_jab' => ($request->no_sk_jab ? $request->no_sk_jab : ''),
-				'jns_jab' => $request->jns_jab,
+				// 'jns_jab' => $request->jns_jab,
 				'idjab' => $idjab,
 				'eselon' => $request->eselon,
-				'nmunit' => $nmunit,
+				// 'nmunit' => $nmunit,  oouioui0oio
 				// 'tampilnew' => 1,
 			]);
 
@@ -1367,7 +1367,7 @@ class ProfilController extends Controller
 		}
 
 		return redirect('/profil/pegawai')
-					->with('message', 'Data jabatan pegawai berhasil diubah')
+					->with('message', 'Data Unit Kerja pegawai berhasil diubah')
 					->with('msg_num', 1);
 	}
 
@@ -1381,7 +1381,7 @@ class ProfilController extends Controller
 
 		$cekcountjab = Emp_jab::where('noid', $id_emp)->where('sts', 1)->count();
 		if ($cekcountjab == 1) {
-			return redirect('/profil/pegawai')->with('message', 'Tidak dapat menghapus habis jabatan pegawai');
+			return redirect('/profil/pegawai')->with('message', 'Tidak dapat menghapus habis Riwayat Unit Kerja pegawai');
 		}
 
 		Emp_jab::where('noid', $id_emp)
@@ -1391,7 +1391,7 @@ class ProfilController extends Controller
 		]);
 
 		return redirect('/profil/pegawai')
-					->with('message', 'Data jabatan pegawai berhasil dihapus')
+					->with('message', 'Data Unit Kerja pegawai berhasil dihapus')
 					->with('msg_num', 1);
 	}
 

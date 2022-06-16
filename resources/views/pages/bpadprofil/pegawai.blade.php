@@ -112,7 +112,7 @@
 							<li role="presentation" class=""><a href="#tabs5" aria-controls="settings" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs">Kel</span> <span class="hidden-xs">Keluarga</span></a></li>
 							<li role="presentation" class=""><a href="#tabs2" aria-controls="profile" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs">Dik</span> <span class="hidden-xs"> Pendidikan </span></a></li>
 							<li role="presentation" class=""><a href="#tabs3" aria-controls="messages" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs">Gol</i></span> <span class="hidden-xs">Golongan</span></a></li>
-							<li role="presentation" class=""><a href="#tabs4" aria-controls="settings" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs">Jab</span> <span class="hidden-xs">Jabatan</span></a></li>
+							<li role="presentation" class=""><a href="#tabs4" aria-controls="settings" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs">Jab</span> <span class="hidden-xs">Unit Kerja</span></a></li>
 							<!-- <li role="presentation" class=""><a href="#tabs7" aria-controls="settings" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs">SKP</span> <span class="hidden-xs">SKP</span></a></li> -->
 							<li role="presentation" class=""><a href="#tabs6" aria-controls="settings" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs">HukDis</span> <span class="hidden-xs">Hukuman Disiplin</span></a></li>
 						</ul>
@@ -780,7 +780,8 @@
 								<div class="clearfix"></div>
 							</div>
 							<div role="tabpanel" class="tab-pane fade" id="tabs4">
-								<button class="btn btn-info m-b-20 btn-insert-jab" type="button" data-toggle="modal" data-target="#modal-insert-jab">Tambah</button>
+								<!-- <button class="btn btn-info m-b-20 btn-insert-jab" type="button" data-toggle="modal" data-target="#modal-insert-jab">Tambah</button> -->
+                                <h4 style="color: red;">PENAMBAHAN dan PERUBAHAN Unit Kerja dapat dilakukan melalui tim Pusdatin BPAD</h4>
 
 								@if(count($emp_jab) > 0)
 								<div class="table-responsive">
@@ -1810,7 +1811,7 @@
 						<form method="POST" action="/portal/profil/form/tambahjabpegawai" class="form-horizontal" enctype="multipart/form-data">
 						@csrf
 							<div class="modal-header">
-								<h4 class="modal-title"><b>Tambah Jabatan</b></h4>
+								<h4 class="modal-title"><b>Tambah Unit Kerja</b></h4>
 							</div>
 							<div class="modal-body">
 
@@ -1892,21 +1893,21 @@
 								</div>
 
 								<div class="form-group">
-									<label class="col-md-2 control-label"> TMT Jabatan <span style="color: red; font-size: 20px;"> *</span></label>
+									<label class="col-md-2 control-label"> TMT <span style="color: red; font-size: 20px;"> *</span></label>
 									<div class="col-md-8">
 										<input type="text" name="tmt_jab" class="form-control" id="datepicker-autoclose10" autocomplete="off" placeholder="dd/mm/yyyy" required="">
 									</div>
 								</div>
 
 								<div class="form-group">
-									<label for="no_sk_jab" class="col-md-2 control-label"> No SK Jabatan </label>
+									<label for="no_sk_jab" class="col-md-2 control-label"> No SK Penempatan </label>
 									<div class="col-md-8">
 										<input autocomplete="off" type="text" name="no_sk_jab" class="form-control" >
 									</div>
 								</div>
 
 								<div class="form-group">
-									<label class="col-md-2 control-label"> Tanggal SK <span style="color: red; font-size: 20px;"> *</span></label>
+									<label class="col-md-2 control-label"> Tanggal SK Penempatan <span style="color: red; font-size: 20px;"> *</span></label>
 									<div class="col-md-8">
 										<input type="text" name="tmt_sk_jab" class="form-control" id="datepicker-autoclose11" autocomplete="off" placeholder="dd/mm/yyyy" required="">
 									</div>
@@ -1933,7 +1934,7 @@
 						<form method="POST" action="/portal/profil/form/ubahjabpegawai" class="form-horizontal" enctype="multipart/form-data">
 						@csrf
 							<div class="modal-header">
-								<h4 class="modal-title"><b>Ubah Jabatan </b></h4>
+								<h4 class="modal-title"><b>Ubah Unit Kerja </b></h4>
 							</div>
 							<div class="modal-body">
 								
@@ -1943,7 +1944,7 @@
 								<div class="form-group col-md-12">
 									<label for="jns_jab" class="col-md-2 control-label"> Jenis Jabatan </label>
 									<div class="col-md-8">
-										<select class="form-control" name="jns_jab" id="modal_update_jab_jns_jab">
+										<select class="form-control" name="jns_jab" id="modal_update_jab_jns_jab" disabled>
 											<option value="STRUKTURAL">STRUKTURAL</option>
 											<option value="FUNGSIONAL">FUNGSIONAL</option>
 										</select>
@@ -1964,7 +1965,7 @@
 								<div class="form-group col-md-12">
 									<label for="idunit" class="col-md-2 control-label"> Unit Organisasi </label>
 									<div class="col-md-8">
-										<select class="form-control select2" name="idunit" id="modal_update_jab_idunit">
+										<select class="form-control" name="idunit" id="modal_update_jab_idunit" disabled>
 											@foreach($units as $key => $unit)
 												<option @if($key==0) selected @endif value="{{ $unit['kd_unit'] }}::{{ $unit['notes'] }}" > {{ $unit['kd_unit'] }} - {{ $unit['notes'] }}
 
@@ -2016,21 +2017,21 @@
 								</div>
 
 								<div class="form-group col-md-12">
-									<label class="col-md-2 control-label"> TMT Jabatan <span style="color: red; font-size: 20px;"> *</span></label>
+									<label class="col-md-2 control-label"> TMT <span style="color: red; font-size: 20px;"> *</span></label>
 									<div class="col-md-8">
 										<input type="text" name="tmt_jab" class="form-control" id="datepicker-autoclose5" autocomplete="off" placeholder="dd/mm/yyyy" required="">
 									</div>
 								</div>
 
 								<div class="form-group col-md-12">
-									<label for="no_sk_jab" class="col-md-2 control-label"> No SK Jabatan </label>
+									<label for="no_sk_jab" class="col-md-2 control-label"> No SK Penempatan </label>
 									<div class="col-md-8">
 										<input autocomplete="off" type="text" name="no_sk_jab" class="form-control" id="modal_update_jab_no_sk_jab" >
 									</div>
 								</div>
 
 								<div class="form-group col-md-12">
-									<label class="col-md-2 control-label"> Tanggal SK <span style="color: red; font-size: 20px;"> *</span></label>
+									<label class="col-md-2 control-label"> Tanggal SK Penempatan <span style="color: red; font-size: 20px;"> *</span></label>
 									<div class="col-md-8">
 										<input type="text" name="tmt_sk_jab" class="form-control" id="datepicker-autoclose6" autocomplete="off" placeholder="dd/mm/yyyy" required="">
 									</div>
@@ -2062,7 +2063,7 @@
 						<form method="POST" action="/portal/profil/form/hapusjabpegawai" class="form-horizontal">
 						@csrf
 							<div class="modal-header">
-								<h4 class="modal-title"><b>Hapus Jabatan</b></h4>
+								<h4 class="modal-title"><b>Hapus Unit Kerja</b></h4>
 							</div>
 							<div class="modal-body">
 								<h4 class="label_delete"></h4>
@@ -2768,10 +2769,11 @@
 				var $el = $(this);
 				$("#modal_update_jab_ids").val($el.data('ids'));
 				$("#modal_update_jab_noid").val($el.data('noid'));
-				$("#modal_update_jab_jns_jab").select2("val", $el.data('jns_jab'));
+				$("#modal_update_jab_jns_jab").val($el.data('jns_jab'));
 				// $("#modal_update_jab_idjab").select2("val", $el.data('idjab'));
 				$(".modal_update_idjab").select2('val', $el.data('idjab'));
-				$("#modal_update_jab_idunit").select2("val", $el.data('idunit') + "::" + $el.data('notes'));
+				$("#modal_update_jab_idunit").val($el.data('idunit') + "::" + $el.data('notes'));
+                
 				$("#modal_update_jab_idlok").val($el.data('idlok'));
 				$("#modal_update_jab_eselon").select2("val", $el.data('eselon'));
 				$("#datepicker-autoclose5").val($el.data('tmt_jab'));
