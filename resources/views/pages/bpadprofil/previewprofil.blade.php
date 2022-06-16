@@ -243,8 +243,8 @@
 			<thead>
 				<tr class="headclrblue">
 					<th style="width: 5%">No</th>
-					<th style="width: 25%">Jabatan</th>
-					<th style="width: 25%">Unit</th>
+					<!-- <th style="width: 25%">Jabatan</th> -->
+					<th style="width: 25%">Unit Kerja</th>
 					<th style="width: 25%">Nomor SK</th>
 					<th style="width: 25%">Tanggal SK</th>
 				</tr>
@@ -254,8 +254,8 @@
 				@foreach($emp_jab as $key => $jab)
 				<tr>
 					<td style="text-align: center;">{{ $key + 1 }}</td>
-					<td>{!! wordwrap($jab['idjab'], 50, "<br>\n", TRUE) !!}</td>
-					<td>{{ ucwords(strtolower($jab['unit']['nmunit'])) }}</td>
+					<!-- <td>{!! wordwrap($jab['idjab'], 50, "<br>\n", TRUE) !!}</td> -->
+					<td>{{ ucwords(strtolower($jab['nmunit'])) }}</td>
 					<td>{{ $jab['no_sk_jab'] != '' && !(is_null($jab['no_sk_jab'])) ? $jab['no_sk_jab'] : '-' }}</td>
 					<td>{{ date('d-M-Y',strtotime($jab['tmt_sk_jab'])) }}</td>
 				</tr>
