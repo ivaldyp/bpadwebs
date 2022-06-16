@@ -335,7 +335,7 @@
 															</td>
 															<td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">
 																<?php if ($emp_data['sk_cpns'] && $emp_data['sk_cpns'] != '') : ?>
-																	{{ $emp_data['sk_cpns'] }}
+                                                                    <a target="_blank" href="{{ config('app.openfileimg') }}/{{ Auth::user()->id_emp }}/skcpns/{{ $emp_data['sk_cpns'] }}">[Unduh SK CPNS]</a>
 																<?php else : ?>
 																	-
 																<?php endif ?>
@@ -343,7 +343,7 @@
 															<td class="col-md-6 data-input" style="vertical-align:middle;">
 																<input type="file" name="fileskcpns" accept="image/jpeg, image/jpg, image/gif, image/png, application/pdf">
 																@if($emp_data['sk_cpns'] && $emp_data['sk_cpns'] != '')
-																<br><a target="_blank" href="{{ config('app.openfileimg') }}/{{ Auth::user()->id_emp }}/skcpns/{{ $emp_data['sk_cpns'] }}">[SK CPNS]</a>
+																<br><a target="_blank" href="{{ config('app.openfileimg') }}/{{ Auth::user()->id_emp }}/skcpns/{{ $emp_data['sk_cpns'] }}">[Unduh SK CPNS]</a>
 																@endif
 															</td>
 														</tr>
@@ -357,7 +357,7 @@
 															</td>
 															<td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">
 																<?php if ($emp_data['sk_pns'] && $emp_data['sk_pns'] != '') : ?>
-																	{{ $emp_data['sk_pns'] }}
+                                                                    <a target="_blank" href="{{ config('app.openfileimg') }}/{{ Auth::user()->id_emp }}/skpns/{{ $emp_data['sk_pns'] }}">[Unduh SK PNS]</a>
 																<?php else : ?>
 																	-
 																<?php endif ?>
@@ -365,7 +365,7 @@
 															<td class="col-md-6 data-input" style="vertical-align:middle;">
 																<input type="file" name="fileskpns" accept="image/jpeg, image/jpg, image/gif, image/png, application/pdf">
 																@if($emp_data['sk_pns'] && $emp_data['sk_pns'] != '')
-																<br><a target="_blank" href="{{ config('app.openfileimg') }}/{{ Auth::user()->id_emp }}/skpns/{{ $emp_data['sk_pns'] }}">[SK PNS]</a>
+																<br><a target="_blank" href="{{ config('app.openfileimg') }}/{{ Auth::user()->id_emp }}/skpns/{{ $emp_data['sk_pns'] }}">[Unduh SK PNS]</a>
 																@endif
 															</td>
 														</tr>

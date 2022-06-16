@@ -356,11 +356,11 @@ class ProfilController extends Controller
 			$tujuan_upload = config('app.savefileimg');
 			$tujuan_upload .= "\\" . $id_emp . "\\skcpns\\";
 
-			// if (file_exists($tujuan_upload . $filecpns )) {
-			// 	unlink($tujuan_upload . $filecpns);
-			// }
+			if (file_exists($tujuan_upload . $filecpns )) {
+				unlink($tujuan_upload . $filecpns);
+			}
 
-			// $file->move($tujuan_upload, $filecpns);
+			$file->move($tujuan_upload, $filecpns);
 		}
 
 		if (isset($request->fileskpns)) {
@@ -379,11 +379,11 @@ class ProfilController extends Controller
 			$tujuan_upload = config('app.savefileimg');
 			$tujuan_upload .= "\\" . $id_emp . "\\skpns\\";
 
-			// if (file_exists($tujuan_upload . $filepns )) {
-			// 	unlink($tujuan_upload . $filepns);
-			// }
+			if (file_exists($tujuan_upload . $filepns )) {
+				unlink($tujuan_upload . $filepns);
+			}
 
-			// $file->move($tujuan_upload, $filepns);
+			$file->move($tujuan_upload, $filepns);
 		}
 
 		if (isset($request->karpeg)) {
