@@ -330,7 +330,7 @@
 																<h4>SK CPNS</h4>
 																<div class="data-input">
 																	<br>
-																	<p class="text-muted"><span style="color:red;">Hanya bisa upload gambar / PDF maksimal 300KB</span></p>
+																	<p class="text-muted"><span style="color:red;">Hanya bisa upload gambar / PDF maksimal 500KB</span></p>
 																</div>
 															</td>
 															<td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">
@@ -352,7 +352,7 @@
 																<h4>SK PNS</h4>
 																<div class="data-input">
 																	<br>
-																	<p class="text-muted"><span style="color:red;">Hanya bisa upload gambar / PDF maksimal 300KB</span></p>
+																	<p class="text-muted"><span style="color:red;">Hanya bisa upload gambar / PDF maksimal 500KB</span></p>
 																</div>
 															</td>
 															<td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">
@@ -374,7 +374,7 @@
 																<h4>Kartu Pegawai</h4>
 																<div class="data-input">
 																	<br>
-																	<p class="text-muted"><span style="color:red;">Hanya bisa upload gambar / PDF maksimal 300KB</span></p>
+																	<p class="text-muted"><span style="color:red;">Hanya bisa upload gambar / PDF maksimal 500KB</span></p>
 																</div>
 															</td>
 															<td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">
@@ -505,7 +505,7 @@
 										<h4>Ubah Foto 
 											<br><span class="text-danger" style="font-size: 14px">Hanya berupa JPG, JPEG, dan PNG</span>
 											<br><span class="text-danger" style="font-size: 14px">Ukuran foto 3x4</span>
-											<br><span class="text-danger" style="font-size: 14px">Size max 300KB</span>
+											<br><span class="text-danger" style="font-size: 14px">Size max 500KB</span>
 										</h4>
 										<input type="file" name="filefoto">
 									</div>
@@ -1252,7 +1252,7 @@
 								</div>
 
 								<div class="form-group">
-									<label for="fileijazah" class="col-lg-3 control-label"> Upload Ijazah <br> <span style="font-size: 12px; color:red">Size Max 5MB</span> </label>
+									<label for="fileijazah" class="col-lg-3 control-label"> Upload Ijazah <br> <span style="font-size: 12px; color:red">Size Max 500KB</span> </label>
 									<div class="col-lg-9">
 										<input type="file" class="form-control" id="modal_insert_dik_fileijazah" name="fileijazah">
 									</div>
@@ -1337,7 +1337,7 @@
 								</div>
 
 								<div class="form-group">
-									<label for="fileijazah" class="col-lg-3 control-label"> Upload Ijazah <br> <span style="font-size: 12px; color:red">Size Max 5MB</span> </label>
+									<label for="fileijazah" class="col-lg-3 control-label"> Upload Ijazah <br> <span style="font-size: 12px; color:red">Size Max 500KB</span> </label>
 									<div class="col-lg-9">
 										<input type="file" class="form-control" id="modal_update_dik_fileijazah" name="fileijazah">
 									</div>
@@ -1455,7 +1455,7 @@
 
 
 								<div class="form-group">
-									<label for="filenon" class="col-lg-3 control-label"> File <br> <span style="font-size: 12px; color:red">Size Max 5MB</span> </label>
+									<label for="filenon" class="col-lg-3 control-label"> File <br> <span style="font-size: 12px; color:red">Size Max 500KB</span> </label>
 									<div class="col-lg-9">
 										<input type="file" class="form-control" id="modal_insert_non_filenon" name="filenon">
 									</div>
@@ -1526,7 +1526,7 @@
 
 
 								<div class="form-group">
-									<label for="filenon" class="col-lg-3 control-label"> File <br> <span style="font-size: 12px; color:red">Size Max 5MB</span> </label>
+									<label for="filenon" class="col-lg-3 control-label"> File <br> <span style="font-size: 12px; color:red">Size Max 500KB</span> </label>
 									<div class="col-lg-9">
 										<input type="file" class="form-control" id="modal_update_non_filenon" name="filenon">
 									</div>
@@ -1656,7 +1656,7 @@
 								</div> -->
 
 								<div class="form-group">
-									<label for="fileijazah" class="col-lg-3 control-label"> Upload File <br> <span style="font-size: 12px; color:red">Size Max 5MB</span> </label>
+									<label for="fileijazah" class="col-lg-3 control-label"> Upload File <br> <span style="font-size: 12px; color:red">Size Max 500KB</span> </label>
 									<div class="col-lg-9">
 										<input type="file" class="form-control" id="modal_insert_gol_file" name="filegol">
 									</div>
@@ -1741,7 +1741,7 @@
 
 
 								<div class="form-group col-md-12">
-									<label for="filegol" class="col-lg-2 control-label"> Upload File <br> <span style="font-size: 12px; color:red">Size Max 5MB</span> </label>
+									<label for="filegol" class="col-lg-2 control-label"> Upload File <br> <span style="font-size: 12px; color:red">Size Max 500KB</span> </label>
 									<div class="col-lg-8">
 										<input type="file" class="form-control" id="modal_update_gol_file" name="filegol">
 									</div>
@@ -1913,7 +1913,7 @@
 								</div>
 
 								<div class="form-group">
-									<label for="fileijazah" class="col-lg-2 control-label"> Upload File <br> <span style="font-size: 12px; color:red">Size Max 5MB</span> </label>
+									<label for="fileijazah" class="col-lg-2 control-label"> Upload File <br> <span style="font-size: 12px; color:red">Size Max 500KB</span> </label>
 									<div class="col-lg-8">
 										<input type="file" class="form-control" id="modal_insert_jab_file" name="filejab">
 									</div>
@@ -2040,7 +2040,7 @@
 
 
 								<div class="form-group col-md-12">
-									<label for="filejab" class="col-lg-2 control-label"> Upload File <br> <span style="font-size: 12px; color:red">Size Max 5MB</span> </label>
+									<label for="filejab" class="col-lg-2 control-label"> Upload File <br> <span style="font-size: 12px; color:red">Size Max 500KB</span> </label>
 									<div class="col-lg-8">
 										<input type="file" class="form-control" id="modal_update_jab_file" name="filejab">
 									</div>
@@ -2353,7 +2353,7 @@
 								</div>
 
 								<div class="form-group ">
-									<label for="filehuk" class="col-lg-2 control-label"> Upload File <br> <span style="font-size: 12px; color:red">Size Max 5MB</span> </label>
+									<label for="filehuk" class="col-lg-2 control-label"> Upload File <br> <span style="font-size: 12px; color:red">Size Max 500KB</span> </label>
 									<div class="col-lg-8">
 										<input type="file" class="form-control" id="modal_insert_huk_file" name="filehuk">
 									</div>
@@ -2422,7 +2422,7 @@
 								</div>
 
 								<div class="form-group ">
-									<label for="filehuk" class="col-lg-2 control-label"> Upload File <br> <span style="font-size: 12px; color:red">Size Max 5MB</span> </label>
+									<label for="filehuk" class="col-lg-2 control-label"> Upload File <br> <span style="font-size: 12px; color:red">Size Max 500KB</span> </label>
 									<div class="col-lg-8">
 										<input type="file" class="form-control" id="modal_update_huk_file" name="filehuk">
 									</div>

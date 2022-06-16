@@ -311,8 +311,8 @@ class ProfilController extends Controller
 		if (isset($request->filefoto)) {
 			$file = $request->filefoto;
 
-			if ($file->getSize() > 300000) {
-				return redirect('/profil/pegawai')->with('message', 'Ukuran file foto pegawai terlalu besar (Maksimal 300KB)');     
+			if ($file->getSize() > 500000) {
+				return redirect('/profil/pegawai')->with('message', 'Ukuran file foto pegawai terlalu besar (Maksimal 500KB)');     
 			}
 
 			if (strtolower($file->getClientOriginalExtension()) != "png" && strtolower($file->getClientOriginalExtension()) != "jpg" && strtolower($file->getClientOriginalExtension()) != "jpeg") {
@@ -343,8 +343,8 @@ class ProfilController extends Controller
 		if (isset($request->fileskcpns)) {
 			$file = $request->fileskcpns;
 
-			if ($file->getSize() > 300000) {
-				return redirect('/profil/pegawai')->with('message', 'Ukuran file SK CPNS terlalu besar (Maksimal 300KB)');     
+			if ($file->getSize() > 500000) {
+				return redirect('/profil/pegawai')->with('message', 'Ukuran file SK CPNS terlalu besar (Maksimal 500KB)');     
 			}
 
 			if (strtolower($file->getClientOriginalExtension()) != "png" && strtolower($file->getClientOriginalExtension()) != "jpg" && strtolower($file->getClientOriginalExtension()) != "jpeg" && strtolower($file->getClientOriginalExtension()) != "pdf") {
@@ -366,8 +366,8 @@ class ProfilController extends Controller
 		if (isset($request->fileskpns)) {
 			$file = $request->fileskpns;
 
-			if ($file->getSize() > 300000) {
-				return redirect('/profil/pegawai')->with('message', 'Ukuran file SK PNS terlalu besar (Maksimal 300KB)');     
+			if ($file->getSize() > 500000) {
+				return redirect('/profil/pegawai')->with('message', 'Ukuran file SK PNS terlalu besar (Maksimal 500KB)');     
 			}
 
 			if (strtolower($file->getClientOriginalExtension()) != "png" && strtolower($file->getClientOriginalExtension()) != "jpg" && strtolower($file->getClientOriginalExtension()) != "jpeg" && strtolower($file->getClientOriginalExtension()) != "pdf") {
@@ -389,8 +389,8 @@ class ProfilController extends Controller
 		if (isset($request->karpeg)) {
 			$file = $request->karpeg;
 
-			if ($file->getSize() > 300000) {
-				return redirect('/profil/pegawai')->with('message', 'Ukuran file Kartu Pegawai terlalu besar (Maksimal 300KB)');     
+			if ($file->getSize() > 500000) {
+				return redirect('/profil/pegawai')->with('message', 'Ukuran file Kartu Pegawai terlalu besar (Maksimal 500KB)');     
 			}
 
 			if (strtolower($file->getClientOriginalExtension()) != "png" && strtolower($file->getClientOriginalExtension()) != "jpg" && strtolower($file->getClientOriginalExtension()) != "jpeg" && strtolower($file->getClientOriginalExtension()) != "pdf") {
@@ -643,8 +643,8 @@ class ProfilController extends Controller
 		if (isset($request->fileijazah)) {
 			$file = $request->fileijazah;
 
-			if ($file->getSize() > 5555555) {
-				return redirect('/profil/pegawai')->with('message', 'Ukuran file ijazah terlalu besar (Maksimal 5MB)');     
+			if ($file->getSize() > 555555) {
+				return redirect('/profil/pegawai')->with('message', 'Ukuran file ijazah terlalu besar (Maksimal 500KB)');     
 			}
 
 			if (strtolower($file->getClientOriginalExtension()) != "png" && strtolower($file->getClientOriginalExtension()) != "jpg" && strtolower($file->getClientOriginalExtension()) != "jpeg" && strtolower($file->getClientOriginalExtension()) != "pdf") {
@@ -707,8 +707,8 @@ class ProfilController extends Controller
 		if (isset($request->fileijazah)) {
 			$file = $request->fileijazah;
 
-			if ($file->getSize() > 5555555) {
-				return redirect('/profil/pegawai')->with('message', 'Ukuran file ijazah terlalu besar (Maksimal 5MB)');     
+			if ($file->getSize() > 555555) {
+				return redirect('/profil/pegawai')->with('message', 'Ukuran file ijazah terlalu besar (Maksimal 500KB)');     
 			}
 
 			if (strtolower($file->getClientOriginalExtension()) != "png" && strtolower($file->getClientOriginalExtension()) != "jpg" && strtolower($file->getClientOriginalExtension()) != "jpeg" && strtolower($file->getClientOriginalExtension()) != "pdf") {
@@ -840,8 +840,8 @@ class ProfilController extends Controller
 		if (isset($request->filenon)) {
 			$file = $request->filenon;
 
-			if ($file->getSize() > 5555555) {
-				return redirect('/profil/pegawai')->with('message', 'Ukuran file ijazah terlalu besar (Maksimal 5MB)');     
+			if ($file->getSize() > 555555) {
+				return redirect('/profil/pegawai')->with('message', 'Ukuran file ijazah terlalu besar (Maksimal 500KB)');     
 			}
 
 			if (strtolower($file->getClientOriginalExtension()) != "png" && strtolower($file->getClientOriginalExtension()) != "jpg" && strtolower($file->getClientOriginalExtension()) != "jpeg" && strtolower($file->getClientOriginalExtension()) != "pdf") {
@@ -891,8 +891,8 @@ class ProfilController extends Controller
 		if (isset($request->filenon)) {
 			$file = $request->filenon;
 
-			if ($file->getSize() > 5555555) {
-				return redirect('/profil/pegawai')->with('message', 'Ukuran file ijazah terlalu besar (Maksimal 5MB)');     
+			if ($file->getSize() > 555555) {
+				return redirect('/profil/pegawai')->with('message', 'Ukuran file ijazah terlalu besar (Maksimal 500KB)');     
 			}
 
 			if (strtolower($file->getClientOriginalExtension()) != "png" && strtolower($file->getClientOriginalExtension()) != "jpg" && strtolower($file->getClientOriginalExtension()) != "jpeg" && strtolower($file->getClientOriginalExtension()) != "pdf") {
@@ -1000,8 +1000,8 @@ class ProfilController extends Controller
 		if (isset($request->filegol)) {
 			$file = $request->filegol;
 
-			if ($file->getSize() > 5555555) {
-				return redirect('/profil/pegawai')->with('message', 'Ukuran file terlalu besar (Maksimal 5MB)');     
+			if ($file->getSize() > 555555) {
+				return redirect('/profil/pegawai')->with('message', 'Ukuran file terlalu besar (Maksimal 500KB)');     
 			}
 
 			if (strtolower($file->getClientOriginalExtension()) != "png" && strtolower($file->getClientOriginalExtension()) != "jpg" && strtolower($file->getClientOriginalExtension()) != "jpeg" && strtolower($file->getClientOriginalExtension()) != "pdf") {
@@ -1063,8 +1063,8 @@ class ProfilController extends Controller
 		if (isset($request->filegol)) {
 			$file = $request->filegol;
 
-			if ($file->getSize() > 5555555) {
-				return redirect('/profil/pegawai')->with('message', 'Ukuran file terlalu besar (Maksimal 5MB)');     
+			if ($file->getSize() > 555555) {
+				return redirect('/profil/pegawai')->with('message', 'Ukuran file terlalu besar (Maksimal 500KB)');     
 			}
 
 			if (strtolower($file->getClientOriginalExtension()) != "png" && strtolower($file->getClientOriginalExtension()) != "jpg" && strtolower($file->getClientOriginalExtension()) != "jpeg" && strtolower($file->getClientOriginalExtension()) != "pdf") {
@@ -1202,8 +1202,8 @@ class ProfilController extends Controller
 		if (isset($request->filejab)) {
 			$file = $request->filejab;
 
-			if ($file->getSize() > 5555555) {
-				return redirect('/profil/pegawai')->with('message', 'Ukuran file terlalu besar (Maksimal 5MB)');     
+			if ($file->getSize() > 555555) {
+				return redirect('/profil/pegawai')->with('message', 'Ukuran file terlalu besar (Maksimal 500KB)');     
 			}
 
 			if (strtolower($file->getClientOriginalExtension()) != "png" && strtolower($file->getClientOriginalExtension()) != "jpg" && strtolower($file->getClientOriginalExtension()) != "jpeg" && strtolower($file->getClientOriginalExtension()) != "pdf") {
@@ -1295,8 +1295,8 @@ class ProfilController extends Controller
 		if (isset($request->filejab)) {
 			$file = $request->filejab;
 
-			if ($file->getSize() > 5555555) {
-				return redirect('/profil/pegawai')->with('message', 'Ukuran file terlalu besar (Maksimal 5MB)');     
+			if ($file->getSize() > 555555) {
+				return redirect('/profil/pegawai')->with('message', 'Ukuran file terlalu besar (Maksimal 500KB)');     
 			}
 
 			if (strtolower($file->getClientOriginalExtension()) != "png" && strtolower($file->getClientOriginalExtension()) != "jpg" && strtolower($file->getClientOriginalExtension()) != "jpeg" && strtolower($file->getClientOriginalExtension()) != "pdf") {
@@ -1550,8 +1550,8 @@ class ProfilController extends Controller
 			
 			$file = $request->filehuk;
 
-			if ($file->getSize() > 5555555) {
-				return redirect('/profil/pegawai')->with('message', 'Ukuran file terlalu besar (Maksimal 5MB)');     
+			if ($file->getSize() > 555555) {
+				return redirect('/profil/pegawai')->with('message', 'Ukuran file terlalu besar (Maksimal 500KB)');     
 			}
 
 			if (strtolower($file->getClientOriginalExtension()) != "png" && strtolower($file->getClientOriginalExtension()) != "jpg" && strtolower($file->getClientOriginalExtension()) != "jpeg" && strtolower($file->getClientOriginalExtension()) != "pdf") {
@@ -1601,8 +1601,8 @@ class ProfilController extends Controller
 		if (isset($request->filehuk)) {
 			$file = $request->filehuk;
 
-			if ($file->getSize() > 5555555) {
-				return redirect('/profil/pegawai')->with('message', 'Ukuran file terlalu besar (Maksimal 5MB)');     
+			if ($file->getSize() > 555555) {
+				return redirect('/profil/pegawai')->with('message', 'Ukuran file terlalu besar (Maksimal 500KB)');     
 			}
 
 			if (strtolower($file->getClientOriginalExtension()) != "png" && strtolower($file->getClientOriginalExtension()) != "jpg" && strtolower($file->getClientOriginalExtension()) != "jpeg" && strtolower($file->getClientOriginalExtension()) != "pdf") {
