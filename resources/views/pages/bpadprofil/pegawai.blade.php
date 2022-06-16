@@ -1065,7 +1065,7 @@
 								<div class="form-group">
 									<label for="nik_kel" class="col-md-3 control-label"> NIK KTP </label>
 									<div class="col-md-9">
-										<input autocomplete="off" type="text" name="nik_kel" class="form-control uintTextBox" id="modal_insert_kel_nik_kel" placeholder="Boleh Dikosongkan">
+										<input autocomplete="off" type="text" name="nik_kel" class="form-control uintTextBox" id="modal_insert_kel_nik_kel">
 									</div>
 								</div>
 
