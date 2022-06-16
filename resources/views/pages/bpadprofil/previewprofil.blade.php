@@ -255,7 +255,7 @@
 				<tr>
 					<td style="text-align: center;">{{ $key + 1 }}</td>
 					<td>{!! wordwrap($jab['idjab'], 50, "<br>\n", TRUE) !!}</td>
-					<td>{{ ucwords(strtolower($jab['unit']['nm_unit'])) }}</td>
+					<td>{{ ucwords(strtolower($jab['unit']['nmunit'])) }}</td>
 					<td>{{ $jab['no_sk_jab'] != '' && !(is_null($jab['no_sk_jab'])) ? $jab['no_sk_jab'] : '-' }}</td>
 					<td>{{ date('d-M-Y',strtotime($jab['tmt_sk_jab'])) }}</td>
 				</tr>
