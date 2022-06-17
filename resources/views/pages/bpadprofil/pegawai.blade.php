@@ -781,7 +781,7 @@
 							</div>
 							<div role="tabpanel" class="tab-pane fade" id="tabs4">
 								<!-- <button class="btn btn-info m-b-20 btn-insert-jab" type="button" data-toggle="modal" data-target="#modal-insert-jab">Tambah</button> -->
-                                <h4 style="color: red;">PENAMBAHAN dan PERUBAHAN Unit Kerja dapat dilakukan melalui tim Pusdatin BPAD</h4>
+                                <h4 style="color: red;">PENAMBAHAN dan PERUBAHAN Unit Kerja dapat dilakukan <br>melalui Sub Bagian Kepegawaian atau Pusdatin BPAD</h4>
 
 								@if(count($emp_jab) > 0)
 								<div class="table-responsive">
