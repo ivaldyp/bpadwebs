@@ -449,7 +449,7 @@ class ProfilController extends Controller
 				'gelar_blk' => ($request->gelar_blk ? $request->gelar_blk : ''),
 				'jnkel_emp' => $request->jnkel_emp,
 				'tempat_lahir' => ($request->tempat_lahir ? $request->tempat_lahir : ''),
-				'tgl_lahir' => (isset($request->tgl_lahir) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tgl_lahir))) : null),
+				'tgl_lahir' => ($request->tgl_lahir ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tgl_lahir))) : NULL),
 				'idagama' => $request->idagama,
 				'alamat_emp' => ($request->alamat_emp ? $request->alamat_emp : ''),
 				'tlp_emp' => ($request->tlp_emp ? $request->tlp_emp : ''),

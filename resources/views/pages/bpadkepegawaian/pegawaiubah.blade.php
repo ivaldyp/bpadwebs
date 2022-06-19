@@ -184,7 +184,7 @@
 														<input autocomplete="off" type="text" name="tempat_lahir" class="form-control" id="tempat_lahir" placeholder="Tempat" value="{{ $emp_data['tempat_lahir'] }}">
 													</div>
 													<div class="col-md-4">
-														<input autocomplete="off" type="text" name="tgl_lahir" class="form-control" id="datepicker-autoclose2" autocomplete="off" placeholder="dd/mm/yyyy" value="{{ date('d/m/Y', strtotime($emp_data['tgl_lahir'])) }}">
+														<input autocomplete="off" type="text" name="tgl_lahir" class="form-control" id="datepicker-autoclose2" autocomplete="off" placeholder="dd/mm/yyyy" value="{{ $emp_data['tgl_lahir'] ? date('d/m/Y', strtotime($emp_data['tgl_lahir'])) : '' }}">
 													</div>
 												</div>
 

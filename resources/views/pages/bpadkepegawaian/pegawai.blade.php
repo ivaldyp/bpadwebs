@@ -177,7 +177,7 @@
 													<td>{{ $employee['notes'] }}<br>
 														<span class="text-muted">{{ $employee['nm_lok'] }}</span>
 													</td>
-													<td>{{ date('d/M/Y', strtotime(str_replace('/', '-', $employee['tgl_lahir'] ))) }}</td>
+													<td>{{ $employee['tgl_lahir'] ? date('d/M/Y', strtotime(str_replace('/', '-', $employee['tgl_lahir'] ))) : '-' }}</td>
 													{{-- <td>{{ $employee['jnkel_emp'] }}</td> --}}
 													<td>{{ date('d/M/Y', strtotime(str_replace('/', '-', $employee['tgl_join'] ))) }}</td>
 													<td>{{ $employee['status_emp'] }}</td>

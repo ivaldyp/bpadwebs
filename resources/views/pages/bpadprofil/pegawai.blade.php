@@ -244,13 +244,13 @@
 														</tr>
 														<tr>
 															<td class="col-md-6 p-l-30"><h4>Tempat, Tgl Lahir</h4></td>
-															<td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">{{ $emp_data['tempat_lahir'] }}, {{ date('d-M-Y',strtotime($emp_data['tgl_lahir'])) }}</h4></td>
+															<td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">{{ $emp_data['tempat_lahir'] ?? '-' }} @if($emp_data['tempat_lahir'] && $emp_data['tgl_lahir']), @endif {{ $emp_data['tgl_lahir'] ? date('d-M-Y',strtotime($emp_data['tgl_lahir'])) : '-' }}</h4></td>
 															<td class="col-md-6 data-input">
 																<div class="col-md-6">
 																	<input class="form-control" type="text" name="tempat_lahir" value="{{ $emp_data['tempat_lahir'] }}" placeholder="Tempat" autocomplete="off">
 																</div>
 																<div class="col-md-6">
-																	<input id="datepicker-autoclose" class="form-control" type="text" name="tgl_lahir" value="{{ date('d/m/Y', strtotime($emp_data['tgl_lahir'])) }}" placeholder="Tanggal Lahir" autocomplete="off">
+																	<input id="datepicker-autoclose" class="form-control" type="text" name="tgl_lahir" value="{{ $emp_data['tgl_lahir'] ? date('d/m/Y', strtotime($emp_data['tgl_lahir'])) : '' }}" placeholder="Tanggal Lahir" autocomplete="off">
 																</div>
 															</td>
 														</tr>
