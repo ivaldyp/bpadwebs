@@ -379,7 +379,7 @@
 															</td>
 															<td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">
 																<?php if ($emp_data['karpeg'] && $emp_data['karpeg'] != '') : ?>
-																	{{ $emp_data['karpeg'] }}
+                                                                    <a target="_blank" href="{{ config('app.openfileimg') }}/{{ Auth::user()->id_emp }}/karpeg/{{ $emp_data['karpeg'] }}">[Unduh KARPEG]</a>
 																<?php else : ?>
 																	-
 																<?php endif ?>
@@ -387,7 +387,7 @@
 															<td class="col-md-6 data-input" style="vertical-align:middle;">
 																<input type="file" name="karpeg" accept="image/jpeg, image/jpg, image/gif, image/png, application/pdf">
 																@if($emp_data['karpeg'] && $emp_data['karpeg'] != '')
-																<br><a target="_blank" href="{{ config('app.openfileimg') }}/{{ Auth::user()->id_emp }}/karpeg/{{ $emp_data['karpeg'] }}">[KARPEG]</a>
+																<br><a target="_blank" href="{{ config('app.openfileimg') }}/{{ Auth::user()->id_emp }}/karpeg/{{ $emp_data['karpeg'] }}">[Unduh KARPEG]</a>
 																@endif
 															</td>
 														</tr>

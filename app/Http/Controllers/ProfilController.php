@@ -402,11 +402,11 @@ class ProfilController extends Controller
 			$tujuan_upload = config('app.savefileimg');
 			$tujuan_upload .= "\\" . $id_emp . "\\karpeg\\";
 
-			// if (file_exists($tujuan_upload . $karpeg )) {
-			// 	unlink($tujuan_upload . $karpeg);
-			// }
+			if (file_exists($tujuan_upload . $karpeg )) {
+				unlink($tujuan_upload . $karpeg);
+			}
 
-			// $file->move($tujuan_upload, $karpeg);
+			$file->move($tujuan_upload, $karpeg);
 		}
 			
 		if (!(isset($filefoto))) {
