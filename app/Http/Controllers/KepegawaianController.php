@@ -2755,12 +2755,17 @@ class KepegawaianController extends Controller
                 $sheet->setCellValue($alphabet[$alpnum].$nowrow, 'LAINNYA'); $alpnum++;
             } elseif ($employee['idagama'] == 'G') {
                 $sheet->setCellValue($alphabet[$alpnum].$nowrow, 'KONGHUCU'); $alpnum++;
+            } else {
+                $sheet->setCellValue($alphabet[$alpnum].$nowrow, 'LAINNYA'); $alpnum++;
             }
             $sheet->setCellValue($alphabet[$alpnum].$nowrow, $employee['jnkel_emp'] == 'L' ? 'LAKI-LAKI' : 'PEREMPUAN'); $alpnum++;
             $sheet->setCellValue($alphabet[$alpnum].$nowrow, strtoupper($employee['status_nikah'])); $alpnum++;
             $sheet->setCellValue($alphabet[$alpnum].$nowrow, $employee['gol_darah']); $alpnum++;
 			$sheet->setCellValue($alphabet[$alpnum].$nowrow, $employee['status_emp']); $alpnum++;
-            $sheet->setCellValue($alphabet[$alpnum].$nowrow, $employee['nik_emp'] ?? '-' ); $alpnum++;
+            if(is_null($employee['nik_emp']) || $employee['nik_emp'] == '') {
+                $sheet->getStyle($alphabet[$alpnum].$nowrow)->applyFromArray($colorArrayEmpty);
+            }
+            $sheet->setCellValue($alphabet[$alpnum].$nowrow, ($employee['nik_emp'] ? '\''.$employee['nik_emp'] : '-') ); $alpnum++;
 
 			$sheet->getStyle($alphabet[$alpnum].$nowrow.':'.$alphabet[$alpnum].$nowrow)->applyFromArray($colorArrayhead); $alpnum++;
 
