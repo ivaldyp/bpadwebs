@@ -2682,7 +2682,8 @@ class KepegawaianController extends Controller
 		$sheet->setCellValue($alphabet[$alpnum].'5', 'FILE SK GOL'); $alpnum++;
         $alpnum++;
 
-		$sheet->setCellValue($alphabet[$alpnum].'5', 'JABATAN'); $alpnum++;
+		$sheet->setCellValue($alphabet[$alpnum].'5', 'UNIT KERJA'); $alpnum++;
+		$sheet->setCellValue($alphabet[$alpnum].'5', 'LOKASI'); $alpnum++;
 		$sheet->setCellValue($alphabet[$alpnum].'5', 'TMT JABATAN'); $alpnum++;
         $sheet->setCellValue($alphabet[$alpnum].'5', 'NOMOR SK JAB'); $alpnum++;
         $sheet->setCellValue($alphabet[$alpnum].'5', 'TMT SK JAB'); $alpnum++;
@@ -2886,7 +2887,8 @@ class KepegawaianController extends Controller
 
 			$sheet->getStyle($alphabet[$alpnum].$nowrow.':'.$alphabet[$alpnum].$nowrow)->applyFromArray($colorArrayhead); $alpnum++;
 
-			$sheet->setCellValue($alphabet[$alpnum].$nowrow, $employee['idjab'] ? strtoupper($employee['idjab']) : '-' ); $alpnum++;
+			$sheet->setCellValue($alphabet[$alpnum].$nowrow, strtoupper($employee['nm_unit'])); $alpnum++;
+			$sheet->setCellValue($alphabet[$alpnum].$nowrow, $employee['nm_lok']); $alpnum++;
             if(is_null($employee['tmt_jab']) || $employee['tmt_jab'] == '') {
                 $sheet->getStyle($alphabet[$alpnum].$nowrow)->applyFromArray($colorArrayEmpty);
             }
