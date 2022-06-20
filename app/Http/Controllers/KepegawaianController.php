@@ -2632,6 +2632,7 @@ class KepegawaianController extends Controller
 		$sheet->getStyle('A1:A5')->applyFromArray($styleArray);
 
 		$sheet->setCellValue($alphabet[$alpnum].'5', 'NO'); $alpnum++;
+		$sheet->setCellValue($alphabet[$alpnum].'5', 'STATUS'); $alpnum++;
 		$sheet->setCellValue($alphabet[$alpnum].'5', 'ID'); $alpnum++;
 		$sheet->setCellValue($alphabet[$alpnum].'5', 'NIP'); $alpnum++;
 		$sheet->setCellValue($alphabet[$alpnum].'5', 'NRK'); $alpnum++;
@@ -2647,7 +2648,6 @@ class KepegawaianController extends Controller
         $sheet->setCellValue($alphabet[$alpnum].'5', 'JNS KELAMIN'); $alpnum++;
         $sheet->setCellValue($alphabet[$alpnum].'5', 'STAT PERNIKAHAN'); $alpnum++;
         $sheet->setCellValue($alphabet[$alpnum].'5', 'GOL DARAH'); $alpnum++;
-		$sheet->setCellValue($alphabet[$alpnum].'5', 'STATUS'); $alpnum++;
         $sheet->setCellValue($alphabet[$alpnum].'5', 'NIK KTP'); $alpnum++;
         $alpnum++;
 
@@ -2731,6 +2731,7 @@ class KepegawaianController extends Controller
 			}
 
 			$sheet->setCellValue($alphabet[$alpnum].$nowrow, $key+1); $alpnum++;
+            $sheet->setCellValue($alphabet[$alpnum].$nowrow, $employee['status_emp']); $alpnum++;
 			$sheet->setCellValue($alphabet[$alpnum].$nowrow, $employee['id_emp']); $alpnum++;
 			$sheet->setCellValue($alphabet[$alpnum].$nowrow, $employee['nip_emp'] ? '\''.$employee['nip_emp'] : '-' ); $alpnum++;
 			$sheet->setCellValue($alphabet[$alpnum].$nowrow, $employee['nrk_emp'] ?? '-' ); 
@@ -2775,7 +2776,6 @@ class KepegawaianController extends Controller
             $sheet->setCellValue($alphabet[$alpnum].$nowrow, $employee['jnkel_emp'] == 'L' ? 'LAKI-LAKI' : 'PEREMPUAN'); $alpnum++;
             $sheet->setCellValue($alphabet[$alpnum].$nowrow, strtoupper($employee['status_nikah'])); $alpnum++;
             $sheet->setCellValue($alphabet[$alpnum].$nowrow, $employee['gol_darah']); $alpnum++;
-			$sheet->setCellValue($alphabet[$alpnum].$nowrow, $employee['status_emp']); $alpnum++;
             if(is_null($employee['nik_emp']) || $employee['nik_emp'] == '') {
                 $sheet->getStyle($alphabet[$alpnum].$nowrow)->applyFromArray($colorArrayEmpty);
             }
@@ -2783,15 +2783,15 @@ class KepegawaianController extends Controller
 
 			$sheet->getStyle($alphabet[$alpnum].$nowrow.':'.$alphabet[$alpnum].$nowrow)->applyFromArray($colorArrayhead); $alpnum++;
 
-            if(is_null($employee['sk_cpns']) || $employee['sk_cpns'] == '') {
+            if((is_null($employee['sk_cpns']) || $employee['sk_cpns'] == '') && $employee['status_emp'] != 'NON PNS') {
                 $sheet->getStyle($alphabet[$alpnum].$nowrow)->applyFromArray($colorArrayEmpty);
             }
             $sheet->setCellValue($alphabet[$alpnum].$nowrow, ($employee['sk_cpns'] && $employee['sk_cpns'] != '' ? 'ADA' : 'TIDAK ADA' )); $alpnum++;
-            if(is_null($employee['sk_pns']) || $employee['sk_pns'] == '') {
+            if((is_null($employee['sk_pns']) || $employee['sk_pns'] == '') && $employee['status_emp'] != 'NON PNS') {
                 $sheet->getStyle($alphabet[$alpnum].$nowrow)->applyFromArray($colorArrayEmpty);
             }
 			$sheet->setCellValue($alphabet[$alpnum].$nowrow, ($employee['sk_pns'] && $employee['sk_pns'] != '' ? 'ADA' : 'TIDAK ADA' )); $alpnum++;
-            if(is_null($employee['karpeg']) || $employee['karpeg'] == '') {
+            if((is_null($employee['karpeg']) || $employee['karpeg'] == '') && $employee['status_emp'] != 'NON PNS') {
                 $sheet->getStyle($alphabet[$alpnum].$nowrow)->applyFromArray($colorArrayEmpty);
             }
             $sheet->setCellValue($alphabet[$alpnum].$nowrow, ($employee['karpeg'] && $employee['karpeg'] != '' ? 'ADA' : 'TIDAK ADA' )); $alpnum++;
@@ -2863,23 +2863,23 @@ class KepegawaianController extends Controller
 
             //DATA GOLONGAN
 			$sheet->setCellValue($alphabet[$alpnum].$nowrow, $employee['idgol'] ?? '-' ); $alpnum++;
-            if(is_null($employee['nm_pangkat']) || $employee['nm_pangkat'] == '') {
+            if((is_null($employee['nm_pangkat']) || $employee['nm_pangkat'] == '') && $employee['status_emp'] != 'NON PNS') {
                 $sheet->getStyle($alphabet[$alpnum].$nowrow)->applyFromArray($colorArrayEmpty);
             }
 			$sheet->setCellValue($alphabet[$alpnum].$nowrow, $employee['nm_pangkat'] ? strtoupper($employee['nm_pangkat']) : '-' ); $alpnum++;
-            if(is_null($employee['tmt_gol']) || $employee['tmt_gol'] == '') {
+            if((is_null($employee['tmt_gol']) || $employee['tmt_gol'] == '') && $employee['status_emp'] != 'NON PNS') {
                 $sheet->getStyle($alphabet[$alpnum].$nowrow)->applyFromArray($colorArrayEmpty);
             }
 			$sheet->setCellValue($alphabet[$alpnum].$nowrow, ($employee['tmt_gol'] ? date('d-M-Y', strtotime(str_replace('/', '-', $employee['tmt_gol']))) : '-') ); $alpnum++;
-            if(is_null($employee['no_sk_gol']) || $employee['no_sk_gol'] == '') {
+            if((is_null($employee['no_sk_gol']) || $employee['no_sk_gol'] == '') && $employee['status_emp'] != 'NON PNS') {
                 $sheet->getStyle($alphabet[$alpnum].$nowrow)->applyFromArray($colorArrayEmpty);
             }
             $sheet->setCellValue($alphabet[$alpnum].$nowrow, $employee['no_sk_gol'] ? strtoupper($employee['no_sk_gol']) : '-' ); $alpnum++;
-            if(is_null($employee['tmt_sk_gol']) || $employee['tmt_sk_gol'] == '') {
+            if((is_null($employee['tmt_sk_gol']) || $employee['tmt_sk_gol'] == '') && $employee['status_emp'] != 'NON PNS') {
                 $sheet->getStyle($alphabet[$alpnum].$nowrow)->applyFromArray($colorArrayEmpty);
             }
             $sheet->setCellValue($alphabet[$alpnum].$nowrow, ($employee['tmt_sk_gol'] ? date('d-M-Y', strtotime(str_replace('/', '-', $employee['tmt_sk_gol']))) : '-') ); $alpnum++;
-            if(is_null($employee['golgambar']) || $employee['golgambar'] == '') {
+            if((is_null($employee['golgambar']) || $employee['golgambar'] == '') && $employee['status_emp'] != 'NON PNS') {
                 $sheet->getStyle($alphabet[$alpnum].$nowrow)->applyFromArray($colorArrayEmpty);
             }
             $sheet->setCellValue($alphabet[$alpnum].$nowrow, is_null($employee['golgambar']) || $employee['golgambar'] == '' ? 'BELUM UPLOAD' : 'SUDAH UPLOAD' ); $alpnum++;
@@ -2889,19 +2889,19 @@ class KepegawaianController extends Controller
 
 			$sheet->setCellValue($alphabet[$alpnum].$nowrow, strtoupper($employee['nm_unit'])); $alpnum++;
 			$sheet->setCellValue($alphabet[$alpnum].$nowrow, $employee['nm_lok']); $alpnum++;
-            if(is_null($employee['tmt_jab']) || $employee['tmt_jab'] == '') {
+            if((is_null($employee['tmt_jab']) || $employee['tmt_jab'] == '') && $employee['status_emp'] != 'NON PNS') {
                 $sheet->getStyle($alphabet[$alpnum].$nowrow)->applyFromArray($colorArrayEmpty);
             }
 			$sheet->setCellValue($alphabet[$alpnum].$nowrow, ($employee['tmt_jab'] ? date('d-M-Y', strtotime(str_replace('/', '-', $employee['tmt_jab']))) : '-') ); $alpnum++;
-            if(is_null($employee['no_sk_jab']) || $employee['no_sk_jab'] == '') {
+            if((is_null($employee['no_sk_jab']) || $employee['no_sk_jab'] == '') && $employee['status_emp'] != 'NON PNS') {
                 $sheet->getStyle($alphabet[$alpnum].$nowrow)->applyFromArray($colorArrayEmpty);
             }
             $sheet->setCellValue($alphabet[$alpnum].$nowrow, $employee['no_sk_jab'] ? strtoupper($employee['no_sk_jab']) : '-' ); $alpnum++;
-            if(is_null($employee['tmt_sk_jab']) || $employee['tmt_sk_jab'] == '') {
+            if((is_null($employee['tmt_sk_jab']) || $employee['tmt_sk_jab'] == '') && $employee['status_emp'] != 'NON PNS') {
                 $sheet->getStyle($alphabet[$alpnum].$nowrow)->applyFromArray($colorArrayEmpty);
             }
             $sheet->setCellValue($alphabet[$alpnum].$nowrow, ($employee['tmt_sk_jab'] ? date('d-M-Y', strtotime(str_replace('/', '-', $employee['tmt_sk_jab']))) : '-') ); $alpnum++;
-            if(is_null($employee['jabgambar']) || $employee['jabgambar'] == '') {
+            if((is_null($employee['jabgambar']) || $employee['jabgambar'] == '') && $employee['status_emp'] != 'NON PNS') {
                 $sheet->getStyle($alphabet[$alpnum].$nowrow)->applyFromArray($colorArrayEmpty);
             }
             $sheet->setCellValue($alphabet[$alpnum].$nowrow, is_null($employee['jabgambar']) || $employee['jabgambar'] == '' ? 'BELUM UPLOAD' : 'SUDAH UPLOAD' );
