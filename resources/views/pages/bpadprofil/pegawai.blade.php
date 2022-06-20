@@ -493,7 +493,7 @@
 																<?php endif ?>
 															</h4></td>
 															<td class="col-md-6 data-input">
-																<input class="form-control" type="text" name="no_jamsos" value="{{ $emp_data['no_jamsos'] }}" placeholder="Nomor Jamsostek" autocomplete="off">
+																<input class="form-control" type="text" name="no_jamsos" value="{{ $emp_data['no_jamsos'] }}" placeholder="Nomor BPJS" autocomplete="off">
 															</td>
 														</tr>
 													</table>

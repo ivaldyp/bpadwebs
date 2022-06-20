@@ -2583,7 +2583,12 @@ class KepegawaianController extends Controller
 		$kednow = $request->ked;
 
 		$employees = DB::select( DB::raw("  
-					SELECT id_emp, nrk_emp, nip_emp, gelar_dpn, gelar_blk, nm_emp, sk_cpns, sk_pns, karpeg, nik_emp, a.idgroup as idgroup, alamat_emp, status_nikah, gol_darah, idagama, tlp_emp, tempat_lahir, tgl_lahir, jnkel_emp, tgl_join, status_emp, nm_bank, cb_bank, an_bank, nr_bank, no_taspen, npwp, no_askes, no_jamsos, tbjab.idjab, tbjab.idunit, tbunit.nm_unit, tbunit.notes, tbunit.child, d.nm_lok, tbdik.iddik, tbdik.prog_sek, tbdik.nm_sek, tbdik.th_sek, tbgol.tmt_gol, tbgol.idgol, tbgol.nm_pangkat, tbjab.idjab, tbjab.tmt_jab from bpaddtfake.dbo.emp_data as a
+					SELECT id_emp, nrk_emp, nip_emp, gelar_dpn, gelar_blk, nm_emp, sk_cpns, sk_pns, karpeg, nik_emp, a.idgroup as idgroup, alamat_emp, status_nikah, gol_darah, idagama, tlp_emp, tempat_lahir, tgl_lahir, jnkel_emp, tgl_join, status_emp, nm_bank, cb_bank, an_bank, nr_bank, no_taspen, npwp, no_askes, no_jamsos, 
+                    tbjab.idjab, tbjab.idunit, tbjab.tmt_jab, tbjab.no_sk_jab, tbjab.tmt_sk_jab, tbjab.gambar as jabgambar, 
+                    tbunit.nm_unit, tbunit.notes, tbunit.child, d.nm_lok, 
+                    tbdik.iddik, tbdik.prog_sek, tbdik.nm_sek, tbdik.th_sek, tbdik.no_sek, tbdik.gambar as dikgambar, 
+                    tbgol.tmt_gol, tbgol.idgol, tbgol.nm_pangkat, tbgol.no_sk_gol, tbgol.tmt_sk_gol, tbgol.gambar as golgambar
+                    from bpaddtfake.dbo.emp_data as a
 					CROSS APPLY (SELECT TOP 1 tmt_gol,tmt_sk_gol,no_sk_gol,idgol,jns_kp,mk_thn,mk_bln,gambar,nm_pangkat FROM  bpaddtfake.dbo.emp_gol,bpaddtfake.dbo.glo_org_golongan WHERE a.id_emp = emp_gol.noid AND emp_gol.idgol=glo_org_golongan.gol AND emp_gol.sts='1' AND glo_org_golongan.sts='1' ORDER BY tmt_gol DESC) tbgol
 					CROSS APPLY (SELECT TOP 1 tmt_jab,idskpd,idunit,idlok,tmt_sk_jab,no_sk_jab,jns_jab,replace(idjab,'NA::','') as idjab,eselon,gambar FROM  bpaddtfake.dbo.emp_jab WHERE a.id_emp=emp_jab.noid AND emp_jab.sts='1' ORDER BY tmt_jab DESC) tbjab
 					CROSS APPLY (SELECT TOP 1 iddik,prog_sek,no_sek,th_sek,nm_sek,gelar_dpn_sek,gelar_blk_sek,ijz_cpns,gambar,nm_dik FROM  bpaddtfake.dbo.emp_dik,bpaddtfake.dbo.glo_dik WHERE a.id_emp = emp_dik.noid AND emp_dik.iddik=glo_dik.dik AND emp_dik.sts='1' AND glo_dik.sts='1' ORDER BY th_sek DESC) tbdik
@@ -2665,15 +2670,23 @@ class KepegawaianController extends Controller
 		$sheet->setCellValue($alphabet[$alpnum].'5', 'LEMBAGA'); $alpnum++;
 		$sheet->setCellValue($alphabet[$alpnum].'5', 'PRODI'); $alpnum++;
 		$sheet->setCellValue($alphabet[$alpnum].'5', 'TAHUN LULUS'); $alpnum++;
+        $sheet->setCellValue($alphabet[$alpnum].'5', 'NO IJAZAH'); $alpnum++;
+        $sheet->setCellValue($alphabet[$alpnum].'5', 'FILE IJAZAH'); $alpnum++;
         $alpnum++;
 
 		$sheet->setCellValue($alphabet[$alpnum].'5', 'GOLONGAN'); $alpnum++;
 		$sheet->setCellValue($alphabet[$alpnum].'5', 'NAMA GOLONGAN'); $alpnum++;
 		$sheet->setCellValue($alphabet[$alpnum].'5', 'TMT GOLONGAN'); $alpnum++;
+        $sheet->setCellValue($alphabet[$alpnum].'5', 'NOMOR SK GOL'); $alpnum++;
+        $sheet->setCellValue($alphabet[$alpnum].'5', 'TMT SK GOL'); $alpnum++;
+		$sheet->setCellValue($alphabet[$alpnum].'5', 'FILE SK GOL'); $alpnum++;
         $alpnum++;
 
 		$sheet->setCellValue($alphabet[$alpnum].'5', 'JABATAN'); $alpnum++;
-		$sheet->setCellValue($alphabet[$alpnum].'5', 'TMT JABATAN'); 
+		$sheet->setCellValue($alphabet[$alpnum].'5', 'TMT JABATAN'); $alpnum++;
+        $sheet->setCellValue($alphabet[$alpnum].'5', 'NOMOR SK JAB'); $alpnum++;
+        $sheet->setCellValue($alphabet[$alpnum].'5', 'TMT SK JAB'); $alpnum++;
+		$sheet->setCellValue($alphabet[$alpnum].'5', 'FILE SK JAB');
         $maxalpnum = $alpnum;
 
 		$colorArrayhead = [
@@ -2816,24 +2829,80 @@ class KepegawaianController extends Controller
                 $sheet->getStyle($alphabet[$alpnum].$nowrow)->applyFromArray($colorArrayEmpty);
             }
             $sheet->setCellValue($alphabet[$alpnum].$nowrow, ($employee['no_jamsos'] && $employee['no_jamsos'] != '' ? strtoupper($employee['no_jamsos']) : '-' )); $alpnum++;
-
 			$sheet->getStyle($alphabet[$alpnum].$nowrow.':'.$alphabet[$alpnum].$nowrow)->applyFromArray($colorArrayhead); $alpnum++;
 
-			$sheet->setCellValue($alphabet[$alpnum].$nowrow, $employee['iddik'] != 'NA' ? $employee['iddik'] : '-'); $alpnum++;
+
+            //DATA PENDIDIKAN
+			if(is_null($employee['iddik']) || $employee['iddik'] == '' || $employee['iddik'] == 'NA') {
+                $sheet->getStyle($alphabet[$alpnum].$nowrow)->applyFromArray($colorArrayEmpty);
+            }
+            $sheet->setCellValue($alphabet[$alpnum].$nowrow, $employee['iddik'] != 'NA' ? $employee['iddik'] : '-'); $alpnum++;
+            if(is_null($employee['nm_sek']) || $employee['nm_sek'] == '') {
+                $sheet->getStyle($alphabet[$alpnum].$nowrow)->applyFromArray($colorArrayEmpty);
+            }
 			$sheet->setCellValue($alphabet[$alpnum].$nowrow, $employee['nm_sek'] ? strtoupper($employee['nm_sek']) : '-' ); $alpnum++;
+            if(is_null($employee['prog_sek']) || $employee['prog_sek'] == '') {
+                $sheet->getStyle($alphabet[$alpnum].$nowrow)->applyFromArray($colorArrayEmpty);
+            }
 			$sheet->setCellValue($alphabet[$alpnum].$nowrow, $employee['prog_sek'] ? strtoupper($employee['prog_sek']) : '-' ); $alpnum++;
-			$sheet->setCellValue($alphabet[$alpnum].$nowrow, $employee['th_sek'] ?? '-'); $alpnum++;
-
+            if(is_null($employee['th_sek']) || $employee['th_sek'] == '') {
+                $sheet->getStyle($alphabet[$alpnum].$nowrow)->applyFromArray($colorArrayEmpty);
+            }
+            $sheet->setCellValue($alphabet[$alpnum].$nowrow, $employee['th_sek'] ?? '-'); $alpnum++;
+            if(is_null($employee['no_sek']) || $employee['no_sek'] == '') {
+                $sheet->getStyle($alphabet[$alpnum].$nowrow)->applyFromArray($colorArrayEmpty);
+            }
+            $sheet->setCellValue($alphabet[$alpnum].$nowrow, $employee['no_sek'] ?? '-'); $alpnum++;
+            if(is_null($employee['dikgambar']) || $employee['dikgambar'] == '') {
+                $sheet->getStyle($alphabet[$alpnum].$nowrow)->applyFromArray($colorArrayEmpty);
+            }
+            $sheet->setCellValue($alphabet[$alpnum].$nowrow, is_null($employee['dikgambar']) || $employee['dikgambar'] == '' ? 'BELUM UPLOAD' : 'SUDAH UPLOAD'); $alpnum++;
 			$sheet->getStyle($alphabet[$alpnum].$nowrow.':'.$alphabet[$alpnum].$nowrow)->applyFromArray($colorArrayhead); $alpnum++;
 
+
+            //DATA GOLONGAN
 			$sheet->setCellValue($alphabet[$alpnum].$nowrow, $employee['idgol'] ?? '-' ); $alpnum++;
+            if(is_null($employee['nm_pangkat']) || $employee['nm_pangkat'] == '') {
+                $sheet->getStyle($alphabet[$alpnum].$nowrow)->applyFromArray($colorArrayEmpty);
+            }
 			$sheet->setCellValue($alphabet[$alpnum].$nowrow, $employee['nm_pangkat'] ? strtoupper($employee['nm_pangkat']) : '-' ); $alpnum++;
-			$sheet->setCellValue($alphabet[$alpnum].$nowrow, date('d-M-Y', strtotime(str_replace('/', '-', $employee['tmt_gol']))) ?? '-'); $alpnum++;
+            if(is_null($employee['tmt_gol']) || $employee['tmt_gol'] == '') {
+                $sheet->getStyle($alphabet[$alpnum].$nowrow)->applyFromArray($colorArrayEmpty);
+            }
+			$sheet->setCellValue($alphabet[$alpnum].$nowrow, ($employee['tmt_gol'] ? date('d-M-Y', strtotime(str_replace('/', '-', $employee['tmt_gol']))) : '-') ); $alpnum++;
+            if(is_null($employee['no_sk_gol']) || $employee['no_sk_gol'] == '') {
+                $sheet->getStyle($alphabet[$alpnum].$nowrow)->applyFromArray($colorArrayEmpty);
+            }
+            $sheet->setCellValue($alphabet[$alpnum].$nowrow, $employee['no_sk_gol'] ? strtoupper($employee['no_sk_gol']) : '-' ); $alpnum++;
+            if(is_null($employee['tmt_sk_gol']) || $employee['tmt_sk_gol'] == '') {
+                $sheet->getStyle($alphabet[$alpnum].$nowrow)->applyFromArray($colorArrayEmpty);
+            }
+            $sheet->setCellValue($alphabet[$alpnum].$nowrow, ($employee['tmt_sk_gol'] ? date('d-M-Y', strtotime(str_replace('/', '-', $employee['tmt_sk_gol']))) : '-') ); $alpnum++;
+            if(is_null($employee['golgambar']) || $employee['golgambar'] == '') {
+                $sheet->getStyle($alphabet[$alpnum].$nowrow)->applyFromArray($colorArrayEmpty);
+            }
+            $sheet->setCellValue($alphabet[$alpnum].$nowrow, is_null($employee['golgambar']) || $employee['golgambar'] == '' ? 'BELUM UPLOAD' : 'SUDAH UPLOAD' ); $alpnum++;
+            
 
 			$sheet->getStyle($alphabet[$alpnum].$nowrow.':'.$alphabet[$alpnum].$nowrow)->applyFromArray($colorArrayhead); $alpnum++;
 
 			$sheet->setCellValue($alphabet[$alpnum].$nowrow, $employee['idjab'] ? strtoupper($employee['idjab']) : '-' ); $alpnum++;
-			$sheet->setCellValue($alphabet[$alpnum].$nowrow, date('d-M-Y', strtotime(str_replace('/', '-', $employee['tmt_jab']))) ?? '-');
+            if(is_null($employee['tmt_jab']) || $employee['tmt_jab'] == '') {
+                $sheet->getStyle($alphabet[$alpnum].$nowrow)->applyFromArray($colorArrayEmpty);
+            }
+			$sheet->setCellValue($alphabet[$alpnum].$nowrow, ($employee['tmt_jab'] ? date('d-M-Y', strtotime(str_replace('/', '-', $employee['tmt_jab']))) : '-') ); $alpnum++;
+            if(is_null($employee['no_sk_jab']) || $employee['no_sk_jab'] == '') {
+                $sheet->getStyle($alphabet[$alpnum].$nowrow)->applyFromArray($colorArrayEmpty);
+            }
+            $sheet->setCellValue($alphabet[$alpnum].$nowrow, $employee['no_sk_jab'] ? strtoupper($employee['no_sk_jab']) : '-' ); $alpnum++;
+            if(is_null($employee['tmt_sk_jab']) || $employee['tmt_sk_jab'] == '') {
+                $sheet->getStyle($alphabet[$alpnum].$nowrow)->applyFromArray($colorArrayEmpty);
+            }
+            $sheet->setCellValue($alphabet[$alpnum].$nowrow, ($employee['tmt_sk_jab'] ? date('d-M-Y', strtotime(str_replace('/', '-', $employee['tmt_sk_jab']))) : '-') ); $alpnum++;
+            if(is_null($employee['jabgambar']) || $employee['jabgambar'] == '') {
+                $sheet->getStyle($alphabet[$alpnum].$nowrow)->applyFromArray($colorArrayEmpty);
+            }
+            $sheet->setCellValue($alphabet[$alpnum].$nowrow, is_null($employee['jabgambar']) || $employee['jabgambar'] == '' ? 'BELUM UPLOAD' : 'SUDAH UPLOAD' );
 
 			if (strlen($employee['idunit']) < 10) {
 				$sheet->getStyle($alphabet[0].$nowrow.':'.$alphabet[$alpnum].$nowrow)->getFont()->setBold( true );
