@@ -2740,6 +2740,216 @@ class DisposisiController extends Controller
 		$sheet->setCellValue('A3', 'ID');
 		$sheet->setCellValue('b3', 'NRK');
 		$sheet->setCellValue('c3', 'NAMA');
+		$sheet->setCellValue('d3', 'BIDANG');
+		$sheet->setCellValue('e3', 'UNIT KERJA');
+		$sheet->setCellValue('f3', 'TOTAL SURAT');
+		$sheet->setCellValue('g3', 'BELUM DIBACA');
+		$sheet->setCellValue('h3', 'HANYA DIBACA');
+		$sheet->setCellValue('i3', 'SUDAH DI-TL');
+		$sheet->setCellValue('j3', '% TL');
+
+		$sheet->getStyle('A3:J3')->getFont()->setBold( true );
+		$sheet->getStyle('A3:J3')->getAlignment()->setHorizontal('center');
+
+		$colorArrayhead = [
+			'fill' => [
+				'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+				'startColor' => [
+					'rgb' => 'F79646',
+				],
+			],
+		];
+		$sheet->getStyle('A3:J3')->applyFromArray($colorArrayhead);
+
+		$nowrow = 4;
+		$rowstart = $nowrow - 1;
+
+		$ids = Auth::user()->id_emp;
+
+		if ($ids) {
+			$data_self = DB::select( DB::raw("  
+								SELECT a.id_emp, a.nrk_emp, a.nip_emp, a.nm_emp, tbjab.idjab, tbjab.idunit, tbunit.child, tbunit.nm_unit, tbunit.notes, tbunit.kd_unit, d.nm_lok, notread.notread, yesread.yesread, lanjut.lanjut from bpaddtfake.dbo.emp_data as a
+								CROSS APPLY (SELECT TOP 1 tmt_jab,idskpd,idunit,idlok,tmt_sk_jab,no_sk_jab,jns_jab,replace(idjab,'NA::','') as idjab,eselon,gambar FROM bpaddtfake.dbo.emp_jab WHERE a.id_emp=emp_jab.noid AND emp_jab.sts='1' ORDER BY tmt_jab DESC) tbjab
+								CROSS APPLY (SELECT TOP 1 * FROM bpaddtfake.dbo.glo_org_unitkerja WHERE glo_org_unitkerja.kd_unit = tbjab.idunit) tbunit
+								CROSS APPLY (
+									select  count(disp.rd) as 'notread' from bpaddtfake.dbo.fr_disposisi disp
+									  where rd = 'N' and sts = 1
+									  and disp.to_pm = a.id_emp) notread
+								CROSS APPLY (
+									select  count(disp.rd) as 'yesread' from bpaddtfake.dbo.fr_disposisi disp
+									  where rd = 'Y' and sts = 1
+									  and disp.to_pm = a.id_emp) yesread
+								CROSS APPLY (
+									select  count(disp.rd) as 'lanjut' from bpaddtfake.dbo.fr_disposisi disp
+									  where rd = 'S' and sts = 1
+									  and disp.to_pm = a.id_emp) lanjut
+								,bpaddtfake.dbo.glo_skpd as b,bpaddtfake.dbo.glo_org_unitkerja as c,bpaddtfake.dbo.glo_org_lokasi as d WHERE tbjab.idskpd=b.skpd AND tbjab.idskpd+'::'+tbjab.idunit=c.kd_skpd+'::'+c.kd_unit AND tbjab.idskpd+'::'+tbjab.idlok=d.kd_skpd+'::'+d.kd_lok AND a.sts='1' AND b.sts='1' AND c.sts='1' AND d.sts='1' 
+								and id_emp like '$ids'
+								") )[0];
+			$data_self = json_decode(json_encode($data_self), true);
+		} else {
+			$data_self = DB::select( DB::raw("  SELECT a.id_emp, a.nrk_emp, a.nip_emp, a.nm_emp, tbjab.idjab, tbjab.idunit, tbunit.child, tbunit.nm_unit, tbunit.notes, tbunit.kd_unit, d.nm_lok, notread.notread, yesread.yesread, lanjut.lanjut from bpaddtfake.dbo.emp_data as a
+								CROSS APPLY (SELECT TOP 1 tmt_jab,idskpd,idunit,idlok,tmt_sk_jab,no_sk_jab,jns_jab,replace(idjab,'NA::','') as idjab,eselon,gambar FROM bpaddtfake.dbo.emp_jab WHERE a.id_emp=emp_jab.noid AND emp_jab.sts='1' ORDER BY tmt_jab DESC) tbjab
+								CROSS APPLY (SELECT TOP 1 * FROM bpaddtfake.dbo.glo_org_unitkerja WHERE glo_org_unitkerja.kd_unit = tbjab.idunit) tbunit
+								CROSS APPLY (
+									select  count(disp.rd) as 'notread' from bpaddtfake.dbo.fr_disposisi disp
+									  where rd = 'N' and sts = 1
+									  and disp.to_pm = a.id_emp) notread
+								CROSS APPLY (
+									select  count(disp.rd) as 'yesread' from bpaddtfake.dbo.fr_disposisi disp
+									  where rd = 'Y' and sts = 1
+									  and disp.to_pm = a.id_emp) yesread
+								CROSS APPLY (
+									select  count(disp.rd) as 'lanjut' from bpaddtfake.dbo.fr_disposisi disp
+									  where rd = 'S' and sts = 1
+									  and disp.to_pm = a.id_emp) lanjut
+								,bpaddtfake.dbo.glo_skpd as b,bpaddtfake.dbo.glo_org_unitkerja as c,bpaddtfake.dbo.glo_org_lokasi as d WHERE tbjab.idskpd=b.skpd AND tbjab.idskpd+'::'+tbjab.idunit=c.kd_skpd+'::'+c.kd_unit AND tbjab.idskpd+'::'+tbjab.idlok=d.kd_skpd+'::'+d.kd_lok AND a.sts='1' AND b.sts='1' AND c.sts='1' AND d.sts='1' 
+								and idunit like '01' and ked_emp = 'aktif'
+								") )[0];
+			$data_self = json_decode(json_encode($data_self), true);
+		}		
+
+		$total = $data_self['notread'] + $data_self['yesread'] + $data_self['lanjut'];
+
+		$sheet->setCellValue('A'.$nowrow, $data_self['id_emp']);
+		$sheet->setCellValue('B'.$nowrow, $data_self['nrk_emp']);
+		$sheet->getStyle('B'.$nowrow)->getAlignment()->setHorizontal('right');
+		$sheet->setCellValue('c'.$nowrow, $data_self['nm_emp']);
+		$sheet->setCellValue('d'.$nowrow, $data_self['nm_unit']);
+		$sheet->setCellValue('e'.$nowrow, $data_self['notes']);
+		$sheet->setCellValue('f'.$nowrow, $total);
+		$sheet->setCellValue('g'.$nowrow, $data_self['notread']);
+		$sheet->setCellValue('h'.$nowrow, $data_self['yesread']);
+		$sheet->setCellValue('i'.$nowrow, $data_self['lanjut']);
+		$sheet->setCellValue('j'.$nowrow, $total != 0 ? number_format((float)($data_self['lanjut']/$total*100), 2, '.', '') . '%' : 0 );
+
+		$sheet->getStyle('f'.$nowrow.':j'.$nowrow)->getNumberFormat()->setFormatCode('#,##0');
+
+		$colorArrayV1 = [
+			'fill' => [
+				'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+				'startColor' => [
+					'rgb' => 'FDE9D9',
+				],
+			],
+		];
+		$sheet->getStyle('a'.$nowrow.':j'.$nowrow)->applyFromArray($colorArrayV1);
+
+		if (strlen($data_self['idunit']) < 10) {
+			$sheet->getStyle('a'.$nowrow.':j'.$nowrow)->getFont()->setBold( true );
+		}
+		$nowrow++;
+
+		$nowunit = $data_self['idunit'];
+
+		$data_stafs = DB::select( DB::raw("  SELECT a.id_emp, a.nrk_emp, a.nip_emp, a.nm_emp, tbjab.idjab, tbjab.idunit, tbunit.child, tbunit.nm_unit, tbunit.kd_unit, tbunit.notes, d.nm_lok, notread.notread, yesread.yesread, lanjut.lanjut from bpaddtfake.dbo.emp_data as a
+							CROSS APPLY (SELECT TOP 1 tmt_jab,idskpd,idunit,idlok,tmt_sk_jab,no_sk_jab,jns_jab,replace(idjab,'NA::','') as idjab,eselon,gambar FROM bpaddtfake.dbo.emp_jab WHERE a.id_emp=emp_jab.noid AND emp_jab.sts='1' ORDER BY tmt_jab DESC) tbjab
+							CROSS APPLY (SELECT TOP 1 * FROM bpaddtfake.dbo.glo_org_unitkerja WHERE glo_org_unitkerja.kd_unit = tbjab.idunit) tbunit
+							CROSS APPLY (
+								select  count(disp.rd) as 'notread' from bpaddtfake.dbo.fr_disposisi disp
+								  where rd = 'N' and sts = 1
+								  and disp.to_pm = a.id_emp) notread
+							CROSS APPLY (
+								select  count(disp.rd) as 'yesread' from bpaddtfake.dbo.fr_disposisi disp
+								  where rd = 'Y' and sts = 1
+								  and disp.to_pm = a.id_emp) yesread
+							CROSS APPLY (
+								select  count(disp.rd) as 'lanjut' from bpaddtfake.dbo.fr_disposisi disp
+								  where rd = 'S' and sts = 1
+								  and disp.to_pm = a.id_emp) lanjut
+							,bpaddtfake.dbo.glo_skpd as b,bpaddtfake.dbo.glo_org_unitkerja as c,bpaddtfake.dbo.glo_org_lokasi as d WHERE tbjab.idskpd=b.skpd AND tbjab.idskpd+'::'+tbjab.idunit=c.kd_skpd+'::'+c.kd_unit AND tbjab.idskpd+'::'+tbjab.idlok=d.kd_skpd+'::'+d.kd_lok AND a.sts='1' AND b.sts='1' AND c.sts='1' AND d.sts='1' 
+							and tbunit.sao like '$nowunit%' and ked_emp = 'aktif'
+							order by idunit asc, nm_emp asc
+							") );
+		$data_stafs = json_decode(json_encode($data_stafs), true);
+
+		if ($data_stafs) {
+            $bidangnow = '';
+			foreach ($data_stafs as $key => $staf) {
+                if(strlen($staf['kd_unit']) == 6) {
+                    $bidangnow = $staf['nm_unit'];
+                } elseif (strlen($staf['kd_unit']) == 2) {
+                    $bidangnow = "BADAN PENGELOLAAN ASET DAERAH";
+                }
+
+				$total = $staf['notread'] + $staf['yesread'] + $staf['lanjut'];
+
+				$sheet->setCellValue('A'.$nowrow, $staf['id_emp']);
+				$sheet->setCellValue('B'.$nowrow, $staf['nrk_emp']);
+				$sheet->getStyle('B'.$nowrow)->getAlignment()->setHorizontal('right');
+				$sheet->setCellValue('c'.$nowrow, $staf['nm_emp']);
+				$sheet->setCellValue('d'.$nowrow, strtoupper($bidangnow));
+				$sheet->setCellValue('e'.$nowrow, strtoupper($staf['notes']));
+				$sheet->setCellValue('f'.$nowrow, $total);
+				$sheet->setCellValue('g'.$nowrow, $staf['notread']);
+				$sheet->setCellValue('h'.$nowrow, $staf['yesread']);
+				$sheet->setCellValue('i'.$nowrow, $staf['lanjut']);
+				$sheet->setCellValue('j'.$nowrow, $total != 0 ? number_format((float)($staf['lanjut']/$total*100), 2, '.', '') . '%' : 0  );
+				$sheet->getStyle('f'.$nowrow.':j'.$nowrow)->getNumberFormat()->setFormatCode('#,##0');
+
+				if ($key%2 == 1) {
+					$sheet->getStyle('a'.$nowrow.':j'.$nowrow)->applyFromArray($colorArrayV1);
+				}
+				
+				if (strlen($staf['idunit']) < 10) {
+					$sheet->getStyle('a'.$nowrow.':j'.$nowrow)->getFont()->setBold( true );
+				}
+				$nowrow++;
+			}
+		}
+
+		$sheet->setShowGridlines(false);
+
+		foreach(range('A','J') as $columnID) {
+		    $sheet->getColumnDimension($columnID)
+		        ->setAutoSize(true);
+		}
+
+		$filename = date('dmy').'_STATDISP.xlsx';
+
+		// Redirect output to a client's web browser (Xlsx)
+		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+		header('Content-Disposition: attachment;filename="'.$filename.'"');
+		header('Cache-Control: max-age=0');
+		// If you're serving to IE 9, then the following may be needed
+		header('Cache-Control: max-age=1');
+		 
+		// If you're serving to IE over SSL, then the following may be needed
+		header('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
+		header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT'); // always modified
+		header('Cache-Control: cache, must-revalidate'); // HTTP/1.1
+		header('Pragma: public'); // HTTP/1.
+
+		$writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+		$writer->save('php://output');
+	}
+
+    public function printexceleselon3(Request $request)
+	{
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+
+		$spreadsheet = new Spreadsheet();
+		$sheet = $spreadsheet->getActiveSheet();
+		$sheet->mergeCells('A1:J1');
+		$sheet->setCellValue('A1', 'STATUS DISPOSISI BPAD');
+		$sheet->getStyle('A1')->getFont()->setBold( true );
+		$sheet->getStyle('A1')->getAlignment()->setHorizontal('left');
+
+		$styleArray = [
+		    'font' => [
+		        'size' => 16,
+		        'name' => 'Trebuchet MS',
+		    ]
+		];
+		$sheet->getStyle('A1:J1')->applyFromArray($styleArray);
+
+		$sheet->setCellValue('A2', date('d/m/Y H:i', strtotime('+7 hours')));
+
+		$sheet->setCellValue('A3', 'ID');
+		$sheet->setCellValue('b3', 'NRK');
+		$sheet->setCellValue('c3', 'NAMA');
 		$sheet->setCellValue('d3', 'JABATAN');
 		$sheet->setCellValue('e3', 'UNIT');
 		$sheet->setCellValue('f3', 'TOTAL SURAT');
