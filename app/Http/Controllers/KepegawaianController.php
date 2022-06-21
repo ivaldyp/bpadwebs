@@ -2587,7 +2587,7 @@ class KepegawaianController extends Controller
 			$employees = DB::select( DB::raw("  
 						SELECT id_emp, nrk_emp, nip_emp, gelar_dpn, gelar_blk, nm_emp, sk_cpns, sk_pns, karpeg, nik_emp, a.idgroup as idgroup, alamat_emp, status_nikah, gol_darah, idagama, tlp_emp, tempat_lahir, tgl_lahir, jnkel_emp, tgl_join, status_emp, nm_bank, cb_bank, an_bank, nr_bank, no_taspen, npwp, no_askes, no_jamsos, 
 						tbjab.idjab, tbjab.idunit, tbjab.tmt_jab, tbjab.no_sk_jab, tbjab.tmt_sk_jab, tbjab.gambar as jabgambar, 
-						tbunit.nm_unit, tbunit.notes, tbunit.child, tbunit.kd_unit as kdunit, d.nm_lok, 
+						tbunit.nm_unit, tbunit.notes, tbunit.child, tbunit.kd_unit, d.nm_lok, 
 						tbdik.iddik, tbdik.prog_sek, tbdik.nm_sek, tbdik.th_sek, tbdik.no_sek, tbdik.gambar as dikgambar, 
 						tbgol.tmt_gol, tbgol.idgol, tbgol.nm_pangkat, tbgol.no_sk_gol, tbgol.tmt_sk_gol, tbgol.gambar as golgambar
 						from bpaddtfake.dbo.emp_data as a
