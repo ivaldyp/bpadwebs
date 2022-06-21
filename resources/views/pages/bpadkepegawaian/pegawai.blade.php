@@ -84,12 +84,12 @@
 									<div class="col-md-1">
 										<a href="/portal/kepegawaian/excelpegawaiadmin?unit={{ $idunit }}&ked={{ $kednow }}"><button class="btn btn-success col-md-12" type="button"> Excel </button></a>
 									</div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-1">
 										<a href="/portal/kepegawaian/excelpegawaiadmin?unit={{ $idunit }}&ked={{ $kednow }}&es=23"><button class="btn btn-info col-md-12" type="button"> Excel Eselon 2 & 3</button></a>
 									</div>
 									@endif
 									
-                            		<div class="col-md-10">
+                            		<div class="col-md-9">
                             			<form method="GET" action="/portal/kepegawaian/data pegawai">
 					                      	<div class=" col-md-2">
 					                        	<select class="form-control" name="kednow" id="kednow" required onchange="this.form.submit()">
