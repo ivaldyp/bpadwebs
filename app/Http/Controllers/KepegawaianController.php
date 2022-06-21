@@ -2859,11 +2859,11 @@ class KepegawaianController extends Controller
             if(is_null($employee['th_sek']) || $employee['th_sek'] == '') {
                 $sheet->getStyle($alphabet[$alpnum].$nowrow)->applyFromArray($colorArrayEmpty);
             }
-            $sheet->setCellValue($alphabet[$alpnum].$nowrow, $employee['th_sek'] ?? '#EMPTY'); $alpnum++;
+            $sheet->setCellValue($alphabet[$alpnum].$nowrow, $employee['th_sek'] && $employee['th_sek'] != '' && $employee['th_sek'] != '-' ? $employee['th_sek'] : '#EMPTY'); $alpnum++;
             if(is_null($employee['no_sek']) || $employee['no_sek'] == '') {
                 $sheet->getStyle($alphabet[$alpnum].$nowrow)->applyFromArray($colorArrayEmpty);
             }
-            $sheet->setCellValue($alphabet[$alpnum].$nowrow, $employee['no_sek'] ?? '#EMPTY'); $alpnum++;
+            $sheet->setCellValue($alphabet[$alpnum].$nowrow, $employee['no_sek'] && $employee['no_sek'] != '' && $employee['no_sek'] != '-' ? $employee['no_sek'] : '#EMPTY'); $alpnum++;
             if(is_null($employee['dikgambar']) || $employee['dikgambar'] == '') {
                 $sheet->getStyle($alphabet[$alpnum].$nowrow)->applyFromArray($colorArrayEmpty);
             }
