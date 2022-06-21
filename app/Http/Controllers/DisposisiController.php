@@ -3116,7 +3116,7 @@ class DisposisiController extends Controller
 		        ->setAutoSize(true);
 		}
 
-		$filename = date('dmy').'_STATDISP.xlsx';
+		$filename = date('dmy').'_STATDISP_PEGAWAI ESELON BPAD.xlsx';
 
 		// Redirect output to a client's web browser (Xlsx)
 		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
