@@ -95,7 +95,7 @@
 							<div class="col-md-6 text-center row-in-br">
 								<p class="text-blue"><i style="font-size: 30px;" class="mdi mdi-phone"></i></p>
 								<h5 class="data-show">{{ $emp_data['tlp_emp'] }}</h5> 
-								<input class="form-control data-input" type="text" name="tlp_emp" value="{{ $emp_data['tlp_emp'] }}" placeholder="email" autocomplete="off">
+								<input class="form-control data-input" type="text" name="tlp_emp" value="{{ $emp_data['tlp_emp'] }}" placeholder="phone" autocomplete="off">
 							</div>
 							<div class="col-md-6 text-center">
 								<p class="text-blue"><i style="font-size: 30px;" class="mdi mdi-email-outline"></i></p>
