@@ -2608,7 +2608,12 @@ class KepegawaianController extends Controller
 					   'ak', 'al', 'am', 'an', 'ao',
 					   'ap', 'aq', 'ar', 'as', 'at',
 					   'au', 'av', 'aw', 'ax', 'ay',
-					   'az'
+					   'az', 'ba', 'bb', 'bc', 'bd', 'be',
+					   'bf', 'bg', 'bh', 'bi', 'bj',
+					   'bk', 'bl', 'bm', 'bn', 'bo',
+					   'bp', 'bq', 'br', 'bs', 'bt',
+					   'bu', 'bv', 'bw', 'bx', 'by',
+					   'bz'
 					   );
 		$alpnum = 0;
 
