@@ -160,6 +160,7 @@ Route::group(['prefix' => 'disposisi'], function () {
 	Route::get('form/hapusdisposisiemp', 'DisposisiController@formdeletedisposisiemp');
 
 	Route::get('/excel', 'DisposisiController@printexcel');
+    Route::get('/exceleselon3', 'DisposisiController@printexceleselon3');
 	Route::get('/log', 'DisposisiController@log');
 });
 
