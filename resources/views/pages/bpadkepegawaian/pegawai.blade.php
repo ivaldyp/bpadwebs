@@ -84,6 +84,9 @@
 									<div class="col-md-1">
 										<a href="/portal/kepegawaian/excelpegawaiadmin?unit={{ $idunit }}&ked={{ $kednow }}"><button class="btn btn-success col-md-12" type="button"> Excel </button></a>
 									</div>
+                                    <div class="col-md-2">
+										<a href="/portal/kepegawaian/excelpegawaiadmin?unit={{ $idunit }}&ked={{ $kednow }}&es=23"><button class="btn btn-info col-md-12" type="button"> Excel Eselon 2 & 3</button></a>
+									</div>
 									@endif
 									
                             		<div class="col-md-10">
