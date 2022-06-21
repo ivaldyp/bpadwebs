@@ -62,6 +62,9 @@
                             	<div class="row">
 									<div class="col-md-12 m-b-30">
 										<a href="/portal/disposisi/excel"><button class="btn btn-info"> Excel </button></a>
+                                        @if (Auth::user()->usname)
+                                        <a href="/portal/disposisi/exceleselon3"><button class="btn btn-info"> Excel Eselon 2 & 3 </button></a>
+                                        @endif
 									</div>
 								</div>
 								<div class="row">

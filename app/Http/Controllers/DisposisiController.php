@@ -2950,8 +2950,8 @@ class DisposisiController extends Controller
 		$sheet->setCellValue('A3', 'ID');
 		$sheet->setCellValue('b3', 'NRK');
 		$sheet->setCellValue('c3', 'NAMA');
-		$sheet->setCellValue('d3', 'JABATAN');
-		$sheet->setCellValue('e3', 'UNIT');
+		$sheet->setCellValue('d3', 'BIDANG');
+		$sheet->setCellValue('e3', 'UNIT KERJA');
 		$sheet->setCellValue('f3', 'TOTAL SURAT');
 		$sheet->setCellValue('g3', 'BELUM DIBACA');
 		$sheet->setCellValue('h3', 'HANYA DIBACA');
@@ -2974,85 +2974,85 @@ class DisposisiController extends Controller
 		$nowrow = 4;
 		$rowstart = $nowrow - 1;
 
-		$ids = Auth::user()->id_emp;
+		// $ids = Auth::user()->id_emp;
 
-		if ($ids) {
-			$data_self = DB::select( DB::raw("  
-								SELECT a.id_emp, a.nrk_emp, a.nip_emp, a.nm_emp, tbjab.idjab, tbjab.idunit, tbunit.child, tbunit.nm_unit, tbunit.notes, d.nm_lok, notread.notread, yesread.yesread, lanjut.lanjut from bpaddtfake.dbo.emp_data as a
-								CROSS APPLY (SELECT TOP 1 tmt_jab,idskpd,idunit,idlok,tmt_sk_jab,no_sk_jab,jns_jab,replace(idjab,'NA::','') as idjab,eselon,gambar FROM bpaddtfake.dbo.emp_jab WHERE a.id_emp=emp_jab.noid AND emp_jab.sts='1' ORDER BY tmt_jab DESC) tbjab
-								CROSS APPLY (SELECT TOP 1 * FROM bpaddtfake.dbo.glo_org_unitkerja WHERE glo_org_unitkerja.kd_unit = tbjab.idunit) tbunit
-								CROSS APPLY (
-									select  count(disp.rd) as 'notread' from bpaddtfake.dbo.fr_disposisi disp
-									  where rd = 'N' and sts = 1
-									  and disp.to_pm = a.id_emp) notread
-								CROSS APPLY (
-									select  count(disp.rd) as 'yesread' from bpaddtfake.dbo.fr_disposisi disp
-									  where rd = 'Y' and sts = 1
-									  and disp.to_pm = a.id_emp) yesread
-								CROSS APPLY (
-									select  count(disp.rd) as 'lanjut' from bpaddtfake.dbo.fr_disposisi disp
-									  where rd = 'S' and sts = 1
-									  and disp.to_pm = a.id_emp) lanjut
-								,bpaddtfake.dbo.glo_skpd as b,bpaddtfake.dbo.glo_org_unitkerja as c,bpaddtfake.dbo.glo_org_lokasi as d WHERE tbjab.idskpd=b.skpd AND tbjab.idskpd+'::'+tbjab.idunit=c.kd_skpd+'::'+c.kd_unit AND tbjab.idskpd+'::'+tbjab.idlok=d.kd_skpd+'::'+d.kd_lok AND a.sts='1' AND b.sts='1' AND c.sts='1' AND d.sts='1' 
-								and id_emp like '$ids'
-								") )[0];
-			$data_self = json_decode(json_encode($data_self), true);
-		} else {
-			$data_self = DB::select( DB::raw("  SELECT a.id_emp, a.nrk_emp, a.nip_emp, a.nm_emp, tbjab.idjab, tbjab.idunit, tbunit.child, tbunit.nm_unit, tbunit.notes, d.nm_lok, notread.notread, yesread.yesread, lanjut.lanjut from bpaddtfake.dbo.emp_data as a
-								CROSS APPLY (SELECT TOP 1 tmt_jab,idskpd,idunit,idlok,tmt_sk_jab,no_sk_jab,jns_jab,replace(idjab,'NA::','') as idjab,eselon,gambar FROM bpaddtfake.dbo.emp_jab WHERE a.id_emp=emp_jab.noid AND emp_jab.sts='1' ORDER BY tmt_jab DESC) tbjab
-								CROSS APPLY (SELECT TOP 1 * FROM bpaddtfake.dbo.glo_org_unitkerja WHERE glo_org_unitkerja.kd_unit = tbjab.idunit) tbunit
-								CROSS APPLY (
-									select  count(disp.rd) as 'notread' from bpaddtfake.dbo.fr_disposisi disp
-									  where rd = 'N' and sts = 1
-									  and disp.to_pm = a.id_emp) notread
-								CROSS APPLY (
-									select  count(disp.rd) as 'yesread' from bpaddtfake.dbo.fr_disposisi disp
-									  where rd = 'Y' and sts = 1
-									  and disp.to_pm = a.id_emp) yesread
-								CROSS APPLY (
-									select  count(disp.rd) as 'lanjut' from bpaddtfake.dbo.fr_disposisi disp
-									  where rd = 'S' and sts = 1
-									  and disp.to_pm = a.id_emp) lanjut
-								,bpaddtfake.dbo.glo_skpd as b,bpaddtfake.dbo.glo_org_unitkerja as c,bpaddtfake.dbo.glo_org_lokasi as d WHERE tbjab.idskpd=b.skpd AND tbjab.idskpd+'::'+tbjab.idunit=c.kd_skpd+'::'+c.kd_unit AND tbjab.idskpd+'::'+tbjab.idlok=d.kd_skpd+'::'+d.kd_lok AND a.sts='1' AND b.sts='1' AND c.sts='1' AND d.sts='1' 
-								and idunit like '01' and ked_emp = 'aktif'
-								") )[0];
-			$data_self = json_decode(json_encode($data_self), true);
-		}		
+		// if ($ids) {
+		// 	$data_self = DB::select( DB::raw("  
+		// 						SELECT a.id_emp, a.nrk_emp, a.nip_emp, a.nm_emp, tbjab.idjab, tbjab.idunit, tbunit.child, tbunit.nm_unit, tbunit.notes, d.nm_lok, notread.notread, yesread.yesread, lanjut.lanjut from bpaddtfake.dbo.emp_data as a
+		// 						CROSS APPLY (SELECT TOP 1 tmt_jab,idskpd,idunit,idlok,tmt_sk_jab,no_sk_jab,jns_jab,replace(idjab,'NA::','') as idjab,eselon,gambar FROM bpaddtfake.dbo.emp_jab WHERE a.id_emp=emp_jab.noid AND emp_jab.sts='1' ORDER BY tmt_jab DESC) tbjab
+		// 						CROSS APPLY (SELECT TOP 1 * FROM bpaddtfake.dbo.glo_org_unitkerja WHERE glo_org_unitkerja.kd_unit = tbjab.idunit) tbunit
+		// 						CROSS APPLY (
+		// 							select  count(disp.rd) as 'notread' from bpaddtfake.dbo.fr_disposisi disp
+		// 							  where rd = 'N' and sts = 1
+		// 							  and disp.to_pm = a.id_emp) notread
+		// 						CROSS APPLY (
+		// 							select  count(disp.rd) as 'yesread' from bpaddtfake.dbo.fr_disposisi disp
+		// 							  where rd = 'Y' and sts = 1
+		// 							  and disp.to_pm = a.id_emp) yesread
+		// 						CROSS APPLY (
+		// 							select  count(disp.rd) as 'lanjut' from bpaddtfake.dbo.fr_disposisi disp
+		// 							  where rd = 'S' and sts = 1
+		// 							  and disp.to_pm = a.id_emp) lanjut
+		// 						,bpaddtfake.dbo.glo_skpd as b,bpaddtfake.dbo.glo_org_unitkerja as c,bpaddtfake.dbo.glo_org_lokasi as d WHERE tbjab.idskpd=b.skpd AND tbjab.idskpd+'::'+tbjab.idunit=c.kd_skpd+'::'+c.kd_unit AND tbjab.idskpd+'::'+tbjab.idlok=d.kd_skpd+'::'+d.kd_lok AND a.sts='1' AND b.sts='1' AND c.sts='1' AND d.sts='1' 
+		// 						and id_emp like '$ids'
+		// 						") )[0];
+		// 	$data_self = json_decode(json_encode($data_self), true);
+		// } else {
+		// 	$data_self = DB::select( DB::raw("  SELECT a.id_emp, a.nrk_emp, a.nip_emp, a.nm_emp, tbjab.idjab, tbjab.idunit, tbunit.child, tbunit.nm_unit, tbunit.notes, d.nm_lok, notread.notread, yesread.yesread, lanjut.lanjut from bpaddtfake.dbo.emp_data as a
+		// 						CROSS APPLY (SELECT TOP 1 tmt_jab,idskpd,idunit,idlok,tmt_sk_jab,no_sk_jab,jns_jab,replace(idjab,'NA::','') as idjab,eselon,gambar FROM bpaddtfake.dbo.emp_jab WHERE a.id_emp=emp_jab.noid AND emp_jab.sts='1' ORDER BY tmt_jab DESC) tbjab
+		// 						CROSS APPLY (SELECT TOP 1 * FROM bpaddtfake.dbo.glo_org_unitkerja WHERE glo_org_unitkerja.kd_unit = tbjab.idunit) tbunit
+		// 						CROSS APPLY (
+		// 							select  count(disp.rd) as 'notread' from bpaddtfake.dbo.fr_disposisi disp
+		// 							  where rd = 'N' and sts = 1
+		// 							  and disp.to_pm = a.id_emp) notread
+		// 						CROSS APPLY (
+		// 							select  count(disp.rd) as 'yesread' from bpaddtfake.dbo.fr_disposisi disp
+		// 							  where rd = 'Y' and sts = 1
+		// 							  and disp.to_pm = a.id_emp) yesread
+		// 						CROSS APPLY (
+		// 							select  count(disp.rd) as 'lanjut' from bpaddtfake.dbo.fr_disposisi disp
+		// 							  where rd = 'S' and sts = 1
+		// 							  and disp.to_pm = a.id_emp) lanjut
+		// 						,bpaddtfake.dbo.glo_skpd as b,bpaddtfake.dbo.glo_org_unitkerja as c,bpaddtfake.dbo.glo_org_lokasi as d WHERE tbjab.idskpd=b.skpd AND tbjab.idskpd+'::'+tbjab.idunit=c.kd_skpd+'::'+c.kd_unit AND tbjab.idskpd+'::'+tbjab.idlok=d.kd_skpd+'::'+d.kd_lok AND a.sts='1' AND b.sts='1' AND c.sts='1' AND d.sts='1' 
+		// 						and idunit like '01' and ked_emp = 'aktif'
+		// 						") )[0];
+		// 	$data_self = json_decode(json_encode($data_self), true);
+		// }		
 
-		$total = $data_self['notread'] + $data_self['yesread'] + $data_self['lanjut'];
+		// $total = $data_self['notread'] + $data_self['yesread'] + $data_self['lanjut'];
 
-		$sheet->setCellValue('A'.$nowrow, $data_self['id_emp']);
-		$sheet->setCellValue('B'.$nowrow, $data_self['nrk_emp']);
-		$sheet->getStyle('B'.$nowrow)->getAlignment()->setHorizontal('right');
-		$sheet->setCellValue('c'.$nowrow, $data_self['nm_emp']);
-		$sheet->setCellValue('d'.$nowrow, $data_self['idjab']);
-		$sheet->setCellValue('e'.$nowrow, $data_self['nm_unit']);
-		$sheet->setCellValue('f'.$nowrow, $total);
-		$sheet->setCellValue('g'.$nowrow, $data_self['notread']);
-		$sheet->setCellValue('h'.$nowrow, $data_self['yesread']);
-		$sheet->setCellValue('i'.$nowrow, $data_self['lanjut']);
-		$sheet->setCellValue('j'.$nowrow, $total != 0 ? number_format((float)($data_self['lanjut']/$total*100), 2, '.', '') . '%' : 0 );
+		// $sheet->setCellValue('A'.$nowrow, $data_self['id_emp']);
+		// $sheet->setCellValue('B'.$nowrow, $data_self['nrk_emp']);
+		// $sheet->getStyle('B'.$nowrow)->getAlignment()->setHorizontal('right');
+		// $sheet->setCellValue('c'.$nowrow, $data_self['nm_emp']);
+		// $sheet->setCellValue('d'.$nowrow, $data_self['idjab']);
+		// $sheet->setCellValue('e'.$nowrow, $data_self['nm_unit']);
+		// $sheet->setCellValue('f'.$nowrow, $total);
+		// $sheet->setCellValue('g'.$nowrow, $data_self['notread']);
+		// $sheet->setCellValue('h'.$nowrow, $data_self['yesread']);
+		// $sheet->setCellValue('i'.$nowrow, $data_self['lanjut']);
+		// $sheet->setCellValue('j'.$nowrow, $total != 0 ? number_format((float)($data_self['lanjut']/$total*100), 2, '.', '') . '%' : 0 );
 
-		$sheet->getStyle('f'.$nowrow.':j'.$nowrow)->getNumberFormat()->setFormatCode('#,##0');
+		// $sheet->getStyle('f'.$nowrow.':j'.$nowrow)->getNumberFormat()->setFormatCode('#,##0');
 
-		$colorArrayV1 = [
-			'fill' => [
-				'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
-				'startColor' => [
-					'rgb' => 'FDE9D9',
-				],
-			],
-		];
-		$sheet->getStyle('a'.$nowrow.':j'.$nowrow)->applyFromArray($colorArrayV1);
+		// $colorArrayV1 = [
+		// 	'fill' => [
+		// 		'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+		// 		'startColor' => [
+		// 			'rgb' => 'FDE9D9',
+		// 		],
+		// 	],
+		// ];
+		// $sheet->getStyle('a'.$nowrow.':j'.$nowrow)->applyFromArray($colorArrayV1);
 
-		if (strlen($data_self['idunit']) < 10) {
-			$sheet->getStyle('a'.$nowrow.':j'.$nowrow)->getFont()->setBold( true );
-		}
-		$nowrow++;
+		// if (strlen($data_self['idunit']) < 10) {
+		// 	$sheet->getStyle('a'.$nowrow.':j'.$nowrow)->getFont()->setBold( true );
+		// }
+		// $nowrow++;
 
-		$nowunit = $data_self['idunit'];
+		// $nowunit = $data_self['idunit'];
 
-		$data_stafs = DB::select( DB::raw("  SELECT a.id_emp, a.nrk_emp, a.nip_emp, a.nm_emp, tbjab.idjab, tbjab.idunit, tbunit.child, tbunit.nm_unit, tbunit.notes, d.nm_lok, notread.notread, yesread.yesread, lanjut.lanjut from bpaddtfake.dbo.emp_data as a
+		$data_stafs = DB::select( DB::raw("  SELECT a.id_emp, a.nrk_emp, a.nip_emp, a.nm_emp, tbjab.idjab, tbjab.idunit, tbunit.child, tbunit.kd_unit, tbunit.nm_unit, tbunit.notes, d.nm_lok, notread.notread, yesread.yesread, lanjut.lanjut from bpaddtfake.dbo.emp_data as a
 							CROSS APPLY (SELECT TOP 1 tmt_jab,idskpd,idunit,idlok,tmt_sk_jab,no_sk_jab,jns_jab,replace(idjab,'NA::','') as idjab,eselon,gambar FROM bpaddtfake.dbo.emp_jab WHERE a.id_emp=emp_jab.noid AND emp_jab.sts='1' ORDER BY tmt_jab DESC) tbjab
 							CROSS APPLY (SELECT TOP 1 * FROM bpaddtfake.dbo.glo_org_unitkerja WHERE glo_org_unitkerja.kd_unit = tbjab.idunit) tbunit
 							CROSS APPLY (
@@ -3074,7 +3074,14 @@ class DisposisiController extends Controller
 		$data_stafs = json_decode(json_encode($data_stafs), true);
 
 		if ($data_stafs) {
+            $bidangnow = '';
 			foreach ($data_stafs as $key => $staf) {
+
+                if(strlen($staf['kd_unit']) == 6) {
+                    $bidangnow = $staf['nm_unit'];
+                } elseif (strlen($staf['kd_unit']) == 2) {
+                    $bidangnow = "BADAN PENGELOLAAN ASET DAERAH";
+                }
 
 				$total = $staf['notread'] + $staf['yesread'] + $staf['lanjut'];
 
@@ -3082,8 +3089,8 @@ class DisposisiController extends Controller
 				$sheet->setCellValue('B'.$nowrow, $staf['nrk_emp']);
 				$sheet->getStyle('B'.$nowrow)->getAlignment()->setHorizontal('right');
 				$sheet->setCellValue('c'.$nowrow, $staf['nm_emp']);
-				$sheet->setCellValue('d'.$nowrow, $staf['idjab']);
-				$sheet->setCellValue('e'.$nowrow, $staf['nm_unit']);
+				$sheet->setCellValue('d'.$nowrow, strtoupper($bidangnow));
+				$sheet->setCellValue('e'.$nowrow, strtoupper($staf['notes']));
 				$sheet->setCellValue('f'.$nowrow, $total);
 				$sheet->setCellValue('g'.$nowrow, $staf['notread']);
 				$sheet->setCellValue('h'.$nowrow, $staf['yesread']);
