@@ -3035,15 +3035,15 @@ class DisposisiController extends Controller
 
 		// $sheet->getStyle('f'.$nowrow.':j'.$nowrow)->getNumberFormat()->setFormatCode('#,##0');
 
-		// $colorArrayV1 = [
-		// 	'fill' => [
-		// 		'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
-		// 		'startColor' => [
-		// 			'rgb' => 'FDE9D9',
-		// 		],
-		// 	],
-		// ];
-		// $sheet->getStyle('a'.$nowrow.':j'.$nowrow)->applyFromArray($colorArrayV1);
+		$colorArrayV1 = [
+			'fill' => [
+				'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+				'startColor' => [
+					'rgb' => 'FDE9D9',
+				],
+			],
+		];
+		$sheet->getStyle('a'.$nowrow.':j'.$nowrow)->applyFromArray($colorArrayV1);
 
 		// if (strlen($data_self['idunit']) < 10) {
 		// 	$sheet->getStyle('a'.$nowrow.':j'.$nowrow)->getFont()->setBold( true );
