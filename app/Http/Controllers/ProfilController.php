@@ -294,15 +294,15 @@ class ProfilController extends Controller
 			return redirect('/profil/pegawai')->with('message', 'NRK harus terdiri dari 6 digit');
 		}
 
-		if ($request->nik_emp && $request->nik_emp != '' && $request->nik_emp != $cekangkapenting['nik_emp']) {
-			$ceknrk = Emp_data::
-						where('nik_emp', $request->nik_emp)
-						->where('sts', '1')
-						->count();
-			if ($ceknrk > 0) {
-				return redirect('/profil/pegawai')->with('message', 'NIK KTP sudah tersimpan di database');
-			}
-		}	
+		// if ($request->nik_emp && $request->nik_emp != '' && $request->nik_emp != $cekangkapenting['nik_emp']) {
+		// 	$ceknrk = Emp_data::
+		// 				where('nik_emp', $request->nik_emp)
+		// 				->where('sts', '1')
+		// 				->count();
+		// 	if ($ceknrk > 0) {
+		// 		return redirect('/profil/pegawai')->with('message', 'NIK KTP sudah tersimpan di database');
+		// 	}
+		// }	
 		if (strlen($request->nik_emp) != 16 && strlen($request->nik_emp) != 0) {
 			return redirect('/profil/pegawai')->with('message', 'NIK KTP harus terdiri dari 16 digit');
 		}
@@ -1198,6 +1198,9 @@ class ProfilController extends Controller
 		// $jns_jab = $jabatan[0];
 		// $idjab = $jabatan[1];
 
+        var_dump($request->idunit);
+        die;
+
 		// (IDENTITAS) cek dan set variabel untuk file foto pegawai
 		if (isset($request->filejab)) {
 			$file = $request->filejab;
@@ -1290,6 +1293,9 @@ class ProfilController extends Controller
         if(empty($request->idjab)) {
             $idjab = NULL;
         }
+
+        var_dump($request->idunit);
+        die;
 
 		// (IDENTITAS) cek dan set variabel untuk file foto pegawai
 		if (isset($request->filejab)) {
