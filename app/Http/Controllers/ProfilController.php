@@ -1198,9 +1198,6 @@ class ProfilController extends Controller
 		// $jns_jab = $jabatan[0];
 		// $idjab = $jabatan[1];
 
-        var_dump($request->idunit);
-        die;
-
 		// (IDENTITAS) cek dan set variabel untuk file foto pegawai
 		if (isset($request->filejab)) {
 			$file = $request->filejab;
@@ -1293,9 +1290,6 @@ class ProfilController extends Controller
         if(empty($request->idjab)) {
             $idjab = NULL;
         }
-
-        var_dump($request->idunit);
-        die;
 
 		// (IDENTITAS) cek dan set variabel untuk file foto pegawai
 		if (isset($request->filejab)) {
