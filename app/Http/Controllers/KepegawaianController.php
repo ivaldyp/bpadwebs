@@ -2965,11 +2965,15 @@ class KepegawaianController extends Controller
 		}
 		$sheet->getColumnDimension('A')->setWidth(7);
 
-
+		
+		if($esecheck == '23') {
+			$filename = date('dmy').'_PEGAWAI_ESELON_BPAD.xlsx';
+		} else {
+			$filename = date('dmy').'_PEGAWAI_BPAD.xlsx';
+		}
 
 		$rowend = $nowrow - 1;
 
-		$filename = date('dmy').'_PEGAWAI_BPAD.xlsx';
 
 		// Redirect output to a client's web browser (Xlsx)
 		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
