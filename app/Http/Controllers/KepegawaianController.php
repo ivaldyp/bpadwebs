@@ -2754,7 +2754,7 @@ class KepegawaianController extends Controller
             if(is_null($employee['alamat_emp']) || $employee['alamat_emp'] == '') {
                 $sheet->getStyle($alphabet[$alpnum].$nowrow)->applyFromArray($colorArrayEmpty);
             }
-			$sheet->setCellValue($alphabet[$alpnum].$nowrow, $employee['alamat_emp'] && $employee['alamat_emp'] != '' && $employee['alamat_emp'] == '-' ? $employee['alamat_emp'] : '#EMPTY'); $alpnum++;
+			$sheet->setCellValue($alphabet[$alpnum].$nowrow, $employee['alamat_emp'] && $employee['alamat_emp'] != '' && $employee['alamat_emp'] != '-' ? $employee['alamat_emp'] : '#EMPTY'); $alpnum++;
             if(is_null($employee['tlp_emp']) || $employee['tlp_emp'] == '') {
                 $sheet->getStyle($alphabet[$alpnum].$nowrow)->applyFromArray($colorArrayEmpty);
             }
