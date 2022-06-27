@@ -1211,7 +1211,8 @@ class ProfilController extends Controller
 			}
 
 			// $filejab .= str_replace(" ", "", str_replace("/","",strtolower($request->idjab))) . "_" . $request->idunit . "_" . $id_emp . ".". $file->getClientOriginalExtension();
-            $filejab .= str_replace("::","_",$request->idunit) . "_" . $id_emp . ".". $file->getClientOriginalExtension();
+            // $filejab .= str_replace("::","_",$request->idunit) . "_" . $id_emp . ".". $file->getClientOriginalExtension();
+            $filejab .= date('dmYHis') . "_" . $id_emp . ".". $file->getClientOriginalExtension();
 
 			$tujuan_upload = config('app.savefileimg');
 			$tujuan_upload .= "\\" . $id_emp . "\\jab\\";
@@ -1304,7 +1305,8 @@ class ProfilController extends Controller
 			}
 
 			// $filejab .= str_replace(" ", "", str_replace("/","",strtolower($request->idjab))) . "_" . $request->idunit . "_" . $id_emp . ".". $file->getClientOriginalExtension();
-            $filejab .= str_replace("::","_",$request->idunit) . "_" . $id_emp . ".". $file->getClientOriginalExtension();
+            // $filejab .= str_replace("::","_",$request->idunit) . "_" . $id_emp . ".". $file->getClientOriginalExtension();
+            $filejab .= date('dmYHis') . "_" . $id_emp . ".". $file->getClientOriginalExtension();
 
 			$tujuan_upload = config('app.savefileimg');
 			$tujuan_upload .= "\\" . $id_emp . "\\jab\\";
