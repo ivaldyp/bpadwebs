@@ -765,11 +765,11 @@
 															data-mk_thn="{{$gol['mk_thn']}}"
 															data-mk_bln="{{$gol['mk_bln']}}"
 														><i class="ti-pencil-alt"></i></button>
-														<button type="button" class="btn btn-danger btn-delete-gol btn-outline btn-circle m-r-5" data-toggle="modal" data-target="#modal-delete-gol"
+														{{-- <button type="button" class="btn btn-danger btn-delete-gol btn-outline btn-circle m-r-5" data-toggle="modal" data-target="#modal-delete-gol"
 															data-ids="{{$gol['ids']}}"
 															data-noid="{{$gol['noid']}}"
 															data-idgol="{{$gol['idgol']}}"
-														><i class="ti-trash"></i></button>
+														><i class="ti-trash"></i></button> --}}
 													</td>
 												</tr>
 											@endforeach
@@ -846,12 +846,12 @@
 															data-eselon="{{$jab['eselon']}}"
 															data-notes="{{$jab['nmunit']}}"
 														><i class="ti-pencil-alt"></i></button>
-														<button type="button" class="btn btn-danger btn-delete-jab btn-outline btn-circle m-r-5" data-toggle="modal" data-target="#modal-delete-jab"
+														{{-- <button type="button" class="btn btn-danger btn-delete-jab btn-outline btn-circle m-r-5" data-toggle="modal" data-target="#modal-delete-jab"
 															data-ids="{{$jab['ids']}}"
 															data-noid="{{$jab['noid']}}"
 															data-idjab="{{$jab['idjab']}}"
 															data-nm_unit="{{ucwords(strtolower($jab['unit']['nm_unit']))}}"
-														><i class="ti-trash"></i></button>
+														><i class="ti-trash"></i></button> --}}
 													</td>
 												</tr>
 											@endforeach
