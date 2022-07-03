@@ -21,7 +21,7 @@
 Route::get('/mobilein', 'Auth\LoginController@attemptMobile');
 Route::get('/loginaset', 'ApiController@loginaset');
 Route::get('/loginemp', 'ApiController@loginemp');
-
+Route::get('/faq/{app_name}', 'FaqController@index');
 
 
 Route::get('/', 'LandingController@index');
