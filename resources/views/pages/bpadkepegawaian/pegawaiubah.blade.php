@@ -398,7 +398,9 @@
 																<th>No</th>
 																<th>Pendidikan</th>
 																<th>Program Studi</th>
-																<th>Ijazah</th>
+																<th>Data Ijazah</th>
+                                                                <th>File Ijazah</th>
+                                                                <th>Approve</th>
 																<th>Action</th>
 															</tr>
 														</thead>
@@ -413,6 +415,22 @@
 																<td>{{ $dik['no_sek'] }}<br>
 																	<span class="text-muted">{{$dik['th_sek']}}</span>
 																</td>
+                                                                <td>
+                                                                    <?php if ($dik['gambar'] && $dik['gambar'] != '') : ?> 
+                                                                        <a target="_blank" href="{{ config('app.openfileimg') }}/{{ $id_emp }}/dik/{{ $dik['gambar'] }}">[File Ijazah]
+                                                                        </a>
+                                                                    <?php else : ?>
+                                                                        [Tidak ada File Ijazah]
+                                                                    <?php endif ?>
+                                                                    <?php if ($dik['appr'] == '1') : ?> 
+                                                                        <i class="fa fa-check" style="color: #2ECC40;" data-toggle="tooltip" title="Sudah Di Approve"></i>
+                                                                    <?php else : ?>
+                                                                        <i class="fa fa-close" style="color: #FF4136;" data-toggle="tooltip" title="Belum di approve, {{ $dik ? $dik['alasan'] : '' }}"></i>
+                                                                    <?php endif ?>
+                                                                </td>
+                                                                <td>
+                                                                    <button type="button" class="btn btn-warning btn-approve btn-outline btn-circle" data-toggle="modal" data-target="#modal-approve" data-appr_tipe="dik" data-appr_ids="{{ $dik['ids'] }}" data-appr_id_emp="{{ $id_emp }}"><i class="ti-search"></i></button>	
+                                                                </td>
 																<td>
 																	
 																		<button type="button" class="btn btn-info btn-outline btn-circle m-r-5 btn-update-dik" data-toggle="modal" data-target="#modal-update-dik-{{$key}}" ><i class="ti-pencil-alt"></i></button>

@@ -602,6 +602,11 @@
 															<?php else : ?>
 																<br>[Tidak ada ijazah]
 															<?php endif ?>
+                                                            <?php if ($dik['appr'] == '1') : ?> 
+                                                                <i class="fa fa-check" style="color: #2ECC40;" data-toggle="tooltip" title="Sudah Di Approve"></i>
+                                                            <?php else : ?>
+                                                                <i class="fa fa-close" style="color: #FF4136;" data-toggle="tooltip" title="Belum di approve, {{ $dik ? $dik['alasan'] : '' }}"></i>
+                                                            <?php endif ?>
 														</td>
 
 														<td style="vertical-align: middle;">
