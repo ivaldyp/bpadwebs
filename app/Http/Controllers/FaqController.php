@@ -94,7 +94,7 @@ class FaqController extends Controller
         ]);
 
 		return redirect('/faq/setup?appnow='.$appnow)
-				->with('message', "Berhasil mengubah FAQ baru tentang aplikasi '.$request->appnow")
+				->with('message', "Berhasil mengubah FAQ baru tentang aplikasi ".$request->appnow)
 				->with('msg_num', 1);
     }
 
