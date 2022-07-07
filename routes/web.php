@@ -21,7 +21,14 @@
 Route::get('/mobilein', 'Auth\LoginController@attemptMobile');
 Route::get('/loginaset', 'ApiController@loginaset');
 Route::get('/loginemp', 'ApiController@loginemp');
-Route::get('/faq/{app_name}', 'FaqController@index');
+
+Route::group(['prefix' => 'faq'], function () {
+	Route::get('/app/{app_name}', 'FaqController@index');
+    Route::get('/setup', 'FaqController@setup');
+    Route::post('/insert', 'FaqController@insert');
+    Route::post('/update', 'FaqController@update');
+    Route::get('/delete', 'FaqController@delete');
+});
 
 
 Route::get('/', 'LandingController@index');
