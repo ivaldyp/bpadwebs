@@ -19,10 +19,10 @@ class FaqController extends Controller
     use SessionCheckTraits;
 	use SessionCheckNotif;
     
-    public function __construct()
-	{
-		$this->middleware('auth');
-	}
+    // public function __construct()
+	// {
+	// 	$this->middleware('auth');
+	// }
 
     public function index($app)
     {
