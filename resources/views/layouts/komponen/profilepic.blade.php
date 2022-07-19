@@ -49,14 +49,14 @@
 					<h4 class="modal-title"><b>Ubah Password</b></h4>
 				</div>
 				<div class="modal-body">
-					<h4>Masukkan password baru  </h4>
+                    <h4>Masukkan password baru  </h4>
 
-					<div class="form-group col-md-12">
-						<label for="passmd5" class="col-md-2 control-label"> Password </label>
-						<div class="col-md-8">
-							<input autocomplete="off" type="text" name="passmd5" class="form-control" required>
-						</div>
-					</div>
+                    <div class="form-group col-md-12">
+                        <label for="passmd5" class="col-md-2 control-label"> Password Baru </label>
+                        <div class="col-md-8">
+                            <input autocomplete="off" type="text" name="passmd5" class="form-control" required>
+                        </div>
+                    </div>
 
 					<div class="clearfix"></div>
 				</div>
