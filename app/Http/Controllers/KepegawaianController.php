@@ -2665,7 +2665,9 @@ class KepegawaianController extends Controller
 		$sheet->setCellValue($alphabet[$alpnum].'5', 'NIP'); $alpnum++;
 		$sheet->setCellValue($alphabet[$alpnum].'5', 'NRK'); $alpnum++;
 		$sheet->setCellValue($alphabet[$alpnum].'5', 'TMT'); $alpnum++;
+		$sheet->setCellValue($alphabet[$alpnum].'5', 'GLR DEPAN'); $alpnum++;
 		$sheet->setCellValue($alphabet[$alpnum].'5', 'NAMA'); $alpnum++;
+		$sheet->setCellValue($alphabet[$alpnum].'5', 'GLR BELAKANG'); $alpnum++;
 		$sheet->setCellValue($alphabet[$alpnum].'5', 'BIDANG'); $alpnum++;
 		$sheet->setCellValue($alphabet[$alpnum].'5', 'UNIT KERJA'); $alpnum++;
 		$sheet->setCellValue($alphabet[$alpnum].'5', 'LOKASI'); $alpnum++;
@@ -2777,7 +2779,9 @@ class KepegawaianController extends Controller
 			$sheet->setCellValue($alphabet[$alpnum].$nowrow, $employee['nrk_emp'] ?? '-' ); 
 			$sheet->getStyle($alphabet[$alpnum].$nowrow)->getAlignment()->setHorizontal('right'); $alpnum++;
 			$sheet->setCellValue($alphabet[$alpnum].$nowrow, ($employee['tgl_join'] ? date('d-m-Y', strtotime($employee['tgl_join'])) : '-') ); $alpnum++;
-			$sheet->setCellValue($alphabet[$alpnum].$nowrow, ($employee['gelar_dpn'] ? $employee['gelar_dpn'] . ' ' : '' ) . strtoupper($employee['nm_emp']) . ($employee['gelar_blk'] ? ', ' . $employee['gelar_blk'] : '' ) ); $alpnum++;
+			$sheet->setCellValue($alphabet[$alpnum].$nowrow, ($employee['gelar_dpn'] ? $employee['gelar_dpn'] . ' ' : '' )); $alpnum++;
+			$sheet->setCellValue($alphabet[$alpnum].$nowrow, strtoupper($employee['nm_emp'])); $alpnum++;
+			$sheet->setCellValue($alphabet[$alpnum].$nowrow, ($employee['gelar_blk'] ? ', ' . $employee['gelar_blk'] : '' )); $alpnum++;
 			$sheet->setCellValue($alphabet[$alpnum].$nowrow, strtoupper($bidangnow)); $alpnum++;
 			$sheet->setCellValue($alphabet[$alpnum].$nowrow, strtoupper($employee['notes'])); $alpnum++;
 			$sheet->setCellValue($alphabet[$alpnum].$nowrow, $employee['nm_lok']); $alpnum++;
