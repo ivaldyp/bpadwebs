@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class book_transact extends Model
+class Book_transact extends Model
 {
     protected $connection = 'sqlsrv2';
     // protected $primaryKey = "ids"; 
