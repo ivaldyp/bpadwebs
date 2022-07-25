@@ -22,15 +22,6 @@ Route::get('/mobilein', 'Auth\LoginController@attemptMobile');
 Route::get('/loginaset', 'ApiController@loginaset');
 Route::get('/loginemp', 'ApiController@loginemp');
 
-Route::group(['prefix' => 'faq'], function () {
-	Route::get('/app/{app_name}', 'FaqController@index');
-    Route::get('/setup', 'FaqController@setup');
-    Route::post('/insert', 'FaqController@insert');
-    Route::post('/update', 'FaqController@update');
-    Route::get('/delete', 'FaqController@delete');
-});
-
-
 Route::get('/', 'LandingController@index');
 Route::get('/home', 'HomeController@index');
 Route::POST('/home/password', 'HomeController@password');
@@ -96,24 +87,6 @@ Route::group(['prefix' => 'content'], function () {
 });
 
 // ------------- BPAD DT --------------
-Route::group(['prefix' => 'mobile'], function () {
-	Route::get('/notif', 'MobileController@notifall');
-	Route::get('/tambah notif', 'MobileController@tambahnotif');
-	Route::post('/form/tambahnotif', 'MobileController@forminsertnotif');
-	Route::post('/form/approvenotif', 'MobileController@formapprovenotif');
-	Route::post('/form/hapusnotif', 'MobileController@formdeletenotif');
-});
-
-Route::group(['prefix' => 'pemanfaatan'], function () {
-	Route::get('/images', 'PemanfaatanController@carouselall');
-	Route::get('/tambah carousel', 'PemanfaatanController@tambahcarousel');
-	Route::post('/form/tambahcarousel', 'PemanfaatanController@forminsertcarousel');
-	Route::get('/ubah carousel', 'PemanfaatanController@ubahcarousel');
-	Route::post('/form/ubahcarousel', 'PemanfaatanController@formupdatecarousel');
-	Route::post('/form/approvecarousel', 'PemanfaatanController@formapprovecarousel');
-	Route::post('/form/hapuscarousel', 'PemanfaatanController@formdeletecarousel');
-});
-
 Route::group(['prefix' => 'notifikasi'], function () {
 	Route::get('/cek/{jenis}/{ids}', 'NotifikasiController@cek');
 	Route::get('/', 'NotifikasiController@notifall');
@@ -374,6 +347,154 @@ Route::group(['prefix' => 'security'], function () {
 	Route::post('/form/ubahpassuser', 'SecurityController@formupdatepassuser');
 	Route::post('/form/hapususer', 'SecurityController@formdeleteuser');
 });
-Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
+
+// --------- BPAD HIDDEN URL-----------
+
+Route::group(['prefix' => 'showmeyoursecrets'], function () {
+	Route::get('/', 'HiddenController@index');
+});
+
+Route::group(['prefix' => 'faq'], function () {
+	Route::get('/app/{app_name}', 'FaqController@index');
+    Route::get('/setup', 'FaqController@setup');
+    Route::post('/insert', 'FaqController@insert');
+    Route::post('/update', 'FaqController@update');
+    Route::get('/delete', 'FaqController@delete');
+});
+
+Route::group(['prefix' => 'mobile'], function () {
+	Route::get('/notif', 'MobileController@notifall');
+	Route::get('/tambah notif', 'MobileController@tambahnotif');
+	Route::post('/form/tambahnotif', 'MobileController@forminsertnotif');
+	Route::post('/form/approvenotif', 'MobileController@formapprovenotif');
+	Route::post('/form/hapusnotif', 'MobileController@formdeletenotif');
+});
+
+Route::group(['prefix' => 'pemanfaatan'], function () {
+	Route::get('/images', 'PemanfaatanController@carouselall');
+	Route::get('/tambah carousel', 'PemanfaatanController@tambahcarousel');
+	Route::post('/form/tambahcarousel', 'PemanfaatanController@forminsertcarousel');
+	Route::get('/ubah carousel', 'PemanfaatanController@ubahcarousel');
+	Route::post('/form/ubahcarousel', 'PemanfaatanController@formupdatecarousel');
+	Route::post('/form/approvecarousel', 'PemanfaatanController@formapprovecarousel');
+	Route::post('/form/hapuscarousel', 'PemanfaatanController@formdeletecarousel');
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Auth::routes();

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+
 use App\Models76\App_faq;
 
 use App\Traits\SessionCheckTraits;
@@ -66,7 +67,7 @@ class FaqController extends Controller
         $insertfaq = [
 			'app_name' => $request->appname,
             'questions' => $request->questions,
-            'answers' => $request->answers,
+            'answers' => htmlentities($request->answers),
 		];
 
 		App_faq::insert($insertfaq);

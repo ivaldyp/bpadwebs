@@ -28,6 +28,13 @@
         #page-wrapper {
             margin: 0px;
         }
+
+        pre {
+            white-space: pre-wrap;
+            word-break: keep-all;
+            font-size: 16px;
+            font-weight: bold;
+        }
     </style>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -98,7 +105,7 @@
                                 </div>
                                 <div id="collapse{{$key}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{$key}}">
                                     <div class="panel-body"> 
-                                        {{ $faq['answers'] }}
+                                        <pre>{{ $faq['answers'] }}</pre>
                                     </div>
                                 </div>
                             </div>
@@ -110,7 +117,7 @@
                         <div class="white-box">
                             <ul>
                                 @foreach($applications as $key => $apps)
-                                <li><a href="{{ url('/faq/'.$apps['app_name']) }}"> {{ $apps['app_name'] }} </a></li>
+                                <li><a href="{{ url('/faq/app/'.$apps['app_name']) }}"> {{ $apps['app_name'] }} </a></li>
                                 @endforeach
                             </ul>
                         </div>

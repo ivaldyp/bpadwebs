@@ -107,10 +107,10 @@
                                                     <td style="vertical-align: middle;">{{ $key+1 }}</td>
                                                     <td style="vertical-align: middle;">{{ $faq['ids'] }}</td>
                                                     <td style="vertical-align: middle;">
-                                                        <textarea rows="5" class="form-control" name="questions">{!! $faq['questions'] !!}</textarea>
+                                                        <textarea rows="5" class="form-control" name="questions" style="white-space: pre-line;">{!! $faq['questions'] !!}</textarea>
                                                     </td>
                                                     <td style="vertical-align: middle;">
-                                                        <textarea rows="5" class="form-control" name="answers">{!! $faq['answers'] !!}</textarea>
+                                                        <textarea rows="5" class="form-control" name="answers" style="white-space: pre-line;">{!! $faq['answers'] !!}</textarea>
                                                     </td>
                                                     <td style="vertical-align: middle;">
                                                         <input type="hidden" value="{{ $faq['ids'] }}" name="ids">
