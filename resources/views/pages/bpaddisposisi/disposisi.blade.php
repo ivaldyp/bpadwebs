@@ -121,7 +121,7 @@
 								<div class="tab-content">
 									<div role="tabpanel" class="tab-pane fade" id="ppidinbox">
 										<div class="table-responsive" style="overflow: visible;">
-											<table id="myTable" class="table table-hover table-striped" style="z-index: 99999;">
+											<table id="myTable6" class="table table-hover table-striped" style="z-index: 99999;">
 												<thead>
 													<tr>
 														<th class="">No. Form</th>
@@ -254,7 +254,7 @@
 									</div>
 									<div role="tabpanel" class="tab-pane fade" id="ppidsent">
 										<div class="table-responsive" style="overflow: visible;">
-											<table id="myTable2" class="table table-hover table-striped" style="z-index: 99999;">
+											<table id="myTable7" class="table table-hover table-striped" style="z-index: 99999;">
 												<thead>
 													<tr>
 														<th class="">No. Form</th>
@@ -289,25 +289,6 @@
 														$thistglinput = $sent['tgl_input'];
 														$thisrd = $sent['rddisp'];
 														$thisselesai = $sent['selesai'];
-
-														// if (isset($_SESSION['user_data']['idunit'])) {
-														// 	if (strlen($_SESSION['user_data']['idunit']) == 8) {
-														// 		$thisdarisent = $sent['from_nm'];
-														// 		$thiskesent = $sent['to_nm'];
-														// 		$thispenanganan = $sent['penanganantop'];
-														// 		$thiscatatan = $sent['catatantop'];
-														// 	} else {
-														// 		$thisdarisent = $sent['to_nm'];
-														// 		$thiskesent = ($sent['kepada'] ? $sent['kepada'] : $sent['noid']);
-														// 		$thispenanganan = $sent['penanganan'];
-														// 		$thiscatatan = $sent['catatan'];
-														// 	}
-														// } else {
-														// 	$thisdarisent = $sent['to_nm'];
-														// 	$thiskesent = ($sent['kepada'] ? $sent['kepada'] : $sent['noid']);
-														// 	$thispenanganan = $sent['penanganan'];
-														// 	$thiscatatan = $sent['catatan'];
-														// }
 
 														$thisdarisent = $sent['from_nm'];
 														$thiskesent = $sent['to_nm'];
@@ -597,25 +578,6 @@
 														$thisrd = $sent['rddisp'];
 														$thisselesai = $sent['selesai'];
 
-														// if (isset($_SESSION['user_data']['idunit'])) {
-														// 	if (strlen($_SESSION['user_data']['idunit']) == 8) {
-														// 		$thisdarisent = $sent['from_nm'];
-														// 		$thiskesent = $sent['to_nm'];
-														// 		$thispenanganan = $sent['penanganantop'];
-														// 		$thiscatatan = $sent['catatantop'];
-														// 	} else {
-														// 		$thisdarisent = $sent['to_nm'];
-														// 		$thiskesent = ($sent['kepada'] ? $sent['kepada'] : $sent['noid']);
-														// 		$thispenanganan = $sent['penanganan'];
-														// 		$thiscatatan = $sent['catatan'];
-														// 	}
-														// } else {
-														// 	$thisdarisent = $sent['to_nm'];
-														// 	$thiskesent = ($sent['kepada'] ? $sent['kepada'] : $sent['noid']);
-														// 	$thispenanganan = $sent['penanganan'];
-														// 	$thiscatatan = $sent['catatan'];
-														// }
-
 														$thisdarisent = $sent['from_nm'];
 														$thiskesent = $sent['to_nm'];
 														if (isset($_SESSION['user_data']['idunit'])) {
@@ -898,25 +860,6 @@
 														$thisusrinput = $sent['usr_input'];
 														$thistglinput = $sent['tgl_input'];
 														$thisrd = $sent['rddisp'];
-
-														// if (isset($_SESSION['user_data']['idunit'])) {
-														// 	if (strlen($_SESSION['user_data']['idunit']) == 8) {
-														// 		$thisdarisent = $sent['from_nm'];
-														// 		$thiskesent = $sent['to_nm'];
-														// 		$thispenanganan = $sent['penanganantop'];
-														// 		$thiscatatan = $sent['catatantop'];
-														// 	} else {
-														// 		$thisdarisent = $sent['to_nm'];
-														// 		$thiskesent = ($sent['kepada'] ? $sent['kepada'] : $sent['noid']);
-														// 		$thispenanganan = $sent['penanganan'];
-														// 		$thiscatatan = $sent['catatan'];
-														// 	}
-														// } else {
-														// 	$thisdarisent = $sent['to_nm'];
-														// 	$thiskesent = ($sent['kepada'] ? $sent['kepada'] : $sent['noid']);
-														// 	$thispenanganan = $sent['penanganan'];
-														// 	$thiscatatan = $sent['catatan'];
-														// }
 
 														$thisdarisent = $sent['from_nm'];
 														$thiskesent = $sent['to_nm'];
@@ -1276,6 +1219,22 @@
 			});
 
 			$('#myTable5').DataTable({
+				"ordering" : false,
+				"searching": false,
+				drawCallback: function() {
+			    	$('[data-toggle="tooltip"]').tooltip();
+			  	} 
+			});
+
+            $('#myTable6').DataTable({
+				"ordering" : false,
+				"searching": false,
+				drawCallback: function() {
+			    	$('[data-toggle="tooltip"]').tooltip();
+			  	}  
+			});
+
+			$('#myTable7').DataTable({
 				"ordering" : false,
 				"searching": false,
 				drawCallback: function() {
