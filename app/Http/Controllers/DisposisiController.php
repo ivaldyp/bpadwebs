@@ -3018,6 +3018,25 @@ class DisposisiController extends Controller
 			return redirect('home');
 		}
 
+        $alphabet = array( 'a', 'b', 'c', 'd', 'e',
+					   'f', 'g', 'h', 'i', 'j',
+					   'k', 'l', 'm', 'n', 'o',
+					   'p', 'q', 'r', 's', 't',
+					   'u', 'v', 'w', 'x', 'y',
+					   'z', 'aa', 'ab', 'ac', 'ad', 'ae',
+					   'af', 'ag', 'ah', 'ai', 'aj',
+					   'ak', 'al', 'am', 'an', 'ao',
+					   'ap', 'aq', 'ar', 'as', 'at',
+					   'au', 'av', 'aw', 'ax', 'ay',
+					   'az', 'ba', 'bb', 'bc', 'bd', 'be',
+					   'bf', 'bg', 'bh', 'bi', 'bj',
+					   'bk', 'bl', 'bm', 'bn', 'bo',
+					   'bp', 'bq', 'br', 'bs', 'bt',
+					   'bu', 'bv', 'bw', 'bx', 'by',
+					   'bz'
+					   );
+		$alpnum = 0;
+
 		$spreadsheet = new Spreadsheet();
 		$sheet = $spreadsheet->getActiveSheet();
 		$sheet->mergeCells('A1:J1');
@@ -3033,21 +3052,37 @@ class DisposisiController extends Controller
 		];
 		$sheet->getStyle('A1:J1')->applyFromArray($styleArray);
 
+        $tahunnow = date('Y');
+        $notreadnow = 'notread'.$tahunnow;
+        $declarenotreadnow = $notreadnow.'.'.$notreadnow;
+        $yesreadnow = 'yesread'.$tahunnow;
+        $declareyesreadnow = $yesreadnow.'.'.$yesreadnow;
+        $lanjutnow = 'lanjut'.$tahunnow;
+        $declarelanjutnow = $lanjutnow.'.'.$lanjutnow;
+
 		$sheet->setCellValue('A2', date('d/m/Y H:i', strtotime('+7 hours')));
 
-		$sheet->setCellValue('A3', 'ID');
-		$sheet->setCellValue('b3', 'NRK');
-		$sheet->setCellValue('c3', 'NAMA');
-		$sheet->setCellValue('d3', 'BIDANG');
-		$sheet->setCellValue('e3', 'UNIT KERJA');
-		$sheet->setCellValue('f3', 'TOTAL SURAT');
-		$sheet->setCellValue('g3', 'BELUM DIBACA');
-		$sheet->setCellValue('h3', 'HANYA DIBACA');
-		$sheet->setCellValue('i3', 'SUDAH DI-TL');
-		$sheet->setCellValue('j3', '% TL');
+		$sheet->setCellValue($alphabet[$alpnum].'3', 'ID'); $alpnum++;
+		$sheet->setCellValue($alphabet[$alpnum].'3', 'NRK'); $alpnum++;
+		$sheet->setCellValue($alphabet[$alpnum].'3', 'NAMA'); $alpnum++;
+		$sheet->setCellValue($alphabet[$alpnum].'3', 'BIDANG'); $alpnum++;
+		$sheet->setCellValue($alphabet[$alpnum].'3', 'UNIT KERJA'); $alpnum++;
+		$sheet->setCellValue($alphabet[$alpnum].'3', 'TOTAL SURAT'); $alpnum++;
+		$sheet->setCellValue($alphabet[$alpnum].'3', 'BELUM DIBACA'); $alpnum++;
+		$sheet->setCellValue($alphabet[$alpnum].'3', 'HANYA DIBACA'); $alpnum++;
+		$sheet->setCellValue($alphabet[$alpnum].'3', 'SUDAH DI-TL'); $alpnum++;
+		$sheet->setCellValue($alphabet[$alpnum].'3', 'TOTAL SURAT 2022'); $alpnum++;
+		$sheet->setCellValue($alphabet[$alpnum].'3', 'BELUM DIBACA 2022'); $alpnum++;
+		$sheet->setCellValue($alphabet[$alpnum].'3', 'HANYA DIBACA 2022'); $alpnum++;
+		$sheet->setCellValue($alphabet[$alpnum].'3', 'SUDAH DI-TL 2022'); $alpnum++;
+		$sheet->setCellValue($alphabet[$alpnum].'3', '% TL'); 
+        $maxalpnum = $alpnum;
 
-		$sheet->getStyle('A3:J3')->getFont()->setBold( true );
-		$sheet->getStyle('A3:J3')->getAlignment()->setHorizontal('center');
+		$sheet->getStyle($alphabet[0].'3:'.$alphabet[$maxalpnum].'3')->getFont()->setBold( true );
+		$sheet->getStyle($alphabet[0].'3:'.$alphabet[$maxalpnum].'3')->getAlignment()->setHorizontal('center');
+        
+        $nowrow = 4;
+        $rowstart = $nowrow - 1;
 
 		$colorArrayhead = [
 			'fill' => [
@@ -3057,71 +3092,17 @@ class DisposisiController extends Controller
 				],
 			],
 		];
-		$sheet->getStyle('A3:J3')->applyFromArray($colorArrayhead);
+		$sheet->getStyle($alphabet[0].'3:'.$alphabet[$maxalpnum].'3')->applyFromArray($colorArrayhead);
 
-		$nowrow = 4;
-		$rowstart = $nowrow - 1;
-
-		// $ids = Auth::user()->id_emp;
-
-		// if ($ids) {
-		// 	$data_self = DB::select( DB::raw("  
-		// 						SELECT a.id_emp, a.nrk_emp, a.nip_emp, a.nm_emp, tbjab.idjab, tbjab.idunit, tbunit.child, tbunit.nm_unit, tbunit.notes, d.nm_lok, notread.notread, yesread.yesread, lanjut.lanjut from bpaddtfake.dbo.emp_data as a
-		// 						CROSS APPLY (SELECT TOP 1 tmt_jab,idskpd,idunit,idlok,tmt_sk_jab,no_sk_jab,jns_jab,replace(idjab,'NA::','') as idjab,eselon,gambar FROM bpaddtfake.dbo.emp_jab WHERE a.id_emp=emp_jab.noid AND emp_jab.sts='1' ORDER BY tmt_jab DESC) tbjab
-		// 						CROSS APPLY (SELECT TOP 1 * FROM bpaddtfake.dbo.glo_org_unitkerja WHERE glo_org_unitkerja.kd_unit = tbjab.idunit) tbunit
-		// 						CROSS APPLY (
-		// 							select  count(disp.rd) as 'notread' from bpaddtfake.dbo.fr_disposisi disp
-		// 							  where rd = 'N' and sts = 1
-		// 							  and disp.to_pm = a.id_emp) notread
-		// 						CROSS APPLY (
-		// 							select  count(disp.rd) as 'yesread' from bpaddtfake.dbo.fr_disposisi disp
-		// 							  where rd = 'Y' and sts = 1
-		// 							  and disp.to_pm = a.id_emp) yesread
-		// 						CROSS APPLY (
-		// 							select  count(disp.rd) as 'lanjut' from bpaddtfake.dbo.fr_disposisi disp
-		// 							  where rd = 'S' and sts = 1
-		// 							  and disp.to_pm = a.id_emp) lanjut
-		// 						,bpaddtfake.dbo.glo_skpd as b,bpaddtfake.dbo.glo_org_unitkerja as c,bpaddtfake.dbo.glo_org_lokasi as d WHERE tbjab.idskpd=b.skpd AND tbjab.idskpd+'::'+tbjab.idunit=c.kd_skpd+'::'+c.kd_unit AND tbjab.idskpd+'::'+tbjab.idlok=d.kd_skpd+'::'+d.kd_lok AND a.sts='1' AND b.sts='1' AND c.sts='1' AND d.sts='1' 
-		// 						and id_emp like '$ids'
-		// 						") )[0];
-		// 	$data_self = json_decode(json_encode($data_self), true);
-		// } else {
-		// 	$data_self = DB::select( DB::raw("  SELECT a.id_emp, a.nrk_emp, a.nip_emp, a.nm_emp, tbjab.idjab, tbjab.idunit, tbunit.child, tbunit.nm_unit, tbunit.notes, d.nm_lok, notread.notread, yesread.yesread, lanjut.lanjut from bpaddtfake.dbo.emp_data as a
-		// 						CROSS APPLY (SELECT TOP 1 tmt_jab,idskpd,idunit,idlok,tmt_sk_jab,no_sk_jab,jns_jab,replace(idjab,'NA::','') as idjab,eselon,gambar FROM bpaddtfake.dbo.emp_jab WHERE a.id_emp=emp_jab.noid AND emp_jab.sts='1' ORDER BY tmt_jab DESC) tbjab
-		// 						CROSS APPLY (SELECT TOP 1 * FROM bpaddtfake.dbo.glo_org_unitkerja WHERE glo_org_unitkerja.kd_unit = tbjab.idunit) tbunit
-		// 						CROSS APPLY (
-		// 							select  count(disp.rd) as 'notread' from bpaddtfake.dbo.fr_disposisi disp
-		// 							  where rd = 'N' and sts = 1
-		// 							  and disp.to_pm = a.id_emp) notread
-		// 						CROSS APPLY (
-		// 							select  count(disp.rd) as 'yesread' from bpaddtfake.dbo.fr_disposisi disp
-		// 							  where rd = 'Y' and sts = 1
-		// 							  and disp.to_pm = a.id_emp) yesread
-		// 						CROSS APPLY (
-		// 							select  count(disp.rd) as 'lanjut' from bpaddtfake.dbo.fr_disposisi disp
-		// 							  where rd = 'S' and sts = 1
-		// 							  and disp.to_pm = a.id_emp) lanjut
-		// 						,bpaddtfake.dbo.glo_skpd as b,bpaddtfake.dbo.glo_org_unitkerja as c,bpaddtfake.dbo.glo_org_lokasi as d WHERE tbjab.idskpd=b.skpd AND tbjab.idskpd+'::'+tbjab.idunit=c.kd_skpd+'::'+c.kd_unit AND tbjab.idskpd+'::'+tbjab.idlok=d.kd_skpd+'::'+d.kd_lok AND a.sts='1' AND b.sts='1' AND c.sts='1' AND d.sts='1' 
-		// 						and idunit like '01' and ked_emp = 'aktif'
-		// 						") )[0];
-		// 	$data_self = json_decode(json_encode($data_self), true);
-		// }		
-
-		// $total = $data_self['notread'] + $data_self['yesread'] + $data_self['lanjut'];
-
-		// $sheet->setCellValue('A'.$nowrow, $data_self['id_emp']);
-		// $sheet->setCellValue('B'.$nowrow, $data_self['nrk_emp']);
-		// $sheet->getStyle('B'.$nowrow)->getAlignment()->setHorizontal('right');
-		// $sheet->setCellValue('c'.$nowrow, $data_self['nm_emp']);
-		// $sheet->setCellValue('d'.$nowrow, $data_self['idjab']);
-		// $sheet->setCellValue('e'.$nowrow, $data_self['nm_unit']);
-		// $sheet->setCellValue('f'.$nowrow, $total);
-		// $sheet->setCellValue('g'.$nowrow, $data_self['notread']);
-		// $sheet->setCellValue('h'.$nowrow, $data_self['yesread']);
-		// $sheet->setCellValue('i'.$nowrow, $data_self['lanjut']);
-		// $sheet->setCellValue('j'.$nowrow, $total != 0 ? number_format((float)($data_self['lanjut']/$total*100), 2, '.', '') . '%' : 0 );
-
-		// $sheet->getStyle('f'.$nowrow.':j'.$nowrow)->getNumberFormat()->setFormatCode('#,##0');
+        $colorArrayBlue = [
+			'fill' => [
+				'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+				'startColor' => [
+					'rgb' => '4473c4',
+				],
+			],
+		];
+		$sheet->getStyle('J'.$nowrow.':M'.$nowrow)->applyFromArray($colorArrayBlue);
 
 		$colorArrayV1 = [
 			'fill' => [
@@ -3131,7 +3112,17 @@ class DisposisiController extends Controller
 				],
 			],
 		];
-		$sheet->getStyle('a'.$nowrow.':j'.$nowrow)->applyFromArray($colorArrayV1);
+		$sheet->getStyle($alphabet[0].$nowrow.':'.$alphabet[$maxalpnum].$nowrow)->applyFromArray($colorArrayV1);
+
+        $colorArrayBlueV1 = [
+			'fill' => [
+				'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+				'startColor' => [
+					'rgb' => 'd9e1f2',
+				],
+			],
+		];
+		$sheet->getStyle('J'.$nowrow.':M'.$nowrow)->applyFromArray($colorArrayBlueV1);
 
 		// if (strlen($data_self['idunit']) < 10) {
 		// 	$sheet->getStyle('a'.$nowrow.':j'.$nowrow)->getFont()->setBold( true );
@@ -3140,7 +3131,9 @@ class DisposisiController extends Controller
 
 		// $nowunit = $data_self['idunit'];
 
-		$data_stafs = DB::select( DB::raw("  SELECT a.id_emp, a.nrk_emp, a.nip_emp, a.nm_emp, tbjab.idjab, tbjab.idunit, tbunit.child, tbunit.kd_unit, tbunit.nm_unit, tbunit.notes, d.nm_lok, notread.notread, yesread.yesread, lanjut.lanjut from bpaddtfake.dbo.emp_data as a
+		$data_stafs = DB::select( DB::raw("  SELECT a.id_emp, a.nrk_emp, a.nip_emp, a.nm_emp, tbjab.idjab, tbjab.idunit, tbunit.child, tbunit.kd_unit, tbunit.nm_unit, tbunit.notes, d.nm_lok, 
+        notread.notread, yesread.yesread, lanjut.lanjut, $declarenotreadnow, $declareyesreadnow, $declarelanjutnow
+        from bpaddtfake.dbo.emp_data as a
 							CROSS APPLY (SELECT TOP 1 tmt_jab,idskpd,idunit,idlok,tmt_sk_jab,no_sk_jab,jns_jab,replace(idjab,'NA::','') as idjab,eselon,gambar FROM bpaddtfake.dbo.emp_jab WHERE a.id_emp=emp_jab.noid AND emp_jab.sts='1' ORDER BY tmt_jab DESC) tbjab
 							CROSS APPLY (SELECT TOP 1 * FROM bpaddtfake.dbo.glo_org_unitkerja WHERE glo_org_unitkerja.kd_unit = tbjab.idunit) tbunit
 							CROSS APPLY (
@@ -3155,6 +3148,21 @@ class DisposisiController extends Controller
 								select  count(disp.rd) as 'lanjut' from bpaddtfake.dbo.fr_disposisi disp
 								  where rd = 'S' and sts = 1
 								  and disp.to_pm = a.id_emp) lanjut
+                            CROSS APPLY (
+                                select count(disp.rd) as '$notreadnow' from bpaddtfake.dbo.fr_disposisi disp
+                                    where rd = 'N' and sts = 1
+                                    and disp.to_pm = a.id_emp
+                                    and YEAR(tgl) = '$tahunnow') $notreadnow
+                            CROSS APPLY (
+                                select count(disp.rd) as '$yesreadnow' from bpaddtfake.dbo.fr_disposisi disp
+                                    where rd = 'Y' and sts = 1
+                                    and disp.to_pm = a.id_emp
+                                    and YEAR(tgl) = '$tahunnow') $yesreadnow
+                            CROSS APPLY (
+                                select count(disp.rd) as '$lanjutnow' from bpaddtfake.dbo.fr_disposisi disp
+                                    where rd = 'S' and sts = 1
+                                    and disp.to_pm = a.id_emp
+                                    and YEAR(tgl) = '$tahunnow') $lanjutnow
 							,bpaddtfake.dbo.glo_skpd as b,bpaddtfake.dbo.glo_org_unitkerja as c,bpaddtfake.dbo.glo_org_lokasi as d WHERE tbjab.idskpd=b.skpd AND tbjab.idskpd+'::'+tbjab.idunit=c.kd_skpd+'::'+c.kd_unit AND tbjab.idskpd+'::'+tbjab.idlok=d.kd_skpd+'::'+d.kd_lok AND a.sts='1' AND b.sts='1' AND c.sts='1' AND d.sts='1' 
 							and LEN(tbunit.kd_unit) <= 6 and ked_emp = 'aktif'
 							order by idunit asc, nm_emp asc
@@ -3164,6 +3172,7 @@ class DisposisiController extends Controller
 		if ($data_stafs) {
             $bidangnow = '';
 			foreach ($data_stafs as $key => $staf) {
+                $alpnum = 0;
 
                 if(strlen($staf['kd_unit']) == 6) {
                     $bidangnow = $staf['nm_unit'];
@@ -3172,26 +3181,32 @@ class DisposisiController extends Controller
                 }
 
 				$total = $staf['notread'] + $staf['yesread'] + $staf['lanjut'];
+                $totalnow = $staf[$notreadnow] + $staf[$yesreadnow] + $staf[$lanjutnow];
 
-				$sheet->setCellValue('A'.$nowrow, $staf['id_emp']);
-				$sheet->setCellValue('B'.$nowrow, $staf['nrk_emp']);
-				$sheet->getStyle('B'.$nowrow)->getAlignment()->setHorizontal('right');
-				$sheet->setCellValue('c'.$nowrow, $staf['nm_emp']);
-				$sheet->setCellValue('d'.$nowrow, strtoupper($bidangnow));
-				$sheet->setCellValue('e'.$nowrow, strtoupper($staf['notes']));
-				$sheet->setCellValue('f'.$nowrow, $total);
-				$sheet->setCellValue('g'.$nowrow, $staf['notread']);
-				$sheet->setCellValue('h'.$nowrow, $staf['yesread']);
-				$sheet->setCellValue('i'.$nowrow, $staf['lanjut']);
-				$sheet->setCellValue('j'.$nowrow, $total != 0 ? number_format((float)($staf['lanjut']/$total*100), 2, '.', '') . '%' : 0  );
-				$sheet->getStyle('f'.$nowrow.':j'.$nowrow)->getNumberFormat()->setFormatCode('#,##0');
+				$sheet->setCellValue($alphabet[$alpnum].$nowrow, $staf['id_emp']); $alpnum++;
+				$sheet->setCellValue($alphabet[$alpnum].$nowrow, $staf['nrk_emp']); 
+				$sheet->getStyle($alphabet[$alpnum].$nowrow)->getAlignment()->setHorizontal('right'); $alpnum++;
+				$sheet->setCellValue($alphabet[$alpnum].$nowrow, $staf['nm_emp']); $alpnum++;
+				$sheet->setCellValue($alphabet[$alpnum].$nowrow, strtoupper($bidangnow)); $alpnum++;
+				$sheet->setCellValue($alphabet[$alpnum].$nowrow, strtoupper($staf['notes'])); $alpnum++;
+				$sheet->setCellValue($alphabet[$alpnum].$nowrow, $total); $alpnum++;
+				$sheet->setCellValue($alphabet[$alpnum].$nowrow, $staf['notread']); $alpnum++;
+				$sheet->setCellValue($alphabet[$alpnum].$nowrow, $staf['yesread']); $alpnum++;
+				$sheet->setCellValue($alphabet[$alpnum].$nowrow, $staf['lanjut']); $alpnum++;
+				$sheet->setCellValue($alphabet[$alpnum].$nowrow, $totalnow); $alpnum++;
+				$sheet->setCellValue($alphabet[$alpnum].$nowrow, $staf[$notreadnow]); $alpnum++;
+				$sheet->setCellValue($alphabet[$alpnum].$nowrow, $staf[$yesreadnow]); $alpnum++;
+				$sheet->setCellValue($alphabet[$alpnum].$nowrow, $staf[$lanjutnow]); $alpnum++;
+				$sheet->setCellValue($alphabet[$alpnum].$nowrow, $total != 0 ? number_format((float)($staf['lanjut']/$total*100), 2, '.', '') . '%' : 0  ); $alpnum++;
+				$sheet->getStyle('f'.$nowrow.':'.$alphabet[$maxalpnum].$nowrow)->getNumberFormat()->setFormatCode('#,##0');
 
-				if ($key%2 == 1) {
-					$sheet->getStyle('a'.$nowrow.':j'.$nowrow)->applyFromArray($colorArrayV1);
-				}
+				if ($key%2 == 0) {
+                    $sheet->getStyle($alphabet[0].$nowrow.':'.$alphabet[$maxalpnum].$nowrow)->applyFromArray($colorArrayV1);
+                    $sheet->getStyle('J'.$nowrow.':M'.$nowrow)->applyFromArray($colorArrayBlueV1);
+                }
 				
 				if (strlen($staf['idunit']) < 10) {
-					$sheet->getStyle('a'.$nowrow.':j'.$nowrow)->getFont()->setBold( true );
+					$sheet->getStyle($alphabet[0].$nowrow.':'.$alphabet[$maxalpnum].$nowrow)->getFont()->setBold( true );
 				}
 				$nowrow++;
 			}
@@ -3199,9 +3214,11 @@ class DisposisiController extends Controller
 
 		$sheet->setShowGridlines(false);
 
-		foreach(range('A','J') as $columnID) {
-		    $sheet->getColumnDimension($columnID)
-		        ->setAutoSize(true);
+		foreach($alphabet as $key => $columnID) {
+			if($key > 0) {
+				$sheet->getColumnDimension($columnID)
+				->setAutoSize(true);
+			}
 		}
 
 		$filename = date('dmy').'_STATDISP_PEGAWAI ESELON BPAD.xlsx';
