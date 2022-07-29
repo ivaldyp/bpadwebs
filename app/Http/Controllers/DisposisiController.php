@@ -2816,8 +2816,6 @@ class DisposisiController extends Controller
         $declarelanjutnow = $lanjutnow.'.'.$lanjutnow;
         
         $data_self = DB::select( DB::raw("  
-			$data_self = DB::select( DB::raw("  
-        $data_self = DB::select( DB::raw("  
                             SELECT a.id_emp, a.nrk_emp, a.nip_emp, a.nm_emp, tbjab.idjab, tbjab.idunit, tbunit.child, tbunit.nm_unit, tbunit.notes, tbunit.kd_unit, d.nm_lok, 
                             notread.notread, yesread.yesread, lanjut.lanjut, $declarenotreadnow, $declareyesreadnow, $declarelanjutnow 
                             FROM bpaddtfake.dbo.emp_data as a
