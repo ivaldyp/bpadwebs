@@ -5,6 +5,12 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+    
+	<title>BPAD Provinsi DKI Jakarta</title>
+	<meta name="keywords" content="HTML5 Theme" />
+	<meta name="description" content="BPAD PORTAL PAGE">
+	<meta name="author" content="Pusdatin BPAD">
+
 	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
 	<title>BPAD DKI Jakarta</title>
