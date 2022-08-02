@@ -88,6 +88,10 @@
                                                     <td>Carousel m-Pemanfaatan</td>
                                                     <td><a href="{{ url('/pemanfaatan/images') }}">/pemanfaatan/images</a></td>
                                                 </tr>
+                                                <tr>
+                                                    <td>Approval Content</td>
+                                                    <td><a href="{{ url('/cms/approve') }}">/cms/approve</a></td>
+                                                </tr>
 											</tbody>
 										</table>
 									</div>
