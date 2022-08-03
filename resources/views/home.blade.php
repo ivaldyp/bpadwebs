@@ -143,26 +143,26 @@
 												<ul id="tree1">
 
 												@foreach($employees as $key => $emp)
-													@if(substr($emp['nm_emp'], 0, 3) != 'Plt')
-														<li>
-														@if(strlen($emp['idunit']) < 10)
-														{{ $emp['nm_unit'] }}<br>
-														@endif
-														<span class="text-muted">{{ ucwords(strtolower($emp['nm_emp'])) }}</span>
+													{{-- @if(substr($emp['nm_emp'], 0, 3) != 'Plt')
+													@endif --}}
+                                                    <li>
+                                                    @if(strlen($emp['idunit']) < 10)
+                                                    {{ $emp['nm_unit'] }}<br>
+                                                    @endif
+                                                    <span class="text-muted">{{ ucwords(strtolower($emp['nm_emp'])) }}</span>
 
-														@if(isset($employees[$key+1]))
-														@if(strlen($employees[$key+1]['idunit']) < strlen($emp['idunit']) )
-														</ul>
-														</li>
-														@endif
-														@endif
+                                                    @if(isset($employees[$key+1]))
+                                                    @if(strlen($employees[$key+1]['idunit']) < strlen($emp['idunit']) )
+                                                    </ul>
+                                                    </li>
+                                                    @endif
+                                                    @endif
 
-														@if(isset($employees[$key+1]))
-														@if(strlen($employees[$key+1]['idunit']) > strlen($emp['idunit']) )
-														<ul>
-														@endif
-														@endif
-													@endif
+                                                    @if(isset($employees[$key+1]))
+                                                    @if(strlen($employees[$key+1]['idunit']) > strlen($emp['idunit']) )
+                                                    <ul>
+                                                    @endif
+                                                    @endif
 												@endforeach
 
 												</ul>
@@ -172,24 +172,24 @@
 												<ul id="tree1">
 
 												@foreach($employees as $key => $emp)
-													@if(substr($emp['nm_emp'], 0, 3) != 'Plt')
-														<li>
-														@if(strlen($emp['idunit']) < 10)
-														{{ $emp['nm_unit'] }}<br>
-														@endif
-														<span class="text-muted">{{ ucwords(strtolower($emp['nm_emp'])) }}</span>
+													{{-- @if(substr($emp['nm_emp'], 0, 3) != 'Plt')
+													@endif --}}
+                                                    <li>
+                                                    @if(strlen($emp['idunit']) < 10)
+                                                    {{ $emp['nm_unit'] }}<br>
+                                                    @endif
+                                                    <span class="text-muted">{{ ucwords(strtolower($emp['nm_emp'])) }}</span>
 
-														@if($emp['child'] == 1)
-														<ul>
-														@endif
+                                                    @if($emp['child'] == 1)
+                                                    <ul>
+                                                    @endif
 
-														@if(isset($employees[$key+1]))
-														@if(strlen($employees[$key+1]['idunit']) < strlen($emp['idunit']) )
-														</ul>
-														</li>
-														@endif
-														@endif
-													@endif
+                                                    @if(isset($employees[$key+1]))
+                                                    @if(strlen($employees[$key+1]['idunit']) < strlen($emp['idunit']) )
+                                                    </ul>
+                                                    </li>
+                                                    @endif
+                                                    @endif
 												@endforeach
 												</ul>
 											@endif
