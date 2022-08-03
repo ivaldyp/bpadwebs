@@ -340,7 +340,7 @@
 
 
 		<!-- /.container-fluid -->
-		<footer class="footer text-center"> {{ date('Y') }} &copy; BPAD DKI Jakarta </footer>
+		<footer class="footer text-center"> {{ date('Y') }} &copy; Pusdatin BPAD DKI Jakarta </footer>
 	</div>
 	
 @endsection
