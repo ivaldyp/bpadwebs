@@ -138,9 +138,6 @@ class ApiController extends Controller
 
 		$arr_result = [];
 
-        var_dump($user->id_emp);
-        die;
-
 		// ngambil data unit pegawai tsb
 		$q_pegawai = DB::select( DB::raw("  
 						SELECT id_emp, nrk_emp, nip_emp, nm_emp, a.idgroup_aset as idgroup, tgl_lahir, jnkel_emp, tgl_join, status_emp, tbjab.idjab, tbjab.idunit, tbunit.child, tbunit.nm_unit, d.nm_lok as nm_lok, d.kd_lok as kd_lok  from bpaddtfake.dbo.emp_data as a
