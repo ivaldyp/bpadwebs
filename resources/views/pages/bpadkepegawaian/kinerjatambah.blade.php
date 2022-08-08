@@ -18,6 +18,8 @@
 	<!-- color CSS -->
 	<link href="{{ ('/portal/public/ample/css/colors/purple-dark.css') }}" id="theme" rel="stylesheet">
 
+    @include('layouts.full-loading')
+
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
@@ -29,6 +31,8 @@
 <!-- /////////////////////////////////////////////////////////////// -->
 
 @section('content')
+
+    <div class="loading">Loading&#8230;</div>
 
 	<div id="page-wrapper">
 		<div class="container-fluid">
@@ -228,6 +232,7 @@
 	<script src="{{ ('/portal/public/ample/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
 
 	<script>
+        $(".loading").hide();
 		// alert($("#jns_hadir option").hasClass("lainnya"));
 
 		$('.select_jns_hadir').hide();
@@ -348,6 +353,7 @@
 			});
 
 			$('#btn_tambah_aktivitas').on('click', function () {
+                $(".loading").show();
 				var flag = 0;
 				var vartipehadir = $('#tipe_hadir').val();
 				var varjnshadir = $('#jns_hadir').val();
@@ -414,6 +420,7 @@
 							data: { tgltrans : vartgltrans, time1 : vartime1, time2 : vartime2, uraian : varuraian, keterangan : varketerangan, _token : csrf_js_var, tipehadir : vartipehadir, jnshadir : varjnshadir, lainnya : varlainnya,  },
 							dataType: "JSON",
 							}).done(function( data ) { 
+                                $(".loading").hide();
 								$('#body_tabel').empty();
 								$('#body_tabel').append(data);
 								$('#time1').val("00:00");
