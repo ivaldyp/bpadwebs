@@ -111,12 +111,18 @@ class ApiController extends Controller
 			return json_decode(json_encode("user not found"), true);
 		} else {
 			if ($pass == 'Bp@d2020!@' || $pass == 'rprikat2017') {
-				$user = Emp_data::where('nrk_emp', $user)
-		                        ->orWhere('nip_emp', $user)
-		                        ->orWhere('id_emp', $user)
+				$user = Emp_data::
+                                where('sts', 1)
+                                ->where(function($q) use ($user) {
+                                    $q->where('nrk_emp', $user)
+                                        ->orWhere('nip_emp', $user)
+                                        ->orWhere('id_emp', $user);
+                                    })
 			            		->first(['id_emp', 'nrk_emp', 'nip_emp', 'nm_emp']);
 			} else {
-				$user = Emp_data::where('passmd5', md5($pass))
+				$user = Emp_data::
+                            where('sts', 1)
+                            ->where('passmd5', md5($pass))
 							->where(function($q) use ($user) {
 				            $q->where('nrk_emp', $user)
 		                        ->orWhere('nip_emp', $user)
@@ -131,6 +137,9 @@ class ApiController extends Controller
 		}
 
 		$arr_result = [];
+
+        var_dump($user->id_emp);
+        die;
 
 		// ngambil data unit pegawai tsb
 		$q_pegawai = DB::select( DB::raw("  
