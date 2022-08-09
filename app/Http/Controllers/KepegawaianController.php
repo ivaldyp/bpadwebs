@@ -736,7 +736,21 @@ class KepegawaianController extends Controller
 		if(count($_SESSION) == 0) {
 			return redirect('home');
 		}
+
 		//$this->checkSessionTime();
+        $username = $request->id_emp;
+        $new_password = $request->passmd5;
+        
+        $url = 'https://jakaset.jakarta.go.id/api_login/api/auth/update';
+        $dataArray      =        array(
+            "username"        => $username,
+            "new_password"    => $new_password,
+        );
+
+        $httpClient = new \GuzzleHttp\Client();
+        $response = $httpClient->post($url, [
+            'form_params' => $dataArray
+        ]);
 
 		Emp_data::
 			where('id_emp', $request->id_emp)
