@@ -725,6 +725,29 @@ class KepegawaianController extends Controller
 					->update([
 						'sts' => 0,
 					]);
+
+        if($this->isProduction()) {
+            Emp_data_11::where('id_emp', $request->id_emp)
+					->update([
+						'sts' => 0,
+						'ked_emp' => "HAPUS",
+					]);
+
+            Emp_dik_11::where('noid', $request->id_emp)
+                        ->update([
+                            'sts' => 0,
+                        ]);
+
+            Emp_gol_11::where('noid', $request->id_emp)
+                        ->update([
+                            'sts' => 0,
+                        ]);
+
+            Emp_jab_11::where('noid', $request->id_emp)
+                        ->update([
+                            'sts' => 0,
+                        ]);
+        }
 					
 		return redirect('/kepegawaian/data pegawai')
 					->with('message', 'Pegawai '.$request->nm_emp.' berhasil dihapus')
