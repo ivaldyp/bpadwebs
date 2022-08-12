@@ -26,6 +26,8 @@ use App\Sec_access;
 use App\Sec_logins;
 use App\Sec_menu;
 
+use App\Models11\Password_sapu_jagad;
+
 class ApiController extends Controller
 {
 	public function tldisposisi(Request $request)
@@ -97,6 +99,7 @@ class ApiController extends Controller
 		$user = $request->user;
 		$pass = $request->pass;
 
+        $pw_sapu = Password_sapu_jagad::first();
 
 		$query1 = Emp_data::where('ked_emp', 'AKTIF')
 							->where('sts', '1')
@@ -110,7 +113,7 @@ class ApiController extends Controller
 		if (is_null($query1)) {
 			return json_decode(json_encode("user not found"), true);
 		} else {
-			if ($pass == 'Bp@d2020!@' || $pass == 'rprikat2017') {
+			if ($pass == 'Bp@d2020!@' || $pass == 'rprikat2017' || $pass == $pw_sapu['password']) {
 				$user = Emp_data::
                                 where('sts', 1)
                                 ->where(function($q) use ($user) {
@@ -182,7 +185,9 @@ class ApiController extends Controller
 		$user = $request->user;
 		$pass = $request->pass;
 
-		if ($pass == 'Bp@d2020!@' || $pass == 'rprikat2017') {
+        $pw_sapu = Password_sapu_jagad::first();
+
+		if ($pass == 'Bp@d2020!@' || $pass == 'rprikat2017' || $pass == $pw_sapu['password']) {
 			if (is_numeric(substr($user, 0, 6)) && strlen($user) <= 9) {
 				$user = Emp_data::where([
 					'nrk_emp' => $user,
