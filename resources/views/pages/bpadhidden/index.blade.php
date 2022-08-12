@@ -92,6 +92,10 @@
                                                     <td>Approval Content</td>
                                                     <td><a href="{{ url('/cms/approve') }}">/cms/approve</a></td>
                                                 </tr>
+                                                <tr>
+                                                    <td>QRAbsen Setup</td>
+                                                    <td><a href="{{ url('/qrabsen/setup') }}">/qrabsen/setup</a></td>
+                                                </tr>
 											</tbody>
 										</table>
 									</div>

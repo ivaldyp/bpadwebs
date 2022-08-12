@@ -354,6 +354,18 @@ Route::group(['prefix' => 'security'], function () {
 
 Route::group(['prefix' => 'showmeyoursecrets'], function () {
 	Route::get('/', 'HiddenController@index');
+	
+});
+
+Route::group(['prefix' => 'qrabsen'], function () {
+	Route::get('/setup', 'HiddenController@qrabsensetup');
+	Route::get('/rekap', 'PublicController@qrabsenrekap');
+	Route::get('/detail', 'PublicController@qrabsendetail');
+	Route::get('/setpegawai', 'HiddenController@qrabsensetpegawai');
+	Route::post('/form/ubahstshadir', 'HiddenController@formuptdatestsabsen');
+	Route::post('/form/tambahabsen', 'HiddenController@forminsertqrabsen');
+	Route::post('/form/ubahabsen', 'HiddenController@formupdateqrabsen');
+	Route::post('/form/hapusabsen', 'HiddenController@formdeleteqrabsen');
 });
 
 Route::group(['prefix' => 'faq'], function () {
