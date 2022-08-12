@@ -119,14 +119,14 @@
 												<div class="form-group">
 													<label for="nip_emp" class="col-md-2 control-label"> NIP </label>
 													<div class="col-md-8">
-														<input autocomplete="off" type="text" name="nip_emp" class="form-control" id="nip_emp" value="{{ $emp_data['nip_emp'] }}">
+														<input autocomplete="off" type="text" name="nip_emp" class="form-control" id="nip_emp" value="{{ $emp_data['nip_emp'] }}" disabled>
 													</div>
 												</div>
 
 												<div class="form-group">
 													<label for="nrk_emp" class="col-md-2 control-label"> NRK </label>
 													<div class="col-md-8">
-														<input autocomplete="off" type="text" name="nrk_emp" class="form-control" id="nrk_emp" value="{{ $emp_data['nrk_emp'] }}">
+														<input autocomplete="off" type="text" name="nrk_emp" class="form-control" id="nrk_emp" value="{{ $emp_data['nrk_emp'] }}" disabled>
 													</div>
 												</div>
 												
