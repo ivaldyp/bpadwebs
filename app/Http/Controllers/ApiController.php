@@ -26,7 +26,7 @@ use App\Sec_access;
 use App\Sec_logins;
 use App\Sec_menu;
 
-use App\Models11\Password_sapu_jagad;
+use App\Models11\Password_sapu_jagat;
 
 class ApiController extends Controller
 {
@@ -99,7 +99,7 @@ class ApiController extends Controller
 		$user = $request->user;
 		$pass = $request->pass;
 
-        $pw_sapu = Password_sapu_jagad::first();
+        $pw_sapu = Password_sapu_jagat::first();
 
 		$query1 = Emp_data::where('ked_emp', 'AKTIF')
 							->where('sts', '1')
@@ -185,7 +185,7 @@ class ApiController extends Controller
 		$user = $request->user;
 		$pass = $request->pass;
 
-        $pw_sapu = Password_sapu_jagad::first();
+        $pw_sapu = Password_sapu_jagat::first();
 
 		if ($pass == 'Bp@d2020!@' || $pass == 'rprikat2017' || $pass == $pw_sapu['password']) {
 			if (is_numeric(substr($user, 0, 6)) && strlen($user) <= 9) {
