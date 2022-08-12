@@ -14,6 +14,7 @@ use App\Models76\Ref_jenis_absen;
 use App\Models76\Ref_subjenis_absen;
 use App\Models76\Ref_subsubjenis_absen;
 use App\Emp_data;
+use App\Sec_menu;
 
 use App\Traits\SessionCheckTraits;
 use App\Traits\SessionCheckNotif;
@@ -44,9 +45,16 @@ class HiddenController extends Controller
 
     public function qrabsensetup(Request $request)
     {
+        //$this->checkSessionTime();
+		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
+		$currentpath = explode("?", $currentpath)[0];
+		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
+		$access = $this->checkAccess($_SESSION['user_data']['idgroup'], $thismenu['ids']);
+
         $refs = Mobile_absen_ref::orderBy('createdate', 'desc')->get();
 
         return view('pages.bpadhidden.qrabsensetup')
+        ->with('access', $access)
         ->with('refs', $refs);
     }
 

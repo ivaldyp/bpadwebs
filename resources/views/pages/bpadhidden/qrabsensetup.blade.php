@@ -79,11 +79,13 @@
 						<div class="panel-heading">Setup QRAbsen BPAD</div>
 						<div class="panel-wrapper collapse in">
 							<div class="panel-body">
+                                @if ($access['zadd'] == 'y')
                                 <div class="row " style="margin-bottom: 10px">
 									<div class="col-md-2">
 										<button class="btn btn-info" style="margin-bottom: 10px" data-toggle="modal" data-target="#modal-insert">Tambah</button>
 									</div>
 								</div>
+                                @endif
 								<div class="row">
 									<div class="table-responsive">
 										<table class="myTable table table-hover table-striped table-compact">
@@ -94,10 +96,12 @@
 													<th>Kegiatan</th>
 													<th>longtext & URL</th>
 													<th>start & end</th>
-													<th>Set Pegawai</th>
 													<th>Laporan</th>
 													<th>QR</th>
+                                                    @if($access['zupd'] == 'y' || $access['zdel'] == 'y')
+													<th>Set Pegawai</th>
 													<th>Action</th>
+                                                    @endif
 												</tr>
 											</thead>
 											<tbody>
@@ -112,15 +116,17 @@
                                                         <br>
                                                         {{ $ref['end_datetime'] ? date('d-M-Y H:i', strtotime($ref['end_datetime'])) : '-' }}
                                                     </td>
-                                                    <td>
-                                                        <a href="{{ url('/qrabsen/setpegawai?qr=') }}{{ $ref['longtext'] }}"><button class="btn btn-warning"><i class="fa fa-key"></i> Set</button></a>
-                                                    </td>
                                                     <td class="ver-align-mid">
                                                         <a href="{{ url('/qrabsen/rekap?qr=') }}{{ $ref['longtext'] }}"><button type="submit" class="btn btn-primary">Rekap</button></a>
                                                         <a href="{{ url('/qrabsen/detail?qr=') }}{{ $ref['longtext'] }}"><button type="submit" class="btn btn-success">Detail</button></a>
                                                     </td>
                                                     <td class="ver-align-mid hor-align-mid"></td>
+                                                    @if($access['zupd'] == 'y' || $access['zdel'] == 'y')
+                                                    <td>
+                                                        <a href="{{ url('/qrabsen/setpegawai?qr=') }}{{ $ref['longtext'] }}"><button class="btn btn-warning"><i class="fa fa-key"></i> Set</button></a>
+                                                    </td>
                                                     <td class="ver-align-mid hor-align-mid"></td>
+                                                    @endif
                                                 </tr>
                                                 @endforeach
 											</tbody>
