@@ -79,7 +79,7 @@
                                             <thead>
                                                 <th>No</th>
                                                 <th>BIDANG</th>
-                                                <th class="hor-align-mid" style="border-right: 1px solid black">TOTAL PEGAWAI</th>
+                                                {{-- <th class="hor-align-mid" style="border-right: 1px solid black">TOTAL PEGAWAI</th> --}}
                                                 <th class="hor-align-mid">WAJIB APEL</th>
                                                 <th class="hor-align-mid" style="border-right: 1px solid black">SAKIT/CUTI/DL/IZIN</th>
                                                 <th class="hor-align-mid">WAJIB ABSEN</th>
@@ -91,7 +91,7 @@
                                                 <tr>
                                                     <td>{{ $key + 1 }}</td>
                                                     <td>{{ $rekap['nm_unit'] }}</td>
-                                                    <td class="hor-align-mid" style="border-right: 1px solid black">{{ $rekap['total_pegawai'] }}</td>
+                                                    {{-- <td class="hor-align-mid" style="border-right: 1px solid black">{{ $rekap['total_pegawai'] }}</td> --}}
                                                     <td class="hor-align-mid">{{ $rekap['total_wajibapel'] }}</td>
                                                     <td class="hor-align-mid" style="border-right: 1px solid black">{{ $rekap['total_izin'] }}</td>
                                                     <td class="hor-align-mid">{{ $rekap['total_wajib_absen'] }}</td>
@@ -102,7 +102,13 @@
                                                                 $rekap['total_wajib_absen'] = 1;
                                                             @endphp
                                                         @endif
-                                                        {{ number_format($rekap['total_hadir'] / $rekap['total_wajib_absen'] * 100, 2) }}%
+                                                        
+
+                                                        @if($rekap['kd_bidang'] == '01')
+                                                            100%
+                                                        @else
+                                                            {{ number_format($rekap['total_hadir'] / $rekap['total_wajib_absen'] * 100, 2) }}%
+                                                        @endif
                                                     </td>
                                                 </tr>
                                                 @endforeach
