@@ -95,7 +95,13 @@
                                                     <td class="hor-align-mid">{{ $rekap['total_wajibapel'] }}</td>
                                                     <td class="hor-align-mid" style="border-right: 1px solid black">{{ $rekap['total_izin'] }}</td>
                                                     <td class="hor-align-mid">{{ $rekap['total_wajib_absen'] }}</td>
-                                                    <td class="hor-align-mid">{{ $rekap['total_hadir'] }}</td>
+                                                    <td class="hor-align-mid">
+                                                        @if($rekap['kd_bidang'] == '01' && $rekap['total_izin'] == 0)
+                                                            1
+                                                        @else
+                                                            {{ $rekap['total_hadir'] }}
+                                                        @endif
+                                                    </td>
                                                     <td class="hor-align-mid" style="font-weight: bold;">
                                                         @if($rekap['total_wajib_absen'] == 0)
                                                             @php
@@ -103,7 +109,6 @@
                                                             @endphp
                                                         @endif
                                                         
-
                                                         @if($rekap['kd_bidang'] == '01')
                                                             100%
                                                         @else

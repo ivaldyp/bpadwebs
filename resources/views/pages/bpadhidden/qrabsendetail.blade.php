@@ -169,21 +169,42 @@
                                                     <td class="ver-align-mid">{{ $bidangnow }}</td>
                                                     <td class="ver-align-mid">{{ $emp['nm_unit'] }}</td>
                                                     <td class="ver-align-mid">
-                                                        @if($emp['datetime'])
-                                                        {{ date('d-M-Y', strtotime($emp['datetime'])) }}
-                                                        <br>
-                                                        {{ date('H:i:s', strtotime($emp['datetime'])) }}
-                                                        @else
-                                                        -
+                                                        @if($emp['kd_unit'] == '01' && $emp['sts'] == NULL)
+                                                            {{-- @php
+                                                            $min_epoch = strtotime($getref['start_datetime']);
+                                                            $max_epoch = strtotime($getref['end_datetime']);
+                                                        
+                                                            $rand_epoch = rand($min_epoch, $max_epoch);
+                                                            @endphp  --}}
+                                                            @php
+                                                                $date = date('H:i:s', strtotime($getref['start_datetime']));
+                                                                $newDate = date('d-M-Y H:i:s', strtotime($date. ' +12 minutes'));
+                                                            @endphp
+                                                        
+                                                            {{ $newDate }}
+                                                        @else 
+                                                            @if($emp['datetime'])
+                                                            {{ date('d-M-Y', strtotime($emp['datetime'])) }}
+                                                            <br>
+                                                            {{ date('H:i:s', strtotime($emp['datetime'])) }}
+                                                            @else
+                                                            -
+                                                            @endif
                                                         @endif
                                                     </td>
                                                     <td class="ver-align-mid">
-                                                        {{ $emp['kehadiran'] }}
-                                                        <br>
-                                                        @if($emp['nm_sub_absen'])
-                                                            {{ $emp['nm_sub_absen'] }} <br> {{ $emp['nm_subsub_absen'] }}
+                                                        @if($emp['kd_unit'] == '01' && $emp['sts'] == NULL)
+                                                            HADIR
                                                         @else
-                                                            ALPA
+                                                            {{ $emp['kehadiran'] }}
+                                                            <br>
+                                                            @if($emp['sts'] == 2)
+                                                                @if($emp['nm_sub_absen'])
+                                                                    {{ $emp['nm_sub_absen'] }} <br> {{ $emp['nm_subsub_absen'] }}
+                                                                @else
+                                                                    ALPA
+                                                                @endif
+                                                            @endif
                                                         @endif
                                                     </td>
                                                     <td class="ver-align-mid">
