@@ -136,7 +136,7 @@
 													<th>Unit Kerja</th>
 													<th class="col-md-1">Waktu</th>
 													<th class="col-md-1">Status Hadir</th>
-													<th class="col-md-1">Tidak Wajib Apel</th>
+													<th class="col-md-1">Wajib Apel</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -177,8 +177,22 @@
                                                         -
                                                         @endif
                                                     </td>
-                                                    <td class="ver-align-mid">{{ $emp['kehadiran'] }}</td>
-                                                    <td class="ver-align-mid">{{ $emp['tidak_wajib_apel'] }}</td>
+                                                    <td class="ver-align-mid">
+                                                        {{ $emp['kehadiran'] }}
+                                                        <br>
+                                                        @if($emp['nm_sub_absen'])
+                                                            {{ $emp['nm_sub_absen'] }} <br> {{ $emp['nm_subsub_absen'] }}
+                                                        @else
+                                                            ALPA
+                                                        @endif
+                                                    </td>
+                                                    <td class="ver-align-mid">
+                                                        @if($emp['nm_sub_absen'])
+                                                            TIDAK WAJIB APEL
+                                                        @else
+                                                            {{ $emp['tidak_wajib_apel'] }}
+                                                        @endif
+                                                    </td>
                                                 </tr>
                                                 @endforeach
 											</tbody>

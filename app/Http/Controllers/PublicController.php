@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 use App\Models76\Mobile_absen_ref;
+use App\Models76\Ref_jenis_absen;
+use App\Models76\Ref_subjenis_absen;
+use App\Models76\Ref_subsubjenis_absen;
 use App\Models76\Views\Get_rekap_absen;
 use App\Models11\Emp_data;
 use App\Glo_org_unitkerja;
@@ -98,24 +101,38 @@ class PublicController extends Controller
 
         $totalemps = Emp_data::count();
         $emps = DB::connection('server76')->select( DB::raw("
-        SELECT a.id_emp, a.nip_emp, a.nrk_emp, a.nm_emp, res.hadir as sts, tbunit.kd_unit, tbunit.nm_unit, totalhadir, a.is_tidak_wajib_apel, res.datetime,
+        SELECT 
+            a.id_emp, 
+            a.nip_emp, 
+            a.nrk_emp, 
+            a.nm_emp, 
+            res.hadir as sts, 
+            tbunit.kd_unit, 
+            tbunit.nm_unit, 
+            totalhadir, 
+            a.is_tidak_wajib_apel, 
+            res.datetime, 
+            refsub.nm_sub_absen, 
+            refsubsub.nm_subsub_absen, 
         CASE 
         WHEN res.hadir = 1
-            THEN 
-                CASE 
-                WHEN res.datetime > '$end_date' THEN 'TERLAMBAT'
-                ELSE 'HADIR' 
-                END
-            ELSE 'TIDAK HADIR'
+                THEN 
+                        CASE 
+                        WHEN res.datetime > '$end_date' THEN 'TERLAMBAT'
+                        ELSE 'HADIR' 
+                        END
+                ELSE 'TIDAK HADIR'
         END as kehadiran,
         CASE WHEN a.is_tidak_wajib_apel = 1
-            THEN 'TIDAK'
-            ELSE 'WAJIB'
+                THEN 'TIDAK WAJIB APEL'
+                ELSE 'WAJIB APEL'
         END as tidak_wajib_apel
         from (select count(distinct(id_emp)) as totalhadir from bpaddtfake.dbo.mobile_absen where hadir = '1' and kegiatan = '$text') counthadir, bpaddtfake.dbo.emp_data a
         join bpaddtfake.dbo.emp_jab tbjab on tbjab.ids = (SELECT TOP 1 ids FROM bpaddtfake.dbo.emp_jab WHERE emp_jab.noid = a.id_emp and emp_jab.sts='1' ORDER BY tmt_jab DESC)
         join bpaddtfake.dbo.glo_org_unitkerja tbunit on tbunit.kd_unit = (SELECT TOP 1 idunit FROM bpaddtfake.dbo.glo_org_unitkerja where tbunit.kd_unit = tbjab.idunit)
         left join bpaddtfake.dbo.mobile_absen res on a.id_emp = res.id_emp and res.kegiatan = '$text'
+        left join bpaddtfake.dbo.ref_subjenis_absen refsub on res.subjenis = refsub.id_sub_absen
+        left join bpaddtfake.dbo.ref_subsubjenis_absen refsubsub on res.subsubjenis = refsubsub.id_subsub_absen
         where a.ked_emp = 'AKTIF'
         and a.sts = 1
         and a.id_emp = tbjab.noid
