@@ -295,6 +295,7 @@
 			method: "GET", 
 			url: "/portal/kepegawaian/getaktivitas",
 			}).done(function( data ) { 
+                $(".loading").hide();
 				var idemp = $('#idemp').val();
 				var csrf_js_var = "{{ csrf_token() }}"
 				$('#body_tabel').empty();
@@ -327,6 +328,8 @@
 														"<input id='idemp-"+i+"' type='hidden' value='"+idemp+"'>"+
 														"<input id='tgl_trans-"+i+"' type='hidden' value='"+data[i].tgl_trans+"'>"+
 														"<input id='time1-"+i+"' type='hidden' value='"+data[i].time1+"'>"+
+                                                        "<input id='uraian-"+i+"' type='hidden' value='"+data[i].uraian+"'>"+
+                                                        "<input id='keterangan-"+i+"' type='hidden' value='"+data[i].keterangan+"'>"+
 														"<button type='button' class='btn btn-danger btn-outline btn-circle m-r-5 btn_delete_aktivitas' id='"+i+"'><i class='fa fa-trash'></i></button></td>"+
 													"</tr>");
 					}
@@ -335,20 +338,26 @@
 			}); 
 
 			$('#body_tabel').on('click', '.btn_delete_aktivitas', function() {
-
+                $(".loading").show();
 				var varidemp = $('#idemp-'+(this.id)).val();
 				var vartgltrans = $('#tgl_trans-'+(this.id)).val();
 				var vartime1 = $('#time1-'+(this.id)).val();
+				var uraian = $('#uraian-'+(this.id)).val();
+				var keterangan = $('#keterangan-'+(this.id)).val();
 
 				$.ajax({ 
 				type: "GET", 
 				url: "/portal/kepegawaian/form/hapusaktivitas",
-				data: { idemp : varidemp, tgltrans : vartgltrans, time1 : vartime1 },
+				data: { idemp : varidemp, tgltrans : vartgltrans, time1 : vartime1, uraian : uraian, keterangan : keterangan },
 				dataType: "JSON",
 				}).done(function( data ) { 
+                    setTimeout(function(){
+                        window.location.reload(1);
+                    }, 3000);
+                    // $(".loading").hide();
 					$('#body_tabel').empty();
 					$('#body_tabel').append(data);
-					alert("Berhasil menghapus aktivitas");
+					// alert("Berhasil menghapus aktivitas");
 				}); 
 			});
 
@@ -420,14 +429,17 @@
 							data: { tgltrans : vartgltrans, time1 : vartime1, time2 : vartime2, uraian : varuraian, keterangan : varketerangan, _token : csrf_js_var, tipehadir : vartipehadir, jnshadir : varjnshadir, lainnya : varlainnya,  },
 							dataType: "JSON",
 							}).done(function( data ) { 
-                                $(".loading").hide();
+                                setTimeout(function(){
+                                    window.location.reload(1);
+                                }, 3000);
+                                // $(".loading").hide();
 								$('#body_tabel').empty();
 								$('#body_tabel').append(data);
 								$('#time1').val("00:00");
 								$('#time2').val("00:00");
 								$('#uraian').val("");
 								$('#keterangan').val("");
-								alert("Berhasil menambahkan aktivitas baru");
+								// alert("Berhasil menambahkan aktivitas baru");
 							}); 
 						}
 					}

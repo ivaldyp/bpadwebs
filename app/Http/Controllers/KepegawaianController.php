@@ -2133,11 +2133,15 @@ class KepegawaianController extends Controller
 		$idemp = $request->idemp;
 		$tgl_trans = $request->tgltrans;
 		$time1 = $request->time1;
+		$uraian = $request->uraian;
+		$keterangan = $request->keterangan;
 
 		Kinerja_detail::	
 			where('idemp', $idemp)
 			->where('tgl_trans', $tgl_trans)
 			->where('time1', $time1)
+			->where('uraian', $uraian)
+			->where('keterangan', $keterangan)
 			->delete();
 
 		// $query = DB::select( DB::raw("
