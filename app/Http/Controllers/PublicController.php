@@ -68,8 +68,6 @@ class PublicController extends Controller
             $unitnow = explode(",", $unitnow);
         }
 
-        // $getrekapabsen = Get_rekap_absen::orderBy('kd_bidang')->get();
-        // $getrekapabsen = DB::connection('server76')->select('exec proc_get_absen_rekap ('.$longtext.')');
         $getrekapabsen = 
         DB::connection('server76')->select( 
             DB::raw(
@@ -198,6 +196,76 @@ class PublicController extends Controller
         ->with('getrekapabsen', $getrekapabsen);
     }
 
+    public function getpegawaitidakabsen(Request $request)
+    {
+        $idunit = $request->idunit;
+        $qr = $request->qr;
+
+        $getref = Mobile_absen_ref::where('longtext', 'LIKE', $qr . '%')->first();
+        $splitref = explode($getref['salt'], $getref['longtext']);
+
+        $text = $splitref[0];
+        $end_date = $getref['end_datetime'];
+
+        if($request->idunit) {
+            $idunit = str_replace("%2C", ",", $idunit);
+            $queryunitnow = "AND tbunit.kd_bidang IN ($idunit)";
+        } else {
+            $queryunitnow = '';
+        }
+
+		$query = 
+        DB::connection('server76')->select( 
+            DB::raw("
+                SELECT
+                    a.id_emp,
+                    a.nip_emp,
+                    a.nrk_emp,
+                    a.nm_emp,
+                    res.hadir AS sts,
+                    tbunit.kd_unit,
+                    tbunit.nm_unit,
+                    tbunit.nm_bidang, 
+                    totalhadir,
+                    a.is_tidak_wajib_apel,
+                    res.datetime,
+                    refsub.nm_sub_absen,
+                    refsubsub.nm_subsub_absen,
+                CASE
+                        
+                        WHEN res.hadir = 1 THEN
+                    CASE
+                            
+                            WHEN res.datetime > '$end_date' THEN
+                            'TERLAMBAT' ELSE 'HADIR' 
+                        END ELSE 'TIDAK HADIR' 
+                    END AS kehadiran
+                FROM
+                    ( SELECT COUNT ( DISTINCT ( id_emp ) ) AS totalhadir FROM bpaddtfake.dbo.mobile_absen WHERE hadir = '1' AND kegiatan = '$text' ) counthadir,
+                    bpaddtfake.dbo.emp_data a
+                    JOIN bpaddtfake.dbo.emp_jab tbjab ON tbjab.ids = ( SELECT TOP 1 ids FROM bpaddtfake.dbo.emp_jab WHERE emp_jab.noid = a.id_emp AND emp_jab.sts= '1' ORDER BY tmt_jab DESC )
+                    JOIN bpaddtfake.dbo.glo_org_unitkerja tbunit ON tbunit.kd_unit = ( SELECT TOP 1 idunit FROM bpaddtfake.dbo.glo_org_unitkerja WHERE tbunit.kd_unit = tbjab.idunit )
+                    LEFT JOIN bpaddtfake.dbo.mobile_absen res ON a.id_emp = res.id_emp 
+                    AND res.kegiatan = '$text'
+                    LEFT JOIN bpaddtfake.dbo.ref_subjenis_absen refsub ON res.subjenis = refsub.id_sub_absen
+                    LEFT JOIN bpaddtfake.dbo.ref_subsubjenis_absen refsubsub ON res.subsubjenis = refsubsub.id_subsub_absen 
+                WHERE
+                    a.ked_emp = 'AKTIF' 
+                    AND a.sts = 1 
+                    AND a.id_emp = tbjab.noid 
+                    AND tbjab.sts = 1 	
+                    AND res.hadir is null
+                    AND a.is_tidak_wajib_apel is null
+                    $queryunitnow
+                ORDER BY
+                    tbunit.kd_unit,
+                    nm_emp	
+					"));
+		$query = json_decode(json_encode($query), true);
+
+		return $query;
+    }
+
     public function qrabsendetail(Request $request)
     {
         $qr = $request->qr;
@@ -237,6 +305,7 @@ class PublicController extends Controller
             res.hadir as sts, 
             tbunit.kd_unit, 
             tbunit.nm_unit, 
+            tbunit.nm_bidang, 
             totalhadir, 
             a.is_tidak_wajib_apel, 
             res.datetime, 
