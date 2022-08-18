@@ -232,7 +232,7 @@
                 $.ajax({ 
                 method: "GET", 
                 url: "/portal/qrabsen/getpegawaitidakabsen",
-                data: { qr : $qr, idunit : $idunit, },
+                data: { idunit : $idunit, qr : $qr, },
 				dataType: "JSON",
                 }).done(function( data ) { 
                     
