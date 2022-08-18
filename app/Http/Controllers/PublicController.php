@@ -53,20 +53,148 @@ class PublicController extends Controller
         $bidangs = 
         Glo_org_unitkerja::
         whereRaw('LEN(kd_unit) = 6')
+        ->orderBy('kd_unit')
         ->get();
+
+        if($request->idunit) {
+            $unitnow = implode(",", $request->idunit);
+            $queryunitnow = "AND c.kd_bidang IN ($unitnow)";
+        } else {
+            $unitnow = 'null';
+            $queryunitnow = '';
+        }
+
+        if($unitnow != NULL) {
+            $unitnow = explode(",", $unitnow);
+        }
 
         // $getrekapabsen = Get_rekap_absen::orderBy('kd_bidang')->get();
         // $getrekapabsen = DB::connection('server76')->select('exec proc_get_absen_rekap ('.$longtext.')');
         $getrekapabsen = 
         DB::connection('server76')->select( 
             DB::raw(
-              "exec bpaddtfake.dbo.proc_get_absen_rekap @Kegiatan = '$text'", 
+                "
+                SELECT 
+                        pegawaiall.kd_bidang, 
+                        pegawaiall.nm_unit, 
+                        pegawaiall.total as total_pegawai, 
+                        pegawaiwajib.total as total_wajibapel, 
+                        pegawaiizin.total as total_izin, 
+                        (pegawaiwajib.total - pegawaiizin.total) as total_wajib_absen,
+                        pegawaihadir.total as total_hadir
+                    FROM (
+                        SELECT
+                            unit.nm_unit,
+                            res_all.kd_bidang,
+                            res_all.total
+                        FROM (
+                            SELECT
+                                c.kd_bidang,
+                                count(a.id_emp) as total
+                            FROM
+                                bpaddtfake.dbo.[emp_data] a
+                                JOIN bpaddtfake.dbo.[emp_jab] b ON b.ids = ( SELECT TOP 1 ids FROM bpaddtfake.dbo.emp_jab WHERE emp_jab.noid = a.id_emp AND emp_jab.sts= '1' ORDER BY tmt_jab DESC )
+                                JOIN bpaddtfake.dbo.[glo_org_unitkerja] c ON c.kd_unit = ( SELECT TOP 1 idunit FROM bpaddtfake.dbo.glo_org_unitkerja WHERE b.idunit like c.kd_unit + '%'  ) 
+                            WHERE
+                                a.ked_emp = 'AKTIF' 
+                                AND a.sts = 1 
+                                AND b.sts = 1 
+                                AND a.id_emp = b.noid 
+                                $queryunitnow
+                                
+                            GROUP BY 
+                                c.kd_bidang
+                        ) res_all
+                        JOIN bpaddtfake.dbo.glo_org_unitkerja unit ON res_all.kd_bidang = unit.kd_unit
+                    ) pegawaiall
+                    JOIN (
+                        SELECT
+                            unit.nm_unit,
+                            res_tdk_wajib_absen.kd_bidang,
+                            res_tdk_wajib_absen.total
+                        FROM (
+                            SELECT
+                                c.kd_bidang,
+                                count(a.id_emp) as total
+                            FROM
+                                bpaddtfake.dbo.[emp_data] a
+                                JOIN bpaddtfake.dbo.[emp_jab] b ON b.ids = ( SELECT TOP 1 ids FROM bpaddtfake.dbo.emp_jab WHERE emp_jab.noid = a.id_emp AND emp_jab.sts= '1' ORDER BY tmt_jab DESC )
+                                JOIN bpaddtfake.dbo.[glo_org_unitkerja] c ON c.kd_unit = ( SELECT TOP 1 idunit FROM bpaddtfake.dbo.glo_org_unitkerja WHERE b.idunit like c.kd_unit + '%'  ) 
+                            WHERE
+                                a.ked_emp = 'AKTIF' 
+                                AND a.sts = 1 
+                                AND b.sts = 1 
+                                AND a.id_emp = b.noid 
+                                AND a.is_tidak_wajib_apel is null
+                            GROUP BY 
+                                c.kd_bidang
+                        ) res_tdk_wajib_absen
+                        JOIN bpaddtfake.dbo.glo_org_unitkerja unit ON res_tdk_wajib_absen.kd_bidang = unit.kd_unit
+                    ) pegawaiwajib 
+                        ON pegawaiall.kd_bidang = pegawaiwajib.kd_bidang
+                    JOIN (
+                        SELECT
+                            unit.nm_unit,
+                            res_izin.kd_bidang,
+                            res_izin.total
+                        FROM (
+                            SELECT
+                                c.kd_bidang,
+                                count(absen.hadir) as total
+                            FROM
+                                bpaddtfake.dbo.[emp_data] a
+                                JOIN bpaddtfake.dbo.[emp_jab] b ON b.ids = ( SELECT TOP 1 ids FROM bpaddtfake.dbo.emp_jab WHERE emp_jab.noid = a.id_emp AND emp_jab.sts= '1' ORDER BY tmt_jab DESC )
+                                JOIN bpaddtfake.dbo.[glo_org_unitkerja] c ON c.kd_unit = ( SELECT TOP 1 idunit FROM bpaddtfake.dbo.glo_org_unitkerja WHERE b.idunit like c.kd_unit + '%'  ) 
+                                LEFT JOIN bpaddtfake.dbo.mobile_absen absen ON a.id_emp = absen.id_emp AND absen.kegiatan = '$text' AND absen.hadir = 2
+                            WHERE	
+                                a.ked_emp = 'AKTIF' 
+                                AND a.sts = 1 
+                                AND b.sts = 1 
+                                AND a.id_emp = b.noid 
+                            GROUP BY 
+                                c.kd_bidang
+                        ) res_izin
+                        JOIN bpaddtfake.dbo.glo_org_unitkerja unit ON res_izin.kd_bidang = unit.kd_unit
+                    ) pegawaiizin 
+                        ON pegawaiall.kd_bidang = pegawaiizin.kd_bidang
+                    JOIN (
+                        SELECT
+                            unit.nm_unit,
+                            res_yang_hadir.kd_bidang,
+                            res_yang_hadir.total
+                        FROM (
+                            SELECT
+                                c.kd_bidang,
+                                count(absen.hadir) as total
+                            FROM
+                                bpaddtfake.dbo.[emp_data] a
+                                JOIN bpaddtfake.dbo.[emp_jab] b ON b.ids = ( SELECT TOP 1 ids FROM bpaddtfake.dbo.emp_jab WHERE emp_jab.noid = a.id_emp AND emp_jab.sts= '1' ORDER BY tmt_jab DESC )
+                                JOIN bpaddtfake.dbo.[glo_org_unitkerja] c ON c.kd_unit = ( SELECT TOP 1 idunit FROM bpaddtfake.dbo.glo_org_unitkerja WHERE b.idunit like c.kd_unit + '%'  ) 
+                                LEFT JOIN bpaddtfake.dbo.[mobile_absen] absen ON a.id_emp = absen.id_emp 
+                                    AND absen.kegiatan = '$text' 
+                                    AND a.is_tidak_wajib_apel is null
+                                    AND absen.hadir = 1
+                            WHERE
+                                a.ked_emp = 'AKTIF' 
+                                AND a.sts = 1 
+                                AND b.sts = 1 
+                                AND a.id_emp = b.noid 
+                            GROUP BY 
+                                c.kd_bidang
+                        ) res_yang_hadir
+                        JOIN bpaddtfake.dbo.glo_org_unitkerja unit ON res_yang_hadir.kd_bidang = unit.kd_unit
+                    ) pegawaihadir 
+                        ON pegawaiall.kd_bidang = pegawaihadir.kd_bidang
+                    ORDER BY pegawaiall.kd_bidang
+                " 
             )
         );
         $getrekapabsen = json_decode(json_encode($getrekapabsen), true);
 
         return view('pages.bpadhidden.qrabsenrekap')
         ->with('getref', $getref)
+        ->with('bidangs', $bidangs)
+        ->with('unitnow', $unitnow)
         ->with('getrekapabsen', $getrekapabsen);
     }
 

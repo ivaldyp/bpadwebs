@@ -72,11 +72,28 @@
 						<div class="panel-heading">Rekap QRAbsen BPAD</div>
 						<div class="panel-wrapper collapse in">
                             <div class="panel-body">
+                                <div class="row col-md-12">
+                                    <form action="{{ url('/qrabsen/rekap') }}" method="GET">
+                                        <h3 >
+                                            Filter Unit Kerja
+                                        </h3>
+                                        <div class="form-group">
+                                            @foreach($bidangs as $key => $bid)
+                                            <div class=" checkbox-inverse">
+                                                <input id="checkbox{{$key}}" type="checkbox" name="idunit[]" value="{{ $bid['kd_unit'] }}" @if(in_array($bid['kd_unit'], $unitnow)) checked  @endif >
+                                                <label for="checkbox{{$key}}">{{ $bid['kd_unit'] }} - {{ $bid['nm_unit'] }} </label>
+                                            </div>
+                                            @endforeach
+                                            <input type="hidden" name="qr" value="{{ $getref['longtext'] }}">
+                                            <button class="btn btn-info">Tampilan</button>
+                                        </div>
+                                    </form>
+                                </div>
                                 <div class="row">
                                     <div class="col-md-12 table-responsive">
                                         <h3><strong>{{ $getref['nama_kegiatan'] }}</strong></h3>
                                         <table class="display no-wrap dataTable">
-                                            <thead>
+                                            <thead class="">
                                                 <th>No</th>
                                                 <th>BIDANG</th>
                                                 {{-- <th class="hor-align-mid" style="border-right: 1px solid black">TOTAL PEGAWAI</th> --}}
@@ -84,7 +101,7 @@
                                                 <th class="hor-align-mid" style="border-right: 1px solid black">SAKIT/CUTI/DL/IZIN</th>
                                                 <th class="hor-align-mid">WAJIB ABSEN</th>
                                                 <th class="hor-align-mid">HADIR</th>
-                                                <th class="hor-align-mid">PERSENTASE</th>
+                                                <th class="">PERSENTASE</th>
                                             </thead>
                                             <tbody>
                                                 @foreach($getrekapabsen as $key => $rekap)
@@ -102,7 +119,7 @@
                                                             {{ $rekap['total_hadir'] }}
                                                         @endif
                                                     </td>
-                                                    <td class="hor-align-mid" style="font-weight: bold;">
+                                                    <td class="" style="font-weight: bold;">
                                                         @if($rekap['total_wajib_absen'] == 0)
                                                             @php
                                                                 $rekap['total_wajib_absen'] = 1;
@@ -110,13 +127,31 @@
                                                         @endif
                                                         
                                                         @if($rekap['kd_bidang'] == '01')
-                                                            100%
+                                                            100.00%
                                                         @else
                                                             {{ number_format($rekap['total_hadir'] / $rekap['total_wajib_absen'] * 100, 2) }}%
                                                         @endif
                                                     </td>
                                                 </tr>
                                                 @endforeach
+                                                <tr>
+                                                    <td colspan="2" class="bg-primary">TOTAL</td>
+                                                    <td class="hor-align-mid bg-primary">
+                                                        {{ array_sum(array_column($getrekapabsen, 'total_wajibapel')) }}
+                                                    </td>
+                                                    <td class="hor-align-mid bg-primary">
+                                                        {{ array_sum(array_column($getrekapabsen, 'total_izin')) }}
+                                                    </td>
+                                                    <td class="hor-align-mid bg-primary">
+                                                        {{ array_sum(array_column($getrekapabsen, 'total_wajib_absen')) }}
+                                                    </td>
+                                                    <td class="hor-align-mid bg-primary">
+                                                        {{ array_sum(array_column($getrekapabsen, 'total_hadir')) }}
+                                                    </td>
+                                                    <td class="bg-primary">
+                                                        {{ number_format(array_sum(array_column($getrekapabsen, 'total_hadir')) / array_sum(array_column($getrekapabsen, 'total_wajib_absen')) * 100, 2) }}%
+                                                    </td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
