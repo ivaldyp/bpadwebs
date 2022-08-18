@@ -52,7 +52,7 @@ class PublicController extends Controller
 
         $bidangs = 
         Glo_org_unitkerja::
-        whereRaw('LEN(kd_unit) = 6')
+        whereRaw('LEN(kd_unit) <= 6')
         ->orderBy('kd_unit')
         ->get();
 
