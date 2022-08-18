@@ -152,7 +152,11 @@
                                                         {{ array_sum(array_column($getrekapabsen, 'total_hadir')) }}
                                                     </td>
                                                     <td class="bg-primary">
-                                                        {{ number_format(array_sum(array_column($getrekapabsen, 'total_hadir')) / array_sum(array_column($getrekapabsen, 'total_wajib_absen')) * 100, 2) }}%
+                                                        @if(array_sum(array_column($getrekapabsen, 'total_wajib_absen')) == 0)
+                                                            {{ number_format(array_sum(array_column($getrekapabsen, 'total_hadir')) / 1 * 100, 2) }}%
+                                                        @else
+                                                            {{ number_format(array_sum(array_column($getrekapabsen, 'total_hadir')) / array_sum(array_column($getrekapabsen, 'total_wajib_absen')) * 100, 2) }}%
+                                                        @endif
                                                     </td>
                                                 </tr>
                                             </tbody>
