@@ -360,6 +360,7 @@ Route::group(['prefix' => 'showmeyoursecrets'], function () {
 Route::group(['prefix' => 'qrabsen'], function () {
 	Route::get('/setup', 'HiddenController@qrabsensetup');
 	Route::get('/rekap', 'PublicController@qrabsenrekap');
+	Route::get('/getpegawaitidakabsen', 'PublicController@getpegawaitidakabsen');
 	Route::get('/detail', 'PublicController@qrabsendetail');
 	Route::get('/setpegawai', 'HiddenController@qrabsensetpegawai');
 	Route::post('/form/ubahstshadir', 'HiddenController@formuptdatestsabsen');
