@@ -256,6 +256,7 @@ class PublicController extends Controller
                     AND tbjab.sts = 1 	
                     AND res.hadir is null
                     AND a.is_tidak_wajib_apel is null
+                    AND tbunit.kd_bidang != '01'
                     $queryunitnow
                 ORDER BY
                     tbunit.kd_unit,
