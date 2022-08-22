@@ -104,12 +104,22 @@ class HiddenController extends Controller
         ->orderBy('id_subsub_absen')
         ->get();
 
-        $pegawais = 
-        DB::connection('server76')->select( 
-            DB::raw(
-              "exec bpaddtfake.dbo.proc_getallpegawai", 
-            )
-        );
+        if(Auth::user()->usname && $_SESSION['user_data']['deskripsi_user']){
+            $param = '0101'.$_SESSION['user_data']['deskripsi_user'];
+            $pegawais = 
+            DB::connection('server76')->select( 
+                DB::raw(
+                "exec bpaddtfake.dbo.proc_getallpegawai_withfilter_bidang @Idunit = '".$param."'"
+                )
+            );
+        } else {
+            $pegawais = 
+            DB::connection('server76')->select( 
+                DB::raw(
+                "exec bpaddtfake.dbo.proc_getallpegawai", 
+                )
+            );
+        }
         $pegawais = json_decode(json_encode($pegawais), true);
 
         return view('pages.bpadhidden.qrabsensetpegawai')
