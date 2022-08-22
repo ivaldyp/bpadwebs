@@ -122,7 +122,7 @@
                                                     </td>
                                                     <td class="ver-align-mid hor-align-mid"></td>
                                                     @if($access['zupd'] == 'y' || $access['zdel'] == 'y')
-                                                    <td>
+                                                    <td class="ver-align-mid">
                                                         <a href="{{ url('/qrabsen/setpegawai?qr=') }}{{ $ref['longtext'] }}"><button class="btn btn-warning"><i class="fa fa-key"></i> Set</button></a>
                                                     </td>
                                                     <td class="ver-align-mid hor-align-mid"></td>
