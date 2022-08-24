@@ -160,11 +160,12 @@
 											</div>
 										</div>
 
-										<div class="col-md-10">	
-											<button type="button" class="btn btn-info m-b-20 m-l-20 pull-right" id="btn_tambah_aktivitas">Tambah Aktivitas</button>
-										</div>
+										
 									</div>
 
+                                    <div class="col-md-10">	
+                                        <button type="button" class="btn btn-info m-b-20 m-l-20 pull-right" id="btn_tambah_aktivitas">Tambah Aktivitas</button>
+                                    </div>
 										
 
 								</div>	
@@ -189,7 +190,7 @@
 								<br>
 								<div class="col-md-12 col-sm-12 col-xs-12 m-t-30">		
 									<button type="submit" class="btn btn-success m-b-20 m-l-20 pull-right simpan">Simpan Kinerja</button>
-									<button type="button" class="btn btn-default pull-right" onclick="goBack()">Kembali</button>
+									<a href="{{ url('/kepegawaian/entri kinerja') }}"><button type="button" class="btn btn-default pull-right" >Kembali</button></a>
 								</div>
 							</div>
 							<div class="panel-footer">
@@ -351,14 +352,14 @@
 				data: { idemp : varidemp, tgltrans : vartgltrans, time1 : vartime1, uraian : uraian, keterangan : keterangan },
 				dataType: "JSON",
 				}).done(function( data ) { 
-                    setTimeout(function(){
-                        window.location.reload(1);
-                    }, 3000);
                     // $(".loading").hide();
+					alert("Berhasil menghapus aktivitas");
 					$('#body_tabel').empty();
 					$('#body_tabel').append(data);
-					// alert("Berhasil menghapus aktivitas");
 				}); 
+                setTimeout(function(){
+                    window.location.reload(1);
+                }, 3000);
 			});
 
 			$('#btn_tambah_aktivitas').on('click', function () {
@@ -376,38 +377,40 @@
 				var varuraian = $('#uraian').val();
 				var varketerangan = $('#keterangan').val();
 
-				var regexp = /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/;
-    			var correct = regexp.test(vartime1);
-    			if (correct == false) {
-    				alert("Masukkan format waktu HH:MM yang benar");
-    				flag = 1;
-    			}
-    			var correct2 = regexp.test(vartime2);
-    			if (correct2 == false) {
-    				alert("Masukkan format waktu HH:MM yang benar");
-    				flag = 1;
-    			}
-				
-				if (vartime1 == '00:00' && vartime2 == '00:00' && varuraian == '') {
-					alert("Mohon isi detail kegiatan");
-					flag = 1;
-				} else if (vartime1 == '00:00' && vartime2 == '00:00') {
-					alert("Mohon isi waktu kegiatan");
-					flag = 1;
-				} else if (vartime1 == '00:00') {
-					alert("Mohon isi waktu mulai kegiatan");
-					flag = 1;
-				} else if (vartime2 == '00:00') {
-					alert("Mohon isi waktu berakhir kegiatan");
-					flag = 1;
-				} else if (varuraian == '') {
-					alert("Mohon isi uraian kegiatan");
-					flag = 1;
-				}
-
-				if (varketerangan == '') {
-					varketerangan = '-';
-				}
+                if(vartipehadir != 2) {
+                    var regexp = /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/;
+                    var correct = regexp.test(vartime1);
+                    if (correct == false) {
+                        alert("Masukkan format waktu HH:MM yang benar");
+                        flag = 1;
+                    }
+                    var correct2 = regexp.test(vartime2);
+                    if (correct2 == false) {
+                        alert("Masukkan format waktu HH:MM yang benar");
+                        flag = 1;
+                    }
+                    
+                    if (vartime1 == '00:00' && vartime2 == '00:00' && varuraian == '') {
+                        alert("Mohon isi detail kegiatan");
+                        flag = 1;
+                    } else if (vartime1 == '00:00' && vartime2 == '00:00') {
+                        alert("Mohon isi waktu kegiatan");
+                        flag = 1;
+                    } else if (vartime1 == '00:00') {
+                        alert("Mohon isi waktu mulai kegiatan");
+                        flag = 1;
+                    } else if (vartime2 == '00:00') {
+                        alert("Mohon isi waktu berakhir kegiatan");
+                        flag = 1;
+                    } else if (varuraian == '') {
+                        alert("Mohon isi uraian kegiatan");
+                        flag = 1;
+                    }
+    
+                    if (varketerangan == '') {
+                        varketerangan = '-';
+                    }
+                }
 
 				var csrf_js_var = "{{ csrf_token() }}";
 
@@ -429,19 +432,20 @@
 							data: { tgltrans : vartgltrans, time1 : vartime1, time2 : vartime2, uraian : varuraian, keterangan : varketerangan, _token : csrf_js_var, tipehadir : vartipehadir, jnshadir : varjnshadir, lainnya : varlainnya,  },
 							dataType: "JSON",
 							}).done(function( data ) { 
-                                setTimeout(function(){
-                                    window.location.reload(1);
-                                }, 3000);
+                                
                                 // $(".loading").hide();
+								alert("Berhasil menambahkan aktivitas baru");
 								$('#body_tabel').empty();
 								$('#body_tabel').append(data);
 								$('#time1').val("00:00");
 								$('#time2').val("00:00");
 								$('#uraian').val("");
 								$('#keterangan').val("");
-								// alert("Berhasil menambahkan aktivitas baru");
 							}); 
 						}
+                        setTimeout(function(){
+                            window.location.reload(1);
+                        }, 3000);
 					}
 					
 				}); 

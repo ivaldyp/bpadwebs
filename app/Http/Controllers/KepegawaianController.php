@@ -2159,6 +2159,7 @@ class KepegawaianController extends Controller
 					from bpaddtfake.dbo.v_kinerja
 					where idemp = '$idemp'
 					and stat is null
+                    order by tgl_trans desc, time1, time2
 					"));
 		$query = json_decode(json_encode($query), true);
 
