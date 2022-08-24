@@ -199,8 +199,8 @@
                                                             {{ $emp['kehadiran'] }}
                                                             <br>
                                                             @if($emp['sts'] == 2)
-                                                                @if($emp['nm_sub_absen'])
-                                                                    {{ $emp['nm_sub_absen'] }} <br> {{ $emp['nm_subsub_absen'] }}
+                                                                @if($emp['subjenis'])
+                                                                    {{ $emp['subjenis'] }} <br> {{ $emp['subsubjenis'] }}
                                                                 @else
                                                                     ALPA
                                                                 @endif
@@ -208,7 +208,7 @@
                                                         @endif
                                                     </td>
                                                     <td class="ver-align-mid">
-                                                        @if($emp['nm_sub_absen'])
+                                                        @if($emp['subjenis'])
                                                             TIDAK WAJIB APEL
                                                         @else
                                                             {{ $emp['tidak_wajib_apel'] }}

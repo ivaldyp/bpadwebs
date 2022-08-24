@@ -104,8 +104,10 @@ class HiddenController extends Controller
         ->orderBy('id_subsub_absen')
         ->get();
 
-        if(Auth::user()->usname && $_SESSION['user_data']['deskripsi_user']){
-            $param = '0101'.$_SESSION['user_data']['deskripsi_user'];
+        if(Auth::user()->usname && $_SESSION['user_data']['deskripsi_user'] && strlen($_SESSION['user_data']['deskripsi_user']) == 6 && is_numeric($_SESSION['user_data']['deskripsi_user'])){
+            $param = $_SESSION['user_data']['deskripsi_user'];
+            var_dump($param);
+            die;
             $pegawais = 
             DB::connection('server76')->select( 
                 DB::raw(
@@ -141,6 +143,14 @@ class HiddenController extends Controller
         $splitref = explode($getref['salt'], $getref['longtext']);
         $text = $splitref[0];
 
+        $getjenisabsen = Ref_jenis_absen::where('id_ref_absen', $request->jenis_absen)->first();
+
+        if(strtolower($request->subjenis_absen) == 'izin') {
+            $subsubjenisabsen = $request->subsubjenis_absen_text;
+        } else {
+            $subsubjenisabsen = $request->subsubjenis_absen_select;
+        }
+
         $cekabsen = Mobile_absen::
         where('kegiatan', $text)
         ->where('id_emp', $request->id_emp)
@@ -154,8 +164,9 @@ class HiddenController extends Controller
                 'datetime'          => $datetimenow,
                 'kegiatan'          => $text,
                 'hadir'             => $request->jenis_absen,
+                'nm_hadir'          => $getjenisabsen['nm_ref_absen'],
                 'subjenis'          => $request->subjenis_absen,
-                'subsubjenis'       => $request->subsubjenis_absen,
+                'subsubjenis'       => $subsubjenisabsen,
             ]);
         } elseif(count($cekabsen) > 0) {
             if($request->jenis_absen == 1) {
@@ -165,6 +176,7 @@ class HiddenController extends Controller
                 ->update([
                     'datetime'          => $datetimenow,
                     'hadir'             => $request->jenis_absen,
+                    'nm_hadir'          => $getjenisabsen['nm_ref_absen'],
                     'subjenis'          => null,
                     'subsubjenis'       => null,
                 ]);
@@ -175,8 +187,9 @@ class HiddenController extends Controller
                 ->update([
                     'datetime'          => $datetimenow,
                     'hadir'             => $request->jenis_absen,
+                    'nm_hadir'          => $getjenisabsen['nm_ref_absen'],
                     'subjenis'          => $request->subjenis_absen,
-                    'subsubjenis'       => $request->subsubjenis_absen,
+                    'subsubjenis'       => $subsubjenisabsen,
                 ]);
             }
         }

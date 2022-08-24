@@ -10,8 +10,6 @@ use Illuminate\Support\Facades\Session;
 
 use App\Models76\Mobile_absen_ref;
 use App\Models76\Ref_jenis_absen;
-use App\Models76\Ref_subjenis_absen;
-use App\Models76\Ref_subsubjenis_absen;
 use App\Models76\Views\Get_rekap_absen;
 use App\Models11\Emp_data;
 use App\Glo_org_unitkerja;
@@ -229,8 +227,8 @@ class PublicController extends Controller
                     totalhadir,
                     a.is_tidak_wajib_apel,
                     res.datetime,
-                    refsub.nm_sub_absen,
-                    refsubsub.nm_subsub_absen,
+                    res.subjenis,
+                    res.subsubjenis,
                 CASE
                         
                         WHEN res.hadir = 1 THEN
@@ -247,8 +245,6 @@ class PublicController extends Controller
                     JOIN bpaddtfake.dbo.glo_org_unitkerja tbunit ON tbunit.kd_unit = ( SELECT TOP 1 idunit FROM bpaddtfake.dbo.glo_org_unitkerja WHERE tbunit.kd_unit = tbjab.idunit )
                     LEFT JOIN bpaddtfake.dbo.mobile_absen res ON a.id_emp = res.id_emp 
                     AND res.kegiatan = '$text'
-                    LEFT JOIN bpaddtfake.dbo.ref_subjenis_absen refsub ON res.subjenis = refsub.id_sub_absen
-                    LEFT JOIN bpaddtfake.dbo.ref_subsubjenis_absen refsubsub ON res.subsubjenis = refsubsub.id_subsub_absen 
                 WHERE
                     a.ked_emp = 'AKTIF' 
                     AND a.sts = 1 
@@ -310,8 +306,8 @@ class PublicController extends Controller
             totalhadir, 
             a.is_tidak_wajib_apel, 
             res.datetime, 
-            refsub.nm_sub_absen, 
-            refsubsub.nm_subsub_absen, 
+            res.subjenis, 
+            res.subsubjenis, 
         CASE 
         WHEN res.hadir = 1
                 THEN 
@@ -329,8 +325,6 @@ class PublicController extends Controller
         join bpaddtfake.dbo.emp_jab tbjab on tbjab.ids = (SELECT TOP 1 ids FROM bpaddtfake.dbo.emp_jab WHERE emp_jab.noid = a.id_emp and emp_jab.sts='1' ORDER BY tmt_jab DESC)
         join bpaddtfake.dbo.glo_org_unitkerja tbunit on tbunit.kd_unit = (SELECT TOP 1 idunit FROM bpaddtfake.dbo.glo_org_unitkerja where tbunit.kd_unit = tbjab.idunit)
         left join bpaddtfake.dbo.mobile_absen res on a.id_emp = res.id_emp and res.kegiatan = '$text'
-        left join bpaddtfake.dbo.ref_subjenis_absen refsub on res.subjenis = refsub.id_sub_absen
-        left join bpaddtfake.dbo.ref_subsubjenis_absen refsubsub on res.subsubjenis = refsubsub.id_subsub_absen
         where a.ked_emp = 'AKTIF'
         and a.sts = 1
         and a.id_emp = tbjab.noid

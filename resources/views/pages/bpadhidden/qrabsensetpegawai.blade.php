@@ -112,12 +112,12 @@
                                             <div class="col-md-3">
                                                 <select class="form-control" name="subjenis_absen" id="subjenis_absen">
                                                     @foreach($ref_sub_absens as $refsub)
-                                                        <option value="{{ $refsub['id_sub_absen'] }}"> {{ $refsub['nm_sub_absen'] }} </option>
+                                                        <option value="{{ $refsub['nm_sub_absen'] }}"> {{ $refsub['nm_sub_absen'] }} </option>
                                                     @endforeach
                                                 </select>
                                             </div>
                                             <div class="col-md-3">
-                                                <select class="form-control" name="subsubjenis_absen" id="subsubjenis_absen">
+                                                <select class="form-control" name="subsubjenis_absen_select" id="subsubjenis_absen_select">
                                                     @php
                                                         $nowsubjenis = $ref_subsub_absens[0]['nm_sub_absen']
                                                     @endphp
@@ -128,10 +128,11 @@
                                                         </optgroup>
                                                         <optgroup label="{{ $nowsubjenis }}">
                                                         @endif
-                                                            <option value="{{ $refsubsub['id_subsub_absen'] }}"> {{ $refsubsub['nm_subsub_absen'] }} </option>
+                                                            <option value="{{ $refsubsub['nm_subsub_absen'] }}"> {{ $refsubsub['nm_subsub_absen'] }} </option>
                                                     @endforeach
                                                     </optgroup>
                                                 </select>
+                                                <input type="text" class="form-control" name="subsubjenis_absen_text" id="subsubjenis_absen_text">
                                             </div>
 
                                         </div>
@@ -178,14 +179,28 @@
 	<script>
 		$(function () {
             $(".select2").select2();
+            $( "#subsubjenis_absen_text" ).hide();
 
             $('#jenis_absen').on('change', function() { 
                 if(this.value == 1) {
                     $( "#subjenis_absen" ).prop( "disabled", true );
-                    $( "#subsubjenis_absen" ).prop( "disabled", true );
+                    $( "#subsubjenis_absen_text" ).prop( "disabled", true );
+                    $( "#subsubjenis_absen_select" ).prop( "disabled", true );
                 } else if(this.value == 2) {
                     $( "#subjenis_absen" ).prop( "disabled", false );
-                    $( "#subsubjenis_absen" ).prop( "disabled", false );
+                    $( "#subsubjenis_absen_text" ).prop( "disabled", false );
+                    $( "#subsubjenis_absen_select" ).prop( "disabled", false );
+                }
+            });
+
+            $('#subjenis_absen').on('change', function() { 
+                console.log(this.value);
+                if(this.value.toLowerCase() == 'izin') {
+                    $( "#subsubjenis_absen_select" ).hide();
+                    $( "#subsubjenis_absen_text" ).show();
+                } else {
+                    $( "#subsubjenis_absen_select" ).show();
+                    $( "#subsubjenis_absen_text" ).hide();
                 }
             });
 
