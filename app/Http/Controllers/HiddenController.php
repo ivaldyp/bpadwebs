@@ -106,8 +106,6 @@ class HiddenController extends Controller
 
         if(Auth::user()->usname && $_SESSION['user_data']['deskripsi_user'] && strlen($_SESSION['user_data']['deskripsi_user']) == 6 && is_numeric($_SESSION['user_data']['deskripsi_user'])){
             $param = $_SESSION['user_data']['deskripsi_user'];
-            var_dump($param);
-            die;
             $pegawais = 
             DB::connection('server76')->select( 
                 DB::raw(
