@@ -2811,7 +2811,7 @@ class KepegawaianController extends Controller
 			if(strlen($employee['kd_unit']) == 6) {
 				$bidangnow = $employee['nm_unit'];
 			} elseif (strlen($employee['kd_unit']) == 2) {
-				$bidangnow = "KEPALA BADAN PENGELOLAAN ASET DAERAH";
+				$bidangnow = "BADAN PENGELOLAAN ASET DAERAH";
 			}
 
 			$sheet->setCellValue($alphabet[$alpnum].$nowrow, $key+1); $alpnum++;
