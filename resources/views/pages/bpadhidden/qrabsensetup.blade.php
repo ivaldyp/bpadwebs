@@ -98,7 +98,10 @@
 													<th>start & end</th>
 													<th>Laporan</th>
 													<th>QR</th>
-                                                    @if($access['zupd'] == 'y' || $access['zdel'] == 'y')
+                                                    @if($access['zdel'] == 'y')
+                                                    <th>Excel</th>
+                                                    @endif
+                                                    @if($access['zupd'] == 'y')
 													<th>Set Pegawai</th>
 													<th>Action</th>
                                                     @endif
@@ -121,7 +124,12 @@
                                                         <a href="{{ url('/qrabsen/detail?qr=') }}{{ $ref['longtext'] }}"><button type="submit" class="btn btn-success">Detail</button></a>
                                                     </td>
                                                     <td class="ver-align-mid hor-align-mid"></td>
-                                                    @if($access['zupd'] == 'y' || $access['zdel'] == 'y')
+                                                    @if($access['zdel'] == 'y')
+                                                    <td class="ver-align-mid hor-align-mid">
+                                                        <a href="{{ url('/qrabsen/excelraw?qr=') }}{{ $ref['longtext'] }}"><button type="submit" class="btn">Excel RAW</button></a>
+                                                    </td>
+                                                    @endif
+                                                    @if($access['zupd'] == 'y')
                                                     <td class="ver-align-mid">
                                                         <a href="{{ url('/qrabsen/setpegawai?qr=') }}{{ $ref['longtext'] }}"><button class="btn btn-warning"><i class="fa fa-key"></i> Set</button></a>
                                                     </td>

@@ -199,4 +199,22 @@ class HiddenController extends Controller
 				->with('message', "Berhasil mengubah status absensi pegawai")
 				->with('msg_num', 1);
     }
+
+    public function qrabsenexcelraw(Request $request)
+    {
+        $qr = $request->qr;
+
+        $getref = Mobile_absen_ref::where('longtext', 'LIKE', $qr . '%')->first();
+        $splitref = explode($getref['salt'], $getref['longtext']);
+
+        $text = $splitref[0];
+        $end_date = $getref['end_datetime'];
+        $start_date = $getref['start_datetime'];
+
+        $getrekapabsen = Mobile_absen::where('kegiatan', $text)->get();
+
+        return view('pages.bpadhidden.qrabsenexcelraw')
+        ->with('getref', $getref)
+        ->with('getrekapabsen', $getrekapabsen);
+    }
 }
