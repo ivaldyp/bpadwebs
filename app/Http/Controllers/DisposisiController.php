@@ -2816,7 +2816,7 @@ class DisposisiController extends Controller
         $declarelanjutnow = $lanjutnow.'.'.$lanjutnow;
         
         $data_self = DB::select( DB::raw("  
-                            SELECT a.id_emp, a.nrk_emp, a.nip_emp, a.nm_emp, tbjab.idjab, tbjab.idunit, tbunit.child, tbunit.nm_unit, tbunit.notes, tbunit.kd_unit, d.nm_lok, 
+                            SELECT a.id_emp, a.nrk_emp, a.nip_emp, a.nm_emp, tbjab.idjab, tbjab.idunit, tbunit.child, tbunit.nm_unit, tbunit.notes, tbunit.kd_unit, d.nm_lok, tbunit.nm_bidang,
                             notread.notread, yesread.yesread, lanjut.lanjut, $declarenotreadnow, $declareyesreadnow, $declarelanjutnow 
                             FROM bpaddtfake.dbo.emp_data as a
                             CROSS APPLY (SELECT TOP 1 tmt_jab,idskpd,idunit,idlok,tmt_sk_jab,no_sk_jab,jns_jab,replace(idjab,'NA::','') as idjab,eselon,gambar FROM bpaddtfake.dbo.emp_jab WHERE a.id_emp=emp_jab.noid AND emp_jab.sts='1' ORDER BY tmt_jab DESC) tbjab
@@ -2861,7 +2861,7 @@ class DisposisiController extends Controller
 		$sheet->setCellValue($alphabet[$alpnum].$nowrow, $data_self['nrk_emp'] ?? '-'); 
 		$sheet->getStyle($alphabet[$alpnum].$nowrow)->getAlignment()->setHorizontal('right'); $alpnum++;
 		$sheet->setCellValue($alphabet[$alpnum].$nowrow, $data_self['nm_emp']); $alpnum++;
-		$sheet->setCellValue($alphabet[$alpnum].$nowrow, $data_self['nm_unit']); $alpnum++;
+		$sheet->setCellValue($alphabet[$alpnum].$nowrow, $data_self['nm_bidang']); $alpnum++;
 		$sheet->setCellValue($alphabet[$alpnum].$nowrow, $data_self['notes']); $alpnum++;
 		$sheet->setCellValue($alphabet[$alpnum].$nowrow, $total); $alpnum++;
 		$sheet->setCellValue($alphabet[$alpnum].$nowrow, $data_self['notread']); $alpnum++;
@@ -2903,7 +2903,7 @@ class DisposisiController extends Controller
 		$nowunit = $data_self['idunit'];
 
 		$data_stafs = DB::select( DB::raw("  
-                            SELECT a.id_emp, a.nrk_emp, a.nip_emp, a.nm_emp, tbjab.idjab, tbjab.idunit, tbunit.child, tbunit.nm_unit, tbunit.kd_unit, tbunit.notes, d.nm_lok, 
+                            SELECT a.id_emp, a.nrk_emp, a.nip_emp, a.nm_emp, tbjab.idjab, tbjab.idunit, tbunit.child, tbunit.nm_unit, tbunit.kd_unit, tbunit.notes, d.nm_lok, tbunit.nm_bidang,
                             notread.notread, yesread.yesread, lanjut.lanjut, $declarenotreadnow, $declareyesreadnow, $declarelanjutnow
                             from bpaddtfake.dbo.emp_data as a
 							CROSS APPLY (SELECT TOP 1 tmt_jab,idskpd,idunit,idlok,tmt_sk_jab,no_sk_jab,jns_jab,replace(idjab,'NA::','') as idjab,eselon,gambar FROM bpaddtfake.dbo.emp_jab WHERE a.id_emp=emp_jab.noid AND emp_jab.sts='1' ORDER BY tmt_jab DESC) tbjab
@@ -2959,7 +2959,7 @@ class DisposisiController extends Controller
 				$sheet->setCellValue($alphabet[$alpnum].$nowrow, $staf['nrk_emp'] ?? '-'); 
 				$sheet->getStyle($alphabet[$alpnum].$nowrow)->getAlignment()->setHorizontal('right'); $alpnum++;
 				$sheet->setCellValue($alphabet[$alpnum].$nowrow, $staf['nm_emp']); $alpnum++;
-				$sheet->setCellValue($alphabet[$alpnum].$nowrow, strtoupper($bidangnow)); $alpnum++;
+				$sheet->setCellValue($alphabet[$alpnum].$nowrow, strtoupper($staf['nm_bidang'])); $alpnum++;
 				$sheet->setCellValue($alphabet[$alpnum].$nowrow, strtoupper($staf['notes'])); $alpnum++;
 				$sheet->setCellValue($alphabet[$alpnum].$nowrow, $total); $alpnum++;
                 $sheet->setCellValue($alphabet[$alpnum].$nowrow, $staf['notread']); $alpnum++;
@@ -3102,7 +3102,7 @@ class DisposisiController extends Controller
 				],
 			],
 		];
-		$sheet->getStyle('J'.$nowrow.':M'.$nowrow)->applyFromArray($colorArrayBlue);
+		$sheet->getStyle('J3:M3')->applyFromArray($colorArrayBlue);
 
 		$colorArrayV1 = [
 			'fill' => [
@@ -3131,7 +3131,7 @@ class DisposisiController extends Controller
 
 		// $nowunit = $data_self['idunit'];
 
-		$data_stafs = DB::select( DB::raw("  SELECT a.id_emp, a.nrk_emp, a.nip_emp, a.nm_emp, tbjab.idjab, tbjab.idunit, tbunit.child, tbunit.kd_unit, tbunit.nm_unit, tbunit.notes, d.nm_lok, 
+		$data_stafs = DB::select( DB::raw("  SELECT a.id_emp, a.nrk_emp, a.nip_emp, a.nm_emp, tbjab.idjab, tbjab.idunit, tbunit.child, tbunit.kd_unit, tbunit.nm_unit, tbunit.notes, d.nm_lok, tbunit.nm_bidang,
         notread.notread, yesread.yesread, lanjut.lanjut, $declarenotreadnow, $declareyesreadnow, $declarelanjutnow
         from bpaddtfake.dbo.emp_data as a
 							CROSS APPLY (SELECT TOP 1 tmt_jab,idskpd,idunit,idlok,tmt_sk_jab,no_sk_jab,jns_jab,replace(idjab,'NA::','') as idjab,eselon,gambar FROM bpaddtfake.dbo.emp_jab WHERE a.id_emp=emp_jab.noid AND emp_jab.sts='1' ORDER BY tmt_jab DESC) tbjab
@@ -3187,7 +3187,7 @@ class DisposisiController extends Controller
 				$sheet->setCellValue($alphabet[$alpnum].$nowrow, $staf['nrk_emp']); 
 				$sheet->getStyle($alphabet[$alpnum].$nowrow)->getAlignment()->setHorizontal('right'); $alpnum++;
 				$sheet->setCellValue($alphabet[$alpnum].$nowrow, $staf['nm_emp']); $alpnum++;
-				$sheet->setCellValue($alphabet[$alpnum].$nowrow, strtoupper($bidangnow)); $alpnum++;
+				$sheet->setCellValue($alphabet[$alpnum].$nowrow, strtoupper($staf['nm_bidang'])); $alpnum++;
 				$sheet->setCellValue($alphabet[$alpnum].$nowrow, strtoupper($staf['notes'])); $alpnum++;
 				$sheet->setCellValue($alphabet[$alpnum].$nowrow, $total); $alpnum++;
 				$sheet->setCellValue($alphabet[$alpnum].$nowrow, $staf['notread']); $alpnum++;
