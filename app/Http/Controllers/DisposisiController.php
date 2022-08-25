@@ -2195,6 +2195,12 @@ class DisposisiController extends Controller
 			// $jabatans = json_decode(json_encode($jabatans), true);
 
             $idunitnow = $_SESSION['user_data']['idunit'];
+            if(strlen($idunitnow) == 2) {
+                $idunitsix = '01';
+            } else {
+                $idunitsix = substr($idunitnow, 0, 6);
+            }
+            
 			$jabatans = 
             DB::select( 
                 DB::raw("SELECT [sts]
@@ -2214,7 +2220,7 @@ class DisposisiController extends Controller
                             ,[sao]
                             ,[tgl_unit]
                     FROM [bpaddtfake].[dbo].[glo_org_unitkerja]
-                    WHERE (len(kd_unit) = LEN($idunitnow) and kd_unit <> $idunitnow) OR (sao = $idunitnow)
+                    WHERE (len(kd_unit) = LEN($idunitnow) and kd_unit <> $idunitnow) OR (sao = $idunitsix)
                     ORDER BY LEN(kd_unit), kd_unit asc") );
 			$jabatans = json_decode(json_encode($jabatans), true);
 
