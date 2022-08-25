@@ -2215,8 +2215,6 @@ class DisposisiController extends Controller
                         THEN 'KEPALA ' + nm_unit
                     ELSE nm_unit
                     END as nm_unit 
-                        END as nm_unit 
-                    END as nm_unit 
                         ,[cp_unit]
                         ,[notes]
                         ,[child]
