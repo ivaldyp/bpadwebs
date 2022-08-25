@@ -90,6 +90,9 @@ class HiddenController extends Controller
 
     public function qrabsensetpegawai (Request $request)
     {
+        if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
         $qr = $request->qr;
 
         $getref = Mobile_absen_ref::where('longtext', 'LIKE', $qr . '%')->first();
@@ -202,6 +205,9 @@ class HiddenController extends Controller
 
     public function qrabsenexcelraw(Request $request)
     {
+        if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
         $qr = $request->qr;
 
         $getref = Mobile_absen_ref::where('longtext', 'LIKE', $qr . '%')->first();
