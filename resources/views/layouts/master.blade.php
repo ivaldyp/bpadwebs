@@ -155,8 +155,8 @@
 				<div class="col-md-4">
 					<div class="footer">
 						<div class="footer-logo" style="margin-top: 20px">
-							<a href="#"><img style="padding: 0 10px;" src="{{ ('/portal/public/img/photo/plusjakartalogo2.png32') }}" alt="" height="35" width="auto"></a>
-							<a href="#"><img style="padding: 0 10px;" src="{{ ('/portal/public/img/photo/jamc_logo.png') }}" alt="" height="35" width="auto"></a>
+							<a href="https://bpad.jakarta.go.id/"><img style="padding: 0 10px;" src="{{ ('/portal/public/img/photo/plusjakartalogo2.png32') }}" alt="" height="35" width="auto"></a>
+							<a href="https://jamc.jakarta.go.id/"><img style="padding: 0 10px;" src="{{ ('/portal/public/img/photo/jamc_logo.png') }}" alt="" height="35" width="auto"></a>
 						</div>
 						<address>
 							<span style="font-weight: bold;">Gedung Dinas Teknis</span><br>
