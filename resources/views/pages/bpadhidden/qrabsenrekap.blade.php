@@ -116,11 +116,12 @@
                                                     <td class="hor-align-mid" style="border-right: 1px solid black">{{ $rekap['total_izin'] }}</td>
                                                     <td class="hor-align-mid">{{ $rekap['total_wajib_absen'] }}</td>
                                                     <td class="hor-align-mid">
-                                                        @if($rekap['kd_bidang'] == '01' && $rekap['total_izin'] == 0)
+                                                        {{-- @if($rekap['kd_bidang'] == '01' && $rekap['total_izin'] == 0)
                                                             1
                                                         @else
                                                             {{ $rekap['total_hadir'] }}
-                                                        @endif
+                                                        @endif --}}
+                                                        {{ $rekap['total_hadir'] }}
                                                     </td>
                                                     <td class="" style="font-weight: bold;">
                                                         @if($rekap['total_wajib_absen'] == 0)
@@ -129,11 +130,12 @@
                                                             @endphp
                                                         @endif
                                                         
-                                                        @if($rekap['kd_bidang'] == '01')
+                                                        {{-- @if($rekap['kd_bidang'] == '01')
                                                             100.00%
                                                         @else
                                                             {{ number_format($rekap['total_hadir'] / $rekap['total_wajib_absen'] * 100, 2) }}%
-                                                        @endif
+                                                        @endif --}}
+                                                        {{ number_format($rekap['total_hadir'] / $rekap['total_wajib_absen'] * 100, 2) }}%
                                                     </td>
                                                 </tr>
                                                 @endforeach
