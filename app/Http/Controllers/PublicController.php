@@ -39,6 +39,10 @@ class PublicController extends Controller
 
     public function qrabsenrekap(Request $request)
     {
+        if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+
         $qr = $request->qr;
 
         $getref = Mobile_absen_ref::where('longtext', 'LIKE', $qr . '%')->first();
@@ -265,6 +269,10 @@ class PublicController extends Controller
 
     public function qrabsendetail(Request $request)
     {
+        if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+        
         $qr = $request->qr;
 
         $getref = Mobile_absen_ref::where('longtext', 'LIKE', $qr . '%')->first();
