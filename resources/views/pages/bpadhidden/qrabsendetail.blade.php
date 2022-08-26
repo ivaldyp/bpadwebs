@@ -169,23 +169,6 @@
                                                     <td class="ver-align-mid">{{ $bidangnow }}</td>
                                                     <td class="ver-align-mid">{{ $emp['nm_unit'] }}</td>
                                                     <td class="ver-align-mid">
-                                                        {{-- @if($emp['kd_unit'] == '01' && $emp['sts'] == NULL)
-                                                            @php
-                                                                $date = date('H:i:s', strtotime($getref['start_datetime']));
-                                                                $newDate = date('d-M-Y H:i:s', strtotime($date. ' +12 minutes'));
-                                                            @endphp
-                                                        
-                                                            {{ $newDate }}
-                                                        @else 
-                                                            @if($emp['datetime'])
-                                                            {{ date('d-M-Y', strtotime($emp['datetime'])) }}
-                                                            <br>
-                                                            {{ date('H:i:s', strtotime($emp['datetime'])) }}
-                                                            @else
-                                                            -
-                                                            @endif
-                                                        @endif --}}
-
                                                         @if($emp['datetime'])
                                                             {{ date('d-M-Y', strtotime($emp['datetime'])) }}
                                                             <br>
@@ -195,20 +178,6 @@
                                                         @endif
                                                     </td>
                                                     <td class="ver-align-mid">
-                                                        {{-- @if($emp['kd_unit'] == '01' && $emp['sts'] == NULL)
-                                                            HADIR
-                                                        @else
-                                                            {{ $emp['kehadiran'] }}
-                                                            <br>
-                                                            @if($emp['sts'] == 2)
-                                                                @if($emp['subjenis'])
-                                                                    {{ $emp['subjenis'] }} <br> {{ $emp['subsubjenis'] }}
-                                                                @else
-                                                                    ALPA
-                                                                @endif
-                                                            @endif
-                                                        @endif --}}
-
                                                         {{ $emp['kehadiran'] }}
                                                         <br>
                                                         @if($emp['sts'] == 2)
