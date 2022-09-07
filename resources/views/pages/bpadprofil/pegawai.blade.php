@@ -134,7 +134,7 @@
 														<tr>
 															<td class="col-md-6 p-l-30"><h4>NIP</h4></td>
 															<td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">{{ $emp_data['nip_emp'] }}</h4></td>
-															<td class="col-md-6">
+															<td class="col-md-6 data-input">
 																<!-- <input class="form-control uintTextBox" type="text" name="nip_emp" value="{{ $emp_data['nip_emp'] }}" placeholder="NIP" autocomplete="off"> -->
 																<input class="form-control" type="text" name="nip_emp" value="{{ $emp_data['nip_emp'] }}" placeholder="NIP" autocomplete="off" disabled>
 															</td>
@@ -142,7 +142,7 @@
 														<tr>
 															<td class="col-md-6 p-l-30"><h4>NRK</h4></td>
 															<td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">{{ $emp_data['nrk_emp'] }}</h4></td>
-															<td class="col-md-6">
+															<td class="col-md-6 data-input">
 																<!-- <input class="form-control uintTextBox" type="text" name="nrk_emp" value="{{ $emp_data['nrk_emp'] }}" placeholder="NRK" autocomplete="off"> -->
 																<input class="form-control" type="text" name="nrk_emp" value="{{ $emp_data['nrk_emp'] }}" placeholder="NRK" autocomplete="off" disabled>
 															</td>
