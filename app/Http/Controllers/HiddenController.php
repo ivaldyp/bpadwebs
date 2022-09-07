@@ -115,14 +115,14 @@ class HiddenController extends Controller
             $pegawais = 
             DB::connection('server76')->select( 
                 DB::raw(
-                "exec bpaddtfake.dbo.proc_getallpegawai_withfilter_bidang @Idunit = '".$param."'"
+                "exec bpaddtfake.dbo.proc_getallpegawai_withfilter_bidang_not_istidakwajibapel @Idunit = '".$param."'"
                 )
             );
         } else {
             $pegawais = 
             DB::connection('server76')->select( 
                 DB::raw(
-                "exec bpaddtfake.dbo.proc_getallpegawai", 
+                "exec bpaddtfake.dbo.proc_getallpegawai_not_istidakwajibapel", 
                 )
             );
         }
