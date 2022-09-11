@@ -18,6 +18,7 @@ use App\Sec_access;
 use App\Sec_logins;
 use App\Sec_menu;
 use App\Fr_disposisi;
+use App\Models11\Emp_data as Models11Emp_data;
 
 session_start();
 
@@ -124,6 +125,12 @@ class HomeController extends Controller
 			$ids = Auth::user()->id_emp;
 
 			Emp_data::
+			where('id_emp', $ids)
+			->update([
+				'passmd5' => md5($request->passmd5),
+			]);
+
+            Models11Emp_data::
 			where('id_emp', $ids)
 			->update([
 				'passmd5' => md5($request->passmd5),

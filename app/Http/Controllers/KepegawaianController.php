@@ -785,6 +785,14 @@ class KepegawaianController extends Controller
 				'updated_by' => (Auth::user()->usname ? Auth::user()->usname : Auth::user()->id_emp),
 			]);
 
+        Emp_data_11::
+			where('id_emp', $request->id_emp)
+			->update([
+				'passmd5' => md5($request->passmd5),
+                'updated_at' => date('Y-m-d H:i:s'),
+				'updated_by' => (Auth::user()->usname ? Auth::user()->usname : Auth::user()->id_emp),
+			]);
+
 		return redirect()->back()
 					->with('message', 'Password '.$request->nm_emp.' berhasil diubah')
 					->with('msg_num', 1);
