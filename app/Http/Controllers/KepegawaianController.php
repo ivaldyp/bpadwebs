@@ -691,6 +691,8 @@ class KepegawaianController extends Controller
 				'no_jamsos' => ($request->no_jamsos ? $request->no_jamsos : ''),
 				'idgroup' => $request->idgroup,
 				'idgroup_aset' => $request->idgroup_aset,
+				'updated_at'    => date('Y-m-d H:i:s'),
+				'updated_by'    => (Auth::user()->usname ? Auth::user()->usname : Auth::user()->id_emp),
 			]);
 
 		return redirect('/kepegawaian/data pegawai')
@@ -779,6 +781,8 @@ class KepegawaianController extends Controller
 			where('id_emp', $request->id_emp)
 			->update([
 				'passmd5' => md5($request->passmd5),
+                'updated_at' => date('Y-m-d H:i:s'),
+				'updated_by' => (Auth::user()->usname ? Auth::user()->usname : Auth::user()->id_emp),
 			]);
 
 		return redirect()->back()
