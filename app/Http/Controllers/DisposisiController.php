@@ -2200,30 +2200,57 @@ class DisposisiController extends Controller
             } else {
                 $idunitsix = substr($idunitnow, 0, 6);
             }
+
+            if(strlen($_SESSION['user_data']['idunit']) == 8) {
+                $jabatans = 
+                DB::select( 
+                    DB::raw("
+                    SELECT [sts]
+                            ,[uname]
+                            ,[tgl]
+                            ,[ip]
+                            ,[logbuat]
+                            ,[kd_skpd]
+                            ,[kd_unit]
+                            , CASE WHEN LOWER(SUBSTRING(nm_unit, 0, 3)) != 'ka' AND LOWER(SUBSTRING(nm_unit, 0, 3)) != 'ke'
+                            THEN 'KEPALA ' + nm_unit
+                        ELSE nm_unit
+                        END as nm_unit 
+                            ,[cp_unit]
+                            ,[notes]
+                            ,[child]
+                            ,[sao]
+                            ,[tgl_unit]
+                    FROM [bpaddtfake].[dbo].[glo_org_unitkerja]
+                    WHERE (len(kd_unit) = LEN('$idunitnow') AND kd_unit <> '$idunitnow' AND sao = '$idunitsix')
+                    ORDER BY LEN(kd_unit), kd_unit asc") );
+                $jabatans = json_decode(json_encode($jabatans), true);
+            } else {
+                $jabatans = 
+                DB::select( 
+                    DB::raw("
+                    SELECT [sts]
+                            ,[uname]
+                            ,[tgl]
+                            ,[ip]
+                            ,[logbuat]
+                            ,[kd_skpd]
+                            ,[kd_unit]
+                            , CASE WHEN LOWER(SUBSTRING(nm_unit, 0, 3)) != 'ka' AND LOWER(SUBSTRING(nm_unit, 0, 3)) != 'ke'
+                            THEN 'KEPALA ' + nm_unit
+                        ELSE nm_unit
+                        END as nm_unit 
+                            ,[cp_unit]
+                            ,[notes]
+                            ,[child]
+                            ,[sao]
+                            ,[tgl_unit]
+                    FROM [bpaddtfake].[dbo].[glo_org_unitkerja]
+                    WHERE (len(kd_unit) = LEN('$idunitnow') and kd_unit <> '$idunitnow') OR (sao = '$idunitsix')
+                    ORDER BY LEN(kd_unit), kd_unit asc") );
+                $jabatans = json_decode(json_encode($jabatans), true);
+            }
             
-			$jabatans = 
-            DB::select( 
-                DB::raw("
-                SELECT [sts]
-                        ,[uname]
-                        ,[tgl]
-                        ,[ip]
-                        ,[logbuat]
-                        ,[kd_skpd]
-                        ,[kd_unit]
-                        , CASE WHEN LOWER(SUBSTRING(nm_unit, 0, 3)) != 'ka' AND LOWER(SUBSTRING(nm_unit, 0, 3)) != 'ke'
-                        THEN 'KEPALA ' + nm_unit
-                    ELSE nm_unit
-                    END as nm_unit 
-                        ,[cp_unit]
-                        ,[notes]
-                        ,[child]
-                        ,[sao]
-                        ,[tgl_unit]
-                FROM [bpaddtfake].[dbo].[glo_org_unitkerja]
-                WHERE (len(kd_unit) = LEN('$idunitnow') and kd_unit <> '$idunitnow') OR (sao = '$idunitsix')
-                ORDER BY LEN(kd_unit), kd_unit asc") );
-			$jabatans = json_decode(json_encode($jabatans), true);
 
 			if (Auth::user()->id_emp && strlen($_SESSION['user_data']['idunit']) < 8) {
 				$stafs = 0;
