@@ -175,16 +175,16 @@ class LoginController extends Controller
              
 
         if ($user) {
-            $this->guard()->login($user);
-
+            
             $insert = [
-				'date'       => date('Y-m-d H:i:s'),
+                'date'       => date('Y-m-d H:i:s'),
 				'id_emp'     => $request->name,
 				'activity'   => "LOGIN",
 				'sts'        => 1,
 			];
 		    Log_bpad::insert($insert);
-
+            $this->guard()->login($user);
+            
            return true;
         }
         $insert = [
