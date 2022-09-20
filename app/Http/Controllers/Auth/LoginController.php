@@ -173,7 +173,7 @@ class LoginController extends Controller
             }
         }
              
-
+        date_default_timezone_set('Asia/Jakarta');
         if ($user) {
             
             $insert = [
