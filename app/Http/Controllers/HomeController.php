@@ -128,12 +128,16 @@ class HomeController extends Controller
 			where('id_emp', $ids)
 			->update([
 				'passmd5' => md5($request->passmd5),
+                'updated_at' => date('Y-m-d H:i:s'),
+				'updated_by' => $ids,
 			]);
 
             Models11Emp_data::
 			where('id_emp', $ids)
 			->update([
 				'passmd5' => md5($request->passmd5),
+                'updated_at' => date('Y-m-d H:i:s'),
+				'updated_by' => $ids,
 			]);
 		} else {
 			$ids = Auth::user()->usname;
