@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Models76\Log_bpad;
 
 class LoginController extends Controller
 {
@@ -176,8 +177,24 @@ class LoginController extends Controller
         if ($user) {
             $this->guard()->login($user);
 
+            $insert = [
+				'date'       => date('Y-m-d H:i:s'),
+				'id_emp'     => $request->name,
+				'activity'   => "LOGIN",
+				'sts'        => 1,
+			];
+		    Log_bpad::insert($insert);
+
            return true;
         }
+        $insert = [
+            'date'       => date('Y-m-d H:i:s'),
+            'id_emp'     => $request->name,
+            'activity'   => "LOGIN",
+            'sts'        => 0,
+        ];
+        Log_bpad::insert($insert);
+
         return false;
     }
 
