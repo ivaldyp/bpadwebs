@@ -74,9 +74,17 @@
 								<div class="panel-body">
 
 									<input type="hidden" name="ids" value="{{ $surat['ids'] }}">
+                                    <input type="hidden" name="no_form" value="{{ $surat['no_form'] }}">
 
 									<div class="form-group">
-										<label for="tgl_masuk" class="col-md-2 control-label"> SKPD </label>
+										<label for="" class="col-md-2 control-label"> No Form </label>
+										<div class="col-md-8">
+											<p class="form-control-static">{{ $surat['no_form'] }}</p>
+										</div>
+									</div>
+
+                                    <div class="form-group">
+										<label for="" class="col-md-2 control-label"> SKPD </label>
 										<div class="col-md-8">
 											<p class="form-control-static">1.20.512 - Badan Pengelola Aset Daerah</p>
 										</div>
@@ -183,8 +191,6 @@
                                 <button type="button" class="btn btn-default pull-right m-r-10" onclick="goBack()">Kembali</button>
                                 <div class="clearfix"></div>
                             </div>
-						</div>	
-						<div class="panel panel-info">
 							<div class="panel-heading">  
 								
 							</div>

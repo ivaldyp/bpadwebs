@@ -1610,7 +1610,7 @@ class KepegawaianController extends Controller
 		return view('pages.bpadkepegawaian.suratkeluarubah')
 				->with('surat', $surat)
 				->with('units', $units)
-				->with('idunit', $idunit)
+				// ->with('idunit', $idunit)
 				// ->with('disposisis', $disposisis)
 				->with('dispkodes', $dispkodes);
 	}
@@ -1643,7 +1643,11 @@ class KepegawaianController extends Controller
 				return redirect('/kepegawaian/surat keluar tambah')->with('message', 'Ukuran file terlalu besar (Maksimal 2MB)');     
 			}
 
-			$filesuratkeluar .= $file->getClientOriginalName();
+            if ($file->getClientOriginalExtension() != "pdf") {
+				return redirect('/kepegawaian/surat keluar tambah')->with('message', 'File yang diunggah harus berbentuk PDF');     
+			} 
+
+			$filesuratkeluar .= date('dmYHis') . '_' . $randomletter . '_SURATKELUAR.' . $file->getClientOriginalExtension();
 
 			$tujuan_upload = config('app.savefilesuratkeluar');
 			$file->move($tujuan_upload, $filesuratkeluar);
@@ -1691,6 +1695,8 @@ class KepegawaianController extends Controller
 		}
 		//$this->checkSessionTime();
 
+        $randomletter = $request->no_form;
+
 		$filesuratkeluar = '';
 
 		if (isset($request->nm_file)) {
@@ -1700,7 +1706,11 @@ class KepegawaianController extends Controller
 				return redirect('/kepegawaian/surat keluar tambah')->with('message', 'Ukuran file terlalu besar (Maksimal 2MB)');     
 			} 
 
-			$filesuratkeluar .= $file->getClientOriginalName();
+            if ($file->getClientOriginalExtension() != "pdf") {
+				return redirect('/kepegawaian/surat keluar tambah')->with('message', 'File yang diunggah harus berbentuk PDF');     
+			} 
+
+			$filesuratkeluar .= date('dmYHis') . '_' . $randomletter . '_SURATKELUAR.' . $file->getClientOriginalExtension();
 
 			$tujuan_upload = config('app.savefilesuratkeluar');
 			$file->move($tujuan_upload, $filesuratkeluar);

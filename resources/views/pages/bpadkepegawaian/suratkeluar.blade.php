@@ -102,7 +102,7 @@
 													@elseif ( strlen($unit['kd_unit'] > 2) && substr($unit['kd_unit'], 4, 2) == '08' )
 														[UPMA]
 													@endif
-													 - {{ ($unit['kd_unit'] == '01' ? 'SEMUA' : $unit['notes'])   }}</option>
+													 - {{ ($unit['kd_unit'] == '01' ? 'SEMUA' : $unit['nm_unit'])   }}</option>
 											  <?php } ?>
 											</select>
 										  </div>
@@ -140,7 +140,13 @@
 													<td style="vertical-align: middle;">{{ $surat['kode_disposisi'] }}</td>
 													<td style="vertical-align: middle;">{{ $surat['perihal'] }}</td>
 													<td style="vertical-align: middle;">{{ $surat['asal_surat'] }}</td>
-													<td style="vertical-align: middle;"><a target="_blank" href="{{ config('app.openfilesuratkeluar') }}/{{ $surat['nm_file'] }}"><i class="fa fa-download"></i> {{ $surat['nm_file'] }}</a></td>
+													<td style="vertical-align: middle;">
+                                                        @if($surat['nm_file'] == '' || is_null($surat['nm_file']))
+                                                            -
+                                                        @else
+                                                            <a target="_blank" href="{{ config('app.openfilesuratkeluar') }}/{{ $surat['nm_file'] }}"><i class="fa fa-download"></i> {{ $surat['nm_file'] }}</a>
+                                                        @endif
+                                                    </td>
 													@if($access['zupd'] == 'y' || $access['zdel'] == 'y')
 														<td style="vertical-align: middle;">
 															@if($access['zupd'] == 'y')
