@@ -165,7 +165,7 @@
 									</div>
 
 									<div class="form-group">
-                                        <label for="nm_file" class="col-lg-2 control-label"> File <br> </label>
+                                        <label for="nm_file" class="col-lg-2 control-label"> File <br> <span class="text-muted" style="font-size: 12px;">Khusus PDF</span> </label>
                                         <div class="col-lg-8">
                                             <input type="file" class="form-control" id="nm_file" name="nm_file">
                                         </div>
