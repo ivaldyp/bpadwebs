@@ -54,7 +54,7 @@ class HiddenController extends Controller
 		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
 		$access = $this->checkAccess($_SESSION['user_data']['idgroup'], $thismenu['ids']);
 
-        $refs = Mobile_absen_ref::orderBy('createdate', 'desc')->get();
+        $refs = Mobile_absen_ref::where('active', 1)->orderBy('createdate', 'desc')->get();
 
         return view('pages.bpadhidden.qrabsensetup')
         ->with('access', $access)
