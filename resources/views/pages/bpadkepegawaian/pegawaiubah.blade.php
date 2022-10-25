@@ -120,7 +120,7 @@
 													<label for="nip_emp" class="col-md-2 control-label"> NIP </label>
 													<div class="col-md-8">
                                                         @if($_SESSION['user_data']['idgroup'] != 'SUPERUSER' && $_SESSION['user_data']['idgroup'] != 'CO-BPAD')
-                                                            <p class="text-muted">{{ $emp_data['nip_emp'] }}</p>
+                                                            <input type="text" readonly name="nip_emp" class="form-control" id="nip_emp" value="{{ $emp_data['nip_emp'] }}" />
                                                         @else
                                                             <input autocomplete="off" type="text" name="nip_emp" class="form-control" id="nip_emp" value="{{ $emp_data['nip_emp'] }}">
                                                         @endif
@@ -131,7 +131,7 @@
 													<label for="nrk_emp" class="col-md-2 control-label"> NRK </label>
 													<div class="col-md-8">
                                                         @if($_SESSION['user_data']['idgroup'] != 'SUPERUSER' && $_SESSION['user_data']['idgroup'] != 'CO-BPAD')
-                                                            <p class="text-muted">{{ $emp_data['nrk_emp'] }}</p>
+                                                            <input type="text" readonly name="nrk_emp" class="form-control" id="nrk_emp" value="{{ $emp_data['nrk_emp'] }}" />
                                                         @else
 														    <input autocomplete="off" type="text" name="nrk_emp" class="form-control" id="nrk_emp" value="{{ $emp_data['nrk_emp'] }}">
                                                         @endif
