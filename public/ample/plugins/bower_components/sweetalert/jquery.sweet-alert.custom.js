@@ -23,18 +23,22 @@
     });
 
     //Warning Message
-    $('#sa-warning').click(function(){
+    $('.sa-warning').click(function(e){
+        e.preventDefault();
+        var form = $(this).parents('form');
         swal({   
             title: "Are you sure?",   
-            text: "You will not be able to recover this imaginary file!",   
+            text: "Data Kinerja yang telah dihapus tidak dapat dikembalikan!",   
             type: "warning",   
             showCancelButton: true,   
             confirmButtonColor: "#DD6B55",   
             confirmButtonText: "Yes, delete it!",   
             closeOnConfirm: false 
-        }, function(){   
-            swal("Deleted!", "Your imaginary file has been deleted.", "success"); 
+        }, function(isConfirm){
+            // swal("Deleted!", "Data Kinerja berhasil dihapus.", "success");
+            if (isConfirm) form.submit();
         });
+        
     });
 
     //Parameter
