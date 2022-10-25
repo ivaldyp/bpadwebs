@@ -71,7 +71,7 @@
 			<div class="row ">
 				<div class="col-md-1"></div>
 				<div class="col-md-10">
-					<form class="form-horizontal" method="POST" action="/portal/kepegawaian/form/tambahkinerja" data-toggle="validator" enctype="multipart/form-data">
+					<form class="form-horizontal" method="POST" action="/portal/kepegawaian/form/tambahaktivitas" data-toggle="validator" enctype="multipart/form-data">
 					@csrf
 						<div class="panel panel-info">
 							<div class="panel-heading"> Input Kinerja </div>
@@ -153,18 +153,20 @@
 											</div>
 										</div>
 
+                                        {{--
 										<div class="form-group" id="input_filefoto">
 											<label for="filefoto" class="col-md-2 control-label" > Foto <br> <span style="font-size: 11px;">(Opsional)</span> </label>
 											<div class="col-md-8">
 												<input type="file" class="form-control" id="filefoto" accept="image/png, image/gif, image/jpeg, image/jpg">
 											</div>
 										</div>
+                                        --}}
 
-										
 									</div>
 
                                     <div class="col-md-10">	
-                                        <button type="button" class="btn btn-info m-b-20 m-l-20 pull-right" id="btn_tambah_aktivitas">Tambah Aktivitas</button>
+                                        <button type="submit" class="btn btn-info m-b-20 m-l-20 pull-right" id="">Tambah Aktivitas</button>
+                                        <a href="{{ url('/kepegawaian/entri kinerja') }}"><button type="button" class="btn btn-default pull-right" >Kembali</button></a>
                                     </div>
 										
 
@@ -189,7 +191,7 @@
 								</div>
 								<br>
 								<div class="col-md-12 col-sm-12 col-xs-12 m-t-30">		
-									<button type="submit" class="btn btn-success m-b-20 m-l-20 pull-right simpan">Simpan Kinerja</button>
+									{{-- <button type="submit" class="btn btn-success m-b-20 m-l-20 pull-right simpan">Simpan Kinerja</button> --}}
 									<a href="{{ url('/kepegawaian/entri kinerja') }}"><button type="button" class="btn btn-default pull-right" >Kembali</button></a>
 								</div>
 							</div>
@@ -358,7 +360,7 @@
 					$('#body_tabel').append(data);
 				}); 
                 setTimeout(function(){
-                    window.location.reload(1);
+                    location.reload(1);
                 }, 3000);
 			});
 
@@ -444,7 +446,7 @@
 							}); 
 						}
                         setTimeout(function(){
-                            window.location.reload(1);
+                            location.reload(1);
                         }, 3000);
 					}
 					

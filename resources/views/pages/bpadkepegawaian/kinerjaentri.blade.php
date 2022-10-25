@@ -9,6 +9,8 @@
 	<link href="{{ ('/portal/public/ample/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css') }}" rel="stylesheet">
 	<!-- animation CSS -->
 	<link href="{{ ('/portal/public/ample/css/animate.css') }}" rel="stylesheet">
+    <!-- Alerts CSS -->
+    <link href="{{ ('/portal/public/ample/plugins/bower_components/sweetalert/sweetalert.css') }}" rel="stylesheet" type="text/css">
 	<!-- Custom CSS -->
 	<link href="{{ ('/portal/public/ample/css/style.css') }}" rel="stylesheet">
 	<!-- color CSS -->
@@ -60,7 +62,7 @@
 				</div>
 			</div>
 			<div class="row ">
-				<div class="col-md-12">
+				<div class="col-md-10 col-md-offset-1">
 					<!-- <div class="white-box"> -->
 					<div class="panel panel-default">
                         <div class="panel-heading"> Entri Kinerja </div>
@@ -69,14 +71,11 @@
                             	<div class="row" style="margin-bottom: 10px">
                             		<div class="col-md-1">
 										@if ($access['zadd'] == 'y' && $_SESSION['user_data']['id_emp'] )
-										<form class="form-horizontal" method="POST" action="/portal/kepegawaian/kinerja tambah">
-											<button class="btn btn-info" style="margin-bottom: 10px">Tambah</button>
-										@csrf
-										</form>
+                                        <a href="{{ url('/kepegawaian/kinerja tambah') }}"><button class="btn btn-info" style="margin-bottom: 10px">Tambah</button></a>
 										@endif
 									</div>
                             	</div>
-								<div class="row container">
+								<div class="row">
 									<h3 class="text-center">tabel kinerja belum tervalidasi</h3>
 									<div class="table-responsive">
 										<table class="myTable table table-hover color-table primary-table" >
@@ -120,22 +119,12 @@
 																<td>{{ ($laporan['lainnya'] ? $laporan['lainnya'] : '-') }}</td>
 																<td>
 																	<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-																		<form method="POST" action="/portal/kepegawaian/kinerja tambah">
-																			@csrf
-																			<input type="hidden" name="now_tgl_trans" value="{{ $laporan['tgl_trans'] }}">
-																			<input type="hidden" name="now_tipe_hadir" value="{{ $laporan['tipe_hadir'] }}">
-																			<input type="hidden" name="now_jns_hadir" value="{{ $laporan['jns_hadir'] }}">
-																			<input type="hidden" name="now_lainnya" value="{{ $laporan['lainnya'] }}">
-																			<button type="submit" class="btn btn-info btn-outline btn-circle m-r-5 btn_update_kinerja"><i class='fa fa-edit'></i></button>
-																		</form>
-																	</div>
-																	<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
 																		@if($laporan['stat'] != 1)
-																		<form method="POST" action="/portal/kepegawaian/form/hapuskinerja">
+																		<form method="POST" id="hapuskinerjaform" action="/portal/kepegawaian/form/hapuskinerja">
 																			@csrf
 																			<input type="hidden" name="idemp" value="{{ $laporan['idemp'] }}">
 																			<input type="hidden" name="tgl_trans" value="{{ $laporan['tgl_trans'] }}">
-																			<button type="submit" class="btn btn-danger btn-outline btn-circle m-r-5 btn_delete_kinerja" ><i class='fa fa-trash'></i></button>
+																			<button type="button" id="" class="sa-warning btn btn-danger btn-outline btn-circle m-r-5 btn_delete_kinerja" ><i class='fa fa-trash'></i></button>
 																		</form>
 																		@endif
 																	</div>
@@ -173,21 +162,11 @@
 	<script src="{{ ('/portal/public/ample/js/jquery.slimscroll.js') }}"></script>
 	<!--Wave Effects -->
 	<script src="{{ ('/portal/public/ample/js/waves.js') }}"></script>
+    <!-- Sweet-Alert  -->
+    <script src="{{ ('/portal/public/ample/plugins/bower_components/sweetalert/sweetalert.min.js') }}"></script>
+    <script src="{{ ('/portal/public/ample/plugins/bower_components/sweetalert/jquery.sweet-alert.custom.js') }}"></script>
 	<!-- Custom Theme JavaScript -->
 	<script src="{{ ('/portal/public/ample/js/custom.min.js') }}"></script>
 	<script src="{{ ('/portal/public/ample/plugins/bower_components/datatables/jquery.dataTables.min.js') }}"></script>
-	<!-- start - This is for export functionality only -->
-    <script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
-    <!-- end - This is for export functionality only -->
 
-	<script>
-		$(function () {
-			$('.myTable').DataTable({
-				"paging":   false,
-		        "ordering": false,
-		        "info":     false,
-			});
-		});
-	</script>
 @endsection

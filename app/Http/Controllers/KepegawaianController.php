@@ -44,6 +44,7 @@ use App\Kinerja_detail;
 use App\Sec_access;
 use App\Sec_menu;
 use App\V_disposisi;
+use App\V_kinerja;
 
 session_start();
 
@@ -1811,23 +1812,11 @@ class KepegawaianController extends Controller
 
 		$idemp = Auth::user()->id_emp;
 
-		// $laporans = DB::select( DB::raw("
-		// 			SELECT *
-		// 			from bpaddtfake.dbo.kinerja_data
-		// 			where idemp = '$idemp'
-		// 			and stat is null
-		// 			order by tgl_trans desc
-		// 			"));
-
-		$laporans = DB::select( DB::raw("
-					SELECT *
-					from bpaddtfake.dbo.v_kinerja
-					where idemp = '$idemp'
-					and stat is null
-					order by tgl_trans desc
-					"));
-
-		$laporans = json_decode(json_encode($laporans), true);
+        $laporans = V_kinerja::
+                    where('idemp', $idemp)
+                    ->whereNull('stat')
+                    ->orderBy('tgl_trans', 'desc')
+                    ->get();
 
 		return view('pages.bpadkepegawaian.kinerjaentri')
 				->with('access', $access)
@@ -2002,7 +1991,7 @@ class KepegawaianController extends Controller
 				]);
 		}
 
-		return redirect('/kepegawaian/entri kinerja');
+		return redirect('/kepegawaian/kinerja tambah');
 	}
 
 	public function formdeletekinerja(Request $request)
@@ -2034,13 +2023,13 @@ class KepegawaianController extends Controller
 		}
 		
 		$idemp = Auth::user()->id_emp;
-		$tgl_trans = $request->tgltrans;
+		$tgl_trans = date("Y-m-d", strtotime(str_replace('/', '-', $request->tgl_trans)));
 
 		$cekaktivitas = DB::select( DB::raw("
 						SELECT *
 						from bpaddtfake.dbo.kinerja_data
 						where idemp = '$idemp'
-						and tgl_trans = CONVERT(datetime, '$tgl_trans')
+						and tgl_trans = '$tgl_trans'
 						"));
 		$cekaktivitas = json_decode(json_encode($cekaktivitas), true);
 
@@ -2053,9 +2042,9 @@ class KepegawaianController extends Controller
 				'ip'        => '',
 				'logbuat'   => '',
 				'idemp' => Auth::user()->id_emp,
-				'tgl_trans' => $request->tgltrans,
-				'tipe_hadir' => $request->tipehadir,
-				'jns_hadir' => $request->jnshadir,
+				'tgl_trans' => $tgl_trans,
+				'tipe_hadir' => $request->tipe_hadir,
+				'jns_hadir' => $request->jns_hadir,
 				'lainnya' => ($request->lainnya ? $request->lainnya : ''),
 				'stat' => null,
 				'tipe_hadir_app' => null,
@@ -2078,7 +2067,7 @@ class KepegawaianController extends Controller
 			'ip'        => '',
 			'logbuat'   => '',
 			'idemp' => Auth::user()->id_emp,
-			'tgl_trans' => $request->tgltrans,
+			'tgl_trans' => $tgl_trans,
 			'time1' => $request->time1,
 			'time2' => $request->time2,
 			'uraian' => $request->uraian,
@@ -2140,9 +2129,15 @@ class KepegawaianController extends Controller
 									</tr>';
 				}
 			}
-			return json_encode($body_append);
+            return redirect('/kepegawaian/kinerja tambah')
+                    ->with('message', 'Data kinerja berhasil ditambah. Silahkan buka menu LAPORAN KINERJA untuk melihat kinerja anda secara lengkap')
+                    ->with('msg_num', 1);
+			// return json_encode($body_append);
 		} else {
-			return 0;
+			// return 0;
+            return redirect('/kepegawaian/kinerja tambah')
+                    ->with('message', 'Data kinerja gagal tersimpan')
+                    ->with('msg_num', 2);
 		}
 	}
 
