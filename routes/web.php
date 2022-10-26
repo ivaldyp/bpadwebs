@@ -273,6 +273,7 @@ Route::group(['prefix' => 'kepegawaian'], function () {
 	Route::post('/form/hapusunit', 'KepegawaianSetupController@formdeleteunit');
 
 	Route::get('/excel', 'KepegawaianController@printexcel');
+	Route::get('/excelpensiun', 'KepegawaianController@printexcelpensiun')->name('kepegawaian.excelpensiun');
 	Route::get('/excelpegawai', 'KepegawaianController@printexcelpegawai');
 	Route::get('/excelpegawaiadmin', 'KepegawaianController@printexcelpegawaiadmin');
 
