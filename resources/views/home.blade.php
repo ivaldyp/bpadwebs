@@ -288,6 +288,7 @@
 
 											</div>
 											<div role="tabpanel" class="tab-pane fade in" id="pensiun">
+                                                <button class="fcbtn btn btn-outline btn-success btn-1d btn-excel-pensiun"  type="button" data-toggle="modal" data-target="#modal-tambah-pensiun">Excel</button>
 												<h4>Bulan ini:</h4>
 												@if(count($pensiun_now) > 0)
 												<ol>
@@ -333,6 +334,33 @@
 								</div>
 							</div>	
 						</div>
+					</div>
+				</div>
+			</div>
+            <div id="modal-tambah-pensiun" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<form method="GET" action="{{ route('kepegawaian.excelpensiun') }}" class="form-horizontal" data-toggle="validator">
+							<div class="modal-header">
+								<h4 class="modal-title"><b>Pilih Tahun Pensiun</b></h4>
+							</div>
+							<div class="modal-body">
+								<div class="form-group">
+									<label for="tahun_pensiun" class="col-md-2 control-label"><span style="color: red">*</span> Tahun </label>
+									<div class="col-md-8">
+										<select class="form-control select2" name="tahun_pensiun" id="tahun_pensiun" required>
+                                            @for($i=2017; $i<=2055; $i++)
+                                            <option value="{{ $i }}">{{ $i }}</option>
+                                            @endfor
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-success pull-right">Submit</button>
+								<button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>
