@@ -57,7 +57,7 @@
                 <div class="row">
                 @endif
                 <div class="col-md-3">
-                    <div class="number" style="max-height: 400px;">
+                    <div class="number">
                         <?php if (file_exists(config('app.savefileimg') . "\\" . $data['id_emp'] . "\\profil\\" . $data['foto'])) : ?>
                             <img src="{{ config('app.openfileimg') }}/{{ $data['id_emp'] }}/profil/{{ $data['foto'] }}" style="width: 75%" alt="img">
                         <?php else : ?>
@@ -105,7 +105,7 @@
                 @endif
                 
                 <div class="col-md-2">
-                    <div class="number" style="max-height: 450px;">
+                    <div class="number">
                         <?php if (file_exists(config('app.savefileimg') . "\\" . $data['id_emp'] . "\\profil\\" . $data['foto'])) : ?>
                             <img src="{{ config('app.openfileimg') }}/{{ $data['id_emp'] }}/profil/{{ $data['foto'] }}" style="width: 75%" alt="img">
                         <?php else : ?>
