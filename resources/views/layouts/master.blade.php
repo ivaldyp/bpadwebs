@@ -81,7 +81,14 @@
 				<!-- Nav menu -->
 				<ul class="navbar-menu nav navbar-nav navbar-right">
 					<li><a href="{{ url('/') }}">Home</a></li>
-					<li><a href="{{ url('profil') }}">Profil</a></li>
+					<li class="has-dropdown"><a href="#" target="_blank">Profil</a>
+						<ul class="dropdown" style="list-style: none; padding: 0;">
+							<li><a href="{{ route('profil.visimisi') }}">Visi Misi</a></li>
+							<li><a href="{{ route('profil.tupoksi') }}">Tugas & Fungsi</a></li>
+							<li><a href="{{ route('profil.struktur') }}">Struktur Organisasi</a></li>
+							<li><a href="{{ route('profil.profilpejabat') }}">Profil</a></li>
+						</ul>
+					</li>
 					<li class="has-dropdown"><a href="#" target="_blank">Produk</a>
 						<ul class="dropdown" style="list-style: none; padding: 0;">
 							<li><a href="http://aset.jakarta.go.id" target="_blank">Internal</a></li>
@@ -99,7 +106,6 @@
 							<li><a href="{{ url('content/foto') }}">Foto</a></li>
 							<li><a href="{{ url('content/video') }}">Video</a></li>
 							<li><a href="http://simaster.jakarta.go.id/internal.download/index.php?x=Moderator&y=B5B320392109ABC1986FDBF67DB15E71" target="_blank">Download</a></li>
-							<!-- <li><a href="{{ url('content/Infografis') }}">Infografis</a></li> -->
 						</ul>
 					</li>
 					<li class="has-dropdown"><a href="#">Lainnya</a>
@@ -110,23 +116,8 @@
 							<li><a href="http://bpad.jakarta.go.id/brandgangpermohonan" target="_blank">Permohonan Brandgang</a></li>
 							<li><a href="http://bpad.jakarta.go.id/brandgangmonitoring" target="_blank">Monitoring Brandgang</a></li>
 							<li><a href="{{ url('esiappe/masuk') }}">Absensi Online e-SIAPPE</a></li>
-							<!-- <li><a href="{{ url('content/Infografis') }}">Infografis</a></li> -->
 						</ul>
 					</li>	
-
-					<!-- <li>
-						<ul class="dropdown">
-							<li><a href="single-event.html">Produk Hukum</a></li>
-							<li><a href="single-event.html">Manual Book</a></li>
-							<li><a href="single-event.html">Aplikasi</a></li>
-						</ul>
-					</li> -->
-					<!-- <li class="has-dropdown"><a href="#">Blog</a>
-						<ul class="dropdown">
-							<li><a href="blog.html">Blog Page</a></li>
-							<li><a href="single-blog.html">Single Blog</a></li>
-						</ul>
-					</li> -->
 					<li style="background: #006cb8;"><a style="color: white" href="{{ url('login') }}">
 						@if(Auth::check())
 						Masuk
@@ -164,7 +155,6 @@
 							Tanah Abang-Jakarta Pusat
 						</address>
 						<ul class="footer-contact" style="list-style: none; padding: 0;">
-							<!-- <li><i class="fa fa-map-marker"></i> 2736 Hinkle Deegan Lake Road </li> -->
 							<li><i class="fa fa-phone"></i> (021) 3865745 - (021) 3865745</li>
 							<li><i class="fa fa-envelope"></i> surat@bpadjakarta.id</li>
 							<li><i class="fa fa-envelope" style="opacity: 0"></i> bpad@jakarta.go.id</li>
@@ -186,7 +176,7 @@
 				<div class="col-md-4">
 					<div class="footer">
 						<h3 class="footer-title">Bantuan dan Saran</h3>
-						<!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p> -->
+						<!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor     ididunt.</p> -->
 						<form class="footer-newsletter" action="{{ url('mail') }}" method="post">
 							@csrf
 							<!-- <input class="input" type="email" placeholder="Enter your email"> -->
@@ -247,28 +237,26 @@
 				<div class="col-sm-12">
 					<div class="col-sm-6">
 						<div class="footer-copyright">
-							<span><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-	<!-- Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> -->
-	<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></span>
-							<span>&copy; Copyright <?php echo date('Y'); ?> BPAD DKI Jakarta.</span><br>
+							<span>&copy; Copyright BPAD DKI Jakarta.</span><br>
 							Powered by <a href="JavaScript:void(0);"><span style="cursor: default;">Pusdatin BPAD Provinsi DKI Jakarta</span></a>
 						</div>
 					</div>
 					<div class="col-sm-6" >
 						<div class="footer-copyright pull-right">
-						  	<!-- Histats.com  (div with counter) --><div id="histats_counter"></div>
-<!-- Histats.com  START  (aync)-->
-<script type="text/javascript">var _Hasync= _Hasync|| [];
-_Hasync.push(['Histats.start', '1,3757099,4,202,118,45,00011000']);
-_Hasync.push(['Histats.fasi', '1']);
-_Hasync.push(['Histats.track_hits', '']);
-(function() {
-var hs = document.createElement('script'); hs.type = 'text/javascript'; hs.async = true;
-hs.src = ('//s10.histats.com/js15_as.js');
-(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(hs);
-})();</script>
-<noscript><a href="/" target="_blank"><img  src="//sstatic1.histats.com/0.gif?3757099&101" alt="" border="0"></a></noscript>
-<!-- Histats.com  END  -->
+						  	<!-- Histats.com  (div with counter) -->
+                            <div id="histats_counter"></div>
+                            <!-- Histats.com  START  (aync)-->
+                            <script type="text/javascript">var _Hasync= _Hasync|| [];
+                            _Hasync.push(['Histats.start', '1,3757099,4,202,118,45,00011000']);
+                            _Hasync.push(['Histats.fasi', '1']);
+                            _Hasync.push(['Histats.track_hits', '']);
+                            (function() {
+                            var hs = document.createElement('script'); hs.type = 'text/javascript'; hs.async = true;
+                            hs.src = ('//s10.histats.com/js15_as.js');
+                            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(hs);
+                            })();</script>
+                            <noscript><a href="/" target="_blank"><img  src="//sstatic1.histats.com/0.gif?3757099&101" alt="" border="0"></a></noscript>
+                            <!-- Histats.com  END  -->
 							<!-- <img src="{{ ('/portal/public/img/photo/plusjakartalogo2.png') }}" alt="" height="100"> -->
 						</div>
 					</div>

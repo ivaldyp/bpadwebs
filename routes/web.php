@@ -70,8 +70,12 @@ Route::group(['prefix' => 'ws'], function () {
 
 // ------------- BPAD CMS -------------
 
-Route::get('/profil', function () {
-    return view('pages.profil');
+Route::group(['prefix' => 'profil'], function () {
+	Route::get('/', 'LandingController@profil')->name('profil.profil');
+	Route::get('/visimisi', 'LandingController@visimisi')->name('profil.visimisi');
+	Route::get('/tupoksi', 'LandingController@tupoksi')->name('profil.tupoksi');
+	Route::get('/struktur', 'LandingController@struktur')->name('profil.struktur');
+	Route::get('/profilpejabat', 'LandingController@profilpejabat')->name('profil.profilpejabat');
 });
 
 Route::group(['prefix' => 'content'], function () {
