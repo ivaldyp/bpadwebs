@@ -317,9 +317,6 @@ class LandingController extends Controller
         ORDER BY idunit ASC, idjab ASC") );
         $es4 = json_decode(json_encode($es4), true);
 
-        var_dump($es4[0]['nm_bidang']);
-        die;
-
         return view('pages.landingprofil.profilpejabat')
                 ->with('es2', $es2)
                 ->with('es3', $es3)
