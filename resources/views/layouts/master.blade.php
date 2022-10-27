@@ -86,7 +86,7 @@
 							<li><a href="{{ route('profil.visimisi') }}">Visi Misi</a></li>
 							<li><a href="{{ route('profil.tupoksi') }}">Tugas & Fungsi</a></li>
 							<li><a href="{{ route('profil.struktur') }}">Struktur Organisasi</a></li>
-							<li><a href="{{ route('profil.profilpejabat') }}">Profil</a></li>
+							<li><a href="{{ route('profil.profilpejabat') }}">Profil Pejabat</a></li>
 						</ul>
 					</li>
 					<li class="has-dropdown"><a href="#" target="_blank">Produk</a>
