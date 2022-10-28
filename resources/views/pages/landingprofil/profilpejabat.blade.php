@@ -25,7 +25,9 @@
             <!-- section title -->
 			<div class="col-md-4 col-md-offset-4">
                 <div class="number">
-                    <?php if (file_exists(config('app.savefileimg') . "\\" . $es2['id_emp'] . "\\profil\\" . $es2['foto'])) : ?>
+                    <?php if ( file_exists(config('app.savefileimgpejabat') . "\\" . $es2['kd_unit'] . ".jpg") ) : ?>
+                        <img src="{{ config('app.openfileimgpejabat') }}{{  $es2['kd_unit'] }}.jpg" style="width: 75%" alt="img" class="thumb-lg img-circle">
+                    <?php else if (file_exists(config('app.savefileimg') . "\\" . $es2['id_emp'] . "\\profil\\" . $es2['foto'])) : ?>
                         <img src="{{ config('app.openfileimg') }}/{{ $es2['id_emp'] }}/profil/{{ $es2['foto'] }}" style="width: 65%" alt="img">
                     <?php else : ?>
                         <img src="{{ config('app.openfileimgdefault') }}" style="width: 65%" alt="img">
@@ -59,11 +61,11 @@
                 <div class="col-md-3">
                     <div class="number">
                         <?php if ( file_exists(config('app.savefileimgpejabat') . "\\" . $data['kd_unit'] . ".jpg") ) : ?>
-                            <img src="{{ config('app.openfileimgpejabat') }}{{  $data['kd_unit'] }}.jpg" style="width: 75%" alt="img">
+                            <img src="{{ config('app.openfileimgpejabat') }}{{  $data['kd_unit'] }}.jpg" style="width: 75%" alt="img" class="thumb-lg img-circle">
                         <?php elseif (file_exists(config('app.savefileimg') . "\\" . $data['id_emp'] . "\\profil\\" . $data['foto'])) : ?>
-                            <img src="{{ config('app.openfileimg') }}/{{ $data['id_emp'] }}/profil/{{ $data['foto'] }}" style="width: 75%" alt="img">
+                            <img src="{{ config('app.openfileimg') }}/{{ $data['id_emp'] }}/profil/{{ $data['foto'] }}" style="width: 75%" alt="img" class="thumb-lg img-circle">
                         <?php else : ?>
-                            <img src="{{ config('app.openfileimgdefault') }}" style="width: 75%" alt="img">
+                            <img src="{{ config('app.openfileimgdefault') }}" style="width: 75%" alt="img" class="thumb-lg img-circle">
                         <?php endif ?> 
                         <!-- <i class="fa fa-smile-o"></i> -->
                         <div class="text-left">
@@ -108,7 +110,9 @@
                 
                 <div class="col-md-2">
                     <div class="number">
-                        <?php if (file_exists(config('app.savefileimg') . "\\" . $data['id_emp'] . "\\profil\\" . $data['foto'])) : ?>
+                        <?php if ( file_exists(config('app.savefileimgpejabat') . "\\" . $data['kd_unit'] . ".jpg") ) : ?>
+                            <img src="{{ config('app.openfileimgpejabat') }}{{  $data['kd_unit'] }}.jpg" style="width: 75%" alt="img" class="thumb-lg img-circle">
+                        <?php else if (file_exists(config('app.savefileimg') . "\\" . $data['id_emp'] . "\\profil\\" . $data['foto'])) : ?>
                             <img src="{{ config('app.openfileimg') }}/{{ $data['id_emp'] }}/profil/{{ $data['foto'] }}" style="width: 75%" alt="img">
                         <?php else : ?>
                             <img src="{{ config('app.openfileimgdefault') }}" style="width: 75%" alt="img">
