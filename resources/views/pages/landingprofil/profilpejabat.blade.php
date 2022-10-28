@@ -58,6 +58,8 @@
                 @endif
                 <div class="col-md-3">
                     <div class="number">
+                        <?php elseif ( file_exists(config('app.savefileimgpejabat') . "\\" . $data['kd_unit'] . ".jpg") ) : ?>
+                            <img src="{{ config('app.openfileimgpejabat') }}{{  $data['kd_unit'] }}.jpg }}" style="width: 75%" alt="img">
                         <?php if (file_exists(config('app.savefileimg') . "\\" . $data['id_emp'] . "\\profil\\" . $data['foto'])) : ?>
                             <img src="{{ config('app.openfileimg') }}/{{ $data['id_emp'] }}/profil/{{ $data['foto'] }}" style="width: 75%" alt="img">
                         <?php else : ?>
