@@ -251,79 +251,55 @@
 											</div>
 											<div role="tabpanel" class="tab-pane fade active in" id="ulangtahun">
 												<h4>Kemarin:</h4>
-												@if(count($ultah_yes) > 0)
-												<ol>
-												@foreach($ultah_yes as $yes)
-												<li>{{ $yes['nm_emp'] }} - {{ $yes['nm_unit'] }} <b>{{ strtoupper($yes['nm_lok']) }}</b></li>
-												@endforeach
-												</ol>
-												@else
-												-
-												@endif
+                                                <span class='text-center' id="loading-ultah-kemarin">
+                                                    <h2><i class='fa fa-refresh fa-spin justify-center'></i></h2>
+                                                </span>
+                                                <ol id="body-ultah-kemarin"></ol>
+											
 												<hr>
 
 												<h4>Hari Ini:</h4>
-												@if(count($ultah_now) > 0)
-												<ol>
-												@foreach($ultah_now as $now)
-												<li>{{ $now['nm_emp'] }} - {{ $now['nm_unit'] }} <b>{{ strtoupper($now['nm_lok']) }}</b></li>
-												@endforeach
-												</ol>
-												@else
-												-
-												@endif
+												<span class='text-center' id="loading-ultah-today">
+                                                    <h2><i class='fa fa-refresh fa-spin justify-center'></i></h2>
+                                                </span>
+                                                <ol id="body-ultah-today"></ol>
+
 												<hr>
 
 												<h4>Besok:</h4>
-												@if(count($ultah_tom) > 0)
-												<ol>
-												@foreach($ultah_tom as $tom)
-												<li>{{ $tom['nm_emp'] }} - {{ $tom['nm_unit'] }} <b>{{ strtoupper($tom['nm_lok']) }}</b></li>
-												@endforeach
-												</ol>
-												@else
-												-
-												@endif
+												<span class='text-center' id="loading-ultah-besok">
+                                                    <h2><i class='fa fa-refresh fa-spin justify-center'></i></h2>
+                                                </span>
+                                                <ol id="body-ultah-besok"></ol>
+
 												<hr>
 
 											</div>
 											<div role="tabpanel" class="tab-pane fade in" id="pensiun">
                                                 <button class="fcbtn btn btn-outline btn-success btn-1d btn-excel-pensiun"  type="button" data-toggle="modal" data-target="#modal-tambah-pensiun">Excel</button>
 												<h4>Bulan ini:</h4>
-												@if(count($pensiun_now) > 0)
-												<ol>
-												@foreach($pensiun_now as $now)
-												<li>{{ $now['nm_emp'] }} - {{ $now['nm_unit'] }} <b>{{ strtoupper($now['nm_lok']) }}</b></li>
-												@endforeach
-												</ol>
-												@else
-												-
-												@endif
+												<span class='text-center' id="loading-pensiun-now">
+                                                    <h2><i class='fa fa-refresh fa-spin justify-center'></i></h2>
+                                                </span>
+                                                <ol id="body-pensiun-now"></ol>
+
 												<hr>
 
 												<h4>Bulan depan:</h4>
-												@if(count($pensiun_min1) > 0)
-												<ol>
-												@foreach($pensiun_min1 as $min1)
-												<li>{{ $min1['nm_emp'] }} - {{ $min1['nm_unit'] }} <b>{{ strtoupper($min1['nm_lok']) }}</b></li>
-												@endforeach
-												</ol>
-												@else
-												-
-												@endif
+												<span class='text-center' id="loading-pensiun-min1">
+                                                    <h2><i class='fa fa-refresh fa-spin justify-center'></i></h2>
+                                                </span>
+                                                <ol id="body-pensiun-min1"></ol>
+
 												<hr>
 
 
 												<h4>2 - 6 Bulan kedepan:</h4>
-												@if(count($pensiun_min6) > 0)
-												<ol>
-												@foreach($pensiun_min6 as $min6)
-												<li>{{ $min6['nm_emp'] }} - {{ $min6['nm_unit'] }} <b>{{ strtoupper($min6['nm_lok']) }}</b></li>
-												@endforeach
-												</ol>
-												@else
-												-
-												@endif
+												<span class='text-center' id="loading-pensiun-min6">
+                                                    <h2><i class='fa fa-refresh fa-spin justify-center'></i></h2>
+                                                </span>
+                                                <ol id="body-pensiun-min6"></ol>
+
 												<hr>
 
 											</div>
@@ -391,7 +367,133 @@
 	<!--Style Switcher -->
 	<script src="{{ ('/portal/public/ample/plugins/bower_components/styleswitcher/jQuery.style.switcher.js') }}"></script>
 
-	<script type="text/javascript">
+	<script>
+        $(function () {
+            $('#body-ultah-kemarin').hide();
+
+            $.ajax({ 
+                method: "GET", 
+                url: "{{ route('home.ulangtahun') }}",
+            }).done(function( result ) {
+                $('#loading-ultah-kemarin').hide();
+                $('#body-ultah-kemarin').show();
+
+                $.each( result['ultah_yes'], function( key, value ) {
+                    $('#body-ultah-kemarin').append(
+                        "<li>"+value['nm_emp']+" - "+value['nm_unit']+" <b>"+(value['nm_lok']).toUpperCase()+"</b></li>"
+                    );
+                });
+
+                // 
+                
+                $('#loading-ultah-today').hide();
+                $('#body-ultah-today').show();
+
+                $.each( result['ultah_now'], function( key, value ) {
+                    $('#body-ultah-today').append(
+                        "<li>"+value['nm_emp']+" - "+value['nm_unit']+" <b>"+(value['nm_lok']).toUpperCase()+"</b></li>"
+                    );
+                });
+
+                // 
+
+                $('#loading-ultah-besok').hide();
+                $('#body-ultah-besok').show();
+
+                $.each( result['ultah_tom'], function( key, value ) {
+                    $('#body-ultah-besok').append(
+                        "<li>"+value['nm_emp']+" - "+value['nm_unit']+" <b>"+(value['nm_lok']).toUpperCase()+"</b></li>"
+                    );
+                });
+            }).fail(function( res, exception ) {
+                $('#loading-ultah-kemarin').empty();
+                $('#loading-ultah-kemarin').append(
+                    "<span class='text-center'>"+
+                        "<h2>"+res.status+" - "+res.statusText+"</h2>"+
+                    "</span>"
+                );
+
+                $('#loading-ultah-today').empty();
+                $('#loading-ultah-today').append(
+                    "<span class='text-center'>"+
+                        "<h2>"+res.status+" - "+res.statusText+"</h2>"+
+                    "</span>"
+                );
+
+                $('#loading-ultah-besok').empty();
+                $('#loading-ultah-besok').append(
+                    "<span class='text-center'>"+
+                        "<h2>"+res.status+" - "+res.statusText+"</h2>"+
+                    "</span>"
+                );
+            });
+        });
+    </script>
+
+<script>
+    $(function () {
+        $('#body-pensiun-kemarin').hide();
+
+        $.ajax({ 
+            method: "GET", 
+            url: "{{ route('home.pensiun') }}",
+        }).done(function( result ) {
+            $('#loading-pensiun-now').hide();
+            $('#body-pensiun-now').show();
+
+            $.each( result['pensiun_now'], function( key, value ) {
+                $('#body-pensiun-now').append(
+                    "<li>"+value['nm_emp']+" - "+value['nm_unit']+" <b>"+(value['nm_lok']).toUpperCase()+"</b></li>"
+                );
+            });
+
+            // 
+            
+            $('#loading-pensiun-min1').hide();
+            $('#body-pensiun-min1').show();
+
+            $.each( result['pensiun_min1'], function( key, value ) {
+                $('#body-pensiun-min1').append(
+                    "<li>"+value['nm_emp']+" - "+value['nm_unit']+" <b>"+(value['nm_lok']).toUpperCase()+"</b></li>"
+                );
+            });
+
+            // 
+
+            $('#loading-pensiun-min6').hide();
+            $('#body-pensiun-min6').show();
+
+            $.each( result['pensiun_min6'], function( key, value ) {
+                $('#body-pensiun-min6').append(
+                    "<li>"+value['nm_emp']+" - "+value['nm_unit']+" <b>"+(value['nm_lok']).toUpperCase()+"</b></li>"
+                );
+            });
+        }).fail(function( res, exception ) {
+            $('#loading-pensiun-now').empty();
+            $('#loading-pensiun-now').append(
+                "<span class='text-center'>"+
+                    "<h2>"+res.status+" - "+res.statusText+"</h2>"+
+                "</span>"
+            );
+
+            $('#loading-pensiun-min1').empty();
+            $('#loading-pensiun-min1').append(
+                "<span class='text-center'>"+
+                    "<h2>"+res.status+" - "+res.statusText+"</h2>"+
+                "</span>"
+            );
+
+            $('#loading-pensiun-min6').empty();
+            $('#loading-pensiun-min6').append(
+                "<span class='text-center'>"+
+                    "<h2>"+res.status+" - "+res.statusText+"</h2>"+
+                "</span>"
+            );
+        });
+    });
+</script>
+    
+    <script type="text/javascript">
 		$.fn.extend({
 			treed: function (o) {
 			  
