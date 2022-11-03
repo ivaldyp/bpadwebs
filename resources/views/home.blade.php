@@ -316,7 +316,7 @@
             <div id="modal-tambah-pensiun" class="modal fade" role="dialog">
 				<div class="modal-dialog">
 					<div class="modal-content">
-						<form method="GET" action="{{ route('kepegawaian.excelpensiun') }}" class="form-horizontal" data-toggle="validator">
+						<form method="GET" action="{{ route('kepegawaian.report.excelpensiun') }}" class="form-horizontal" data-toggle="validator">
 							<div class="modal-header">
 								<h4 class="modal-title"><b>Pilih Tahun Pensiun</b></h4>
 							</div>
