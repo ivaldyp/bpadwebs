@@ -337,6 +337,10 @@ Route::group(['prefix' => 'kepegawaian'], function () {
 
 	Route::get('/peta jabatan', 'Kepegawaian2Controller@petajabatan');
 	Route::post('/form/insertjabchild', 'Kepegawaian2Controller@forminsertjabchild');
+
+    //////////////////////////////////////////////////////////////////////
+    Route::get('/report', 'KepegawaianReportController@index')->name('kepegawaian.report');
+
 });
 
 Route::group(['prefix' => 'security'], function () {
