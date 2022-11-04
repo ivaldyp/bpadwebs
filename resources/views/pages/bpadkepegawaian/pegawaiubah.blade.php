@@ -116,6 +116,36 @@
 													</div>
 												</div>
 
+                                                <div class="form-group">
+													<label class="col-md-2 control-label"> SK CPNS </label>
+													<div class="col-md-2">
+														<?php if ($emp_data['sk_cpns'] && $emp_data['sk_cpns'] != '') : ?>
+                                                            <a target="_blank" href="{{ config('app.openfileimg') }}/{{ $emp_data['id_emp'] }}/skcpns/{{ $emp_data['sk_cpns'] }}"><p>[Unduh SK CPNS]</p></a>
+                                                        <?php else : ?>
+                                                            -
+                                                        <?php endif ?>
+													</div>
+                                                    <label class="col-md-2 control-label"> Tanggal SK CPNS </label>
+													<div class="col-md-4">
+														<input class="form-control datepicker-autoclose-def" type="text" name="tmt_sk_cpns" value="{{ $emp_data['tmt_sk_cpns'] ? date('d-M-Y',strtotime($emp_data['tmt_sk_cpns'])) : '' }}" placeholder="Tanggal SK CPNS" autocomplete="off">
+													</div>
+												</div>
+                                                
+                                                <div class="form-group">
+													<label class="col-md-2 control-label"> SK PNS </label>
+													<div class="col-md-2">
+														<?php if ($emp_data['sk_pns'] && $emp_data['sk_pns'] != '') : ?>
+                                                            <a target="_blank" href="{{ config('app.openfileimg') }}/{{ $emp_data['id_emp'] }}/skcpns/{{ $emp_data['sk_pns'] }}"><p>[Unduh SK PNS]</p></a>
+                                                        <?php else : ?>
+                                                            -
+                                                        <?php endif ?>
+													</div>
+                                                    <label class="col-md-2 control-label"> Tanggal SK PNS </label>
+													<div class="col-md-4">
+														<input class="form-control datepicker-autoclose-def" type="text" name="tmt_sk_pns" value="{{ $emp_data['tmt_sk_pns'] ? date('d-M-Y',strtotime($emp_data['tmt_sk_pns'])) : '' }}" placeholder="Tanggal SK PNS" autocomplete="off">
+													</div>
+												</div>
+
 												<div class="form-group">
 													<label for="nip_emp" class="col-md-2 control-label"> NIP </label>
 													<div class="col-md-8">
@@ -1390,6 +1420,12 @@
 
 		$(".intLimitTextBox").inputFilter(function(value) {
 			return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 99); 
+		});
+        
+        jQuery('.datepicker-autoclose-def').datepicker({
+			autoclose: true
+			, todayHighlight: false
+			, format: 'dd/mm/yyyy'
 		});
 
 		jQuery('#datepicker-autoclose').datepicker({

@@ -467,6 +467,8 @@ class ProfilController extends Controller
             'npwp' => ($request->npwp ? $request->npwp : ''),
             'no_askes' => ($request->no_askes ? $request->no_askes : ''),
             'no_jamsos' => ($request->no_jamsos ? $request->no_jamsos : ''),
+            'updated_at'    => date('Y-m-d H:i:s'),
+            'updated_by'    => (Auth::user()->usname ? Auth::user()->usname : Auth::user()->id_emp),
             'tmt_sk_cpns' => ($request->tmt_sk_cpns ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_sk_cpns))) : NULL),
             'tmt_sk_pns' => ($request->tmt_sk_pns ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_sk_pns))) : NULL),
         ];

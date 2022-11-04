@@ -357,7 +357,7 @@
 															</td>
                                                             <td class="col-md-6 data-show" style="vertical-align: middle; border-top: 0px;"><h4 class="text-muted">{{ $emp_data['tmt_sk_cpns'] ? date('d-M-Y',strtotime($emp_data['tmt_sk_cpns'])) : '-' }}</h4></td>
 															<td class="col-md-6 data-input" style="border-top: 0px;">
-																<input class="form-control datepicker-autoclose-def" type="text" name="tmt_sk_cpns" value="{{ $emp_data['tmt_sk_cpns'] ? date('d-M-Y',strtotime($emp_data['tmt_sk_cpns'])) : '' }}" placeholder="Tanggal Lahir" autocomplete="off">
+																<input class="form-control datepicker-autoclose-def" type="text" name="tmt_sk_cpns" value="{{ $emp_data['tmt_sk_cpns'] ? date('d-M-Y',strtotime($emp_data['tmt_sk_cpns'])) : '' }}" placeholder="Tanggal SK CPNS" autocomplete="off">
 															</td>
 														</tr>
 														<tr>
@@ -392,7 +392,7 @@
 															</td>
                                                             <td class="col-md-6 data-show" style="vertical-align: middle; border-top: 0px;"><h4 class="text-muted">{{ $emp_data['tmt_sk_pns'] ? date('d-M-Y',strtotime($emp_data['tmt_sk_pns'])) : '-' }}</h4></td>
 															<td class="col-md-6 data-input" style="border-top: 0px;">
-																<input class="form-control datepicker-autoclose-def" type="text" name="tmt_sk_pns" value="{{ $emp_data['tmt_sk_pns'] ? date('d-M-Y',strtotime($emp_data['tmt_sk_pns'])) : '' }}" placeholder="Tanggal Lahir" autocomplete="off">
+																<input class="form-control datepicker-autoclose-def" type="text" name="tmt_sk_pns" value="{{ $emp_data['tmt_sk_pns'] ? date('d-M-Y',strtotime($emp_data['tmt_sk_pns'])) : '' }}" placeholder="Tanggal SK PNS" autocomplete="off">
 															</td>
 														</tr>
 														<tr>

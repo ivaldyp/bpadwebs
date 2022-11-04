@@ -663,38 +663,42 @@ class KepegawaianController extends Controller
 	
 		// mulai insert
 
-		Emp_data::where('id_emp', $id_emp)
-			->update([
-				'tgl_join' => (isset($request->tgl_join) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tgl_join))) : null),
-				'status_emp' => $request->status_emp,
-				'nip_emp' => ($request->nip_emp ? $request->nip_emp : ''),
-				'nrk_emp' => ($request->nrk_emp ? $request->nrk_emp : ''),
-				'nm_emp' => ($request->nm_emp ? strtoupper($request->nm_emp) : ''),
-				'nik_emp' => ($request->nik_emp ? $request->nik_emp : ''),
-				'gelar_dpn' => ($request->gelar_dpn ? $request->gelar_dpn : ''),
-				'gelar_blk' => ($request->gelar_blk ? $request->gelar_blk : ''),
-				'jnkel_emp' => $request->jnkel_emp,
-				'tempat_lahir' => ($request->tempat_lahir ? $request->tempat_lahir : ''),
-				'tgl_lahir' => (isset($request->tgl_lahir) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tgl_lahir))) : null),
-				'idagama' => $request->idagama,
-				'alamat_emp' => ($request->alamat_emp ? $request->alamat_emp : ''),
-				'tlp_emp' => ($request->tlp_emp ? $request->tlp_emp : ''),
-				'email_emp' => ($request->email_emp ? $request->email_emp : ''),
-				'status_nikah' => $request->status_nikah,
-				'gol_darah' => $request->gol_darah,
-				'nm_bank' => ($request->nm_bank ? $request->nm_bank : ''),
-				'cb_bank' => ($request->cb_bank ? $request->cb_bank : ''),
-				'an_bank' => ($request->an_bank ? $request->an_bank : ''),
-				'nr_bank' => ($request->nr_bank ? $request->nr_bank : ''),
-				'no_taspen' => ($request->no_taspen ? $request->no_taspen : ''),
-				'npwp' => ($request->npwp ? $request->npwp : ''),
-				'no_askes' => ($request->no_askes ? $request->no_askes : ''),
-				'no_jamsos' => ($request->no_jamsos ? $request->no_jamsos : ''),
-				'idgroup' => $request->idgroup,
-				'idgroup_aset' => $request->idgroup_aset,
-				'updated_at'    => date('Y-m-d H:i:s'),
-				'updated_by'    => (Auth::user()->usname ? Auth::user()->usname : Auth::user()->id_emp),
-			]);
+        $pegawai_id_update = [
+            'tgl_join' => (isset($request->tgl_join) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tgl_join))) : null),
+            'status_emp' => $request->status_emp,
+            'nip_emp' => ($request->nip_emp ? $request->nip_emp : ''),
+            'nrk_emp' => ($request->nrk_emp ? $request->nrk_emp : ''),
+            'nm_emp' => ($request->nm_emp ? strtoupper($request->nm_emp) : ''),
+            'nik_emp' => ($request->nik_emp ? $request->nik_emp : ''),
+            'gelar_dpn' => ($request->gelar_dpn ? $request->gelar_dpn : ''),
+            'gelar_blk' => ($request->gelar_blk ? $request->gelar_blk : ''),
+            'jnkel_emp' => $request->jnkel_emp,
+            'tempat_lahir' => ($request->tempat_lahir ? $request->tempat_lahir : ''),
+            'tgl_lahir' => (isset($request->tgl_lahir) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tgl_lahir))) : null),
+            'idagama' => $request->idagama,
+            'alamat_emp' => ($request->alamat_emp ? $request->alamat_emp : ''),
+            'tlp_emp' => ($request->tlp_emp ? $request->tlp_emp : ''),
+            'email_emp' => ($request->email_emp ? $request->email_emp : ''),
+            'status_nikah' => $request->status_nikah,
+            'gol_darah' => $request->gol_darah,
+            'nm_bank' => ($request->nm_bank ? $request->nm_bank : ''),
+            'cb_bank' => ($request->cb_bank ? $request->cb_bank : ''),
+            'an_bank' => ($request->an_bank ? $request->an_bank : ''),
+            'nr_bank' => ($request->nr_bank ? $request->nr_bank : ''),
+            'no_taspen' => ($request->no_taspen ? $request->no_taspen : ''),
+            'npwp' => ($request->npwp ? $request->npwp : ''),
+            'no_askes' => ($request->no_askes ? $request->no_askes : ''),
+            'no_jamsos' => ($request->no_jamsos ? $request->no_jamsos : ''),
+            'idgroup' => $request->idgroup,
+            'idgroup_aset' => $request->idgroup_aset,
+            'updated_at'    => date('Y-m-d H:i:s'),
+            'updated_by'    => (Auth::user()->usname ? Auth::user()->usname : Auth::user()->id_emp),
+            'tmt_sk_cpns' => ($request->tmt_sk_cpns ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_sk_cpns))) : NULL),
+            'tmt_sk_pns' => ($request->tmt_sk_pns ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_sk_pns))) : NULL),
+        ];
+
+		Emp_data::where('id_emp', $id_emp)->update($pegawai_id_update);
+		Emp_data_11::where('id_emp', $id_emp)->update($pegawai_id_update);
 
 		return redirect('/kepegawaian/data pegawai')
 					->with('message', 'Pegawai '.$request->nm_emp.' berhasil diubah')
@@ -814,12 +818,14 @@ class KepegawaianController extends Controller
 			$tgl_end = (isset($request->tgl_end) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tgl_end))) : null);
 		}
 
-		Emp_data::where('id_emp', $request->id_emp)
-			->update([
-				'tgl_end' => $tgl_end,
-				'ked_emp' => $request->ked_emp,
-				'sts'	  => $sts,
-			]);
+        $pegawai_status_update = [
+            'tgl_end' => $tgl_end,
+            'ked_emp' => $request->ked_emp,
+            'sts'	  => $sts,
+        ];
+
+		Emp_data::where('id_emp', $request->id_emp)->update($pegawai_status_update);
+		Emp_data_11::where('id_emp', $request->id_emp)->update($pegawai_status_update);
 
 		return redirect('/kepegawaian/data pegawai')
 					->with('message', 'Status pegawai berhasil diubah')
@@ -853,6 +859,7 @@ class KepegawaianController extends Controller
 			];
 
 		Emp_dik::insert($insert_emp_dik);
+		Emp_dik_11::insert($insert_emp_dik);
 
 		return redirect('/kepegawaian/ubah pegawai?id_emp='.$request->noid)
 					->with('message', 'Data pendidikan pegawai berhasil ditambah')
@@ -866,17 +873,22 @@ class KepegawaianController extends Controller
 		}
 		//$this->checkSessionTime();
 
+        $pegawai_dik_update = [
+            'iddik' => $request->iddik,
+            'prog_sek' => ($request->prog_sek ? $request->prog_sek : ''),
+            'nm_sek' => ($request->nm_sek ? $request->nm_sek : ''),
+            'no_sek' => ($request->no_sek ? $request->no_sek : ''),
+            'th_sek' => ($request->th_sek ? $request->th_sek : ''),
+            'gelar_dpn_sek' => ($request->gelar_dpn_sek ? $request->gelar_dpn_sek : ''),
+            'gelar_blk_sek' => ($request->gelar_blk_sek ? $request->gelar_blk_sek : ''),
+        ];
+
 		Emp_dik::where('noid', $request->noid)
 			->where('ids', $request->ids)
-			->update([
-				'iddik' => $request->iddik,
-				'prog_sek' => ($request->prog_sek ? $request->prog_sek : ''),
-				'nm_sek' => ($request->nm_sek ? $request->nm_sek : ''),
-				'no_sek' => ($request->no_sek ? $request->no_sek : ''),
-				'th_sek' => ($request->th_sek ? $request->th_sek : ''),
-				'gelar_dpn_sek' => ($request->gelar_dpn_sek ? $request->gelar_dpn_sek : ''),
-				'gelar_blk_sek' => ($request->gelar_blk_sek ? $request->gelar_blk_sek : ''),
-			]);
+			->update($pegawai_dik_update);
+		Emp_dik_11::where('noid', $request->noid)
+			->where('ids', $request->ids)
+			->update($pegawai_dik_update);
 
 		return redirect('/kepegawaian/ubah pegawai?id_emp='.$request->noid)
 					->with('message', 'Data pendidikan pegawai berhasil diubah')
@@ -896,6 +908,11 @@ class KepegawaianController extends Controller
 		}
 
 		Emp_dik::where('noid', $request->noid)
+			->where('ids', $request->ids)
+			->update([
+				'sts' => 0,
+			]);
+		Emp_dik_11::where('noid', $request->noid)
 			->where('ids', $request->ids)
 			->update([
 				'sts' => 0,
@@ -934,6 +951,7 @@ class KepegawaianController extends Controller
 			];
 
 		Emp_gol::insert($insert_emp_gol);
+		Emp_gol_11::insert($insert_emp_gol);
 
 		return redirect('/kepegawaian/ubah pegawai?id_emp='.$request->noid)
 					->with('message', 'Data golongan pegawai berhasil ditambah')
@@ -947,17 +965,22 @@ class KepegawaianController extends Controller
 		}
 		//$this->checkSessionTime();
 
+        $pegawai_gol_update = [
+            'tmt_gol' => (isset($request->tmt_gol) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_gol))) : date('Y-m-d H:i:s')),
+            'tmt_sk_gol' => (isset($request->tmt_sk_gol) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_sk_gol))) : date('Y-m-d H:i:s')),
+            'no_sk_gol' => ($request->no_sk_gol ? $request->no_sk_gol : ''),
+            'idgol' => $request->idgol,
+            'jns_kp' => $request->jns_kp,
+            'mk_thn' => ($request->mk_thn ? $request->mk_thn : 0),
+            'mk_bln' => ($request->mk_bln ? $request->mk_bln : 0),
+        ];
+
 		Emp_gol::where('noid', $request->noid)
 			->where('ids', $request->ids)
-			->update([
-				'tmt_gol' => (isset($request->tmt_gol) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_gol))) : date('Y-m-d H:i:s')),
-				'tmt_sk_gol' => (isset($request->tmt_sk_gol) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_sk_gol))) : date('Y-m-d H:i:s')),
-				'no_sk_gol' => ($request->no_sk_gol ? $request->no_sk_gol : ''),
-				'idgol' => $request->idgol,
-				'jns_kp' => $request->jns_kp,
-				'mk_thn' => ($request->mk_thn ? $request->mk_thn : 0),
-				'mk_bln' => ($request->mk_bln ? $request->mk_bln : 0),
-			]);
+			->update($pegawai_gol_update);
+		Emp_gol_11::where('noid', $request->noid)
+			->where('ids', $request->ids)
+			->update($pegawai_gol_update);
 
 		return redirect('/kepegawaian/ubah pegawai?id_emp='.$request->noid)
 					->with('message', 'Data golongan pegawai berhasil diubah')
@@ -977,6 +1000,11 @@ class KepegawaianController extends Controller
 		}
 
 		Emp_gol::where('noid', $request->noid)
+			->where('ids', $request->ids)
+			->update([
+				'sts' => 0,
+			]);
+		Emp_gol_11::where('noid', $request->noid)
 			->where('ids', $request->ids)
 			->update([
 				'sts' => 0,
@@ -1062,6 +1090,7 @@ class KepegawaianController extends Controller
 			];
 
 		Emp_jab::insert($insert_emp_jab);
+		Emp_jab_11::insert($insert_emp_jab);
 
 		return redirect('/kepegawaian/ubah pegawai?id_emp='.$request->noid)
 					->with('message', 'Data jabatan pegawai berhasil ditambah')
@@ -1102,20 +1131,25 @@ class KepegawaianController extends Controller
 		$idunit = $splitidunit[0];
 		$nmunit = $splitidunit[1];
 
+        $pegawai_jab_update = [
+            'tmt_jab' => (isset($request->tmt_jab) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_jab))) : null),
+            'idunit' => $idunit,
+            'idlok' => $idlok['kd_lok'],
+            'tmt_sk_jab' => (isset($request->tmt_sk_jab) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_sk_jab))) : null),
+            'no_sk_jab' => ($request->no_sk_jab ? $request->no_sk_jab : ''),
+            'jns_jab' => $request->jns_jab,
+            'idjab' => $request->idjab,
+            'eselon' => $request->eselon,
+            'nmunit' => $nmunit,
+            // 'tampilnew' => 1,
+        ];
+
 		Emp_jab::where('noid', $request->noid)
 			->where('ids', $request->ids)
-			->update([
-				'tmt_jab' => (isset($request->tmt_jab) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_jab))) : null),
-				'idunit' => $idunit,
-				'idlok' => $idlok['kd_lok'],
-				'tmt_sk_jab' => (isset($request->tmt_sk_jab) ? date('Y-m-d',strtotime(str_replace('/', '-', $request->tmt_sk_jab))) : null),
-				'no_sk_jab' => ($request->no_sk_jab ? $request->no_sk_jab : ''),
-				'jns_jab' => $request->jns_jab,
-				'idjab' => $request->idjab,
-				'eselon' => $request->eselon,
-				'nmunit' => $nmunit,
-				// 'tampilnew' => 1,
-			]);
+			->update($pegawai_jab_update);
+		Emp_jab_11::where('noid', $request->noid)
+			->where('ids', $request->ids)
+			->update($pegawai_jab_update);
 
 		return redirect('/kepegawaian/ubah pegawai?id_emp='.$request->noid)
 					->with('message', 'Data jabatan pegawai berhasil diubah')
@@ -1135,6 +1169,11 @@ class KepegawaianController extends Controller
 		}
 
 		Emp_jab::where('noid', $request->noid)
+			->where('ids', $request->ids)
+			->update([
+				'sts' => 0,
+			]);
+		Emp_jab_11::where('noid', $request->noid)
 			->where('ids', $request->ids)
 			->update([
 				'sts' => 0,
