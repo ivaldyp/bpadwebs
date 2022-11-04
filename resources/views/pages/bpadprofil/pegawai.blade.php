@@ -346,6 +346,19 @@
 																<br><a target="_blank" href="{{ config('app.openfileimg') }}/{{ Auth::user()->id_emp }}/skcpns/{{ $emp_data['sk_cpns'] }}">[Unduh SK CPNS]</a>
 																@endif
 															</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="col-md-6 p-l-30" style="border-top: 0px;">
+																<h4>Tanggal SK CPNS</h4>
+																<div class="data-input">
+																	<br>
+																	<p class="text-muted"><span style="color:red;">Tanggal TMT pada SK CPNS</span></p>
+																</div>
+															</td>
+                                                            <td class="col-md-6 data-show" style="vertical-align: middle; border-top: 0px;"><h4 class="text-muted">{{ $emp_data['tmt_sk_cpns'] ? date('d-M-Y',strtotime($emp_data['tmt_sk_cpns'])) : '-' }}</h4></td>
+															<td class="col-md-6 data-input" style="border-top: 0px;">
+																<input class="form-control datepicker-autoclose-def" type="text" name="tmt_sk_cpns" value="{{ $emp_data['tmt_sk_cpns'] ? date('d-M-Y',strtotime($emp_data['tmt_sk_cpns'])) : '' }}" placeholder="Tanggal Lahir" autocomplete="off">
+															</td>
 														</tr>
 														<tr>
 															<td class="col-md-6 p-l-30">
@@ -367,6 +380,19 @@
 																@if($emp_data['sk_pns'] && $emp_data['sk_pns'] != '')
 																<br><a target="_blank" href="{{ config('app.openfileimg') }}/{{ Auth::user()->id_emp }}/skpns/{{ $emp_data['sk_pns'] }}">[Unduh SK PNS]</a>
 																@endif
+															</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="col-md-6 p-l-30" style="border-top: 0px;">
+																<h4>Tanggal SK PNS</h4>
+																<div class="data-input">
+																	<br>
+																	<p class="text-muted"><span style="color:red;">Tanggal TMT pada SK PNS</span></p>
+																</div>
+															</td>
+                                                            <td class="col-md-6 data-show" style="vertical-align: middle; border-top: 0px;"><h4 class="text-muted">{{ $emp_data['tmt_sk_pns'] ? date('d-M-Y',strtotime($emp_data['tmt_sk_pns'])) : '-' }}</h4></td>
+															<td class="col-md-6 data-input" style="border-top: 0px;">
+																<input class="form-control datepicker-autoclose-def" type="text" name="tmt_sk_pns" value="{{ $emp_data['tmt_sk_pns'] ? date('d-M-Y',strtotime($emp_data['tmt_sk_pns'])) : '' }}" placeholder="Tanggal Lahir" autocomplete="off">
 															</td>
 														</tr>
 														<tr>
@@ -2562,7 +2588,7 @@
 				autoclose: true
 				, todayHighlight: false
 				, format: 'dd/mm/yyyy'
-				, orientation: "auto"
+				, orientation: 'top'
 			});
 
 			jQuery('#datepicker-autoclose').datepicker({
