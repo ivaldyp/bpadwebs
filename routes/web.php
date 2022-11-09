@@ -341,6 +341,7 @@ Route::group(['prefix' => 'kepegawaian'], function () {
     Route::get('/report', 'KepegawaianReportController@index')->name('kepegawaian.report');
     
     Route::get('/excelpensiun', 'KepegawaianReportController@printexcelpensiun')->name('kepegawaian.report.excelpensiun');
+    Route::get('/excelnaikgol', 'KepegawaianReportController@printexcelnaikgol')->name('kepegawaian.report.excelnaikgol');
 
 });
 

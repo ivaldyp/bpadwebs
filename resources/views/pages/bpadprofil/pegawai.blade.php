@@ -148,7 +148,7 @@
 															</td>
 														</tr>
 														<tr>
-															<td class="col-md-6 p-l-30"><h4>TMT</h4></td>
+															<td class="col-md-6 p-l-30"><h4>TMT di BPAD</h4></td>
 															<td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">{{ date('d-M-Y',strtotime($emp_data['tgl_join'])) }}</h4></td>
 															<td class="col-md-6 data-input">
 																<input id="datepicker-autoclose2" class="form-control" type="text" name="tgl_join" value="{{ date('d/m/Y', strtotime($emp_data['tgl_join'])) }}" placeholder="Tanggal Lahir" autocomplete="off">

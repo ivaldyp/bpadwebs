@@ -70,30 +70,84 @@
                                     <div class="col-md-4">
                                         <div class="white-box text-center">
                                             <h2 class="text-center">Laporan Pegawai Pensiun</h2>
-                                            <button class="btn btn-success btn-outline m-r-10">Excel</button>
-                                            <button class="btn btn-danger btn-outline m-r-10">PDF</button>
-                                            <button class="btn btn-warning btn-outline m-r-10">View</button>
+                                            <button class="fcbtn btn btn-outline btn-success btn-1d btn-excel-pensiun m-r-10" type="button" data-toggle="modal" data-target="#modal-excel-pensiun">Excel</button>
+                                            {{-- <button class="fcbtn btn btn-outline btn-danger btn-1d btn-excel-pensiun m-r-10">PDF</button>
+                                            <button class="fcbtn btn btn-outline btn-warning btn-1d btn-excel-pensiun m-r-10">View</button> --}}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="white-box text-center">
+                                            <h2 class="text-center">Laporan Pegawai Naik Golongan</h2>
+                                            <button class="fcbtn btn btn-outline btn-success btn-1d btn-excel-naikgol m-r-10" type="button" data-toggle="modal" data-target="#modal-excel-naikgol">Excel</button>
+                                            {{-- <button class="fcbtn btn btn-outline btn-danger btn-1d btn-excel-naikgol m-r-10">PDF</button>
+                                            <button class="fcbtn btn btn-outline btn-warning btn-1d btn-excel-naikgol m-r-10">View</button> --}}
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="white-box text-center">
                                             <h2 class="text-center">Laporan Pegawai Pensiun</h2>
-                                            <button class="btn btn-success btn-outline m-r-10">Excel</button>
-                                            <button class="btn btn-danger btn-outline m-r-10">PDF</button>
-                                            <button class="btn btn-warning btn-outline m-r-10">View</button>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="white-box text-center">
-                                            <h2 class="text-center">Laporan Pegawai Pensiun</h2>
-                                            <button class="btn btn-success btn-outline m-r-10">Excel</button>
-                                            <button class="btn btn-danger btn-outline m-r-10">PDF</button>
-                                            <button class="btn btn-warning btn-outline m-r-10">View</button>
+                                            <button class="fcbtn btn btn-outline btn-success btn-1d btn-excel-pensiun m-r-10" type="button" data-toggle="modal" data-target="#modal-excel-pensiun">Excel</button>
+                                            {{-- <button class="fcbtn btn btn-outline btn-danger btn-1d btn-excel-pensiun m-r-10">PDF</button>
+                                            <button class="fcbtn btn btn-outline btn-warning btn-1d btn-excel-pensiun m-r-10">View</button> --}}
                                         </div>
                                     </div>
                                 </div>
 							</div>
 						</div>
+					</div>
+				</div>
+			</div>
+            <div id="modal-excel-pensiun" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<form method="GET" action="{{ route('kepegawaian.report.excelpensiun') }}" class="form-horizontal" data-toggle="validator">
+							<div class="modal-header">
+								<h4 class="modal-title"><b>Pilih Tahun Pensiun</b></h4>
+							</div>
+							<div class="modal-body">
+								<div class="form-group">
+									<label for="tahun_pensiun" class="col-md-2 control-label"><span style="color: red">*</span> Tahun </label>
+									<div class="col-md-8">
+										<select class="form-control select2" name="tahun_pensiun" id="tahun_pensiun" required>
+                                            @for($i=2017; $i<=2055; $i++)
+                                            <option value="{{ $i }}">{{ $i }}</option>
+                                            @endfor
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-success pull-right">Submit</button>
+								<button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+            <div id="modal-excel-naikgol" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<form method="GET" action="{{ route('kepegawaian.report.excelnaikgol') }}" class="form-horizontal" data-toggle="validator">
+							<div class="modal-header">
+								<h4 class="modal-title"><b>Pilih Tahun Kenaikan Golongan</b></h4>
+							</div>
+							<div class="modal-body">
+								<div class="form-group">
+									<label for="tahun_naikgol" class="col-md-2 control-label"><span style="color: red">*</span> Tahun </label>
+									<div class="col-md-8">
+										<select class="form-control select2" name="tahun_naikgol" id="tahun_naikgol" required>
+                                            @for($i=date('Y') - 4; $i<=date('Y') + 4; $i++)
+                                            <option @if($i == date('Y')) selected @endif value="{{ $i }}">{{ $i }}</option>
+                                            @endfor
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-success pull-right">Submit</button>
+								<button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>
