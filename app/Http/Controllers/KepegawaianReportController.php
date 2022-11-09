@@ -61,7 +61,7 @@ class KepegawaianReportController extends Controller
 		$sheet->getStyle('A2')->getAlignment()->setHorizontal('center');
 
 		$sheet->mergeCells('A3:J3');
-		$sheet->setCellValue('A3', 'PROVINSI DKI JAKARTA '.date('Y'));
+		$sheet->setCellValue('A3', 'PROVINSI DKI JAKARTA '.$tahun);
 		$sheet->getStyle('A3')->getFont()->setBold( true );
 		$sheet->getStyle('A3')->getAlignment()->setHorizontal('center');	
 
@@ -211,7 +211,7 @@ class KepegawaianReportController extends Controller
 		$sheet->getStyle('A2')->getAlignment()->setHorizontal('center');
 
 		$sheet->mergeCells('A3:J3');
-		$sheet->setCellValue('A3', 'PROVINSI DKI JAKARTA '.date('Y'));
+		$sheet->setCellValue('A3', 'PROVINSI DKI JAKARTA '.$tahun);
 		$sheet->getStyle('A3')->getFont()->setBold( true );
 		$sheet->getStyle('A3')->getAlignment()->setHorizontal('center');	
 
@@ -267,7 +267,7 @@ class KepegawaianReportController extends Controller
 			$sheet->setCellValue('A'.$nowrow, $key+1);
 			$sheet->setCellValue('B'.$nowrow, $employee['status_emp']);
 			$sheet->setCellValue('D'.$nowrow, $employee['id_emp'] );
-			$sheet->setCellValue('C'.$nowrow, ($employee['nip_emp'] ? '\''.$employee['nip_emp'] : '-') . '/' . ($employee['nrk_emp'] ? $employee['nrk_emp'] : '-') );
+			$sheet->setCellValue('C'.$nowrow, ($employee['nip_emp'] ? '\''.$employee['nip_emp'] : '-') . ' / ' . ($employee['nrk_emp'] ? $employee['nrk_emp'] : '-') );
 			$sheet->setCellValue('E'.$nowrow, strtoupper($employee['nm_emp']));
 			$sheet->setCellValue('F'.$nowrow, strtoupper($employee['nm_bidang']));
 			$sheet->setCellValue('G'.$nowrow, strtoupper($employee['notes']));
