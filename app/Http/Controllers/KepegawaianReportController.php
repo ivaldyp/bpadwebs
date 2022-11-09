@@ -45,7 +45,7 @@ class KepegawaianReportController extends Controller
                     ,bpaddtfake.dbo.glo_skpd as b,bpaddtfake.dbo.glo_org_unitkerja as c,bpaddtfake.dbo.glo_org_lokasi as d WHERE tbjab.idskpd=b.skpd AND tbjab.idskpd+'::'+tbjab.idunit=c.kd_skpd+'::'+c.kd_unit AND tbjab.idskpd+'::'+tbjab.idlok=d.kd_skpd+'::'+d.kd_lok AND a.sts='1' AND b.sts='1' AND c.sts='1' AND d.sts='1'
                     AND ked_emp = 'AKTIF' AND YEAR(tgl_lahir) = $tahun_pegawai
                     AND status_emp not like 'NON PNS'
-                    order by idunit asc, nm_emp ASC") );
+                    order by tgl_lahir asc, idunit asc, nm_emp ASC") );
 		$employees = json_decode(json_encode($employees), true);
 
 		$spreadsheet = new Spreadsheet();
