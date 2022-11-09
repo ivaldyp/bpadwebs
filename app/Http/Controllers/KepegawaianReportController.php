@@ -39,7 +39,7 @@ class KepegawaianReportController extends Controller
         $tahun_pegawai = $tahun - 58;
 
 		$employees = DB::select( DB::raw("  
-                    SELECT id_emp, nrk_emp, nip_emp, nm_emp, a.idgroup as idgroup, tgl_lahir, jnkel_emp, tgl_join, status_emp, tbjab.idjab, tbjab.idunit, tbunit.nm_unit, tbunit.notes, tbunit.child, d.nm_lok from bpaddtfake.dbo.emp_data as a
+                    SELECT id_emp, nrk_emp, nip_emp, nm_emp, a.idgroup as idgroup, tgl_lahir, jnkel_emp, tgl_join, status_emp, tbjab.idjab, tbjab.idunit, tbunit.nm_bidang, tbunit.nm_unit, tbunit.notes, tbunit.child, d.nm_lok from bpaddtfake.dbo.emp_data as a
                     CROSS APPLY (SELECT TOP 1 tmt_jab,idskpd,idunit,idlok,tmt_sk_jab,no_sk_jab,jns_jab,replace(idjab,'NA::','') as idjab,eselon,gambar FROM  bpaddtfake.dbo.emp_jab WHERE a.id_emp=emp_jab.noid AND emp_jab.sts='1' ORDER BY tmt_jab DESC) tbjab
                     CROSS APPLY (SELECT TOP 1 * FROM bpaddtfake.dbo.glo_org_unitkerja WHERE glo_org_unitkerja.kd_unit = tbjab.idunit) tbunit
                     ,bpaddtfake.dbo.glo_skpd as b,bpaddtfake.dbo.glo_org_unitkerja as c,bpaddtfake.dbo.glo_org_lokasi as d WHERE tbjab.idskpd=b.skpd AND tbjab.idskpd+'::'+tbjab.idunit=c.kd_skpd+'::'+c.kd_unit AND tbjab.idskpd+'::'+tbjab.idlok=d.kd_skpd+'::'+d.kd_lok AND a.sts='1' AND b.sts='1' AND c.sts='1' AND d.sts='1'
@@ -50,17 +50,17 @@ class KepegawaianReportController extends Controller
 
 		$spreadsheet = new Spreadsheet();
 		$sheet = $spreadsheet->getActiveSheet();
-		$sheet->mergeCells('A1:I1');
+		$sheet->mergeCells('A1:J1');
 		$sheet->setCellValue('A1', 'DATA PEGAWAI PENSIUN');
 		$sheet->getStyle('A1')->getFont()->setBold( true );
 		$sheet->getStyle('A1')->getAlignment()->setHorizontal('center');
 
-		$sheet->mergeCells('A2:I2');
+		$sheet->mergeCells('A2:J2');
 		$sheet->setCellValue('A2', 'BADAN PENGELOLAAN ASET DAERAH');
 		$sheet->getStyle('A2')->getFont()->setBold( true );
 		$sheet->getStyle('A2')->getAlignment()->setHorizontal('center');
 
-		$sheet->mergeCells('A3:I3');
+		$sheet->mergeCells('A3:J3');
 		$sheet->setCellValue('A3', 'PROVINSI DKI JAKARTA '.date('Y'));
 		$sheet->getStyle('A3')->getFont()->setBold( true );
 		$sheet->getStyle('A3')->getAlignment()->setHorizontal('center');	
@@ -71,17 +71,18 @@ class KepegawaianReportController extends Controller
 				'name' => 'Trebuchet MS',
 			]
 		];
-		$sheet->getStyle('A1:I5')->applyFromArray($styleArray);
+		$sheet->getStyle('A1:J5')->applyFromArray($styleArray);
 
 		$sheet->setCellValue('A5', 'NO');
 		$sheet->setCellValue('B5', 'ID');
 		$sheet->setCellValue('C5', 'NIP');
 		$sheet->setCellValue('D5', 'NRK');
 		$sheet->setCellValue('E5', 'NAMA');
-		$sheet->setCellValue('F5', 'UNIT');
-		$sheet->setCellValue('G5', 'LOKASI');
-		$sheet->setCellValue('H5', 'TGL LAHIR');
-		$sheet->setCellValue('I5', 'STATUS');
+		$sheet->setCellValue('F5', 'BIDANG');
+		$sheet->setCellValue('G5', 'UNIT');
+		$sheet->setCellValue('H5', 'LOKASI');
+		$sheet->setCellValue('I5', 'TGL LAHIR');
+		$sheet->setCellValue('J5', 'STATUS');
 
 		$colorArrayhead = [
 			'fill' => [
@@ -91,11 +92,11 @@ class KepegawaianReportController extends Controller
 				],
 			],
 		];
-		$sheet->getStyle('A5:I5')->applyFromArray($colorArrayhead);
+		$sheet->getStyle('A5:J5')->applyFromArray($colorArrayhead);
 
-		$sheet->getStyle('A5:I5')->getFont()->setBold( true );
+		$sheet->getStyle('A5:J5')->getFont()->setBold( true );
 
-		$sheet->getStyle('A5:I5')->getAlignment()->setHorizontal('center');
+		$sheet->getStyle('A5:J5')->getAlignment()->setHorizontal('center');
 
 		$colorArrayV1 = [
 			'fill' => [
@@ -110,7 +111,7 @@ class KepegawaianReportController extends Controller
 		$rowstart = $nowrow - 1;
 		foreach ($employees as $key => $employee) {
 			if ($key%2 == 0) {
-				$sheet->getStyle('A'.$nowrow.':I'.$nowrow)->applyFromArray($colorArrayV1);
+				$sheet->getStyle('A'.$nowrow.':J'.$nowrow)->applyFromArray($colorArrayV1);
 			}
 
 			$sheet->setCellValue('A'.$nowrow, $key+1);
@@ -119,13 +120,14 @@ class KepegawaianReportController extends Controller
 			$sheet->setCellValue('D'.$nowrow, $employee['nrk_emp'] ? $employee['nrk_emp'] : '-' );
 			$sheet->getStyle('D'.$nowrow)->getAlignment()->setHorizontal('right');
 			$sheet->setCellValue('E'.$nowrow, strtoupper($employee['nm_emp']));
-			$sheet->setCellValue('F'.$nowrow, strtoupper($employee['notes']));
-			$sheet->setCellValue('G'.$nowrow, $employee['nm_lok']);
-			$sheet->setCellValue('H'.$nowrow, date('d-m-Y', strtotime($employee['tgl_lahir'])));
-			$sheet->setCellValue('I'.$nowrow, $employee['status_emp']);
+			$sheet->setCellValue('F'.$nowrow, strtoupper($employee['nm_bidang']));
+			$sheet->setCellValue('G'.$nowrow, strtoupper($employee['notes']));
+			$sheet->setCellValue('H'.$nowrow, $employee['nm_lok']);
+			$sheet->setCellValue('I'.$nowrow, date('d-m-Y', strtotime($employee['tgl_lahir'])));
+			$sheet->setCellValue('J'.$nowrow, $employee['status_emp']);
 
 			if (strlen($employee['idunit']) < 10) {
-				$sheet->getStyle('A'.$nowrow.':I'.$nowrow)->getFont()->setBold( true );
+				$sheet->getStyle('A'.$nowrow.':J'.$nowrow)->getFont()->setBold( true );
 			}
 
 			$nowrow++;
