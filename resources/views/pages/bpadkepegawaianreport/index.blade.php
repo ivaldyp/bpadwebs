@@ -85,9 +85,9 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="white-box text-center">
-                                            <h2 class="text-center">Laporan Pegawai Pensiun</h2>
-                                            <button class="fcbtn btn btn-outline btn-success btn-1d btn-excel-pensiun m-r-10" type="button" data-toggle="modal" data-target="#modal-excel-pensiun">Excel</button>
-                                            {{-- <button class="fcbtn btn btn-outline btn-danger btn-1d btn-excel-pensiun m-r-10">PDF</button>
+                                            <h2 class="text-center">-- COMING SOON --</h2>
+                                            {{-- <button class="fcbtn btn btn-outline btn-success btn-1d btn-excel-pensiun m-r-10" type="button" data-toggle="modal" data-target="#modal-excel-pensiun">Excel</button>
+                                            <button class="fcbtn btn btn-outline btn-danger btn-1d btn-excel-pensiun m-r-10">PDF</button>
                                             <button class="fcbtn btn btn-outline btn-warning btn-1d btn-excel-pensiun m-r-10">View</button> --}}
                                         </div>
                                     </div>
