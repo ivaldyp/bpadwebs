@@ -122,7 +122,7 @@ class KepegawaianController extends Controller
 			SELECT *,
             CASE
                 WHEN (status_emp not like 'NON PNS') 
-                    THEN CONCAT(DATEDIFF(year, tmt_jab, GETDATE()), ' Tahun ', DATEDIFF(month, tmt_jab, GETDATE()), ' Bulan')
+                    THEN CONCAT(DATEDIFF(month, tmt_jab, GETDATE()) / 12, ' Tahun ', DATEDIFF(month, tmt_jab, GETDATE()) % 12, ' Bulan' )
             END as masa_unit
 			from bpaddtfake.dbo.emp_data a
 			join bpaddtfake.dbo.emp_jab tbjab on tbjab.ids = (SELECT TOP 1 ids FROM bpaddtfake.dbo.emp_jab WHERE emp_jab.noid = a.id_emp and emp_jab.sts='1' ORDER BY tmt_jab DESC)
@@ -2682,7 +2682,7 @@ class KepegawaianController extends Controller
 						tbjab.idjab, tbjab.idunit, tbjab.tmt_jab, tbjab.no_sk_jab, tbjab.tmt_sk_jab, tbjab.gambar as jabgambar, 
                         CASE
                             WHEN (status_emp not like 'NON PNS') 
-                                THEN CONCAT(DATEDIFF(year, tmt_jab, GETDATE()), ' Tahun ', DATEDIFF(month, tmt_jab, GETDATE()), ' Bulan')
+                                THEN CONCAT(DATEDIFF(month, tmt_jab, GETDATE()) / 12, ' Tahun ', DATEDIFF(month, tmt_jab, GETDATE()) % 12, ' Bulan' )
                         END as masa_unit,
 						tbunit.nm_unit, tbunit.notes, tbunit.child, tbunit.kd_unit, d.nm_lok, 
 						tbdik.iddik, tbdik.prog_sek, tbdik.nm_sek, tbdik.th_sek, tbdik.no_sek, tbdik.gambar as dikgambar, 
@@ -2704,7 +2704,7 @@ class KepegawaianController extends Controller
 						tbjab.idjab, tbjab.idunit, tbjab.tmt_jab, tbjab.no_sk_jab, tbjab.tmt_sk_jab, tbjab.gambar as jabgambar, 
                         CASE
                             WHEN (status_emp not like 'NON PNS') 
-                                THEN CONCAT(DATEDIFF(year, tmt_jab, GETDATE()), ' Tahun ', DATEDIFF(month, tmt_jab, GETDATE()), ' Bulan')
+                                THEN CONCAT(DATEDIFF(month, tmt_jab, GETDATE()) / 12, ' Tahun ', DATEDIFF(month, tmt_jab, GETDATE()) % 12, ' Bulan' )
                         END as masa_unit,
 						tbunit.nm_unit, tbunit.notes, tbunit.child, tbunit.kd_unit, d.nm_lok, 
 						tbdik.iddik, tbdik.prog_sek, tbdik.nm_sek, tbdik.th_sek, tbdik.no_sek, tbdik.gambar as dikgambar, 
@@ -3114,7 +3114,7 @@ class KepegawaianController extends Controller
 					SELECT id_emp, nrk_emp, nip_emp, nm_emp, a.idgroup as idgroup, tgl_lahir, jnkel_emp, tgl_join, status_emp, tbjab.idjab, tbjab.idunit, tbunit.nm_unit, tbunit.notes, tbunit.child, d.nm_lok, 
                     CASE
                         WHEN (status_emp not like 'NON PNS') 
-                            THEN CONCAT(DATEDIFF(year, tmt_jab, GETDATE()), ' Tahun ', DATEDIFF(month, tmt_jab, GETDATE()), ' Bulan')
+                            THEN CONCAT(DATEDIFF(month, tmt_jab, GETDATE()) / 12, ' Tahun ', DATEDIFF(month, tmt_jab, GETDATE()) % 12, ' Bulan' )
                     END as masa_unit 
                     from bpaddtfake.dbo.emp_data as a
 					CROSS APPLY (SELECT TOP 1 tmt_gol,tmt_sk_gol,no_sk_gol,idgol,jns_kp,mk_thn,mk_bln,gambar,nm_pangkat FROM  bpaddtfake.dbo.emp_gol,bpaddtfake.dbo.glo_org_golongan WHERE a.id_emp = emp_gol.noid AND emp_gol.idgol=glo_org_golongan.gol AND emp_gol.sts='1' AND glo_org_golongan.sts='1' ORDER BY tmt_gol DESC) tbgol
