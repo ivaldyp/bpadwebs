@@ -2680,6 +2680,10 @@ class KepegawaianController extends Controller
                         -- email_emp, 
                         nrk_emp, nip_emp, gelar_dpn, gelar_blk, nm_emp, sk_cpns, sk_pns, karpeg, nik_emp, a.idgroup as idgroup, alamat_emp, status_nikah, gol_darah, idagama, tlp_emp, tempat_lahir, tgl_lahir, jnkel_emp, tgl_join, status_emp, nm_bank, cb_bank, an_bank, nr_bank, no_taspen, npwp, no_askes, no_jamsos, 
 						tbjab.idjab, tbjab.idunit, tbjab.tmt_jab, tbjab.no_sk_jab, tbjab.tmt_sk_jab, tbjab.gambar as jabgambar, 
+                        CASE
+                            WHEN (status_emp not like 'NON PNS') 
+                                THEN CONCAT(DATEDIFF(year, tmt_jab, GETDATE()), ' Tahun ', DATEDIFF(month, tmt_jab, GETDATE()), ' Bulan')
+                        END as masa_unit,
 						tbunit.nm_unit, tbunit.notes, tbunit.child, tbunit.kd_unit, d.nm_lok, 
 						tbdik.iddik, tbdik.prog_sek, tbdik.nm_sek, tbdik.th_sek, tbdik.no_sek, tbdik.gambar as dikgambar, 
 						tbgol.tmt_gol, tbgol.idgol, tbgol.nm_pangkat, tbgol.no_sk_gol, tbgol.tmt_sk_gol, tbgol.gambar as golgambar
@@ -2698,6 +2702,10 @@ class KepegawaianController extends Controller
                         -- email_emp, 
                         nrk_emp, nip_emp, gelar_dpn, gelar_blk, nm_emp, sk_cpns, sk_pns, karpeg, nik_emp, a.idgroup as idgroup, alamat_emp, status_nikah, gol_darah, idagama, tlp_emp, tempat_lahir, tgl_lahir, jnkel_emp, tgl_join, status_emp, nm_bank, cb_bank, an_bank, nr_bank, no_taspen, npwp, no_askes, no_jamsos, 
 						tbjab.idjab, tbjab.idunit, tbjab.tmt_jab, tbjab.no_sk_jab, tbjab.tmt_sk_jab, tbjab.gambar as jabgambar, 
+                        CASE
+                            WHEN (status_emp not like 'NON PNS') 
+                                THEN CONCAT(DATEDIFF(year, tmt_jab, GETDATE()), ' Tahun ', DATEDIFF(month, tmt_jab, GETDATE()), ' Bulan')
+                        END as masa_unit,
 						tbunit.nm_unit, tbunit.notes, tbunit.child, tbunit.kd_unit, d.nm_lok, 
 						tbdik.iddik, tbdik.prog_sek, tbdik.nm_sek, tbdik.th_sek, tbdik.no_sek, tbdik.gambar as dikgambar, 
 						tbgol.tmt_gol, tbgol.idgol, tbgol.nm_pangkat, tbgol.no_sk_gol, tbgol.tmt_sk_gol, tbgol.gambar as golgambar
@@ -2809,6 +2817,7 @@ class KepegawaianController extends Controller
 		$alpnum++;
 
 		$sheet->setCellValue($alphabet[$alpnum].'5', 'UNIT KERJA'); $alpnum++;
+		$sheet->setCellValue($alphabet[$alpnum].'5', 'MASA KERJA PADA UNIT'); $alpnum++;
 		$sheet->setCellValue($alphabet[$alpnum].'5', 'LOKASI'); $alpnum++;
 		$sheet->setCellValue($alphabet[$alpnum].'5', 'TMT JABATAN'); $alpnum++;
 		$sheet->setCellValue($alphabet[$alpnum].'5', 'NOMOR SK JAB'); $alpnum++;
@@ -3031,10 +3040,10 @@ class KepegawaianController extends Controller
 			}
 			$sheet->setCellValue($alphabet[$alpnum].$nowrow, is_null($employee['golgambar']) || $employee['golgambar'] == '' ? 'BELUM UPLOAD' : 'SUDAH UPLOAD' ); $alpnum++;
 			
-
+            //DATA UNIT KERJA
 			$sheet->getStyle($alphabet[$alpnum].$nowrow.':'.$alphabet[$alpnum].$nowrow)->applyFromArray($colorArrayhead); $alpnum++;
-
 			$sheet->setCellValue($alphabet[$alpnum].$nowrow, strtoupper($employee['nm_unit'])); $alpnum++;
+			$sheet->setCellValue($alphabet[$alpnum].$nowrow, strtoupper($employee['masa_unit'])); $alpnum++;
 			$sheet->setCellValue($alphabet[$alpnum].$nowrow, $employee['nm_lok']); $alpnum++;
 			if((is_null($employee['tmt_jab']) || $employee['tmt_jab'] == '') && $employee['status_emp'] != 'NON PNS') {
 				$sheet->getStyle($alphabet[$alpnum].$nowrow)->applyFromArray($colorArrayEmpty);
@@ -3102,7 +3111,12 @@ class KepegawaianController extends Controller
 		$kednow = $request->ked;
 
 		$employees = DB::select( DB::raw("  
-					SELECT id_emp, nrk_emp, nip_emp, nm_emp, a.idgroup as idgroup, tgl_lahir, jnkel_emp, tgl_join, status_emp, tbjab.idjab, tbjab.idunit, tbunit.nm_unit, tbunit.notes, tbunit.child, d.nm_lok from bpaddtfake.dbo.emp_data as a
+					SELECT id_emp, nrk_emp, nip_emp, nm_emp, a.idgroup as idgroup, tgl_lahir, jnkel_emp, tgl_join, status_emp, tbjab.idjab, tbjab.idunit, tbunit.nm_unit, tbunit.notes, tbunit.child, d.nm_lok, 
+                    CASE
+                        WHEN (status_emp not like 'NON PNS') 
+                            THEN CONCAT(DATEDIFF(year, tmt_jab, GETDATE()), ' Tahun ', DATEDIFF(month, tmt_jab, GETDATE()), ' Bulan')
+                    END as masa_unit 
+                    from bpaddtfake.dbo.emp_data as a
 					CROSS APPLY (SELECT TOP 1 tmt_gol,tmt_sk_gol,no_sk_gol,idgol,jns_kp,mk_thn,mk_bln,gambar,nm_pangkat FROM  bpaddtfake.dbo.emp_gol,bpaddtfake.dbo.glo_org_golongan WHERE a.id_emp = emp_gol.noid AND emp_gol.idgol=glo_org_golongan.gol AND emp_gol.sts='1' AND glo_org_golongan.sts='1' ORDER BY tmt_gol DESC) tbgol
 					CROSS APPLY (SELECT TOP 1 tmt_jab,idskpd,idunit,idlok,tmt_sk_jab,no_sk_jab,jns_jab,replace(idjab,'NA::','') as idjab,eselon,gambar FROM  bpaddtfake.dbo.emp_jab WHERE a.id_emp=emp_jab.noid AND emp_jab.sts='1' ORDER BY tmt_jab DESC) tbjab
 					CROSS APPLY (SELECT TOP 1 iddik,prog_sek,no_sek,th_sek,nm_sek,gelar_dpn_sek,gelar_blk_sek,ijz_cpns,gambar,nm_dik FROM  bpaddtfake.dbo.emp_dik,bpaddtfake.dbo.glo_dik WHERE a.id_emp = emp_dik.noid AND emp_dik.iddik=glo_dik.dik AND emp_dik.sts='1' AND glo_dik.sts='1' ORDER BY th_sek DESC) tbdik
@@ -3114,17 +3128,17 @@ class KepegawaianController extends Controller
 
 		$spreadsheet = new Spreadsheet();
 		$sheet = $spreadsheet->getActiveSheet();
-		$sheet->mergeCells('A1:I1');
+		$sheet->mergeCells('A1:J1');
 		$sheet->setCellValue('A1', 'DATA PEGAWAI');
 		$sheet->getStyle('A1')->getFont()->setBold( true );
 		$sheet->getStyle('A1')->getAlignment()->setHorizontal('center');
 
-		$sheet->mergeCells('A2:I2');
+		$sheet->mergeCells('A2:J2');
 		$sheet->setCellValue('A2', 'BADAN PENGELOLAAN ASET DAERAH');
 		$sheet->getStyle('A2')->getFont()->setBold( true );
 		$sheet->getStyle('A2')->getAlignment()->setHorizontal('center');
 
-		$sheet->mergeCells('A3:I3');
+		$sheet->mergeCells('A3:J3');
 		$sheet->setCellValue('A3', 'PROVINSI DKI JAKARTA '.date('Y'));
 		$sheet->getStyle('A3')->getFont()->setBold( true );
 		$sheet->getStyle('A3')->getAlignment()->setHorizontal('center');	
@@ -3135,7 +3149,7 @@ class KepegawaianController extends Controller
 				'name' => 'Trebuchet MS',
 			]
 		];
-		$sheet->getStyle('A1:I5')->applyFromArray($styleArray);
+		$sheet->getStyle('A1:J5')->applyFromArray($styleArray);
 
 		$sheet->setCellValue('A5', 'NO');
 		$sheet->setCellValue('B5', 'ID');
@@ -3143,9 +3157,10 @@ class KepegawaianController extends Controller
 		$sheet->setCellValue('D5', 'NRK');
 		$sheet->setCellValue('E5', 'NAMA');
 		$sheet->setCellValue('F5', 'UNIT');
-		$sheet->setCellValue('G5', 'LOKASI');
-		$sheet->setCellValue('H5', 'TGL LAHIR');
-		$sheet->setCellValue('I5', 'STATUS');
+		$sheet->setCellValue('G5', 'MASA KERJA PADA UNIT');
+		$sheet->setCellValue('H5', 'LOKASI');
+		$sheet->setCellValue('I5', 'TGL LAHIR');
+		$sheet->setCellValue('J5', 'STATUS');
 
 		$colorArrayhead = [
 			'fill' => [
@@ -3155,11 +3170,11 @@ class KepegawaianController extends Controller
 				],
 			],
 		];
-		$sheet->getStyle('A5:I5')->applyFromArray($colorArrayhead);
+		$sheet->getStyle('A5:J5')->applyFromArray($colorArrayhead);
 
-		$sheet->getStyle('A5:I5')->getFont()->setBold( true );
+		$sheet->getStyle('A5:J5')->getFont()->setBold( true );
 
-		$sheet->getStyle('A5:I5')->getAlignment()->setHorizontal('center');
+		$sheet->getStyle('A5:J5')->getAlignment()->setHorizontal('center');
 
 		$colorArrayV1 = [
 			'fill' => [
@@ -3174,7 +3189,7 @@ class KepegawaianController extends Controller
 		$rowstart = $nowrow - 1;
 		foreach ($employees as $key => $employee) {
 			if ($key%2 == 0) {
-				$sheet->getStyle('A'.$nowrow.':I'.$nowrow)->applyFromArray($colorArrayV1);
+				$sheet->getStyle('A'.$nowrow.':J'.$nowrow)->applyFromArray($colorArrayV1);
 			}
 
 			$sheet->setCellValue('A'.$nowrow, $key+1);
@@ -3184,18 +3199,19 @@ class KepegawaianController extends Controller
 			$sheet->getStyle('D'.$nowrow)->getAlignment()->setHorizontal('right');
 			$sheet->setCellValue('E'.$nowrow, strtoupper($employee['nm_emp']));
 			$sheet->setCellValue('F'.$nowrow, strtoupper($employee['notes']));
-			$sheet->setCellValue('G'.$nowrow, $employee['nm_lok']);
-			$sheet->setCellValue('H'.$nowrow, date('d-m-Y', strtotime($employee['tgl_lahir'])));
-			$sheet->setCellValue('I'.$nowrow, $employee['status_emp']);
+			$sheet->setCellValue('G'.$nowrow, strtoupper($employee['masa_unit']));
+			$sheet->setCellValue('H'.$nowrow, $employee['nm_lok']);
+			$sheet->setCellValue('I'.$nowrow, date('d-m-Y', strtotime($employee['tgl_lahir'])));
+			$sheet->setCellValue('J'.$nowrow, $employee['status_emp']);
 
 			if (strlen($employee['idunit']) < 10) {
-				$sheet->getStyle('A'.$nowrow.':I'.$nowrow)->getFont()->setBold( true );
+				$sheet->getStyle('A'.$nowrow.':J'.$nowrow)->getFont()->setBold( true );
 			}
 
 			$nowrow++;
 		}
 
-		foreach(range('A','I') as $columnID) {
+		foreach(range('A','J') as $columnID) {
 			$sheet->getColumnDimension($columnID)
 				->setAutoSize(true);
 		}
