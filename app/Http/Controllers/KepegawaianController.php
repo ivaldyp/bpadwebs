@@ -122,10 +122,9 @@ class KepegawaianController extends Controller
 			SELECT *,
             CASE
                 WHEN (status_emp not like 'NON PNS') 
-                    THEN CONCAT(DATEDIFF(year, tmt_gol, GETDATE()), ' Tahun ', DATEDIFF(month, tmt_gol, GETDATE()), ' Bulan')
+                    THEN CONCAT(DATEDIFF(year, tmt_jab, GETDATE()), ' Tahun ', DATEDIFF(month, tmt_jab, GETDATE()), ' Bulan')
             END as masa_unit
 			from bpaddtfake.dbo.emp_data a
-            join bpaddtfake.dbo.emp_gol tbgol on tbgol.ids = (SELECT TOP 1 ids FROM bpaddtfake.dbo.emp_gol WHERE emp_gol.noid = a.id_emp and emp_gol.sts='1' ORDER BY tmt_gol DESC)
 			join bpaddtfake.dbo.emp_jab tbjab on tbjab.ids = (SELECT TOP 1 ids FROM bpaddtfake.dbo.emp_jab WHERE emp_jab.noid = a.id_emp and emp_jab.sts='1' ORDER BY tmt_jab DESC)
 			join bpaddtfake.dbo.glo_org_unitkerja tbunit on tbunit.kd_unit = (SELECT TOP 1 idunit FROM bpaddtfake.dbo.glo_org_unitkerja where tbunit.kd_unit = tbjab.idunit)
 			join bpaddtfake.dbo.glo_org_lokasi tblok on tblok.kd_lok = tbjab.idlok
