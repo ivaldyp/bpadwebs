@@ -112,17 +112,6 @@ class KepegawaianController extends Controller
 			$idunit = $request->unit;
 		}
 
-		// $employees = DB::select( DB::raw("  
-		// 			SELECT id_emp, nrk_emp, nip_emp, nm_emp, a.idgroup as idgroup, tgl_lahir, jnkel_emp, tgl_join, status_emp, tbjab.idjab, tbjab.idunit, tbunit.nm_unit, tbunit.child, d.nm_lok from bpaddtfake.dbo.emp_data as a
-		// 			CROSS APPLY (SELECT TOP 1 tmt_gol,tmt_sk_gol,no_sk_gol,idgol,jns_kp,mk_thn,mk_bln,gambar,nm_pangkat FROM  bpaddtfake.dbo.emp_gol,bpaddtfake.dbo.glo_org_golongan WHERE a.id_emp = emp_gol.noid AND emp_gol.idgol=glo_org_golongan.gol AND emp_gol.sts='1' AND glo_org_golongan.sts='1' ORDER BY tmt_gol DESC) tbgol
-		// 			CROSS APPLY (SELECT TOP 1 tmt_jab,idskpd,idunit,idlok,tmt_sk_jab,no_sk_jab,jns_jab,replace(idjab,'NA::','') as idjab,eselon,gambar FROM  bpaddtfake.dbo.emp_jab WHERE a.id_emp=emp_jab.noid AND emp_jab.sts='1' ORDER BY tmt_jab DESC) tbjab
-		// 			CROSS APPLY (SELECT TOP 1 iddik,prog_sek,no_sek,th_sek,nm_sek,gelar_dpn_sek,gelar_blk_sek,ijz_cpns,gambar,nm_dik FROM  bpaddtfake.dbo.emp_dik,bpaddtfake.dbo.glo_dik WHERE a.id_emp = emp_dik.noid AND emp_dik.iddik=glo_dik.dik AND emp_dik.sts='1' AND glo_dik.sts='1' ORDER BY th_sek DESC) tbdik
-		// 			CROSS APPLY (SELECT TOP 1 * FROM bpaddtfake.dbo.glo_org_unitkerja WHERE glo_org_unitkerja.kd_unit = tbjab.idunit) tbunit
-		// 			,bpaddtfake.dbo.glo_skpd as b,bpaddtfake.dbo.glo_org_unitkerja as c,bpaddtfake.dbo.glo_org_lokasi as d WHERE tbjab.idskpd=b.skpd AND tbjab.idskpd+'::'+tbjab.idunit=c.kd_skpd+'::'+c.kd_unit AND tbjab.idskpd+'::'+tbjab.idlok=d.kd_skpd+'::'+d.kd_lok AND a.sts='1' AND b.sts='1' AND c.sts='1' AND d.sts='1'
-		// 			and idunit like '$idunit%' AND ked_emp = '$kednow'
-		// 			order by idunit asc, nm_emp ASC") );
-		// $employees = json_decode(json_encode($employees), true);
-
 		if($kednow == 'AKTIF') {
 			$sts = 'and a.sts = 1';
 		} else {
@@ -130,8 +119,13 @@ class KepegawaianController extends Controller
 		}
 
 		$employees = DB::select( DB::raw("  
-			SELECT *
+			SELECT *,
+            CASE
+                WHEN (status_emp not like 'NON PNS') 
+                    THEN CONCAT(DATEDIFF(year, tmt_gol, GETDATE()), ' Tahun ', DATEDIFF(month, tmt_gol, GETDATE()), ' Bulan')
+            END as masa_unit
 			from bpaddtfake.dbo.emp_data a
+            join bpaddtfake.dbo.emp_gol tbgol on tbgol.ids = (SELECT TOP 1 ids FROM bpaddtfake.dbo.emp_gol WHERE emp_gol.noid = a.id_emp and emp_gol.sts='1' ORDER BY tmt_gol DESC)
 			join bpaddtfake.dbo.emp_jab tbjab on tbjab.ids = (SELECT TOP 1 ids FROM bpaddtfake.dbo.emp_jab WHERE emp_jab.noid = a.id_emp and emp_jab.sts='1' ORDER BY tmt_jab DESC)
 			join bpaddtfake.dbo.glo_org_unitkerja tbunit on tbunit.kd_unit = (SELECT TOP 1 idunit FROM bpaddtfake.dbo.glo_org_unitkerja where tbunit.kd_unit = tbjab.idunit)
 			join bpaddtfake.dbo.glo_org_lokasi tblok on tblok.kd_lok = tbjab.idlok

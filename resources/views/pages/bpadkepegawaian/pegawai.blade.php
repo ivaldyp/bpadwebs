@@ -179,6 +179,10 @@
 													<td>{{ $employee['nm_emp'] }}</td>
 													<td>{{ $employee['notes'] }}<br>
 														<span class="text-muted">{{ $employee['nm_lok'] }}</span>
+                                                        @if( is_null($employee['masa_unit']) )
+                                                        @else
+                                                            <span class=""> &emsp; <i class="fa fa-clock-o"></i> {{ $employee['masa_unit'] }}  </span>
+                                                        @endif
 													</td>
 													<td>{{ $employee['tgl_lahir'] ? date('d/M/Y', strtotime(str_replace('/', '-', $employee['tgl_lahir'] ))) : '-' }}</td>
 													{{-- <td>{{ $employee['jnkel_emp'] }}</td> --}}
