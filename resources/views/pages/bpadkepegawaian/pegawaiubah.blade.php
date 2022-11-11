@@ -95,7 +95,7 @@
 												</div>
 
 												<div class="form-group">
-													<label for="tgl_join" class="col-md-2 control-label"> TMT <span style="color: red; font-size: 20px;"> *</span></label>
+													<label for="tgl_join" class="col-md-2 control-label"> TMT di BPAD <span style="color: red; font-size: 20px;"> *</span></label>
 													<div class="col-md-8">
 														<input type="text" name="tgl_join" class="form-control" id="datepicker-autoclose" autocomplete="off" placeholder="dd/mm/yyyy" value="{{ date('d/m/Y', strtotime($emp_data['tgl_join'])) }}" required="">
 													</div>
