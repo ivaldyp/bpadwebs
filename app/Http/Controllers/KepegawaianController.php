@@ -2770,7 +2770,7 @@ class KepegawaianController extends Controller
 
 		$sheet->setCellValue($alphabet[$alpnum].'5', 'NO'); $alpnum++;
 		$sheet->setCellValue($alphabet[$alpnum].'5', 'STATUS'); $alpnum++;
-		$sheet->setCellValue($alphabet[$alpnum].'5', 'TOTAL MASA JABATAN'); $alpnum++;
+		$sheet->setCellValue($alphabet[$alpnum].'5', 'TOTAL MASA KERJA'); $alpnum++;
 		$sheet->setCellValue($alphabet[$alpnum].'5', 'ID'); $alpnum++;
 		$sheet->setCellValue($alphabet[$alpnum].'5', 'NIP'); $alpnum++;
 		$sheet->setCellValue($alphabet[$alpnum].'5', 'NRK'); $alpnum++;

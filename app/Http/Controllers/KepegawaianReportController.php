@@ -194,7 +194,7 @@ class KepegawaianReportController extends Controller
             CROSS APPLY (SELECT TOP 1 * FROM bpaddtfake.dbo.glo_org_unitkerja WHERE glo_org_unitkerja.kd_unit = tbjab.idunit) tbunit
             ,bpaddtfake.dbo.glo_skpd as b,bpaddtfake.dbo.glo_org_unitkerja as c,bpaddtfake.dbo.glo_org_lokasi as d WHERE tbjab.idskpd=b.skpd AND tbjab.idskpd+'::'+tbjab.idunit=c.kd_skpd+'::'+c.kd_unit AND tbjab.idskpd+'::'+tbjab.idlok=d.kd_skpd+'::'+d.kd_lok AND a.sts='1' AND b.sts='1' AND c.sts='1' AND d.sts='1'
             AND ked_emp = 'AKTIF' AND year(DATEADD(MONTH,48,tbgol.tmt_gol)) = $tahun AND status_emp not like 'NON PNS'
-            order by idunit asc, tgl_naik_gol asc, nm_emp ASC
+            order by tgl_naik_gol asc, idunit asc, nm_emp ASC
         ") );
 		$employees = json_decode(json_encode($employees), true);
 
@@ -266,8 +266,8 @@ class KepegawaianReportController extends Controller
 
 			$sheet->setCellValue('A'.$nowrow, $key+1);
 			$sheet->setCellValue('B'.$nowrow, $employee['status_emp']);
-			$sheet->setCellValue('D'.$nowrow, $employee['id_emp'] );
-			$sheet->setCellValue('C'.$nowrow, ($employee['nip_emp'] ? '\''.$employee['nip_emp'] : '-') . ' / ' . ($employee['nrk_emp'] ? $employee['nrk_emp'] : '-') );
+			$sheet->setCellValue('C'.$nowrow, $employee['id_emp'] );
+			$sheet->setCellValue('D'.$nowrow, ($employee['nip_emp'] ? '\''.$employee['nip_emp'] : '-') . ' / ' . ($employee['nrk_emp'] ? $employee['nrk_emp'] : '-') );
 			$sheet->setCellValue('E'.$nowrow, strtoupper($employee['nm_emp']));
 			$sheet->setCellValue('F'.$nowrow, strtoupper($employee['nm_bidang']));
 			$sheet->setCellValue('G'.$nowrow, strtoupper($employee['notes']));
