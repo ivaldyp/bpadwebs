@@ -107,942 +107,946 @@
 				</div>
 				<div class="col-md-8">
 					<div class="white-box">
-						<ul class="nav customtab nav-tabs" role="tablist">
-							<li role="presentation" class="active"><a href="#tabs1" aria-controls="home" role="tab" data-toggle="tab" aria-expanded="true"><span class="visible-xs">Id</span><span class="hidden-xs"> Identitas </span></a></li>
-							<li role="presentation" class=""><a href="#tabs5" aria-controls="settings" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs">Kel</span> <span class="hidden-xs">Keluarga</span></a></li>
-							<li role="presentation" class=""><a href="#tabs2" aria-controls="profile" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs">Dik</span> <span class="hidden-xs"> Pendidikan </span></a></li>
-							<li role="presentation" class=""><a href="#tabs3" aria-controls="messages" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs">Gol</i></span> <span class="hidden-xs">Golongan</span></a></li>
-							<li role="presentation" class=""><a href="#tabs4" aria-controls="settings" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs">Jab</span> <span class="hidden-xs">Unit Kerja</span></a></li>
-							<!-- <li role="presentation" class=""><a href="#tabs7" aria-controls="settings" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs">SKP</span> <span class="hidden-xs">SKP</span></a></li> -->
-							<li role="presentation" class=""><a href="#tabs6" aria-controls="settings" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs">HukDis</span> <span class="hidden-xs">Hukuman Disiplin</span></a></li>
-						</ul>
-						<!-- Tab panes -->
-						<div class="tab-content">
-							<div role="tabpanel" class="tab-pane fade active in" id="tabs1">
-									<div class="panel-group" id="exampleAccordionDefault" aria-multiselectable="true" role="tablist">
-										<div class="panel">
-											<div class="panel-heading" style="background-color: #edf1f5" id="exampleHeadingDefaultOne" role="tab"> <a class="panel-title collapsed" data-toggle="collapse" href="#exampleCollapseDefaultOne" data-parent="#exampleAccordionDefault" aria-expanded="true" aria-controls="exampleCollapseDefaultOne"> Nomor ID </a> </div>
-											<div class="panel-collapse collapse in" id="exampleCollapseDefaultOne" aria-labelledby="exampleHeadingDefaultOne" role="tabpanel">
-												<div class="table-responsive">
-													<table class="table table-hover">
-														<tr>
-															<td class="col-md-6 p-l-30"><h4>ID</h4></td>
-															<td class="col-md-6" style="vertical-align: middle;">
-															<h4 class="text-muted">{{ $emp_data['id_emp'] }}</h4></td>
-															<input class="form-control" type="hidden" name="id_emp" value="{{ $emp_data['id_emp'] }}">
-														</tr>
-														<tr>
-															<td class="col-md-6 p-l-30"><h4>NIP</h4></td>
-															<td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">{{ $emp_data['nip_emp'] }}</h4></td>
-															<td class="col-md-6 data-input">
-																<!-- <input class="form-control uintTextBox" type="text" name="nip_emp" value="{{ $emp_data['nip_emp'] }}" placeholder="NIP" autocomplete="off"> -->
-																<input class="form-control" type="text" name="nip_emp" value="{{ $emp_data['nip_emp'] }}" placeholder="NIP" autocomplete="off" disabled>
-															</td>
-														</tr>
-														<tr>
-															<td class="col-md-6 p-l-30"><h4>NRK</h4></td>
-															<td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">{{ $emp_data['nrk_emp'] }}</h4></td>
-															<td class="col-md-6 data-input">
-																<!-- <input class="form-control uintTextBox" type="text" name="nrk_emp" value="{{ $emp_data['nrk_emp'] }}" placeholder="NRK" autocomplete="off"> -->
-																<input class="form-control" type="text" name="nrk_emp" value="{{ $emp_data['nrk_emp'] }}" placeholder="NRK" autocomplete="off" disabled>
-															</td>
-														</tr>
-														<tr>
-															<td class="col-md-6 p-l-30"><h4>TMT di BPAD</h4></td>
-															<td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">{{ date('d-M-Y',strtotime($emp_data['tgl_join'])) }}</h4></td>
-															<td class="col-md-6 data-input">
-																<input id="datepicker-autoclose2" class="form-control" type="text" name="tgl_join" value="{{ date('d/m/Y', strtotime($emp_data['tgl_join'])) }}" placeholder="Tanggal Lahir" autocomplete="off">
-															</td>
-														</tr>
-														<tr>
-															<td class="col-md-6 p-l-30"><h4>Status</h4></td>
-															<td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">{{ $emp_data['status_emp'] }}</h4></td>
-															<td class="col-md-6 data-input">
-																<select class="form-control" name="status_emp" id="status_emp">
-																	@foreach($statuses as $status)
-																		<option value="{{ $status['status_emp'] }}"  
-																			<?php if ($emp_data['status_emp'] == $status['status_emp']): ?>
-																				selected
-																			<?php endif ?>
-																		> {{ $status['status_emp'] }} </option>
-																	@endforeach
-																</select>
-															</td>
-														</tr>
-													</table>
-												</div>
-											</div>
-										</div>
-										<div class="panel">
-											<div class="panel-heading" style="background-color: #edf1f5" id="exampleHeadingDefaultTwo" role="tab"> <a class="panel-title collapsed" data-toggle="collapse" href="#exampleCollapseDefaultTwo" data-parent="#exampleAccordionDefault" aria-expanded="false" aria-controls="exampleCollapseDefaultTwo"> Data Diri </a> </div>
-											<div class="panel-collapse collapse" id="exampleCollapseDefaultTwo" aria-labelledby="exampleHeadingDefaultTwo" role="tabpanel">
-												<div class="table-responsive">
-													<table class="table table-hover">
-														<tr>
-															<td class="col-md-6 p-l-30"><h4>Nama</h4></td>
-															<td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">
-																<?php if ($emp_data['gelar_dpn']) : ?>
-																	{{ $emp_data['gelar_dpn'] }}
-																<?php endif ?>
-																<!-- <span class="inline_edit_id" id="inline-nm_emp" data-type="text" data-id="{{ $emp_data['id_emp'] }}" data-title="Enter username">{{ ucwords(strtolower($emp_data['nm_emp'])) }}</span> -->
-																{{ ucwords(strtolower($emp_data['nm_emp'])) }}
+						<div data-example-id="togglable-tabs" class="bs-example bs-example-tabs">
+                            <ul role="tablist" class="nav nav-tabs" id="myTabs">
+                                <li class="dropdown" role="presentation"> <a aria-controls="myTabDrop1-contents" data-toggle="dropdown" class="dropdown-toggle" id="myTabDrop1" href="#" aria-expanded="false">--PILIH-- <span class="caret"></span></a>
+                                    <ul id="myTabDrop1-contents" aria-labelledby="myTabDrop1" class="dropdown-menu">
+                                        <li class=""><a aria-controls="identitas" data-toggle="tab" id="identitas-tab" role="tab" href="#identitas" aria-expanded="true">Identitas</a></li>
+                                        <li class=""><a aria-controls="keluarga" data-toggle="tab" id="keluarga-tab" role="tab" href="#keluarga" aria-expanded="false">Keluarga</a></li>
+                                        <li class=""><a aria-controls="pendidikan" data-toggle="tab" id="pendidikan-tab" role="tab" href="#pendidikan" aria-expanded="false">Pendidikan</a></li>
+                                        <li class=""><a aria-controls="golongan" data-toggle="tab" id="golongan-tab" role="tab" href="#golongan" aria-expanded="false">Golongan</a></li>
+                                        <li class=""><a aria-controls="unit" data-toggle="tab" id="unit-tab" role="tab" href="#unit" aria-expanded="false">Unit Kerja</a></li>
+                                        <!-- <li class=""><a aria-controls="skp" data-toggle="tab" id="skp-tab" role="tab" href="#skp" aria-expanded="false">SKP</a></li> -->
+                                        <li class=""><a aria-controls="hukdis" data-toggle="tab" id="hukdis-tab" role="tab" href="#hukdis" aria-expanded="false">Hukuman Disiplin</a></li>  
+                                    </ul>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="myTabContent">
+                                <div aria-labelledby="identitas-tab" id="identitas" class="tab-pane fade active in" role="tabpanel">
+                                        <div class="panel-group" id="exampleAccordionDefault" aria-multiselectable="true" role="tablist">
+                                            <div class="panel">
+                                                <div class="panel-heading" style="background-color: #edf1f5" id="exampleHeadingDefaultOne" role="tab"> <a class="panel-title collapsed" data-toggle="collapse" href="#exampleCollapseDefaultOne" data-parent="#exampleAccordionDefault" aria-expanded="true" aria-controls="exampleCollapseDefaultOne"> Nomor ID </a> </div>
+                                                <div class="panel-collapse collapse in" id="exampleCollapseDefaultOne" aria-labelledby="exampleHeadingDefaultOne" role="tabpanel">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-hover">
+                                                            <tr>
+                                                                <td class="col-md-6 p-l-30"><h4>ID</h4></td>
+                                                                <td class="col-md-6" style="vertical-align: middle;">
+                                                                <h4 class="text-muted">{{ $emp_data['id_emp'] }}</h4></td>
+                                                                <input class="form-control" type="hidden" name="id_emp" value="{{ $emp_data['id_emp'] }}">
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="col-md-6 p-l-30"><h4>NIP</h4></td>
+                                                                <td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">{{ $emp_data['nip_emp'] }}</h4></td>
+                                                                <td class="col-md-6 data-input">
+                                                                    <!-- <input class="form-control uintTextBox" type="text" name="nip_emp" value="{{ $emp_data['nip_emp'] }}" placeholder="NIP" autocomplete="off"> -->
+                                                                    <input class="form-control" type="text" name="nip_emp" value="{{ $emp_data['nip_emp'] }}" placeholder="NIP" autocomplete="off" disabled>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="col-md-6 p-l-30"><h4>NRK</h4></td>
+                                                                <td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">{{ $emp_data['nrk_emp'] }}</h4></td>
+                                                                <td class="col-md-6 data-input">
+                                                                    <!-- <input class="form-control uintTextBox" type="text" name="nrk_emp" value="{{ $emp_data['nrk_emp'] }}" placeholder="NRK" autocomplete="off"> -->
+                                                                    <input class="form-control" type="text" name="nrk_emp" value="{{ $emp_data['nrk_emp'] }}" placeholder="NRK" autocomplete="off" disabled>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="col-md-6 p-l-30"><h4>TMT di BPAD</h4></td>
+                                                                <td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">{{ date('d-M-Y',strtotime($emp_data['tgl_join'])) }}</h4></td>
+                                                                <td class="col-md-6 data-input">
+                                                                    <input id="datepicker-autoclose2" class="form-control" type="text" name="tgl_join" value="{{ date('d/m/Y', strtotime($emp_data['tgl_join'])) }}" placeholder="Tanggal Lahir" autocomplete="off">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="col-md-6 p-l-30"><h4>Status</h4></td>
+                                                                <td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">{{ $emp_data['status_emp'] }}</h4></td>
+                                                                <td class="col-md-6 data-input">
+                                                                    <select class="form-control" name="status_emp" id="status_emp">
+                                                                        @foreach($statuses as $status)
+                                                                            <option value="{{ $status['status_emp'] }}"  
+                                                                                <?php if ($emp_data['status_emp'] == $status['status_emp']): ?>
+                                                                                    selected
+                                                                                <?php endif ?>
+                                                                            > {{ $status['status_emp'] }} </option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel">
+                                                <div class="panel-heading" style="background-color: #edf1f5" id="exampleHeadingDefaultTwo" role="tab"> <a class="panel-title collapsed" data-toggle="collapse" href="#exampleCollapseDefaultTwo" data-parent="#exampleAccordionDefault" aria-expanded="false" aria-controls="exampleCollapseDefaultTwo"> Data Diri </a> </div>
+                                                <div class="panel-collapse collapse" id="exampleCollapseDefaultTwo" aria-labelledby="exampleHeadingDefaultTwo" role="tabpanel">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-hover">
+                                                            <tr>
+                                                                <td class="col-md-6 p-l-30"><h4>Nama</h4></td>
+                                                                <td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">
+                                                                    <?php if ($emp_data['gelar_dpn']) : ?>
+                                                                        {{ $emp_data['gelar_dpn'] }}
+                                                                    <?php endif ?>
+                                                                    <!-- <span class="inline_edit_id" id="inline-nm_emp" data-type="text" data-id="{{ $emp_data['id_emp'] }}" data-title="Enter username">{{ ucwords(strtolower($emp_data['nm_emp'])) }}</span> -->
+                                                                    {{ ucwords(strtolower($emp_data['nm_emp'])) }}
 
-																<?php if ($emp_data['gelar_blk']) : ?>
-																	<!-- <span class="inline_edit_id" id="inline-gelar_blk" data-type="text" data-id="{{ $emp_data['id_emp'] }}" data-title="Enter username">{{ $emp_data['gelar_blk'] }}</span> -->
-																	{{ $emp_data['gelar_blk'] }}
-																<?php endif ?>
-															</h4></td>
-															<td class="col-md-6 data-input">
-																<div class="col-md-3">
-																	<input class="form-control" type="text" name="gelar_dpn" value="{{ $emp_data['gelar_dpn'] }}" placeholder="Depan" autocomplete="off">
-																</div>
-																<div class="col-md-6">
-																	<input class="form-control" type="text" name="nm_emp" value="{{ $emp_data['nm_emp'] }}" placeholder="Nama" autocomplete="off">
-																</div>
-																<div class="col-md-3">
-																	<input class="form-control" type="text" name="gelar_blk" value="{{ $emp_data['gelar_blk'] }}" placeholder="Belakang" autocomplete="off">
-																</div>
-															</td>
-														</tr>
-														<tr>
-															<td class="col-md-6 p-l-30"><h4>NIK KTP</h4></td>
-															<td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">{{ $emp_data['nik_emp'] }}</h4></td>
-															<td class="col-md-6 data-input">
-																<input class="form-control uintTextBox" type="text" name="nik_emp" value="{{ $emp_data['nik_emp'] }}" placeholder="NIK" autocomplete="off">
-															</td>
-														</tr>
-														<tr>
-															<td class="col-md-6 p-l-30"><h4>Jenis Kelamin</h4></td>
-															<td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">
-																<?php if ($emp_data['jnkel_emp'] == 'L') : ?>
-																	Laki-Laki
-																<?php else : ?>
-																	Perempuan
-																<?php endif ?>
-															</h4></td>
-															<td class="col-md-6 data-input">
-																<div class="radio-list col-md-8">
-																	<label class="radio-inline">
-																		<div class="radio radio-info">
-																			<input type="radio" name="jnkel_emp" id="kel1" value="L" data-error="Pilih salah satu" required checked>
-																			<label for="kel1">Laki-laki</label> 
-																		</div>
-																	</label>
-																	<label class="radio-inline">
-																		<div class="radio radio-info">
-																			<input type="radio" name="jnkel_emp" id="kel2" value="P" 
-																				<?php if ($emp_data['jnkel_emp'] == "P"): ?>
-																					checked
-																				<?php endif ?>
-																			>
-																			<label for="kel2">Perempuan</label>
-																		</div>
-																	</label>
-																	<div class="help-block with-errors"></div>  
-																</div>
-															</td>
-														</tr>
-														<tr>
-															<td class="col-md-6 p-l-30"><h4>Tempat, Tgl Lahir</h4></td>
-															<td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">{{ $emp_data['tempat_lahir'] ?? '-' }} @if($emp_data['tempat_lahir'] && $emp_data['tgl_lahir']), @endif {{ $emp_data['tgl_lahir'] ? date('d-M-Y',strtotime($emp_data['tgl_lahir'])) : '-' }}</h4></td>
-															<td class="col-md-6 data-input">
-																<div class="col-md-6">
-																	<input class="form-control" type="text" name="tempat_lahir" value="{{ $emp_data['tempat_lahir'] }}" placeholder="Tempat" autocomplete="off">
-																</div>
-																<div class="col-md-6">
-																	<input id="datepicker-autoclose" class="form-control" type="text" name="tgl_lahir" value="{{ $emp_data['tgl_lahir'] ? date('d/m/Y', strtotime($emp_data['tgl_lahir'])) : '' }}" placeholder="Tanggal Lahir" autocomplete="off">
-																</div>
-															</td>
-														</tr>
-														<tr>
-															<td class="col-md-6 p-l-30"><h4>Agama</h4></td>
-															<td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">
-																<?php if ($emp_data['idagama'] == 'A') : ?>
-																	Islam
-																<?php elseif ($emp_data['idagama'] == 'B') : ?>
-																	Katolik
-																<?php elseif ($emp_data['idagama'] == 'C') : ?>
-																	Protestan
-																<?php elseif ($emp_data['idagama'] == 'D') : ?>
-																	Budha
-																<?php elseif ($emp_data['idagama'] == 'E') : ?>
-																	Hindu
-																<?php elseif ($emp_data['idagama'] == 'F') : ?>
-																	Lainnya
-																<?php elseif ($emp_data['idagama'] == 'G') : ?>
-																	Konghucu
-																<?php endif ?>
-															</h4></td>
-															<td class="col-md-6 data-input">
-																<select class="form-control" name="idagama" id="idagama">
-																	<option value="A" <?php if ($emp_data['idagama'] == "A"): ?> selected <?php endif ?> >Islam </option>
-																	<option value="B" <?php if ($emp_data['idagama'] == "B"): ?> selected <?php endif ?> > Katolik </option>
-																	<option value="C" <?php if ($emp_data['idagama'] == "C"): ?> selected <?php endif ?> > Protestan </option>
-																	<option value="D" <?php if ($emp_data['idagama'] == "D"): ?> selected <?php endif ?> > Budha </option>
-																	<option value="E" <?php if ($emp_data['idagama'] == "E"): ?> selected <?php endif ?> > Hindu </option>
-																	<option value="F" <?php if ($emp_data['idagama'] == "F"): ?> selected <?php endif ?> > Lainnya </option>
-																	<option value="G" <?php if ($emp_data['idagama'] == "G"): ?> selected <?php endif ?> > Konghucu </option>
-																</select>
-															</td>
-														</tr>
-														<tr>
-															<td class="col-md-6 p-l-30"><h4>Alamat</h4></td>
-															<td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">{{ $emp_data['alamat_emp'] }}</h4></td>
-															<td class="col-md-6 data-input">
-																<textarea class="form-control" name="alamat_emp" placeholder="Alamat" autocomplete="off">{{ $emp_data['alamat_emp'] }}</textarea>
-															</td>
-														</tr>
-														<tr>
-															<td class="col-md-6 p-l-30"><h4>Status Perkawinan</h4></td>
-															<td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">{{ $emp_data['status_nikah'] }}</h4></td>
-															<td class="col-md-6 data-input">
-																<select class="form-control" name="status_nikah" id="status_nikah">
-																	<option value="Belum Kawin" <?php if ($emp_data['status_nikah'] == "Belum Kawin"): ?> selected <?php endif ?> > Belum Kawin </option>
-																	<option value="Kawin" <?php if ($emp_data['status_nikah'] == "Kawin"): ?> selected <?php endif ?> > Kawin </option>
-																	<option value="Cerai Hidup" <?php if ($emp_data['status_nikah'] == "Cerai Hidup"): ?> selected <?php endif ?> > Cerai Hidup </option>
-																	<option value="Cerai Mati" <?php if ($emp_data['status_nikah'] == "Cerai Mati"): ?> selected <?php endif ?> > Cerai Mati </option>
-																</select>
-															</td>
-														</tr>
-														<tr>
-															<td class="col-md-6 p-l-30"><h4>Golongan Darah</h4></td>
-															<td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">{{ $emp_data['gol_darah'] }}</h4></td>
-															<td class="col-md-6 data-input">
-																<select class="form-control" name="gol_darah" id="gol_darah">
-																	<option value="A" <?php if ($emp_data['gol_darah'] == "A"): ?> selected <?php endif ?> > A </option>
-																	<option value="B" <?php if ($emp_data['gol_darah'] == "B"): ?> selected <?php endif ?> > B </option>
-																	<option value="AB" <?php if ($emp_data['gol_darah'] == "AB"): ?> selected <?php endif ?> > AB </option>
-																	<option value="O" <?php if ($emp_data['gol_darah'] == "O"): ?> selected <?php endif ?> > O </option>
-																</select>
-															</td>
-														</tr>
-													</table>
-												</div>
-											</div>
-										</div>
-										<div class="panel">
-											<div class="panel-heading" style="background-color: #edf1f5" id="exampleHeadingDefaultFour" role="tab"> <a class="panel-title collapsed" data-toggle="collapse" href="#exampleCollapseDefaultFour" data-parent="#exampleAccordionDefault" aria-expanded="false" aria-controls="exampleCollapseDefaultFour"> Data Penting </a> </div>
-											<div class="panel-collapse collapse" id="exampleCollapseDefaultFour" aria-labelledby="exampleHeadingDefaultFour" role="tabpanel">
-												<div class="table-responsive">
-													<table class="table table-hover">
-														<tr>
-															<td class="col-md-6 p-l-30">
-																<h4>SK CPNS</h4>
-																<div class="data-input">
-																	<br>
-																	<p class="text-muted"><span style="color:red;">Hanya bisa upload gambar / PDF maksimal 500KB</span></p>
-																</div>
-															</td>
-															<td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">
-																<?php if ($emp_data['sk_cpns'] && $emp_data['sk_cpns'] != '') : ?>
-                                                                    <a target="_blank" href="{{ config('app.openfileimg') }}/{{ Auth::user()->id_emp }}/skcpns/{{ $emp_data['sk_cpns'] }}">[Unduh SK CPNS]</a>
-																<?php else : ?>
-																	-
-																<?php endif ?>
-															</h4></td>
-															<td class="col-md-6 data-input" style="vertical-align:middle;">
-																<input type="file" name="fileskcpns" accept="image/jpeg, image/jpg, image/gif, image/png, application/pdf">
-																@if($emp_data['sk_cpns'] && $emp_data['sk_cpns'] != '')
-																<br><a target="_blank" href="{{ config('app.openfileimg') }}/{{ Auth::user()->id_emp }}/skcpns/{{ $emp_data['sk_cpns'] }}">[Unduh SK CPNS]</a>
-																@endif
-															</td>
-                                                        </tr>
+                                                                    <?php if ($emp_data['gelar_blk']) : ?>
+                                                                        <!-- <span class="inline_edit_id" id="inline-gelar_blk" data-type="text" data-id="{{ $emp_data['id_emp'] }}" data-title="Enter username">{{ $emp_data['gelar_blk'] }}</span> -->
+                                                                        {{ $emp_data['gelar_blk'] }}
+                                                                    <?php endif ?>
+                                                                </h4></td>
+                                                                <td class="col-md-6 data-input">
+                                                                    <div class="col-md-3">
+                                                                        <input class="form-control" type="text" name="gelar_dpn" value="{{ $emp_data['gelar_dpn'] }}" placeholder="Depan" autocomplete="off">
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <input class="form-control" type="text" name="nm_emp" value="{{ $emp_data['nm_emp'] }}" placeholder="Nama" autocomplete="off">
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <input class="form-control" type="text" name="gelar_blk" value="{{ $emp_data['gelar_blk'] }}" placeholder="Belakang" autocomplete="off">
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="col-md-6 p-l-30"><h4>NIK KTP</h4></td>
+                                                                <td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">{{ $emp_data['nik_emp'] }}</h4></td>
+                                                                <td class="col-md-6 data-input">
+                                                                    <input class="form-control uintTextBox" type="text" name="nik_emp" value="{{ $emp_data['nik_emp'] }}" placeholder="NIK" autocomplete="off">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="col-md-6 p-l-30"><h4>Jenis Kelamin</h4></td>
+                                                                <td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">
+                                                                    <?php if ($emp_data['jnkel_emp'] == 'L') : ?>
+                                                                        Laki-Laki
+                                                                    <?php else : ?>
+                                                                        Perempuan
+                                                                    <?php endif ?>
+                                                                </h4></td>
+                                                                <td class="col-md-6 data-input">
+                                                                    <div class="radio-list col-md-8">
+                                                                        <label class="radio-inline">
+                                                                            <div class="radio radio-info">
+                                                                                <input type="radio" name="jnkel_emp" id="kel1" value="L" data-error="Pilih salah satu" required checked>
+                                                                                <label for="kel1">Laki-laki</label> 
+                                                                            </div>
+                                                                        </label>
+                                                                        <label class="radio-inline">
+                                                                            <div class="radio radio-info">
+                                                                                <input type="radio" name="jnkel_emp" id="kel2" value="P" 
+                                                                                    <?php if ($emp_data['jnkel_emp'] == "P"): ?>
+                                                                                        checked
+                                                                                    <?php endif ?>
+                                                                                >
+                                                                                <label for="kel2">Perempuan</label>
+                                                                            </div>
+                                                                        </label>
+                                                                        <div class="help-block with-errors"></div>  
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="col-md-6 p-l-30"><h4>Tempat, Tgl Lahir</h4></td>
+                                                                <td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">{{ $emp_data['tempat_lahir'] ?? '-' }} @if($emp_data['tempat_lahir'] && $emp_data['tgl_lahir']), @endif {{ $emp_data['tgl_lahir'] ? date('d-M-Y',strtotime($emp_data['tgl_lahir'])) : '-' }}</h4></td>
+                                                                <td class="col-md-6 data-input">
+                                                                    <div class="col-md-6">
+                                                                        <input class="form-control" type="text" name="tempat_lahir" value="{{ $emp_data['tempat_lahir'] }}" placeholder="Tempat" autocomplete="off">
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <input id="datepicker-autoclose" class="form-control" type="text" name="tgl_lahir" value="{{ $emp_data['tgl_lahir'] ? date('d/m/Y', strtotime($emp_data['tgl_lahir'])) : '' }}" placeholder="Tanggal Lahir" autocomplete="off">
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="col-md-6 p-l-30"><h4>Agama</h4></td>
+                                                                <td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">
+                                                                    <?php if ($emp_data['idagama'] == 'A') : ?>
+                                                                        Islam
+                                                                    <?php elseif ($emp_data['idagama'] == 'B') : ?>
+                                                                        Katolik
+                                                                    <?php elseif ($emp_data['idagama'] == 'C') : ?>
+                                                                        Protestan
+                                                                    <?php elseif ($emp_data['idagama'] == 'D') : ?>
+                                                                        Budha
+                                                                    <?php elseif ($emp_data['idagama'] == 'E') : ?>
+                                                                        Hindu
+                                                                    <?php elseif ($emp_data['idagama'] == 'F') : ?>
+                                                                        Lainnya
+                                                                    <?php elseif ($emp_data['idagama'] == 'G') : ?>
+                                                                        Konghucu
+                                                                    <?php endif ?>
+                                                                </h4></td>
+                                                                <td class="col-md-6 data-input">
+                                                                    <select class="form-control" name="idagama" id="idagama">
+                                                                        <option value="A" <?php if ($emp_data['idagama'] == "A"): ?> selected <?php endif ?> >Islam </option>
+                                                                        <option value="B" <?php if ($emp_data['idagama'] == "B"): ?> selected <?php endif ?> > Katolik </option>
+                                                                        <option value="C" <?php if ($emp_data['idagama'] == "C"): ?> selected <?php endif ?> > Protestan </option>
+                                                                        <option value="D" <?php if ($emp_data['idagama'] == "D"): ?> selected <?php endif ?> > Budha </option>
+                                                                        <option value="E" <?php if ($emp_data['idagama'] == "E"): ?> selected <?php endif ?> > Hindu </option>
+                                                                        <option value="F" <?php if ($emp_data['idagama'] == "F"): ?> selected <?php endif ?> > Lainnya </option>
+                                                                        <option value="G" <?php if ($emp_data['idagama'] == "G"): ?> selected <?php endif ?> > Konghucu </option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="col-md-6 p-l-30"><h4>Alamat</h4></td>
+                                                                <td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">{{ $emp_data['alamat_emp'] }}</h4></td>
+                                                                <td class="col-md-6 data-input">
+                                                                    <textarea class="form-control" name="alamat_emp" placeholder="Alamat" autocomplete="off">{{ $emp_data['alamat_emp'] }}</textarea>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="col-md-6 p-l-30"><h4>Status Perkawinan</h4></td>
+                                                                <td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">{{ $emp_data['status_nikah'] }}</h4></td>
+                                                                <td class="col-md-6 data-input">
+                                                                    <select class="form-control" name="status_nikah" id="status_nikah">
+                                                                        <option value="Belum Kawin" <?php if ($emp_data['status_nikah'] == "Belum Kawin"): ?> selected <?php endif ?> > Belum Kawin </option>
+                                                                        <option value="Kawin" <?php if ($emp_data['status_nikah'] == "Kawin"): ?> selected <?php endif ?> > Kawin </option>
+                                                                        <option value="Cerai Hidup" <?php if ($emp_data['status_nikah'] == "Cerai Hidup"): ?> selected <?php endif ?> > Cerai Hidup </option>
+                                                                        <option value="Cerai Mati" <?php if ($emp_data['status_nikah'] == "Cerai Mati"): ?> selected <?php endif ?> > Cerai Mati </option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="col-md-6 p-l-30"><h4>Golongan Darah</h4></td>
+                                                                <td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">{{ $emp_data['gol_darah'] }}</h4></td>
+                                                                <td class="col-md-6 data-input">
+                                                                    <select class="form-control" name="gol_darah" id="gol_darah">
+                                                                        <option value="A" <?php if ($emp_data['gol_darah'] == "A"): ?> selected <?php endif ?> > A </option>
+                                                                        <option value="B" <?php if ($emp_data['gol_darah'] == "B"): ?> selected <?php endif ?> > B </option>
+                                                                        <option value="AB" <?php if ($emp_data['gol_darah'] == "AB"): ?> selected <?php endif ?> > AB </option>
+                                                                        <option value="O" <?php if ($emp_data['gol_darah'] == "O"): ?> selected <?php endif ?> > O </option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel">
+                                                <div class="panel-heading" style="background-color: #edf1f5" id="exampleHeadingDefaultFour" role="tab"> <a class="panel-title collapsed" data-toggle="collapse" href="#exampleCollapseDefaultFour" data-parent="#exampleAccordionDefault" aria-expanded="false" aria-controls="exampleCollapseDefaultFour"> Data Penting </a> </div>
+                                                <div class="panel-collapse collapse" id="exampleCollapseDefaultFour" aria-labelledby="exampleHeadingDefaultFour" role="tabpanel">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-hover">
+                                                            <tr>
+                                                                <td class="col-md-6 p-l-30">
+                                                                    <h4>SK CPNS</h4>
+                                                                    <div class="data-input">
+                                                                        <br>
+                                                                        <p class="text-muted"><span style="color:red;">Hanya bisa upload gambar / PDF maksimal 500KB</span></p>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">
+                                                                    <?php if ($emp_data['sk_cpns'] && $emp_data['sk_cpns'] != '') : ?>
+                                                                        <a target="_blank" href="{{ config('app.openfileimg') }}/{{ Auth::user()->id_emp }}/skcpns/{{ $emp_data['sk_cpns'] }}">[Unduh SK CPNS]</a>
+                                                                    <?php else : ?>
+                                                                        -
+                                                                    <?php endif ?>
+                                                                </h4></td>
+                                                                <td class="col-md-6 data-input" style="vertical-align:middle;">
+                                                                    <input type="file" name="fileskcpns" accept="image/jpeg, image/jpg, image/gif, image/png, application/pdf">
+                                                                    @if($emp_data['sk_cpns'] && $emp_data['sk_cpns'] != '')
+                                                                    <br><a target="_blank" href="{{ config('app.openfileimg') }}/{{ Auth::user()->id_emp }}/skcpns/{{ $emp_data['sk_cpns'] }}">[Unduh SK CPNS]</a>
+                                                                    @endif
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="col-md-6 p-l-30" style="border-top: 0px;">
+                                                                    <h4>Tanggal SK CPNS</h4>
+                                                                    <div class="data-input">
+                                                                        <br>
+                                                                        <p class="text-muted"><span style="color:red;">Tanggal TMT pada SK CPNS</span></p>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="col-md-6 data-show" style="vertical-align: middle; border-top: 0px;"><h4 class="text-muted">{{ $emp_data['tmt_sk_cpns'] ? date('d-M-Y',strtotime($emp_data['tmt_sk_cpns'])) : '-' }}</h4></td>
+                                                                <td class="col-md-6 data-input" style="border-top: 0px;">
+                                                                    <input class="form-control datepicker-autoclose-def" type="text" name="tmt_sk_cpns" value="{{ $emp_data['tmt_sk_cpns'] ? date('d-M-Y',strtotime($emp_data['tmt_sk_cpns'])) : '' }}" placeholder="Tanggal SK CPNS" autocomplete="off">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="col-md-6 p-l-30">
+                                                                    <h4>SK PNS</h4>
+                                                                    <div class="data-input">
+                                                                        <br>
+                                                                        <p class="text-muted"><span style="color:red;">Hanya bisa upload gambar / PDF maksimal 500KB</span></p>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">
+                                                                    <?php if ($emp_data['sk_pns'] && $emp_data['sk_pns'] != '') : ?>
+                                                                        <a target="_blank" href="{{ config('app.openfileimg') }}/{{ Auth::user()->id_emp }}/skpns/{{ $emp_data['sk_pns'] }}">[Unduh SK PNS]</a>
+                                                                    <?php else : ?>
+                                                                        -
+                                                                    <?php endif ?>
+                                                                </h4></td>
+                                                                <td class="col-md-6 data-input" style="vertical-align:middle;">
+                                                                    <input type="file" name="fileskpns" accept="image/jpeg, image/jpg, image/gif, image/png, application/pdf">
+                                                                    @if($emp_data['sk_pns'] && $emp_data['sk_pns'] != '')
+                                                                    <br><a target="_blank" href="{{ config('app.openfileimg') }}/{{ Auth::user()->id_emp }}/skpns/{{ $emp_data['sk_pns'] }}">[Unduh SK PNS]</a>
+                                                                    @endif
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="col-md-6 p-l-30" style="border-top: 0px;">
+                                                                    <h4>Tanggal SK PNS</h4>
+                                                                    <div class="data-input">
+                                                                        <br>
+                                                                        <p class="text-muted"><span style="color:red;">Tanggal TMT pada SK PNS</span></p>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="col-md-6 data-show" style="vertical-align: middle; border-top: 0px;"><h4 class="text-muted">{{ $emp_data['tmt_sk_pns'] ? date('d-M-Y',strtotime($emp_data['tmt_sk_pns'])) : '-' }}</h4></td>
+                                                                <td class="col-md-6 data-input" style="border-top: 0px;">
+                                                                    <input class="form-control datepicker-autoclose-def" type="text" name="tmt_sk_pns" value="{{ $emp_data['tmt_sk_pns'] ? date('d-M-Y',strtotime($emp_data['tmt_sk_pns'])) : '' }}" placeholder="Tanggal SK PNS" autocomplete="off">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="col-md-6 p-l-30">
+                                                                    <h4>Kartu Pegawai</h4>
+                                                                    <div class="data-input">
+                                                                        <br>
+                                                                        <p class="text-muted"><span style="color:red;">Hanya bisa upload gambar / PDF maksimal 500KB</span></p>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">
+                                                                    <?php if ($emp_data['karpeg'] && $emp_data['karpeg'] != '') : ?>
+                                                                        <a target="_blank" href="{{ config('app.openfileimg') }}/{{ Auth::user()->id_emp }}/karpeg/{{ $emp_data['karpeg'] }}">[Unduh KARPEG]</a>
+                                                                    <?php else : ?>
+                                                                        -
+                                                                    <?php endif ?>
+                                                                </h4></td>
+                                                                <td class="col-md-6 data-input" style="vertical-align:middle;">
+                                                                    <input type="file" name="karpeg" accept="image/jpeg, image/jpg, image/gif, image/png, application/pdf">
+                                                                    @if($emp_data['karpeg'] && $emp_data['karpeg'] != '')
+                                                                    <br><a target="_blank" href="{{ config('app.openfileimg') }}/{{ Auth::user()->id_emp }}/karpeg/{{ $emp_data['karpeg'] }}">[Unduh KARPEG]</a>
+                                                                    @endif
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel">
+                                                <div class="panel-heading" style="background-color: #edf1f5" id="exampleHeadingDefaultThree" role="tab"> <a class="panel-title collapsed" data-toggle="collapse" href="#exampleCollapseDefaultThree" data-parent="#exampleAccordionDefault" aria-expanded="false" aria-controls="exampleCollapseDefaultThree"> Data Lain </a> </div>
+                                                <div class="panel-collapse collapse" id="exampleCollapseDefaultThree" aria-labelledby="exampleHeadingDefaultThree" role="tabpanel">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-hover">
+                                                            <tr>
+                                                                <td class="col-md-6 p-l-30"><h4>Bank</h4></td>
+                                                                <td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">
+                                                                    <?php if (($emp_data['nm_bank'] && $emp_data['nm_bank'] != '') || ($emp_data['cb_bank'] && $emp_data['cb_bank'] != '')) : ?>
+                                                                        {{ $emp_data['nm_bank'] }} {{ $emp_data['cb_bank'] }}
+                                                                    <?php else : ?>
+                                                                        -
+                                                                    <?php endif ?>
+                                                                </h4></td>
+                                                                <td class="col-md-6 data-input">
+                                                                    <div class="col-md-6">
+                                                                        <input class="form-control" type="text" name="nm_bank" value="{{ $emp_data['nm_bank'] }}" placeholder="Nama Bank" autocomplete="off">
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <input class="form-control" type="text" name="cb_bank" value="{{ $emp_data['cb_bank'] }}" placeholder="Cabang Bank" autocomplete="off">
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="col-md-6 p-l-30"><h4>Nama Rekening</h4></td>
+                                                                <td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">
+                                                                    <?php if ($emp_data['an_bank'] && $emp_data['an_bank'] != '') : ?>
+                                                                        {{ $emp_data['an_bank'] }}
+                                                                    <?php else : ?>
+                                                                        -
+                                                                    <?php endif ?>
+                                                                </h4></td>
+                                                                <td class="col-md-6 data-input">
+                                                                    <input class="form-control" type="text" name="an_bank" value="{{ $emp_data['an_bank'] }}" placeholder="Nama Rekening" autocomplete="off">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="col-md-6 p-l-30"><h4>Nomor Rekening</h4></td>
+                                                                <td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">
+                                                                    <?php if ($emp_data['nr_bank'] && $emp_data['nr_bank'] != '') : ?>
+                                                                        {{ $emp_data['nr_bank'] }}
+                                                                    <?php else : ?>
+                                                                        -
+                                                                    <?php endif ?>
+                                                                </h4></td>
+                                                                <td class="col-md-6 data-input">
+                                                                    <input class="form-control" type="text" name="nr_bank" value="{{ $emp_data['nr_bank'] }}" placeholder="Nomor Rekening" autocomplete="off">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="col-md-6 p-l-30"><h4>Nomor Taspen</h4></td>
+                                                                <td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">
+                                                                    <?php if ($emp_data['no_taspen'] && $emp_data['no_taspen'] != '') : ?>
+                                                                        {{ $emp_data['no_taspen'] }}
+                                                                    <?php else : ?>
+                                                                        -
+                                                                    <?php endif ?>
+                                                                </h4></td>
+                                                                <td class="col-md-6 data-input">
+                                                                    <input class="form-control" type="text" name="no_taspen" value="{{ $emp_data['no_taspen'] }}" placeholder="Nomor Taspen" autocomplete="off">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="col-md-6 p-l-30"><h4>NPWP</h4></td>
+                                                                <td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">
+                                                                    <?php if ($emp_data['npwp'] && $emp_data['npwp'] != '') : ?>
+                                                                        {{ $emp_data['npwp'] }}
+                                                                    <?php else : ?>
+                                                                        -
+                                                                    <?php endif ?>
+                                                                </h4></td>
+                                                                <td class="col-md-6 data-input">
+                                                                    <input class="form-control" type="text" name="npwp" value="{{ $emp_data['npwp'] }}" placeholder="NPWP" autocomplete="off">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="col-md-6 p-l-30"><h4>Nomor Askes</h4></td>
+                                                                <td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">
+                                                                    <?php if ($emp_data['no_askes'] && $emp_data['no_askes'] != '') : ?>
+                                                                        {{ $emp_data['no_askes'] }}
+                                                                    <?php else : ?>
+                                                                        -
+                                                                    <?php endif ?>
+                                                                </h4></td>
+                                                                <td class="col-md-6 data-input">
+                                                                    <input class="form-control" type="text" name="no_askes" value="{{ $emp_data['no_askes'] }}" placeholder="Nomor Askes" autocomplete="off">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="col-md-6 p-l-30"><h4>BPJS</h4></td>
+                                                                <td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">
+                                                                    <?php if ($emp_data['no_jamsos'] && $emp_data['no_jamsos'] != '') : ?>
+                                                                        {{ $emp_data['no_jamsos'] }}
+                                                                    <?php else : ?>
+                                                                        -
+                                                                    <?php endif ?>
+                                                                </h4></td>
+                                                                <td class="col-md-6 data-input">
+                                                                    <input class="form-control" type="text" name="no_jamsos" value="{{ $emp_data['no_jamsos'] }}" placeholder="Nomor BPJS" autocomplete="off">
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="data-input">
+                                            <h4>Ubah Foto 
+                                                <br><span class="text-danger" style="font-size: 14px">Hanya berupa JPG, JPEG, dan PNG</span>
+                                                <br><span class="text-danger" style="font-size: 14px">Ukuran foto 3x4</span>
+                                                <br><span class="text-danger" style="font-size: 14px">Size max 500KB</span>
+                                            </h4>
+                                            <input type="file" name="filefoto">
+                                        </div>
+                                        <button class="btn btn-success pull-right data-input" type="submit">Simpan</button>
+                                        <button class="btn btn-info pull-right btn-edit-id m-r-10" type="button">Ubah</button>
+                                        <div class="clearfix"></div>
+                                    </form>
+                                </div>
+                                <div aria-labelledby="keluarga-tab" id="keluarga" class="tab-pane fade" role="tabpanel">
+                                    <button class="btn btn-info m-b-20 btn-insert-kel" type="button" data-toggle="modal" data-target="#modal-insert-kel">Tambah</button>
+
+                                    @if(count($emp_kel) > 0)
+                                    <div class="table-responsive">
+                                        <table class="table table-hover manage-u-table">
+                                            <tbody>
+                                                @foreach($emp_kel as $key => $kel)
+                                                    <tr>
+                                                        <td style="vertical-align: middle;">
+                                                            <strong>{{ strtoupper($kel['jns_kel']) }}</strong>
+                                                            <br>{{ ucwords(strtolower($kel['nm_kel'])) }}
+                                                        </td>
+
+                                                        <td style="vertical-align: middle;">
+                                                            <strong>NIK</strong><br>
+                                                            <?php if ($kel['nik_kel']) : ?> 
+                                                                {{ $kel['nik_kel'] }}
+                                                            <?php else : ?>
+                                                                -
+                                                            <?php endif ?>
+                                                        </td>
+
+                                                        <td style="vertical-align: middle;">
+                                                            <strong>Tgl Lahir</strong><br>
+                                                            <?php if (date('d-M-Y',strtotime($kel['tgl_kel']))) : ?> 
+                                                                {{ date('d-M-Y',strtotime($kel['tgl_kel'])) }}
+                                                            <?php else : ?>
+                                                                -
+                                                            <?php endif ?>
+                                                        </td>
+
+                                                        <td style="vertical-align: middle;">
+                                                            
+                                                            <button type="button" class="btn btn-info btn-outline btn-circle m-r-5 btn-update-kel" data-toggle="modal" data-target="#modal-update-kel" 
+                                                                data-ids="{{$kel['ids']}}"
+                                                                data-noid="{{$kel['noid']}}"
+                                                                data-jns_kel="{{$kel['jns_kel']}}"
+                                                                data-nm_kel="{{$kel['nm_kel']}}"
+                                                                data-nik_kel="{{$kel['nik_kel']}}"
+                                                                data-tgl_kel="{{ date('d/m/Y',strtotime($kel['tgl_kel'])) }}"
+                                                            ><i class="ti-pencil-alt"></i></button>
+                                                            <button type="button" class="btn btn-danger btn-delete-kel btn-outline btn-circle m-r-5" data-toggle="modal" data-target="#modal-delete-kel"
+                                                                data-ids="{{$kel['ids']}}"
+                                                                data-noid="{{$kel['noid']}}"
+                                                                data-jns_kel="{{$kel['jns_kel']}}"
+                                                            ><i class="ti-trash"></i></button>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    @endif
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div aria-labelledby="pendidikan-tab" id="pendidikan" class="tab-pane fade" role="tabpanel">
+                                    <div class="white-box">
+                                        <h2><b>PENDIDIKAN FORMAL</b></h2>
+                                        
+                                        <button class="btn btn-info m-b-20 btn-insert-dik" type="button" data-toggle="modal" data-target="#modal-insert-dik">Tambah</button>
+    
+                                        @if(count($emp_dik) > 0)
+                                        <div class="table-responsive">
+                                            <table class="table table-hover manage-u-table">
+                                                <tbody>
+                                                    @foreach($emp_dik as $key => $dik)
+                                                        @if ($dik['iddik'] != 'NA')
                                                         <tr>
-                                                            <td class="col-md-6 p-l-30" style="border-top: 0px;">
-																<h4>Tanggal SK CPNS</h4>
-																<div class="data-input">
-																	<br>
-																	<p class="text-muted"><span style="color:red;">Tanggal TMT pada SK CPNS</span></p>
-																</div>
-															</td>
-                                                            <td class="col-md-6 data-show" style="vertical-align: middle; border-top: 0px;"><h4 class="text-muted">{{ $emp_data['tmt_sk_cpns'] ? date('d-M-Y',strtotime($emp_data['tmt_sk_cpns'])) : '-' }}</h4></td>
-															<td class="col-md-6 data-input" style="border-top: 0px;">
-																<input class="form-control datepicker-autoclose-def" type="text" name="tmt_sk_cpns" value="{{ $emp_data['tmt_sk_cpns'] ? date('d-M-Y',strtotime($emp_data['tmt_sk_cpns'])) : '' }}" placeholder="Tanggal SK CPNS" autocomplete="off">
-															</td>
-														</tr>
-														<tr>
-															<td class="col-md-6 p-l-30">
-																<h4>SK PNS</h4>
-																<div class="data-input">
-																	<br>
-																	<p class="text-muted"><span style="color:red;">Hanya bisa upload gambar / PDF maksimal 500KB</span></p>
-																</div>
-															</td>
-															<td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">
-																<?php if ($emp_data['sk_pns'] && $emp_data['sk_pns'] != '') : ?>
-                                                                    <a target="_blank" href="{{ config('app.openfileimg') }}/{{ Auth::user()->id_emp }}/skpns/{{ $emp_data['sk_pns'] }}">[Unduh SK PNS]</a>
-																<?php else : ?>
-																	-
-																<?php endif ?>
-															</h4></td>
-															<td class="col-md-6 data-input" style="vertical-align:middle;">
-																<input type="file" name="fileskpns" accept="image/jpeg, image/jpg, image/gif, image/png, application/pdf">
-																@if($emp_data['sk_pns'] && $emp_data['sk_pns'] != '')
-																<br><a target="_blank" href="{{ config('app.openfileimg') }}/{{ Auth::user()->id_emp }}/skpns/{{ $emp_data['sk_pns'] }}">[Unduh SK PNS]</a>
-																@endif
-															</td>
+                                                            <td>
+                                                                <h1>{{ $dik['iddik'] }}</h1>
+                                                            </td>
+    
+                                                            <td style="vertical-align: middle;">
+                                                                <strong>{{ $dik['prog_sek'] }} {{ $dik['th_sek'] }}</strong>
+                                                                <br>{{ $dik['nm_sek'] }}
+                                                            </td>
+    
+                                                            <td style="vertical-align: middle;">
+                                                                <?php if ($dik['no_sek']) : ?>
+                                                                    <strong>No. {{ $dik['no_sek'] }}</strong>
+                                                                <?php endif ?>
+                                                                
+                                                                <?php if ($dik['gambar'] && $dik['gambar'] != '') : ?> 
+                                                                    <br><a target="_blank" href="{{ config('app.openfileimg') }}/{{ Auth::user()->id_emp }}/dik/{{ $dik['gambar'] }}">[File Ijazah]</a>
+                                                                <?php else : ?>
+                                                                    <br>[Tidak ada ijazah]
+                                                                <?php endif ?>
+                                                                <?php if ($dik['appr'] == '1') : ?> 
+                                                                    <i class="fa fa-check" style="color: #2ECC40;" data-toggle="tooltip" title="Sudah Di Approve"></i>
+                                                                <?php else : ?>
+                                                                    <i class="fa fa-close" style="color: #FF4136;" data-toggle="tooltip" title="Belum di approve, {{ $dik ? $dik['alasan'] : '' }}"></i>
+                                                                <?php endif ?>
+                                                            </td>
+    
+                                                            <td style="vertical-align: middle;">
+                                                                <button type="button" class="btn btn-info btn-outline btn-circle m-r-5 btn-update-dik" data-toggle="modal" data-target="#modal-update-dik" 
+                                                                    data-ids="{{$dik['ids']}}"
+                                                                    data-noid="{{$dik['noid']}}"
+                                                                    data-iddik="{{$dik['iddik']}}"
+                                                                    data-prog_sek="{{$dik['prog_sek']}}"
+                                                                    data-no_sek="{{$dik['no_sek']}}"
+                                                                    data-th_sek="{{$dik['th_sek']}}"
+                                                                    data-nm_sek="{{$dik['nm_sek']}}"
+                                                                    data-gelar_dpn_sek="{{$dik['gelar_dpn_sek']}}"
+                                                                    data-gelar_blk_sek="{{$dik['gelar_blk_sek']}}"
+                                                                    data-ijz_cpns="{{$dik['ijz_cpns']}}"
+                                                                ><i class="ti-pencil-alt"></i></button>
+                                                                <button type="button" class="btn btn-danger btn-delete-dik btn-outline btn-circle m-r-5" data-toggle="modal" data-target="#modal-delete-dik"
+                                                                    data-ids="{{$dik['ids']}}"
+                                                                    data-noid="{{$dik['noid']}}"
+                                                                    data-iddik="{{$dik['iddik']}}"
+                                                                ><i class="ti-trash"></i></button>
+                                                            </td>
                                                         </tr>
-                                                        <tr>
-                                                            <td class="col-md-6 p-l-30" style="border-top: 0px;">
-																<h4>Tanggal SK PNS</h4>
-																<div class="data-input">
-																	<br>
-																	<p class="text-muted"><span style="color:red;">Tanggal TMT pada SK PNS</span></p>
-																</div>
-															</td>
-                                                            <td class="col-md-6 data-show" style="vertical-align: middle; border-top: 0px;"><h4 class="text-muted">{{ $emp_data['tmt_sk_pns'] ? date('d-M-Y',strtotime($emp_data['tmt_sk_pns'])) : '-' }}</h4></td>
-															<td class="col-md-6 data-input" style="border-top: 0px;">
-																<input class="form-control datepicker-autoclose-def" type="text" name="tmt_sk_pns" value="{{ $emp_data['tmt_sk_pns'] ? date('d-M-Y',strtotime($emp_data['tmt_sk_pns'])) : '' }}" placeholder="Tanggal SK PNS" autocomplete="off">
-															</td>
-														</tr>
-														<tr>
-															<td class="col-md-6 p-l-30">
-																<h4>Kartu Pegawai</h4>
-																<div class="data-input">
-																	<br>
-																	<p class="text-muted"><span style="color:red;">Hanya bisa upload gambar / PDF maksimal 500KB</span></p>
-																</div>
-															</td>
-															<td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">
-																<?php if ($emp_data['karpeg'] && $emp_data['karpeg'] != '') : ?>
-                                                                    <a target="_blank" href="{{ config('app.openfileimg') }}/{{ Auth::user()->id_emp }}/karpeg/{{ $emp_data['karpeg'] }}">[Unduh KARPEG]</a>
-																<?php else : ?>
-																	-
-																<?php endif ?>
-															</h4></td>
-															<td class="col-md-6 data-input" style="vertical-align:middle;">
-																<input type="file" name="karpeg" accept="image/jpeg, image/jpg, image/gif, image/png, application/pdf">
-																@if($emp_data['karpeg'] && $emp_data['karpeg'] != '')
-																<br><a target="_blank" href="{{ config('app.openfileimg') }}/{{ Auth::user()->id_emp }}/karpeg/{{ $emp_data['karpeg'] }}">[Unduh KARPEG]</a>
-																@endif
-															</td>
-														</tr>
-													</table>
-												</div>
-											</div>
-										</div>
-										<div class="panel">
-											<div class="panel-heading" style="background-color: #edf1f5" id="exampleHeadingDefaultThree" role="tab"> <a class="panel-title collapsed" data-toggle="collapse" href="#exampleCollapseDefaultThree" data-parent="#exampleAccordionDefault" aria-expanded="false" aria-controls="exampleCollapseDefaultThree"> Data Lain </a> </div>
-											<div class="panel-collapse collapse" id="exampleCollapseDefaultThree" aria-labelledby="exampleHeadingDefaultThree" role="tabpanel">
-												<div class="table-responsive">
-													<table class="table table-hover">
-														<tr>
-															<td class="col-md-6 p-l-30"><h4>Bank</h4></td>
-															<td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">
-																<?php if (($emp_data['nm_bank'] && $emp_data['nm_bank'] != '') || ($emp_data['cb_bank'] && $emp_data['cb_bank'] != '')) : ?>
-																	{{ $emp_data['nm_bank'] }} {{ $emp_data['cb_bank'] }}
-																<?php else : ?>
-																	-
-																<?php endif ?>
-															</h4></td>
-															<td class="col-md-6 data-input">
-																<div class="col-md-6">
-																	<input class="form-control" type="text" name="nm_bank" value="{{ $emp_data['nm_bank'] }}" placeholder="Nama Bank" autocomplete="off">
-																</div>
-																<div class="col-md-6">
-																	<input class="form-control" type="text" name="cb_bank" value="{{ $emp_data['cb_bank'] }}" placeholder="Cabang Bank" autocomplete="off">
-																</div>
-															</td>
-														</tr>
-														<tr>
-															<td class="col-md-6 p-l-30"><h4>Nama Rekening</h4></td>
-															<td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">
-																<?php if ($emp_data['an_bank'] && $emp_data['an_bank'] != '') : ?>
-																	{{ $emp_data['an_bank'] }}
-																<?php else : ?>
-																	-
-																<?php endif ?>
-															</h4></td>
-															<td class="col-md-6 data-input">
-																<input class="form-control" type="text" name="an_bank" value="{{ $emp_data['an_bank'] }}" placeholder="Nama Rekening" autocomplete="off">
-															</td>
-														</tr>
-														<tr>
-															<td class="col-md-6 p-l-30"><h4>Nomor Rekening</h4></td>
-															<td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">
-																<?php if ($emp_data['nr_bank'] && $emp_data['nr_bank'] != '') : ?>
-																	{{ $emp_data['nr_bank'] }}
-																<?php else : ?>
-																	-
-																<?php endif ?>
-															</h4></td>
-															<td class="col-md-6 data-input">
-																<input class="form-control" type="text" name="nr_bank" value="{{ $emp_data['nr_bank'] }}" placeholder="Nomor Rekening" autocomplete="off">
-															</td>
-														</tr>
-														<tr>
-															<td class="col-md-6 p-l-30"><h4>Nomor Taspen</h4></td>
-															<td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">
-																<?php if ($emp_data['no_taspen'] && $emp_data['no_taspen'] != '') : ?>
-																	{{ $emp_data['no_taspen'] }}
-																<?php else : ?>
-																	-
-																<?php endif ?>
-															</h4></td>
-															<td class="col-md-6 data-input">
-																<input class="form-control" type="text" name="no_taspen" value="{{ $emp_data['no_taspen'] }}" placeholder="Nomor Taspen" autocomplete="off">
-															</td>
-														</tr>
-														<tr>
-															<td class="col-md-6 p-l-30"><h4>NPWP</h4></td>
-															<td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">
-																<?php if ($emp_data['npwp'] && $emp_data['npwp'] != '') : ?>
-																	{{ $emp_data['npwp'] }}
-																<?php else : ?>
-																	-
-																<?php endif ?>
-															</h4></td>
-															<td class="col-md-6 data-input">
-																<input class="form-control" type="text" name="npwp" value="{{ $emp_data['npwp'] }}" placeholder="NPWP" autocomplete="off">
-															</td>
-														</tr>
-														<tr>
-															<td class="col-md-6 p-l-30"><h4>Nomor Askes</h4></td>
-															<td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">
-																<?php if ($emp_data['no_askes'] && $emp_data['no_askes'] != '') : ?>
-																	{{ $emp_data['no_askes'] }}
-																<?php else : ?>
-																	-
-																<?php endif ?>
-															</h4></td>
-															<td class="col-md-6 data-input">
-																<input class="form-control" type="text" name="no_askes" value="{{ $emp_data['no_askes'] }}" placeholder="Nomor Askes" autocomplete="off">
-															</td>
-														</tr>
-														<tr>
-															<td class="col-md-6 p-l-30"><h4>BPJS</h4></td>
-															<td class="col-md-6 data-show" style="vertical-align: middle;"><h4 class="text-muted">
-																<?php if ($emp_data['no_jamsos'] && $emp_data['no_jamsos'] != '') : ?>
-																	{{ $emp_data['no_jamsos'] }}
-																<?php else : ?>
-																	-
-																<?php endif ?>
-															</h4></td>
-															<td class="col-md-6 data-input">
-																<input class="form-control" type="text" name="no_jamsos" value="{{ $emp_data['no_jamsos'] }}" placeholder="Nomor BPJS" autocomplete="off">
-															</td>
-														</tr>
-													</table>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="data-input">
-										<h4>Ubah Foto 
-											<br><span class="text-danger" style="font-size: 14px">Hanya berupa JPG, JPEG, dan PNG</span>
-											<br><span class="text-danger" style="font-size: 14px">Ukuran foto 3x4</span>
-											<br><span class="text-danger" style="font-size: 14px">Size max 500KB</span>
-										</h4>
-										<input type="file" name="filefoto">
-									</div>
-									<button class="btn btn-success pull-right data-input" type="submit">Simpan</button>
-									<button class="btn btn-info pull-right btn-edit-id m-r-10" type="button">Ubah</button>
-									<div class="clearfix"></div>
-								</form>
-							</div>
-							<div role="tabpanel" class="tab-pane fade" id="tabs5">
-								<button class="btn btn-info m-b-20 btn-insert-kel" type="button" data-toggle="modal" data-target="#modal-insert-kel">Tambah</button>
+                                                        @endif
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        @endif
+                                        
+                                        <div class="clearfix"></div>
+                                    </div>
+    
+                                    <div class="white-box">
+                                        <h2><b>PENDIDIKAN NON-FORMAL</b></h2>
+                                        <button class="btn btn-info m-b-20 btn-insert-non" type="button" data-toggle="modal" data-target="#modal-insert-non">Tambah</button>
+    
+                                        @if(count($emp_non) > 0)
+                                        <div class="table-responsive">
+                                            <table class="table table-hover manage-u-table">
+                                                <tbody>
+                                                    @foreach($emp_non as $key => $non)
+                                                    <tr>
+                                                        @if (count($emp_non) > 1)
+                                                        <td>
+                                                            <h1>{{ $key + 1 }}</h1>
+                                                        </td>
+                                                        @endif
+                                                        <td style="vertical-align: middle;">
+                                                            <strong>Nama</strong>
+                                                            <br>{{ $non['nm_non'] ?? '-' }}
+                                                        </td>
+    
+                                                        <td style="vertical-align: middle;">
+                                                            <strong>Penyelenggara</strong>
+                                                            <br>{{ $non['penye_non'] ?? '-' }}
+                                                        </td>
+    
+                                                        <td style="vertical-align: middle;">
+                                                            <strong>No. {{ $non['sert_non'] }}</strong>
+                                                            <br>Th. {{ $non['thn_non'] ?? '-' }}
+                                                        </td>
+    
+                                                        <td style="vertical-align: middle;">
+                                                            <strong>File</strong>
+                                                            <?php if ($non['gambar'] && $non['gambar'] != '') : ?> 
+                                                                <br><a target="_blank" href="{{ config('app.openfileimg') }}/{{ Auth::user()->id_emp }}/non/{{ $non['gambar'] }}">[File]</a>
+                                                            <?php else : ?>
+                                                                <br>[Tidak ada file]
+                                                            <?php endif ?>
+                                                        </td>
+    
+                                                        <td style="vertical-align: middle;">
+                                                            <button type="button" class="btn btn-info btn-outline btn-circle m-r-5 btn-update-non" data-toggle="modal" data-target="#modal-update-non" 
+                                                                data-ids="{{$non['ids']}}"
+                                                                data-noid="{{$non['noid']}}"
+                                                                data-nm_non="{{$non['nm_non']}}"
+                                                                data-penye_non="{{$non['penye_non']}}"
+                                                                data-thn_non="{{$non['thn_non']}}"
+                                                                data-durasi_non="{{$non['durasi_non']}}"
+                                                                data-sert_non="{{$non['sert_non']}}"
+                                                                data-tgl_non="{{date('d/m/Y',strtotime($non['tgl_non']))}}"
+                                                            ><i class="ti-pencil-alt"></i></button>
+                                                            <button type="button" class="btn btn-danger btn-delete-non btn-outline btn-circle m-r-5" data-toggle="modal" data-target="#modal-delete-non"
+                                                                data-ids="{{$non['ids']}}"
+                                                                data-noid="{{$non['noid']}}"
+                                                                data-nm_non="{{$non['nm_non']}}"
+                                                            ><i class="ti-trash"></i></button>
+                                                        </td>
+                                                    </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        @endif
+                                        
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                                <div aria-labelledby="golongan-tab" id="golongan" class="tab-pane fade" role="tabpanel">
+                                    <button class="btn btn-info m-b-20 btn-insert-gol" type="button" data-toggle="modal" data-target="#modal-insert-gol">Tambah</button>
 
-								@if(count($emp_kel) > 0)
-								<div class="table-responsive">
-									<table class="table table-hover manage-u-table">
-										<tbody>
-											@foreach($emp_kel as $key => $kel)
-												<tr>
-													<td style="vertical-align: middle;">
-														<strong>{{ strtoupper($kel['jns_kel']) }}</strong>
-														<br>{{ ucwords(strtolower($kel['nm_kel'])) }}
-													</td>
+                                    @if(count($emp_gol) > 0)
+                                    <div class="table-responsive">
+                                        <table class="table table-hover manage-u-table">
+                                            <tbody>
+                                                @foreach($emp_gol as $key => $gol)
+                                                    <tr>
+                                                        @if (count($emp_gol) > 1)
+                                                        <td>
+                                                            <h1>{{ $key + 1 }}</h1>
+                                                        </td>
+                                                        @endif
+                                                        <td style="vertical-align: middle;">
+                                                            <strong>{{ $gol['idgol'] }}</strong>
+                                                            <br>{{ $gol['gol']['nm_pangkat'] }}
+                                                        </td>
 
-													<td style="vertical-align: middle;">
-														<strong>NIK</strong><br>
-														<?php if ($kel['nik_kel']) : ?> 
-															{{ $kel['nik_kel'] }}
-														<?php else : ?>
-															-
-														<?php endif ?>
-													</td>
+                                                        <?php if ($gol['tmt_gol']) : ?>
+                                                            <td style="vertical-align: middle;">
+                                                                <strong>TMT </strong>
+                                                                <br>{{ date('d-M-Y',strtotime($gol['tmt_gol'])) }}
+                                                            </td>
+                                                        <?php endif ?>
 
-													<td style="vertical-align: middle;">
-														<strong>Tgl Lahir</strong><br>
-														<?php if (date('d-M-Y',strtotime($kel['tgl_kel']))) : ?> 
-															{{ date('d-M-Y',strtotime($kel['tgl_kel'])) }}
-														<?php else : ?>
-															-
-														<?php endif ?>
-													</td>
+                                                        <td style="vertical-align: middle;">
+                                                            <strong>Nomor SK</strong><br>
+                                                            <?php if ($gol['no_sk_gol']) : ?> 
+                                                                {{ $gol['no_sk_gol'] }}
+                                                            <?php else : ?>
+                                                                -
+                                                            <?php endif ?>
+                                                        </td>
+                                                        
+                                                        <td style="vertical-align: middle;">
+                                                        <?php if ($gol['gambar'] && $gol['gambar'] != '') : ?> 
+                                                            <strong>File</strong>
+                                                            <br><a target="_blank" href="{{ config('app.openfileimg') }}/{{ Auth::user()->id_emp }}/gol/{{ $gol['gambar'] }}">[File SK]</a>
+                                                        <?php else : ?>
+                                                            <strong>File</strong>
+                                                            <br>[Tidak ada SK Gol]
+                                                        <?php endif ?>
+                                                        <?php if ($gol['appr'] == '1') : ?> 
+                                                            <i class="fa fa-check" style="color: #2ECC40;" data-toggle="tooltip" title="Sudah Di Approve"></i>
+                                                        <?php else : ?>
+                                                            <i class="fa fa-close" style="color: #FF4136;" data-toggle="tooltip" title="Belum di approve, {{ $gol != '' && !(is_null($gol)) ?  $gol['alasan'] : '' }}"></i>
+                                                        <?php endif ?>
+                                                        </td>
 
-													<td style="vertical-align: middle;">
-														
-														<button type="button" class="btn btn-info btn-outline btn-circle m-r-5 btn-update-kel" data-toggle="modal" data-target="#modal-update-kel" 
-															data-ids="{{$kel['ids']}}"
-															data-noid="{{$kel['noid']}}"
-															data-jns_kel="{{$kel['jns_kel']}}"
-															data-nm_kel="{{$kel['nm_kel']}}"
-															data-nik_kel="{{$kel['nik_kel']}}"
-															data-tgl_kel="{{ date('d/m/Y',strtotime($kel['tgl_kel'])) }}"
-														><i class="ti-pencil-alt"></i></button>
-														<button type="button" class="btn btn-danger btn-delete-kel btn-outline btn-circle m-r-5" data-toggle="modal" data-target="#modal-delete-kel"
-															data-ids="{{$kel['ids']}}"
-															data-noid="{{$kel['noid']}}"
-															data-jns_kel="{{$kel['jns_kel']}}"
-														><i class="ti-trash"></i></button>
-													</td>
-												</tr>
-											@endforeach
-										</tbody>
-									</table>
-								</div>
-								@endif
-								<div class="clearfix"></div>
-							</div>
-							<div role="tabpanel" class="tab-pane fade" id="tabs2">
-								<div class="white-box">
-									<h2><b>PENDIDIKAN FORMAL</b></h2>
-									
-									<button class="btn btn-info m-b-20 btn-insert-dik" type="button" data-toggle="modal" data-target="#modal-insert-dik">Tambah</button>
+                                                        <td style="vertical-align: middle;">
+                                                            
+                                                            <button type="button" class="btn btn-info btn-outline btn-circle m-r-5 btn-update-gol" data-toggle="modal" data-target="#modal-update-gol" 
+                                                                data-ids="{{$gol['ids']}}"
+                                                                data-noid="{{$gol['noid']}}"
+                                                                data-tmt_gol="{{ date('d/m/Y',strtotime($gol['tmt_gol'])) }}"
+                                                                data-tmt_sk_gol="{{ date('d/m/Y',strtotime($gol['tmt_sk_gol'])) }}"
+                                                                data-no_sk_gol="{{$gol['no_sk_gol']}}"
+                                                                data-idgol="{{$gol['idgol']}}"
+                                                                data-nm_sek="{{$gol['nm_sek']}}"
+                                                                data-jns_kp="{{$gol['jns_kp']}}"
+                                                                data-mk_thn="{{$gol['mk_thn']}}"
+                                                                data-mk_bln="{{$gol['mk_bln']}}"
+                                                            ><i class="ti-pencil-alt"></i></button>
+                                                            {{-- <button type="button" class="btn btn-danger btn-delete-gol btn-outline btn-circle m-r-5" data-toggle="modal" data-target="#modal-delete-gol"
+                                                                data-ids="{{$gol['ids']}}"
+                                                                data-noid="{{$gol['noid']}}"
+                                                                data-idgol="{{$gol['idgol']}}"
+                                                            ><i class="ti-trash"></i></button> --}}
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    @endif
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div aria-labelledby="unit-tab" id="unit" class="tab-pane fade" role="tabpanel">
+                                    {{-- <button class="btn btn-info m-b-20 btn-insert-jab" type="button" data-toggle="modal" data-target="#modal-insert-jab">Tambah</button> --}}
+                                    <h4 style="color: red;">PENAMBAHAN dan PERUBAHAN Unit Kerja dapat dilakukan <br>melalui Sub Bagian Kepegawaian atau Pusdatin BPAD</h4>
 
-									@if(count($emp_dik) > 0)
-									<div class="table-responsive">
-										<table class="table table-hover manage-u-table">
-											<tbody>
-												@foreach($emp_dik as $key => $dik)
-													@if ($dik['iddik'] != 'NA')
-													<tr>
-														<td>
-															<h1>{{ $dik['iddik'] }}</h1>
-														</td>
+                                    @if(count($emp_jab) > 0)
+                                    <div class="table-responsive">
+                                        <table class="table table-hover manage-u-table">
+                                            <tbody>
+                                                @foreach($emp_jab as $key => $jab)
+                                                    <tr>
+                                                        @if (count($emp_jab) > 1)
+                                                        <td>
+                                                            <h1>{{ $key + 1 }}</h1>
+                                                        </td>
+                                                        @endif
+                                                        <td style="vertical-align: middle;">
+                                                            <strong>{!! wordwrap(ucwords(strtolower($jab['nmunit'])), 30, "<br>\n", TRUE ) !!}</strong>
+                                                            <br>{!! wordwrap($jab['idjab'], 50, "<br>\n", TRUE) !!}
+                                                        </td>
 
-														<td style="vertical-align: middle;">
-															<strong>{{ $dik['prog_sek'] }} {{ $dik['th_sek'] }}</strong>
-															<br>{{ $dik['nm_sek'] }}
-														</td>
+                                                        <td style="vertical-align: middle;">
+                                                            <strong>Lokasi</strong>
+                                                            <br>{{ $jab['lokasi']['nm_lok'] }}
+                                                        </td>
 
-														<td style="vertical-align: middle;">
-															<?php if ($dik['no_sek']) : ?>
-																<strong>No. {{ $dik['no_sek'] }}</strong>
-															<?php endif ?>
-															
-															<?php if ($dik['gambar'] && $dik['gambar'] != '') : ?> 
-																<br><a target="_blank" href="{{ config('app.openfileimg') }}/{{ Auth::user()->id_emp }}/dik/{{ $dik['gambar'] }}">[File Ijazah]</a>
-															<?php else : ?>
-																<br>[Tidak ada ijazah]
-															<?php endif ?>
-                                                            <?php if ($dik['appr'] == '1') : ?> 
+                                                        <!-- 00000000000000 -->
+
+                                                        <td style="vertical-align: middle;">
+                                                            <strong>TMT</strong><br>
+                                                            <?php if ($jab['tmt_jab']) : ?>
+                                                                {{ date('d-M-Y',strtotime($jab['tmt_jab'])) }}
+                                                            <?php else : ?>
+                                                                -
+                                                            <?php endif ?>
+                                                        </td>
+
+                                                        <td style="vertical-align: middle;">
+                                                        <?php if ($jab['gambar'] && $jab['gambar'] != '') : ?> 
+                                                            <strong>File</strong>
+                                                            <br><a target="_blank" href="{{ config('app.openfileimg') }}/{{ Auth::user()->id_emp }}/jab/{{ $jab['gambar'] }}">[File]</a>
+                                                        <?php else : ?>
+                                                            <strong>File</strong>
+                                                            <br>[Tidak ada SK Jab]
+                                                        <?php endif ?>
+                                                        <?php if ($jab['appr'] == '1') : ?> 
+                                                            <i class="fa fa-check" style="color: #2ECC40;" data-toggle="tooltip" title="Sudah Di Approve"></i>
+                                                        <?php else : ?>
+                                                            <i class="fa fa-close" style="color: #FF4136;" data-toggle="tooltip" title="Belum di approve, {{ $jab != '' && !(is_null($jab)) ?  $jab['alasan'] : '' }}"></i>
+                                                        <?php endif ?>
+                                                        </td>
+                                                        
+                                                        
+
+                                                        <td style="vertical-align: middle;">
+                                                            <button type="button" class="btn btn-info btn-outline btn-circle m-r-5 btn-update-jab" data-toggle="modal" data-target="#modal-update-jab" 
+                                                                data-ids="{{$jab['ids']}}"
+                                                                data-noid="{{$jab['noid']}}"
+                                                                data-tmt_jab="{{ date('d/m/Y',strtotime($jab['tmt_jab'])) }}"
+                                                                data-tmt_sk_jab="{{ date('d/m/Y',strtotime($jab['tmt_sk_jab'])) }}"
+                                                                data-no_sk_jab="{{$jab['no_sk_jab']}}"
+                                                                data-idjab="{{$jab['idjab']}}"
+                                                                data-jns_jab="{{$jab['jns_jab']}}"
+                                                                data-idunit="{{$jab['idunit']}}"
+                                                                data-idlok="{{$jab['idlok']}}"
+                                                                data-eselon="{{$jab['eselon']}}"
+                                                                data-notes="{{$jab['nmunit']}}"
+                                                            ><i class="ti-pencil-alt"></i></button>
+                                                            {{-- <button type="button" class="btn btn-danger btn-delete-jab btn-outline btn-circle m-r-5" data-toggle="modal" data-target="#modal-delete-jab"
+                                                                data-ids="{{$jab['ids']}}"
+                                                                data-noid="{{$jab['noid']}}"
+                                                                data-idjab="{{$jab['idjab']}}"
+                                                                data-nm_unit="{{ucwords(strtolower($jab['unit']['nm_unit']))}}"
+                                                            ><i class="ti-trash"></i></button> --}}
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    @endif
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div aria-labelledby="skp-tab" id="skp" class="tab-pane fade" role="tabpanel">
+                                    <button class="btn btn-info m-b-20 btn-insert-skp" type="button" data-toggle="modal" data-target="#modal-insert-skp">Tambah</button>
+
+                                    @if(count($emp_skp) > 0)
+                                    <div class="table-responsive">
+                                        <table class="table table-hover manage-u-table">
+                                            <tbody>
+                                                @foreach($emp_skp as $key => $skp)
+                                                    <tr>
+                                                        @if (count($emp_skp) > 1)
+                                                        <td>
+                                                            <h1>{{ $skp['skp_tahun'] }}</h1>
+                                                        </td>
+                                                        @endif
+                                                        <td style="vertical-align: middle;">
+                                                            <strong>{{ strtoupper($skp['skp_judul']) }}</strong>
+                                                            <br>{{ date('d/M/Y',strtotime($skp['tgl_mulai'])) }} - {{ date('d/M/Y',strtotime($skp['tgl_akhir'])) }}
+                                                        </td>
+
+                                                        <td style="vertical-align: middle;">
+                                                            Nilai Capaian
+                                                            <?php if ($skp['skp_capaian']) : ?> 
+                                                                <strong>{{ $skp['skp_capaian'] }}</strong>
+                                                            <?php else : ?>
+                                                                -
+                                                            <?php endif ?>
+                                                            
+                                                            </strong><br>Nilai Perilaku
+                                                            <?php if ($skp['skp_nilai_perilaku']) : ?> 
+                                                                <strong>{{ $skp['skp_nilai_perilaku'] }}</strong>
+                                                            <?php else : ?>
+                                                                -
+                                                            <?php endif ?>
+                                                        </td>
+
+                                                        <td style="vertical-align: middle;">
+                                                            <strong>File</strong><br>
+                                                            <?php if ($skp['skp_file']) : ?> 
+                                                                <a target="_blank" href="{{ config('app.openfileimg') }}/{{ Auth::user()->id_emp }}/skp/{{ $skp['skp_file'] }}">[Unduh File]</a>
+                                                            <?php else : ?>
+                                                                [File tidak tersedia]
+                                                            <?php endif ?>
+                                                            <?php if ($skp['appr'] == '1') : ?> 
                                                                 <i class="fa fa-check" style="color: #2ECC40;" data-toggle="tooltip" title="Sudah Di Approve"></i>
                                                             <?php else : ?>
-                                                                <i class="fa fa-close" style="color: #FF4136;" data-toggle="tooltip" title="Belum di approve, {{ $dik ? $dik['alasan'] : '' }}"></i>
+                                                                <i class="fa fa-close" style="color: #FF4136;" data-toggle="tooltip" title="Belum di approve, {{ $skp != '' && !(is_null($skp)) ?  $skp['alasan'] : '' }}"></i>
                                                             <?php endif ?>
-														</td>
-
-														<td style="vertical-align: middle;">
-															<button type="button" class="btn btn-info btn-outline btn-circle m-r-5 btn-update-dik" data-toggle="modal" data-target="#modal-update-dik" 
-																data-ids="{{$dik['ids']}}"
-																data-noid="{{$dik['noid']}}"
-																data-iddik="{{$dik['iddik']}}"
-																data-prog_sek="{{$dik['prog_sek']}}"
-																data-no_sek="{{$dik['no_sek']}}"
-																data-th_sek="{{$dik['th_sek']}}"
-																data-nm_sek="{{$dik['nm_sek']}}"
-																data-gelar_dpn_sek="{{$dik['gelar_dpn_sek']}}"
-																data-gelar_blk_sek="{{$dik['gelar_blk_sek']}}"
-																data-ijz_cpns="{{$dik['ijz_cpns']}}"
-															><i class="ti-pencil-alt"></i></button>
-															<button type="button" class="btn btn-danger btn-delete-dik btn-outline btn-circle m-r-5" data-toggle="modal" data-target="#modal-delete-dik"
-																data-ids="{{$dik['ids']}}"
-																data-noid="{{$dik['noid']}}"
-																data-iddik="{{$dik['iddik']}}"
-															><i class="ti-trash"></i></button>
-														</td>
-													</tr>
-													@endif
-												@endforeach
-											</tbody>
-										</table>
-									</div>
-									@endif
-									
-									<div class="clearfix"></div>
-								</div>
-
-								<div class="white-box">
-									<h2><b>PENDIDIKAN NON-FORMAL</b></h2>
-									<button class="btn btn-info m-b-20 btn-insert-non" type="button" data-toggle="modal" data-target="#modal-insert-non">Tambah</button>
-
-									@if(count($emp_non) > 0)
-									<div class="table-responsive">
-										<table class="table table-hover manage-u-table">
-											<tbody>
-												@foreach($emp_non as $key => $non)
-												<tr>
-													@if (count($emp_non) > 1)
-													<td>
-														<h1>{{ $key + 1 }}</h1>
-													</td>
-													@endif
-													<td style="vertical-align: middle;">
-														<strong>Nama</strong>
-														<br>{{ $non['nm_non'] ?? '-' }}
-													</td>
-
-													<td style="vertical-align: middle;">
-														<strong>Penyelenggara</strong>
-														<br>{{ $non['penye_non'] ?? '-' }}
-													</td>
-
-													<td style="vertical-align: middle;">
-														<strong>No. {{ $non['sert_non'] }}</strong>
-														<br>Th. {{ $non['thn_non'] ?? '-' }}
-													</td>
-
-													<td style="vertical-align: middle;">
-														<strong>File</strong>
-														<?php if ($non['gambar'] && $non['gambar'] != '') : ?> 
-															<br><a target="_blank" href="{{ config('app.openfileimg') }}/{{ Auth::user()->id_emp }}/non/{{ $non['gambar'] }}">[File]</a>
-														<?php else : ?>
-															<br>[Tidak ada file]
-														<?php endif ?>
-													</td>
-
-													<td style="vertical-align: middle;">
-														<button type="button" class="btn btn-info btn-outline btn-circle m-r-5 btn-update-non" data-toggle="modal" data-target="#modal-update-non" 
-															data-ids="{{$non['ids']}}"
-															data-noid="{{$non['noid']}}"
-															data-nm_non="{{$non['nm_non']}}"
-															data-penye_non="{{$non['penye_non']}}"
-															data-thn_non="{{$non['thn_non']}}"
-															data-durasi_non="{{$non['durasi_non']}}"
-															data-sert_non="{{$non['sert_non']}}"
-															data-tgl_non="{{date('d/m/Y',strtotime($non['tgl_non']))}}"
-														><i class="ti-pencil-alt"></i></button>
-														<button type="button" class="btn btn-danger btn-delete-non btn-outline btn-circle m-r-5" data-toggle="modal" data-target="#modal-delete-non"
-															data-ids="{{$non['ids']}}"
-															data-noid="{{$non['noid']}}"
-															data-nm_non="{{$non['nm_non']}}"
-														><i class="ti-trash"></i></button>
-													</td>
-												</tr>
-												@endforeach
-											</tbody>
-										</table>
-									</div>
-									@endif
-									
-									<div class="clearfix"></div>
-								</div>
-										
-							</div>
-							<div role="tabpanel" class="tab-pane fade" id="tabs3">
-								<button class="btn btn-info m-b-20 btn-insert-gol" type="button" data-toggle="modal" data-target="#modal-insert-gol">Tambah</button>
-
-								@if(count($emp_gol) > 0)
-								<div class="table-responsive">
-									<table class="table table-hover manage-u-table">
-										<tbody>
-											@foreach($emp_gol as $key => $gol)
-												<tr>
-													@if (count($emp_gol) > 1)
-													<td>
-														<h1>{{ $key + 1 }}</h1>
-													</td>
-													@endif
-													<td style="vertical-align: middle;">
-														<strong>{{ $gol['idgol'] }}</strong>
-														<br>{{ $gol['gol']['nm_pangkat'] }}
-													</td>
-
-													<?php if ($gol['tmt_gol']) : ?>
-														<td style="vertical-align: middle;">
-															<strong>TMT </strong>
-															<br>{{ date('d-M-Y',strtotime($gol['tmt_gol'])) }}
-														</td>
-													<?php endif ?>
-
-													<td style="vertical-align: middle;">
-														<strong>Nomor SK</strong><br>
-														<?php if ($gol['no_sk_gol']) : ?> 
-															{{ $gol['no_sk_gol'] }}
-														<?php else : ?>
-															-
-														<?php endif ?>
-													</td>
-													
-													<td style="vertical-align: middle;">
-													<?php if ($gol['gambar'] && $gol['gambar'] != '') : ?> 
-														<strong>File</strong>
-														<br><a target="_blank" href="{{ config('app.openfileimg') }}/{{ Auth::user()->id_emp }}/gol/{{ $gol['gambar'] }}">[File SK]</a>
-													<?php else : ?>
-														<strong>File</strong>
-														<br>[Tidak ada SK Gol]
-													<?php endif ?>
-													<?php if ($gol['appr'] == '1') : ?> 
-														<i class="fa fa-check" style="color: #2ECC40;" data-toggle="tooltip" title="Sudah Di Approve"></i>
-													<?php else : ?>
-														<i class="fa fa-close" style="color: #FF4136;" data-toggle="tooltip" title="Belum di approve, {{ $gol != '' && !(is_null($gol)) ?  $gol['alasan'] : '' }}"></i>
-													<?php endif ?>
-													</td>
-
-													<td style="vertical-align: middle;">
-														
-														<button type="button" class="btn btn-info btn-outline btn-circle m-r-5 btn-update-gol" data-toggle="modal" data-target="#modal-update-gol" 
-															data-ids="{{$gol['ids']}}"
-															data-noid="{{$gol['noid']}}"
-															data-tmt_gol="{{ date('d/m/Y',strtotime($gol['tmt_gol'])) }}"
-															data-tmt_sk_gol="{{ date('d/m/Y',strtotime($gol['tmt_sk_gol'])) }}"
-															data-no_sk_gol="{{$gol['no_sk_gol']}}"
-															data-idgol="{{$gol['idgol']}}"
-															data-nm_sek="{{$gol['nm_sek']}}"
-															data-jns_kp="{{$gol['jns_kp']}}"
-															data-mk_thn="{{$gol['mk_thn']}}"
-															data-mk_bln="{{$gol['mk_bln']}}"
-														><i class="ti-pencil-alt"></i></button>
-														{{-- <button type="button" class="btn btn-danger btn-delete-gol btn-outline btn-circle m-r-5" data-toggle="modal" data-target="#modal-delete-gol"
-															data-ids="{{$gol['ids']}}"
-															data-noid="{{$gol['noid']}}"
-															data-idgol="{{$gol['idgol']}}"
-														><i class="ti-trash"></i></button> --}}
-													</td>
-												</tr>
-											@endforeach
-										</tbody>
-									</table>
-								</div>
-								@endif
-								<div class="clearfix"></div>
-							</div>
-							<div role="tabpanel" class="tab-pane fade" id="tabs4">
-								<!-- <button class="btn btn-info m-b-20 btn-insert-jab" type="button" data-toggle="modal" data-target="#modal-insert-jab">Tambah</button> -->
-                                <h4 style="color: red;">PENAMBAHAN dan PERUBAHAN Unit Kerja dapat dilakukan <br>melalui Sub Bagian Kepegawaian atau Pusdatin BPAD</h4>
-
-								@if(count($emp_jab) > 0)
-								<div class="table-responsive">
-									<table class="table table-hover manage-u-table">
-										<tbody>
-											@foreach($emp_jab as $key => $jab)
-												<tr>
-													@if (count($emp_jab) > 1)
-													<td>
-														<h1>{{ $key + 1 }}</h1>
-													</td>
-													@endif
-													<td style="vertical-align: middle;">
-														<strong>{!! wordwrap(ucwords(strtolower($jab['nmunit'])), 30, "<br>\n", TRUE ) !!}</strong>
-														<br>{!! wordwrap($jab['idjab'], 50, "<br>\n", TRUE) !!}
-													</td>
-
-													<td style="vertical-align: middle;">
-														<strong>Lokasi</strong>
-														<br>{{ $jab['lokasi']['nm_lok'] }}
-													</td>
-
-													<!-- 00000000000000 -->
-
-													<td style="vertical-align: middle;">
-														<strong>TMT</strong><br>
-														<?php if ($jab['tmt_jab']) : ?>
-															{{ date('d-M-Y',strtotime($jab['tmt_jab'])) }}
-														<?php else : ?>
-															-
-														<?php endif ?>
-													</td>
-
-													<td style="vertical-align: middle;">
-													<?php if ($jab['gambar'] && $jab['gambar'] != '') : ?> 
-														<strong>File</strong>
-														<br><a target="_blank" href="{{ config('app.openfileimg') }}/{{ Auth::user()->id_emp }}/jab/{{ $jab['gambar'] }}">[File]</a>
-													<?php else : ?>
-														<strong>File</strong>
-														<br>[Tidak ada SK Jab]
-													<?php endif ?>
-													<?php if ($jab['appr'] == '1') : ?> 
-														<i class="fa fa-check" style="color: #2ECC40;" data-toggle="tooltip" title="Sudah Di Approve"></i>
-													<?php else : ?>
-														<i class="fa fa-close" style="color: #FF4136;" data-toggle="tooltip" title="Belum di approve, {{ $jab != '' && !(is_null($jab)) ?  $jab['alasan'] : '' }}"></i>
-													<?php endif ?>
-													</td>
-													
-													
-
-													<td style="vertical-align: middle;">
-														<button type="button" class="btn btn-info btn-outline btn-circle m-r-5 btn-update-jab" data-toggle="modal" data-target="#modal-update-jab" 
-															data-ids="{{$jab['ids']}}"
-															data-noid="{{$jab['noid']}}"
-															data-tmt_jab="{{ date('d/m/Y',strtotime($jab['tmt_jab'])) }}"
-															data-tmt_sk_jab="{{ date('d/m/Y',strtotime($jab['tmt_sk_jab'])) }}"
-															data-no_sk_jab="{{$jab['no_sk_jab']}}"
-															data-idjab="{{$jab['idjab']}}"
-															data-jns_jab="{{$jab['jns_jab']}}"
-															data-idunit="{{$jab['idunit']}}"
-															data-idlok="{{$jab['idlok']}}"
-															data-eselon="{{$jab['eselon']}}"
-															data-notes="{{$jab['nmunit']}}"
-														><i class="ti-pencil-alt"></i></button>
-														{{-- <button type="button" class="btn btn-danger btn-delete-jab btn-outline btn-circle m-r-5" data-toggle="modal" data-target="#modal-delete-jab"
-															data-ids="{{$jab['ids']}}"
-															data-noid="{{$jab['noid']}}"
-															data-idjab="{{$jab['idjab']}}"
-															data-nm_unit="{{ucwords(strtolower($jab['unit']['nm_unit']))}}"
-														><i class="ti-trash"></i></button> --}}
-													</td>
-												</tr>
-											@endforeach
-										</tbody>
-									</table>
-								</div>
-								@endif
-								<div class="clearfix"></div>
-							</div>
-							<div role="tabpanel" class="tab-pane fade" id="tabs7">
-								<button class="btn btn-info m-b-20 btn-insert-skp" type="button" data-toggle="modal" data-target="#modal-insert-skp">Tambah</button>
-
-								@if(count($emp_skp) > 0)
-								<div class="table-responsive">
-									<table class="table table-hover manage-u-table">
-										<tbody>
-											@foreach($emp_skp as $key => $skp)
-												<tr>
-													@if (count($emp_skp) > 1)
-													<td>
-														<h1>{{ $skp['skp_tahun'] }}</h1>
-													</td>
-													@endif
-													<td style="vertical-align: middle;">
-														<strong>{{ strtoupper($skp['skp_judul']) }}</strong>
-														<br>{{ date('d/M/Y',strtotime($skp['tgl_mulai'])) }} - {{ date('d/M/Y',strtotime($skp['tgl_akhir'])) }}
-													</td>
-
-													<td style="vertical-align: middle;">
-														Nilai Capaian
-														<?php if ($skp['skp_capaian']) : ?> 
-															<strong>{{ $skp['skp_capaian'] }}</strong>
-														<?php else : ?>
-															-
-														<?php endif ?>
-														
-														</strong><br>Nilai Perilaku
-														<?php if ($skp['skp_nilai_perilaku']) : ?> 
-															<strong>{{ $skp['skp_nilai_perilaku'] }}</strong>
-														<?php else : ?>
-															-
-														<?php endif ?>
-													</td>
-
-													<td style="vertical-align: middle;">
-														<strong>File</strong><br>
-														<?php if ($skp['skp_file']) : ?> 
-															<a target="_blank" href="{{ config('app.openfileimg') }}/{{ Auth::user()->id_emp }}/skp/{{ $skp['skp_file'] }}">[Unduh File]</a>
-														<?php else : ?>
-															[File tidak tersedia]
-														<?php endif ?>
-														<?php if ($skp['appr'] == '1') : ?> 
-															<i class="fa fa-check" style="color: #2ECC40;" data-toggle="tooltip" title="Sudah Di Approve"></i>
-														<?php else : ?>
-															<i class="fa fa-close" style="color: #FF4136;" data-toggle="tooltip" title="Belum di approve, {{ $skp != '' && !(is_null($skp)) ?  $skp['alasan'] : '' }}"></i>
-														<?php endif ?>
-													</td>
+                                                        </td>
 
 
-													<td style="vertical-align: middle;">
-														
-														<button type="button" class="btn btn-info btn-outline btn-circle m-r-5 btn-update-skp" data-toggle="modal" data-target="#modal-update-skp" 
-															data-ids="{{$skp['ids']}}"
-															data-noid="{{$skp['noid']}}"
-															data-tgl_mulai="{{ date('d/m/Y',strtotime($skp['tgl_mulai'])) }}"
-															data-tgl_akhir="{{ date('d/m/Y',strtotime($skp['tgl_akhir'])) }}"
-															data-skp_judul="{{$skp['skp_judul']}}"
-															data-skp_tahun="{{$skp['skp_tahun']}}"
-															data-skp_capaian="{{$skp['skp_capaian']}}"
-															data-skp_tgl="{{ date('d/m/Y',strtotime($skp['skp_tgl'])) }}"
-															data-skp_nilai_perilaku="{{$skp['skp_nilai_perilaku']}}"
-														><i class="ti-pencil-alt"></i></button>
-														<button type="button" class="btn btn-danger btn-delete-skp btn-outline btn-circle m-r-5" data-toggle="modal" data-target="#modal-delete-skp"
-															data-ids="{{$skp['ids']}}"
-															data-noid="{{$skp['noid']}}"
-														><i class="ti-trash"></i></button>
-													</td>
-												</tr>
-											@endforeach
-										</tbody>
-									</table>
-								</div>
-								@endif
-								<div class="clearfix"></div>
-							</div>
-							<div role="tabpanel" class="tab-pane fade" id="tabs6">
-								<button class="btn btn-info m-b-20 btn-insert-huk" type="button" data-toggle="modal" data-target="#modal-insert-huk">Tambah</button>
+                                                        <td style="vertical-align: middle;">
+                                                            
+                                                            <button type="button" class="btn btn-info btn-outline btn-circle m-r-5 btn-update-skp" data-toggle="modal" data-target="#modal-update-skp" 
+                                                                data-ids="{{$skp['ids']}}"
+                                                                data-noid="{{$skp['noid']}}"
+                                                                data-tgl_mulai="{{ date('d/m/Y',strtotime($skp['tgl_mulai'])) }}"
+                                                                data-tgl_akhir="{{ date('d/m/Y',strtotime($skp['tgl_akhir'])) }}"
+                                                                data-skp_judul="{{$skp['skp_judul']}}"
+                                                                data-skp_tahun="{{$skp['skp_tahun']}}"
+                                                                data-skp_capaian="{{$skp['skp_capaian']}}"
+                                                                data-skp_tgl="{{ date('d/m/Y',strtotime($skp['skp_tgl'])) }}"
+                                                                data-skp_nilai_perilaku="{{$skp['skp_nilai_perilaku']}}"
+                                                            ><i class="ti-pencil-alt"></i></button>
+                                                            <button type="button" class="btn btn-danger btn-delete-skp btn-outline btn-circle m-r-5" data-toggle="modal" data-target="#modal-delete-skp"
+                                                                data-ids="{{$skp['ids']}}"
+                                                                data-noid="{{$skp['noid']}}"
+                                                            ><i class="ti-trash"></i></button>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    @endif
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div aria-labelledby="hukdis-tab" id="hukdis" class="tab-pane fade" role="tabpanel">
+                                    <button class="btn btn-info m-b-20 btn-insert-huk" type="button" data-toggle="modal" data-target="#modal-insert-huk">Tambah</button>
 
-								@if(count($emp_huk) > 0)
-								<div class="table-responsive">
-									<table class="table table-hover manage-u-table">
-										<tbody>
-											@foreach($emp_huk as $key => $huk)
-												<tr>
-													@if (count($emp_huk) > 1)
-													<td>
-														<h1>{{ $key + 1 }}</h1>
-													</td>
-													@endif
-													<td style="vertical-align: middle;">
-														<strong>Hukuman {{ ucwords(strtolower($huk['jns_huk'])) }}</strong>
-														<br>{{ date('d/M/Y',strtotime($huk['tgl_mulai'])) }} - {{ date('d/M/Y',strtotime($huk['tgl_akhir'])) }}
-													</td>
+                                    @if(count($emp_huk) > 0)
+                                    <div class="table-responsive">
+                                        <table class="table table-hover manage-u-table">
+                                            <tbody>
+                                                @foreach($emp_huk as $key => $huk)
+                                                    <tr>
+                                                        @if (count($emp_huk) > 1)
+                                                        <td>
+                                                            <h1>{{ $key + 1 }}</h1>
+                                                        </td>
+                                                        @endif
+                                                        <td style="vertical-align: middle;">
+                                                            <strong>Hukuman {{ ucwords(strtolower($huk['jns_huk'])) }}</strong>
+                                                            <br>{{ date('d/M/Y',strtotime($huk['tgl_mulai'])) }} - {{ date('d/M/Y',strtotime($huk['tgl_akhir'])) }}
+                                                        </td>
 
-													<td style="vertical-align: middle;">
-														<strong>SK. 
-														<?php if ($huk['no_sk']) : ?> 
-															{{ $huk['no_sk'] }}
-														<?php else : ?>
-															-
-														<?php endif ?>
-														
-														</strong><br>Tgl. 
-														<?php if ($huk['tgl_sk']) : ?> 
-															{{ date('d/M/Y',strtotime($huk['tgl_sk'])) }}
-														<?php else : ?>
-															-
-														<?php endif ?>
-													</td>
+                                                        <td style="vertical-align: middle;">
+                                                            <strong>SK. 
+                                                            <?php if ($huk['no_sk']) : ?> 
+                                                                {{ $huk['no_sk'] }}
+                                                            <?php else : ?>
+                                                                -
+                                                            <?php endif ?>
+                                                            
+                                                            </strong><br>Tgl. 
+                                                            <?php if ($huk['tgl_sk']) : ?> 
+                                                                {{ date('d/M/Y',strtotime($huk['tgl_sk'])) }}
+                                                            <?php else : ?>
+                                                                -
+                                                            <?php endif ?>
+                                                        </td>
 
-													<td style="vertical-align: middle;">
-														<strong>File</strong><br>
-														<?php if ($huk['gambar']) : ?> 
-															<a target="_blank" href="{{ config('app.openfileimg') }}/{{ Auth::user()->id_emp }}/huk/{{ $huk['gambar'] }}">[Unduh File]</a>
-														<?php else : ?>
-															[File tidak tersedia]
-														<?php endif ?>
-														<?php if ($huk['appr'] == '1') : ?> 
-															<i class="fa fa-check" style="color: #2ECC40;" data-toggle="tooltip" title="Sudah Di Approve"></i>
-														<?php else : ?>
-															<i class="fa fa-close" style="color: #FF4136;" data-toggle="tooltip" title="Belum di approve, {{ $huk != '' && !(is_null($huk)) ?  $huk['alasan'] : '' }}"></i>
-														<?php endif ?>
-													</td>
+                                                        <td style="vertical-align: middle;">
+                                                            <strong>File</strong><br>
+                                                            <?php if ($huk['gambar']) : ?> 
+                                                                <a target="_blank" href="{{ config('app.openfileimg') }}/{{ Auth::user()->id_emp }}/huk/{{ $huk['gambar'] }}">[Unduh File]</a>
+                                                            <?php else : ?>
+                                                                [File tidak tersedia]
+                                                            <?php endif ?>
+                                                            <?php if ($huk['appr'] == '1') : ?> 
+                                                                <i class="fa fa-check" style="color: #2ECC40;" data-toggle="tooltip" title="Sudah Di Approve"></i>
+                                                            <?php else : ?>
+                                                                <i class="fa fa-close" style="color: #FF4136;" data-toggle="tooltip" title="Belum di approve, {{ $huk != '' && !(is_null($huk)) ?  $huk['alasan'] : '' }}"></i>
+                                                            <?php endif ?>
+                                                        </td>
 
 
-													<td style="vertical-align: middle;">
-														
-														<button type="button" class="btn btn-info btn-outline btn-circle m-r-5 btn-update-huk" data-toggle="modal" data-target="#modal-update-huk" 
-															data-ids="{{$huk['ids']}}"
-															data-noid="{{$huk['noid']}}"
-															data-jns_huk="{{$huk['jns_huk']}}"
-															data-tgl_mulai="{{ date('d/m/Y',strtotime($huk['tgl_mulai'])) }}"
-															data-tgl_akhir="{{ date('d/m/Y',strtotime($huk['tgl_akhir'])) }}"
-															data-no_sk="{{$huk['no_sk']}}"
-															data-tgl_sk="{{ date('d/m/Y',strtotime($huk['tgl_sk'])) }}"
-														><i class="ti-pencil-alt"></i></button>
-														<button type="button" class="btn btn-danger btn-delete-huk btn-outline btn-circle m-r-5" data-toggle="modal" data-target="#modal-delete-huk"
-															data-ids="{{$huk['ids']}}"
-															data-noid="{{$huk['noid']}}"
-														><i class="ti-trash"></i></button>
-													</td>
-												</tr>
-											@endforeach
-										</tbody>
-									</table>
-								</div>
-								@endif
-								<div class="clearfix"></div>
-							</div>
-						</div>
+                                                        <td style="vertical-align: middle;">
+                                                            
+                                                            <button type="button" class="btn btn-info btn-outline btn-circle m-r-5 btn-update-huk" data-toggle="modal" data-target="#modal-update-huk" 
+                                                                data-ids="{{$huk['ids']}}"
+                                                                data-noid="{{$huk['noid']}}"
+                                                                data-jns_huk="{{$huk['jns_huk']}}"
+                                                                data-tgl_mulai="{{ date('d/m/Y',strtotime($huk['tgl_mulai'])) }}"
+                                                                data-tgl_akhir="{{ date('d/m/Y',strtotime($huk['tgl_akhir'])) }}"
+                                                                data-no_sk="{{$huk['no_sk']}}"
+                                                                data-tgl_sk="{{ date('d/m/Y',strtotime($huk['tgl_sk'])) }}"
+                                                            ><i class="ti-pencil-alt"></i></button>
+                                                            <button type="button" class="btn btn-danger btn-delete-huk btn-outline btn-circle m-r-5" data-toggle="modal" data-target="#modal-delete-huk"
+                                                                data-ids="{{$huk['ids']}}"
+                                                                data-noid="{{$huk['noid']}}"
+                                                            ><i class="ti-trash"></i></button>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    @endif
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </div>
 					</div>
 				</div>
 			</div>
