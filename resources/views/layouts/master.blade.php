@@ -113,8 +113,8 @@
 							<li><a href="http://bpad.jakarta.go.id/portal/ceksurat" target="_blank">Cek Surat</a></li>
 							<li><a href="https://webmail.bpadjakarta.id/" target="_blank">Webmail</a></li>
 							<li><a href="https://ppid.jakarta.go.id/" target="_blank">PPID</a></li>
-							<li><a href="http://bpad.jakarta.go.id/brandgangpermohonan" target="_blank">Permohonan Brandgang</a></li>
-							<li><a href="http://bpad.jakarta.go.id/brandgangmonitoring" target="_blank">Monitoring Brandgang</a></li>
+							<li><a href="https://aset.jakarta.go.id/brandgang/index.aspx?id=permohonan/" target="_blank">Permohonan Brandgang</a></li>
+							<li><a href="https://aset.jakarta.go.id/brandgang/index.aspx?id=monitoring/" target="_blank">Monitoring Brandgang</a></li>
 							<li><a href="{{ url('esiappe/masuk') }}">Absensi Online e-SIAPPE</a></li>
 						</ul>
 					</li>	
