@@ -109,20 +109,23 @@
 					<div class="white-box">
 						<div data-example-id="togglable-tabs" class="bs-example bs-example-tabs">
                             <ul role="tablist" class="nav nav-tabs" id="myTabs">
-                                <li class="dropdown" role="presentation"> <a aria-controls="myTabDrop1-contents" data-toggle="dropdown" class="dropdown-toggle" id="myTabDrop1" href="#" aria-expanded="false">--PILIH-- <span class="caret"></span></a>
+                                <li class="dropdown" role="presentation" id="li-tab-parent"> <a aria-controls="myTabDrop1-contents" data-toggle="dropdown" class="dropdown-toggle" id="myTabDrop1" href="#" aria-expanded="false">KATEGORI<span class="caret"></span></a>
                                     <ul id="myTabDrop1-contents" aria-labelledby="myTabDrop1" class="dropdown-menu">
-                                        <li class=""><a aria-controls="identitas" data-toggle="tab" id="identitas-tab" role="tab" href="#identitas" aria-expanded="true">Identitas</a></li>
-                                        <li class=""><a aria-controls="keluarga" data-toggle="tab" id="keluarga-tab" role="tab" href="#keluarga" aria-expanded="false">Keluarga</a></li>
-                                        <li class=""><a aria-controls="pendidikan" data-toggle="tab" id="pendidikan-tab" role="tab" href="#pendidikan" aria-expanded="false">Pendidikan</a></li>
-                                        <li class=""><a aria-controls="golongan" data-toggle="tab" id="golongan-tab" role="tab" href="#golongan" aria-expanded="false">Golongan</a></li>
-                                        <li class=""><a aria-controls="unit" data-toggle="tab" id="unit-tab" role="tab" href="#unit" aria-expanded="false">Unit Kerja</a></li>
-                                        <!-- <li class=""><a aria-controls="skp" data-toggle="tab" id="skp-tab" role="tab" href="#skp" aria-expanded="false">SKP</a></li> -->
-                                        <li class=""><a aria-controls="hukdis" data-toggle="tab" id="hukdis-tab" role="tab" href="#hukdis" aria-expanded="false">Hukuman Disiplin</a></li>  
+                                        <li class="li-tab-child"><a aria-controls="identitas" data-toggle="tab" id="identitas-tab" role="tab" href="#identitas" aria-expanded="true">Identitas</a></li>
+                                        <li class="li-tab-child"><a aria-controls="keluarga" data-toggle="tab" id="keluarga-tab" role="tab" href="#keluarga" aria-expanded="false">Keluarga</a></li>
+                                        <li class="li-tab-child"><a aria-controls="pendidikan" data-toggle="tab" id="pendidikan-tab" role="tab" href="#pendidikan" aria-expanded="false">Pendidikan</a></li>
+                                        <li class="li-tab-child"><a aria-controls="golongan" data-toggle="tab" id="golongan-tab" role="tab" href="#golongan" aria-expanded="false">Golongan</a></li>
+                                        <li class="li-tab-child"><a aria-controls="unit" data-toggle="tab" id="unit-tab" role="tab" href="#unit" aria-expanded="false">Unit Kerja</a></li>
+                                        <!-- <li class="li-tab-child"><a aria-controls="skp" data-toggle="tab" id="skp-tab" role="tab" href="#skp" aria-expanded="false">SKP</a></li> -->
+                                        <li class="li-tab-child"><a aria-controls="hukdis" data-toggle="tab" id="hukdis-tab" role="tab" href="#hukdis" aria-expanded="false">Hukuman Disiplin</a></li>  
+                                        <li class="li-tab-child"><a aria-controls="files" data-toggle="tab" id="files-tab" role="tab" href="#files" aria-expanded="false">Berkas Lainnya</a></li>  
                                     </ul>
                                 </li>
                             </ul>
                             <div class="tab-content" id="myTabContent">
                                 <div aria-labelledby="identitas-tab" id="identitas" class="tab-pane fade active in" role="tabpanel">
+                                        <h3 class="box-title text-center"> Identitas </h3>
+
                                         <div class="panel-group" id="exampleAccordionDefault" aria-multiselectable="true" role="tablist">
                                             <div class="panel">
                                                 <div class="panel-heading" style="background-color: #edf1f5" id="exampleHeadingDefaultOne" role="tab"> <a class="panel-title collapsed" data-toggle="collapse" href="#exampleCollapseDefaultOne" data-parent="#exampleAccordionDefault" aria-expanded="true" aria-controls="exampleCollapseDefaultOne"> Nomor ID </a> </div>
@@ -545,6 +548,8 @@
                                     </form>
                                 </div>
                                 <div aria-labelledby="keluarga-tab" id="keluarga" class="tab-pane fade" role="tabpanel">
+                                    <h3 class="box-title text-center"> Keluarga </h3>
+
                                     <button class="btn btn-info m-b-20 btn-insert-kel" type="button" data-toggle="modal" data-target="#modal-insert-kel">Tambah</button>
 
                                     @if(count($emp_kel) > 0)
@@ -601,6 +606,8 @@
                                     <div class="clearfix"></div>
                                 </div>
                                 <div aria-labelledby="pendidikan-tab" id="pendidikan" class="tab-pane fade" role="tabpanel">
+                                    <h3 class="box-title text-center"> Pendidikan </h3>
+
                                     <div class="white-box">
                                         <h2><b>PENDIDIKAN FORMAL</b></h2>
                                         
@@ -736,6 +743,8 @@
                                     </div>
                                 </div>
                                 <div aria-labelledby="golongan-tab" id="golongan" class="tab-pane fade" role="tabpanel">
+                                    <h3 class="box-title text-center"> Golongan </h3>
+
                                     <button class="btn btn-info m-b-20 btn-insert-gol" type="button" data-toggle="modal" data-target="#modal-insert-gol">Tambah</button>
 
                                     @if(count($emp_gol) > 0)
@@ -814,6 +823,8 @@
                                     <div class="clearfix"></div>
                                 </div>
                                 <div aria-labelledby="unit-tab" id="unit" class="tab-pane fade" role="tabpanel">
+                                    <h3 class="box-title text-center"> Unit Kerja </h3>
+
                                     {{-- <button class="btn btn-info m-b-20 btn-insert-jab" type="button" data-toggle="modal" data-target="#modal-insert-jab">Tambah</button> --}}
                                     <h4 style="color: red;">PENAMBAHAN dan PERUBAHAN Unit Kerja dapat dilakukan <br>melalui Sub Bagian Kepegawaian atau Pusdatin BPAD</h4>
 
@@ -896,6 +907,8 @@
                                     <div class="clearfix"></div>
                                 </div>
                                 <div aria-labelledby="skp-tab" id="skp" class="tab-pane fade" role="tabpanel">
+                                    <h3 class="box-title text-center"> SKP </h3>
+
                                     <button class="btn btn-info m-b-20 btn-insert-skp" type="button" data-toggle="modal" data-target="#modal-insert-skp">Tambah</button>
 
                                     @if(count($emp_skp) > 0)
@@ -972,6 +985,8 @@
                                     <div class="clearfix"></div>
                                 </div>
                                 <div aria-labelledby="hukdis-tab" id="hukdis" class="tab-pane fade" role="tabpanel">
+                                    <h3 class="box-title text-center"> Hukuman Disiplin </h3>
+
                                     <button class="btn btn-info m-b-20 btn-insert-huk" type="button" data-toggle="modal" data-target="#modal-insert-huk">Tambah</button>
 
                                     @if(count($emp_huk) > 0)
@@ -1035,6 +1050,74 @@
                                                             <button type="button" class="btn btn-danger btn-delete-huk btn-outline btn-circle m-r-5" data-toggle="modal" data-target="#modal-delete-huk"
                                                                 data-ids="{{$huk['ids']}}"
                                                                 data-noid="{{$huk['noid']}}"
+                                                            ><i class="ti-trash"></i></button>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    @endif
+                                    <div class="clearfix"></div>
+                                </div>
+
+                                <div aria-labelledby="files-tab" id="files" class="tab-pane fade" role="tabpanel">
+                                    <h3 class="box-title text-center"> Berkas Lainnya </h3>
+
+                                    <button class="btn btn-info m-b-20 btn-insert-files" type="button" data-toggle="modal" data-target="#modal-insert-files">Tambah</button>
+
+                                    @if(count($emp_files) > 0)
+                                    <div class="table-responsive">
+                                        <table class="table table-hover manage-u-table">
+                                            <tbody>
+                                                @foreach($emp_files as $key => $file)
+                                                    <tr>
+                                                        @if (count($emp_files) > 1)
+                                                        <td>
+                                                            <h1>{{ $key + 1 }}</h1>
+                                                        </td>
+                                                        @endif
+                                                        <td style="vertical-align: middle;">
+                                                            <strong>{{ $file['file_nama'] }}</strong>
+                                                        </td>
+
+                                                        <td style="vertical-align: middle;">
+                                                             
+                                                            <?php if ($file['file_nomor']) : ?> 
+                                                                <strong>No. {{ $file['file_nomor'] }}</strong>
+                                                            <?php endif ?>
+                                                            
+                                                              
+                                                            <?php if ($file['file_tahun']) : ?> 
+                                                                @if( $file['file_nomor'] )
+                                                                <br>
+                                                                @endif
+                                                                Tahun {{ $file['file_tahun'] }}
+                                                            <?php endif ?>
+                                                        </td>
+
+                                                        <td style="vertical-align: middle;">
+                                                            <strong>File</strong><br>
+                                                            <?php if ($file['file_save']) : ?> 
+                                                                <a target="_blank" href="{{ config('app.openfileimg') }}/{{ Auth::user()->id_emp }}/files/{{ $file['file_save'] }}">[Unduh File]</a>
+                                                            <?php else : ?>
+                                                                [File tidak tersedia]
+                                                            <?php endif ?>
+                                                        </td>
+
+
+                                                        <td style="vertical-align: middle;">
+                                                            
+                                                            <button type="button" class="btn btn-info btn-outline btn-circle m-r-5 btn-update-files" data-toggle="modal" data-target="#modal-update-files" 
+                                                                data-ids="{{$file['ids']}}"
+                                                                data-noid="{{$file['noid']}}"
+                                                                data-file_nama="{{$file['file_nama']}}"
+                                                                data-file_tahun="{{$file['file_tahun']}}"
+                                                                data-file_nomor="{{$file['file_nomor']}}"
+                                                            ><i class="ti-pencil-alt"></i></button>
+                                                            <button type="button" class="btn btn-danger btn-delete-files btn-outline btn-circle m-r-5" data-toggle="modal" data-target="#modal-delete-files"
+                                                                data-ids="{{$file['ids']}}"
+                                                                data-noid="{{$file['noid']}}"
                                                             ><i class="ti-trash"></i></button>
                                                         </td>
                                                     </tr>
@@ -2219,95 +2302,6 @@
 					</div>
 				</div>
 			</div>
-			<div id="modal-update-huk" class="modal fade" role="dialog">
-				<div class="modal-dialog">
-					<div class="modal-content modal-lg">
-						<form method="POST" action="/portal/profil/form/ubahhukpegawai" class="form-horizontal" enctype="multipart/form-data">
-						@csrf
-							<div class="modal-header">
-								<h4 class="modal-title"><b>Ubah Hukuman Disiplin</b></h4>
-							</div>
-							<div class="modal-body">
-								
-								<input type="hidden" name="ids" id="modal_update_huk_ids">
-								<input type="hidden" name="noid" id="modal_update_huk_noid">
-
-								<div class="form-group">
-									<label for="jns_huk" class="col-lg-2 control-label"> Pilih </label>
-									<div class="col-md-4">
-										<select class="form-control" name="jns_huk" id="modal_update_huk_jns_huk">
-											<option value="Ringan"> Ringan </option>
-											<option value="Sedang"> Sedang </option>
-											<option value="Berat"> Berat </option>
-										</select>
-									</div>
-								</div>
-
-								<div class="form-group">
-									<label for="tgl_mulai" class="col-lg-2 control-label"> Tanggal Mulai </label>
-									<div class="col-md-4">
-										<input autocomplete="off" type="text" name="tgl_mulai" class="form-control datepicker-autoclose-def" id="modal_update_huk_tgl_mulai" placeholder="dd/mm/yyyy" required="">
-									</div>
-								</div>
-
-								<div class="form-group">
-									<label for="tgl_akhir" class="col-lg-2 control-label"> Tanggal Akhir </label>
-									<div class="col-md-4">
-										<input autocomplete="off" type="text" name="tgl_akhir" class="form-control datepicker-autoclose-def" id="modal_update_huk_tgl_akhir" placeholder="dd/mm/yyyy" required="">
-									</div>
-								</div>
-
-								<div class="form-group">
-									<label for="no_sk" class="col-lg-2 control-label"> No SK </label>
-									<div class="col-md-8">
-										<input autocomplete="off" type="text" name="no_sk" class="form-control" id="modal_update_huk_no_sk" required="">
-									</div>
-								</div>
-
-								<div class="form-group">
-									<label for="tgl_sk" class="col-lg-2 control-label"> Tanggal SK </label>
-									<div class="col-md-4">
-										<input autocomplete="off" type="text" name="tgl_sk" class="form-control datepicker-autoclose-def" id="modal_update_huk_tgl_sk" placeholder="dd/mm/yyyy" required="">
-									</div>
-								</div>
-
-								<div class="form-group ">
-									<label for="filehuk" class="col-lg-2 control-label"> Upload File <br> <span style="font-size: 12px; color:red">Size Max 5MB</span> </label>
-									<div class="col-lg-8">
-										<input type="file" class="form-control" id="modal_update_huk_file" name="filehuk">
-									</div>
-								</div>
-
-							</div>
-							<div class="modal-footer">
-								<button type="submit" class="btn btn-info pull-right">Simpan</button>
-								<button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-			<div class="modal fade modal-delete" id="modal-delete-huk">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<form method="POST" action="/portal/profil/form/hapushukpegawai" class="form-horizontal">
-						@csrf
-							<div class="modal-header">
-								<h4 class="modal-title"><b>Hapus Hukuman Disiplin</b></h4>
-							</div>
-							<div class="modal-body">
-								<h4 class="label_delete"></h4>
-								<input type="hidden" name="ids" id="modal_delete_huk_ids" value="">
-								<input type="hidden" name="noid" id="modal_delete_huk_noid" value="">
-							</div>
-							<div class="modal-footer">
-								<button type="submit" class="btn btn-danger pull-right">Hapus</button>
-								<button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
 
 			
 
@@ -2494,6 +2488,151 @@
 					</div>
 				</div>
 			</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- MODAL BERKAS LAINNYA -->
+			<!-- 
+			BERKAS LAINNYA
+			BERKAS LAINNYA
+			BERKAS LAINNYA
+			-->
+			<div id="modal-insert-files" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content modal-lg">
+						<form method="POST" action="/portal/profil/form/tambahfilespegawai" class="form-horizontal" enctype="multipart/form-data">
+						@csrf
+							<div class="modal-header">
+								<h4 class="modal-title"><b>Tambah Berkas</b></h4>
+							</div>
+							<div class="modal-body">
+
+								<div class="form-group">
+									<label for="file_nama" class="col-lg-2 control-label"> Nama Berkas </label>
+									<div class="col-md-8">  
+										<input autocomplete="off" type="text" name="file_nama" class="form-control" id="modal_insert_file_nama" required="">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="file_tahun" class="col-lg-2 control-label"> Tahun </label>
+									<div class="col-md-8">
+										<input autocomplete="off" type="text" name="file_tahun" class="form-control" id="modal_insert_file_tahun" required="">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="file_nomor" class="col-lg-2 control-label"> Nomor Berkas </label>
+									<div class="col-md-8">
+										<input autocomplete="off" type="text" name="file_nomor" class="form-control" id="modal_insert_file_nomor" required="">
+									</div>
+								</div>
+
+                                <div class="form-group ">
+									<label for="filefiles" class="col-lg-2 control-label"> Upload File <br> <span style="font-size: 12px; color:red">Size Max 500KB <br>File PDF / JPG / JPEG / PNG</span> </label>
+									<div class="col-lg-8">
+										<input type="file" class="form-control" id="modal_insert_file_files" name="filefiles">
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-info pull-right">Simpan</button>
+								<button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div id="modal-update-files" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content modal-lg">
+						<form method="POST" action="/portal/profil/form/ubahfilespegawai" class="form-horizontal" enctype="multipart/form-data">
+						@csrf
+							<div class="modal-header">
+								<h4 class="modal-title"><b>Ubah Berkas</b></h4>
+							</div>
+							<div class="modal-body">
+								
+								<input type="hidden" name="ids" id="modal_update_file_ids">
+								<input type="hidden" name="noid" id="modal_update_file_noid">
+
+								<div class="form-group">
+									<label for="file_nama" class="col-lg-2 control-label"> Nama Berkas </label>
+									<div class="col-md-8">  
+										<input autocomplete="off" type="text" name="file_nama" class="form-control" id="modal_update_file_nama" required="">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="file_tahun" class="col-lg-2 control-label"> Tahun </label>
+									<div class="col-md-8">
+										<input autocomplete="off" type="text" name="file_tahun" class="form-control" id="modal_update_file_tahun" required="">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="file_nomor" class="col-lg-2 control-label"> Nomor Berkas (isi bila ada) </label>
+									<div class="col-md-8">
+										<input autocomplete="off" type="text" name="file_nomor" class="form-control" id="modal_update_file_nomor" required="">
+									</div>
+								</div>
+
+                                <div class="form-group ">
+									<label for="filefiles" class="col-lg-2 control-label"> Upload File <br> <span style="font-size: 12px; color:red">Size Max 500KB</span> </label>
+									<div class="col-lg-8">
+										<input type="file" class="form-control" id="modal_update_file_files" name="filefiles">
+									</div>
+								</div>
+
+							</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-info pull-right">Simpan</button>
+								<button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="modal fade modal-delete" id="modal-delete-files">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<form method="POST" action="/portal/profil/form/hapusfilespegawai" class="form-horizontal">
+						@csrf
+							<div class="modal-header">
+								<h4 class="modal-title"><b>Hapus Berkas</b></h4>
+							</div>
+							<div class="modal-body">
+								<h4 class="label_delete"></h4>
+								<input type="hidden" name="ids" id="modal_delete_file_ids" value="">
+								<input type="hidden" name="noid" id="modal_delete_file_noid" value="">
+							</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-danger pull-right">Hapus</button>
+								<button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 @endsection
@@ -2577,7 +2716,6 @@
 		$(".select2").select2();
 
 		$(function () {
-
 			$(".data-input").hide();
 
 			$('.btn-edit-id').on('click', function () {
@@ -2856,6 +2994,33 @@
 				$(".label_delete").append('Apakah anda yakin ingin menghapus hukuman disiplin ini?');
 				$("#modal_delete_huk_ids").val($el.data('ids'));
 				$("#modal_delete_huk_noid").val($el.data('noid'));
+			});
+            
+
+
+
+
+
+
+
+
+
+
+
+
+            $('.btn-update-files').on('click', function () {
+				var $el = $(this);
+				$("#modal_update_file_ids").val($el.data('ids'));
+				$("#modal_update_file_noid").val($el.data('noid'));
+				$("#modal_update_file_nama").val($el.data('file_nama'));
+				$("#modal_update_file_nomor").val($el.data('file_nomor'));
+				$("#modal_update_file_tahun").val($el.data('file_tahun'));
+			});
+			$('.btn-delete-files').on('click', function () {
+				var $el = $(this);
+				$(".label_delete").append('Apakah anda yakin ingin menghapus Berkas ini?');
+				$("#modal_delete_file_ids").val($el.data('ids'));
+				$("#modal_delete_file_noid").val($el.data('noid'));
 			});
 
 

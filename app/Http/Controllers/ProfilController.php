@@ -29,6 +29,7 @@ use App\Models11\Emp_jab as Emp_jab_11;
 use App\Emp_non;
 use App\Emp_kel;
 use App\Emp_huk;
+use App\Emp_files;
 use App\Emp_skp;
 use App\Fr_disposisi;
 use App\Glo_dik;
@@ -206,6 +207,12 @@ class ProfilController extends Controller
 					->orderBy('tgl_sk', 'desc')
 					->get();
 
+		$emp_files = Emp_files::
+					where('sts', 1)
+					->where('noid', Auth::user()->id_emp)
+					->orderBy('file_nama', 'asc')
+					->get();
+
 		$statuses = Glo_org_statusemp::get();
 		$pendidikans = Glo_dik::
 						orderBy('urut')
@@ -241,6 +248,7 @@ class ProfilController extends Controller
 				->with('emp_kel', $emp_kel)
 				->with('emp_skp', $emp_skp)
 				->with('emp_huk', $emp_huk)
+				->with('emp_files', $emp_files)
 				->with('statuses', $statuses)
 				->with('pendidikans', $pendidikans)
 				->with('golongans', $golongans)
@@ -1721,6 +1729,177 @@ class ProfilController extends Controller
 
 		return redirect('/profil/pegawai')
 					->with('message', 'Data hukuman disiplin pegawai berhasil dihapus')
+					->with('msg_num', 1);
+	}
+
+
+    // -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+	// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+	// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+	// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+	// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+	// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+	// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+	// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+	// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+	// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+	// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+	// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+	// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+	// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+	// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+	// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+	// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+	// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+	// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+	// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+	// -------HUKUMAN DISIPLIN-------------------------------------------------------------------- //
+
+	public function forminsertfilespegawai (Request $request)
+	{
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}//$this->checkSessionTime();
+
+		$id_emp = $_SESSION['user_data']['id_emp'];
+		$filefiles = '';
+
+		$insert_emp_files = [
+				// BERKAS LAIN
+				'sts'       => 1,
+				'tgl'       => date('Y-m-d H:i:s'),
+				'uname'     => (Auth::user()->usname ? Auth::user()->usname : Auth::user()->id_emp),
+				'noid'      => $id_emp,
+				'file_nama'   => $request->file_nama,
+				'file_nomor'   => $request->file_nomor,
+				'file_tahun'   => $request->file_tahun,
+			];
+
+		$nowid = Emp_files::insertGetId($insert_emp_files);
+
+		// (IDENTITAS) cek dan set variabel untuk file foto pegawai
+		if (isset($request->filefiles)) {
+			
+			$file = $request->filefiles;
+
+			if ($file->getSize() > 555555) {
+				return redirect('/profil/pegawai')->with('message', 'Ukuran file terlalu besar (Maksimal 500KB)');     
+			}
+
+			if (strtolower($file->getClientOriginalExtension()) != "png" && strtolower($file->getClientOriginalExtension()) != "jpg" && strtolower($file->getClientOriginalExtension()) != "jpeg" && strtolower($file->getClientOriginalExtension()) != "pdf") {
+				return redirect('/profil/pegawai')->with('message', 'File yang diunggah harus berbentuk PDF / JPG / JPEG / PNG');     
+			}
+
+			$filefiles .= $nowid . "_" . $id_emp . ".". $file->getClientOriginalExtension();
+
+			$tujuan_upload = config('app.savefileimg');
+			$tujuan_upload .= "\\" . $id_emp . "\\files\\";
+
+			if (file_exists($tujuan_upload . $filefiles )) {
+				unlink($tujuan_upload . $filefiles);
+			}
+
+			$file->move($tujuan_upload, $filefiles);
+		}
+			
+		if (!(isset($filefiles))) {
+			$filefiles = '';
+		}
+
+		if ($filefiles != '') {
+			Emp_files::where('noid', $id_emp)
+			->where('ids', $nowid)
+			->update([
+				'file_save' => $filefiles,
+			]);
+		}
+		
+
+		return redirect('/profil/pegawai')
+					->with('message', 'Data Berkas Lainnya berhasil ditambah')
+					->with('msg_num', 1);
+	}
+
+	public function formupdatefilespegawai (Request $request)
+	{
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}//$this->checkSessionTime();
+
+        $id_emp = $_SESSION['user_data']['id_emp'];
+		$filefiles = '';
+
+		// (IDENTITAS) cek dan set variabel untuk file foto pegawai
+		if (isset($request->filefiles)) {
+			$file = $request->filefiles;
+
+			if ($file->getSize() > 555555) {
+				return redirect('/profil/pegawai')->with('message', 'Ukuran file terlalu besar (Maksimal 500KB)');     
+			}
+
+			if (strtolower($file->getClientOriginalExtension()) != "png" && strtolower($file->getClientOriginalExtension()) != "jpg" && strtolower($file->getClientOriginalExtension()) != "jpeg" && strtolower($file->getClientOriginalExtension()) != "pdf") {
+				return redirect('/profil/pegawai')->with('message', 'File yang diunggah harus berbentuk PDF / JPG / JPEG / PNG');     
+			}
+
+			$filefiles .= $request->ids . "_" . $id_emp . ".". $file->getClientOriginalExtension();
+
+			$tujuan_upload = config('app.savefileimg');
+			$tujuan_upload .= "\\" . $id_emp . "\\files\\";
+
+			if (file_exists($tujuan_upload . $filefiles )) {
+				unlink($tujuan_upload . $filefiles);
+			}
+
+			$file->move($tujuan_upload, $filefiles);
+		}
+			
+		if (!(isset($filefiles))) {
+			$filefiles = '';
+		}
+
+		if ($filefiles != '') {
+			Emp_files::where('noid', $id_emp)
+			->where('ids', $request->ids)
+			->update([
+				'file_save' => $filefiles,
+			]);
+		}
+
+		Emp_files::where('noid', $id_emp)
+			->where('ids', $request->ids)
+			->update([
+				'file_nama'   => $request->file_nama,
+				'file_nomor'   => $request->file_nomor,
+				'file_tahun'   => $request->file_tahun,
+			]);
+
+		return redirect('/profil/pegawai')
+					->with('message', 'Data hukuman disiplin berhasil diubah')
+					->with('msg_num', 1);
+	}
+
+	public function formdeletefilespegawai(Request $request)
+	{
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}//$this->checkSessionTime();
+
+		$id_emp = $_SESSION['user_data']['id_emp'];
+
+		Emp_files::where('noid', $id_emp)
+		->where('ids', $request->ids)
+		->update([
+			'sts' => 0,
+		]);
+
+		return redirect('/profil/pegawai')
+					->with('message', 'Data Berkas Lainnya berhasil dihapus')
 					->with('msg_num', 1);
 	}
 }

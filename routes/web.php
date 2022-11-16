@@ -187,9 +187,15 @@ Route::group(['prefix' => 'profil'], function () {
 	Route::post('/form/ubahjabpegawai', 'ProfilController@formupdatejabpegawai');
 	Route::post('/form/hapusjabpegawai', 'ProfilController@formdeletejabpegawai');
 
+	Route::post('/form/tambahskppegawai', 'ProfilController@forminsertskppegawai');
+
 	Route::post('/form/tambahhukpegawai', 'ProfilController@forminserthukpegawai');
 	Route::post('/form/ubahhukpegawai', 'ProfilController@formupdatehukpegawai');
 	Route::post('/form/hapushukpegawai', 'ProfilController@formdeletehukpegawai');
+	
+    Route::post('/form/tambahfilespegawai', 'ProfilController@forminsertfilespegawai');
+	Route::post('/form/ubahfilespegawai', 'ProfilController@formupdatefilespegawai');
+	Route::post('/form/hapusfilespegawai', 'ProfilController@formdeletefilespegawai');
 });
 
 Route::group(['prefix' => 'cms'], function () {
