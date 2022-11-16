@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Log_bpad extends Model
 {
-    protected $connection = 'server76';
+    protected $connection = 'sqlsrv2';
 	protected $table = "bpaddtfake.dbo.SYSLOG_BPADPORTAL";
-	public $timestamps = false;
+    public $incrementing = 'false';
+    public $timestamps = false;
 }
