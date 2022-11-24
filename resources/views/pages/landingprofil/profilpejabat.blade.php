@@ -24,7 +24,7 @@
             </div>
             <!-- section title -->
 			<div class="col-md-4 col-md-offset-4">
-                <div class="number">
+                <div class="number number-modal" data-toggle="modal" data-target="#modal-es" data-kd_unit="{{ $es2['kd_unit'] }}">
                     @if( file_exists(config('app.savefileimgpejabat') . "\\" . $es2['kd_unit'] . ".jpg") ) 
                     <img src="{{ config('app.openfileimgpejabat') }}{{  $es2['kd_unit'] }}.jpg" style="width: 75%" alt="img" class="thumb-lg img-circle">
                     @elseif(file_exists(config('app.savefileimg') . "\\" . $es2['id_emp'] . "\\profil\\" . $es2['foto']))
@@ -59,7 +59,7 @@
                 <div class="row">
                 @endif
                 <div class="col-md-3">
-                    <div class="number">
+                    <div class="number number-modal" data-toggle="modal" data-target="#modal-es" data-kd_unit="{{ $data['kd_unit'] }}">
                         @if( file_exists(config('app.savefileimgpejabat') . "\\" . $data['kd_unit'] . ".jpg") ) 
                         <img src="{{ config('app.openfileimgpejabat') }}{{  $data['kd_unit'] }}.jpg" style="width: 75%" alt="img" class="thumb-lg img-circle">
                         @elseif(file_exists(config('app.savefileimg') . "\\" . $data['id_emp'] . "\\profil\\" . $data['foto']))
@@ -109,7 +109,7 @@
                 @endif
                 
                 <div class="col-md-2">
-                    <div class="number"> 
+                    <div class="number number-modal" data-toggle="modal" data-target="#modal-es" data-kd_unit="{{ $data['kd_unit'] }}"> 
                         @if( file_exists(config('app.savefileimgpejabat') . "\\" . $data['kd_unit'] . ".jpg") ) 
                         <img src="{{ config('app.openfileimgpejabat') }}{{  $data['kd_unit'] }}.jpg" style="width: 75%" alt="img" class="thumb-lg img-circle">
                         @elseif(file_exists(config('app.savefileimg') . "\\" . $data['id_emp'] . "\\profil\\" . $data['foto']))
@@ -130,7 +130,68 @@
 		<!-- /row ESELON IV -->
 	</div>
 	<!-- /container -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="modal-es" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" id="div-header-es">
+
+                </div>
+                <div class="modal-body" id="div-body-es">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- /SECTION -->
+
+<script>
+    $(document).ready(function() {
+        $('.number-modal').on('click', function () {
+            $(' #div-header-es ').empty();
+            $(' #div-body-es ').empty();
+            
+            $(' #div-body-es ').append(
+                "<h2><i class='fa fa-refresh fa-spin justify-center'></i></h2>"
+            );
+
+            var $el = $(this);
+            var kd_unit = $el.data('kd_unit');
+            
+            $.ajax({
+                method: "GET",
+                url: "{{ route('profil.gethistorypejabat') }}",
+                data: { 
+                    kd_unit : kd_unit,
+                },
+            }).done(function( data ) {
+                $(' #div-header-es ').empty();
+                $(' #div-body-es ').empty();
+                
+                $(' #div-header-es ').append(
+                    "<button type='button' class='close' data-dismiss='modal'>&times;</button>"+
+                    "<h4 class='modal-title'>"+data.nm_emp+"</h4><br>"+
+                    "<span class='text-muted'>"+ data.nm_bidang + " - " + (data.notes).toUpperCase()+"</span>"
+                );
+                $(' #div-body-es ').append(
+                    "<h3>Sejarah Singkat</h3>"+
+                    "<p>"+data.unit_history+"</p>"
+                );
+            }).fail(function( res, exception ) {
+                $(' #div-header-es ').empty();
+                $(' #div-body-es ').empty();
+
+                $(' #div-body-es ').append(
+                    "<td colspan='6' class='text-center'>"+
+                        "<h2>"+res.status+" - "+res.statusText+"</h2>"+
+                    "</td>"
+                );
+            });
+        });
+    });
+</script>
 
 @endsection

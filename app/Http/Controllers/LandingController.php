@@ -16,6 +16,7 @@ use App\Help;
 use App\Produk_aset;
 use App\Setup_tb;
 use App\Fr_disposisi;
+use App\Glo_org_unitkerja;
 
 session_start();
 
@@ -326,5 +327,22 @@ class LandingController extends Controller
     public function profil(Request $request)
     {
         return view('pages.landingprofil.profil');
+    }
+
+    public function gethistorypejabat(Request $request)
+    {
+        $kd_unit = $request->kd_unit;
+
+        $result = DB::select( DB::raw("  
+        SELECT id_emp, foto, nm_emp, tbjab.idunit, tbunit.child, tbunit.kd_unit, tbunit.notes, tbunit.sao, tbunit.nm_unit, tbunit.nm_bidang, tbunit.unit_history
+        from bpaddtfake.dbo.emp_data as a
+        CROSS APPLY (SELECT TOP 1 tmt_jab,idskpd,idunit,idlok,tmt_sk_jab,no_sk_jab,jns_jab,replace(idjab,'NA::','') as idjab,eselon,gambar FROM  bpaddtfake.dbo.emp_jab WHERE a.id_emp=emp_jab.noid AND emp_jab.sts='1' ORDER BY tmt_jab DESC) tbjab
+        CROSS APPLY (SELECT TOP 1 * FROM bpaddtfake.dbo.glo_org_unitkerja WHERE glo_org_unitkerja.kd_unit = tbjab.idunit) tbunit
+        ,bpaddtfake.dbo.glo_skpd as b,bpaddtfake.dbo.glo_org_unitkerja as c,bpaddtfake.dbo.glo_org_lokasi as d WHERE tbjab.idskpd=b.skpd AND tbjab.idskpd+'::'+tbjab.idunit=c.kd_skpd+'::'+c.kd_unit AND tbjab.idskpd+'::'+tbjab.idlok=d.kd_skpd+'::'+d.kd_lok AND a.sts='1' AND b.sts='1' AND c.sts='1' AND d.sts='1'
+        and tbunit.kd_unit like '$kd_unit' AND tbunit.sts = '1' AND ked_emp = 'AKTIF'
+        ORDER BY idunit ASC, idjab ASC") )[0];
+        $result = json_decode(json_encode($result), true);
+
+        return $result;
     }
 }

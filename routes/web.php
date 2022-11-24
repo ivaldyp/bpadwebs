@@ -79,6 +79,7 @@ Route::group(['prefix' => 'profil'], function () {
 	Route::get('/tupoksi', 'LandingController@tupoksi')->name('profil.tupoksi');
 	Route::get('/struktur', 'LandingController@struktur')->name('profil.struktur');
 	Route::get('/profilpejabat', 'LandingController@profilpejabat')->name('profil.profilpejabat');
+	Route::get('/gethistorypejabat', 'LandingController@gethistorypejabat')->name('profil.gethistorypejabat');
 });
 
 Route::group(['prefix' => 'content'], function () {
