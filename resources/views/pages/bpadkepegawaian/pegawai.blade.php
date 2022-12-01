@@ -181,6 +181,7 @@
 														<span class="text-muted">{{ $employee['nm_lok'] }}</span>
                                                         @if( is_null($employee['masa_unit']) )
                                                         @else
+                                                            <br>
                                                             <span class=""> &emsp; <i class="fa fa-clock-o"></i> {{ $employee['masa_unit'] }}  </span>
                                                         @endif
 													</td>
