@@ -313,6 +313,111 @@ class KepegawaianController extends Controller
 				->with('hukumans', $hukumans);
 	}
 
+    public function pegawailihat(Request $request)
+	{
+		if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+		//$this->checkSessionTime();
+
+		$id_emp = $request->emp;
+
+		$emp_data = Emp_data::
+						where('id_emp', $id_emp)
+						->first();
+
+		$emp_dik = Emp_dik::
+						where('noid', $id_emp)
+						->where('sts', 1)
+						->orderBy('th_sek', 'desc')
+						->get();
+
+		$emp_gol = Emp_gol::
+						join('bpaddtfake.dbo.glo_org_golongan', 'bpaddtfake.dbo.glo_org_golongan.gol', '=', 'bpaddtfake.dbo.emp_gol.idgol')
+						->where('bpaddtfake.dbo.emp_gol.noid', $id_emp)
+						->where('bpaddtfake.dbo.emp_gol.sts', 1)
+						->orderBy('bpaddtfake.dbo.emp_gol.tmt_gol', 'desc')
+						->get();
+
+		$emp_jab = Emp_jab::
+						with('lokasi')
+						->with('unit')
+						->where('noid', $id_emp)
+						->where('sts', 1)
+						->orderBy('tmt_jab', 'desc')
+						->get();
+
+		$emp_non = Emp_non::where('sts', 1)
+						->where('noid', $id_emp)
+						->orderBy('tgl_non', 'desc')
+						->get();
+
+		$emp_kel = Emp_kel::
+					join('bpaddtfake.dbo.glo_kel', 'bpaddtfake.dbo.glo_kel.kel', '=', 'bpaddtfake.dbo.emp_kel.jns_kel')
+					->where('bpaddtfake.dbo.emp_kel.noid', $id_emp)
+					->where('bpaddtfake.dbo.emp_kel.sts', 1)
+					->orderBy('urut', 'asc')
+					->get();
+
+		$emp_huk = Emp_huk::
+					where('sts', 1)
+					->where('noid', $id_emp)
+					->orderBy('tgl_sk', 'desc')
+					->get();
+
+        $statuses = Glo_org_statusemp::get();
+
+		$idgroups = Sec_access::
+					distinct('idgroup')
+					// ->where('zfor', '2,')
+					->orderBy('idgroup')
+					->get('idgroup');
+
+		$pendidikans = Glo_dik::
+						orderBy('urut')
+						->get();
+
+		$golongans = Glo_org_golongan::
+					orderBy('gol')
+					->get();
+
+		$jabatans = Glo_org_jabatan::
+					orderBy('jabatan')
+					->get();
+
+		$lokasis = Glo_org_lokasi::
+					orderBy('kd_lok')
+					->get();
+
+		$kedudukans = Glo_org_kedemp::get();
+
+		$units = glo_org_unitkerja::orderBy('kd_unit', 'asc')->get();
+
+		$keluargas = Glo_kel::orderBy('urut')->get();
+
+		$hukumans = Glo_huk::orderBy('urut_huk')->get();
+
+		return view('pages.bpadkepegawaian.pegawailihat')
+				->with('id_emp', $id_emp)
+				->with('emp_data', $emp_data)
+				->with('emp_dik', $emp_dik)
+				->with('emp_gol', $emp_gol)
+				->with('emp_jab', $emp_jab)
+				->with('emp_non', $emp_non)
+				->with('emp_kel', $emp_kel)
+				->with('emp_huk', $emp_huk)
+				->with('statuses', $statuses)
+				->with('idgroups', $idgroups)
+				->with('pendidikans', $pendidikans)
+				->with('golongans', $golongans)
+				->with('jabatans', $jabatans)
+				->with('lokasis', $lokasis)
+				->with('kedudukans', $kedudukans)
+				->with('units', $units)
+				->with('keluargas', $keluargas)
+				->with('hukumans', $hukumans);
+	}
+
 	public function formapprovepegawai(Request $request)
 	{
 		if(count($_SESSION) == 0) {

@@ -158,7 +158,10 @@
 													<th class="col-md-1">TMT</th>
 													<th>Status</th>
 													<th>DRH</th>
-													@if($access['zupd'] == 'y' || $access['zdel'] == 'y')
+													@if($access['zint'] == 'y')
+													<th>View</th>
+													@endif
+                                                    @if($access['zupd'] == 'y' || $access['zdel'] == 'y')
 													<th class="col-md-2">Action</th>
 													@endif
 												</tr>
@@ -192,6 +195,13 @@
 													<td>
 														<a href="/portal/profil/printdrh?emp={{ $employee['id_emp'] }}"><button type="button" class="btn btn-primary btn-drh"><i class="fa fa-file-pdf-o"></i></button></a>
 													</td>
+                                                    @if($access['zint'] == 'y')
+                                                    <td>
+                                                        <a href="/portal/kepegawaian/lihat pegawai?emp={{ $employee['id_emp'] }}">
+                                                            <button type="button" class="btn btn-success"><i class="fa fa-search"></i></button>
+                                                        </a>
+                                                    </td>
+                                                    @endif
 													@if($access['zupd'] == 'y' || $access['zdel'] == 'y')
 														<td>
 															<form method="GET" action="/portal/kepegawaian/ubah pegawai" target="_blank">

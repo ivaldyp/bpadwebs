@@ -293,6 +293,7 @@ Route::group(['prefix' => 'kepegawaian'], function () {
 	Route::get('/data pegawai', 'KepegawaianController@pegawaiall');
 	Route::get('/tambah pegawai', 'KepegawaianController@pegawaitambah');
 	Route::get('/ubah pegawai', 'KepegawaianController@pegawaiubah');
+	Route::get('/lihat pegawai', 'KepegawaianController@pegawailihat');
 	Route::post('/form/approvepegawai', 'KepegawaianController@formapprovepegawai');
 	Route::post('/form/tambahpegawai', 'KepegawaianController@forminsertpegawai');
 	Route::post('/form/ubahpegawai', 'KepegawaianController@formupdatepegawai');
