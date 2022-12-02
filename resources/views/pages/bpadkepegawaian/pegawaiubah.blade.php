@@ -72,12 +72,13 @@
 									<nav>
 										<ul>
 											<li><a href="#section-underline-1" class=""><span>Identitas</span></a></li>
-											<li><a href="#section-underline-6" class=""><span>Keluarga</span></a></li>
-											<li><a href="#section-underline-2" class=""><span>Pendidikan</span></a></li>
-											<li><a href="#section-underline-3" class=""><span>Golongan</span></a></li>
-											<li><a href="#section-underline-4" class=""><span>Jabatan</span></a></li>
-											<li><a href="#section-underline-7" class=""><span>Hukuman Disiplin</span></a></li>
-											<li><a href="#section-underline-5" class=""><span>Status</span></a></li>
+											<li><a href="#section-underline-2" class=""><span>Keluarga</span></a></li>
+											<li><a href="#section-underline-3" class=""><span>Pendidikan</span></a></li>
+											<li><a href="#section-underline-4" class=""><span>Golongan</span></a></li>
+											<li><a href="#section-underline-5" class=""><span>Jabatan</span></a></li>
+											<li><a href="#section-underline-6" class=""><span>Hukuman Disiplin</span></a></li>
+											<li><a href="#section-underline-7" class=""><span>Berkas Lainnya</span></a></li>
+											<li><a href="#section-underline-8" class=""><span>Status</span></a></li>
 										</ul>
 									</nav>
 									<div class="content-wrap">
@@ -392,7 +393,7 @@
 										
 											</form>
 										</section>
-										<section id="section-underline-6">
+										<section id="section-underline-2">
 
 											@if(count($emp_kel) > 0)
 											<div class="table-responsive">
@@ -423,7 +424,7 @@
 											@endif
 											<a href="/portal/kepegawaian/data pegawai"><button type="button" class="btn btn-default pull-right m-b-20 m-t-10"> Kembali </button></a>
 										</section>
-										<section id="section-underline-2">
+										<section id="section-underline-3">
 											<div class="white-box">
 												<h2><b>PENDIDIKAN FORMAL</b></h2>
 												<button class="btn btn-info m-b-20" type="button" data-toggle="modal" data-target="#modal-insert-dik">Tambah</button>
@@ -687,7 +688,7 @@
 											</div>
 										</div>
 										
-										<section id="section-underline-3">
+										<section id="section-underline-4">
 											<button class="btn btn-info m-b-20" type="button" data-toggle="modal" data-target="#modal-insert-gol">Tambah</button>
 
 											@if(count($emp_gol) > 0)
@@ -914,7 +915,7 @@
 												</div>
 											</div>
 										</div>
-										<section id="section-underline-4">
+										<section id="section-underline-5">
 											<button class="btn btn-info m-b-20" type="button" data-toggle="modal" data-target="#modal-insert-jab">Tambah</button>
 
 
@@ -1274,7 +1275,48 @@
 											@endif
 											<a href="/portal/kepegawaian/data pegawai"><button type="button" class="btn btn-default pull-right m-b-20 m-t-10"> Kembali </button></a>
 										</section>
-										<section id="section-underline-5">
+
+                                        <section id="section-underline-7">
+                                            <h2><b>BERKAS LAINNYA</b></h2>
+
+											@if(count($emp_files) > 0)
+											<div class="table-responsive">
+												<table class="table table-hover table-bordered">
+													<thead>
+														<tr>
+															<th>No</th>
+															<th>Tgl Input</th>
+															<th>Nama Berkas</th>
+															<th>Nomor Berkas</th>
+															<th>Tahun Berkas</th>
+															<th>File</th>
+														</tr>
+													</thead>
+													<tbody>
+														@foreach($emp_files as $key => $file)
+														<tr>
+															<td>{{ $key+1 }}</td>
+															<td>{{ date('d/M/Y',strtotime($file['tgl'])) }}</td>
+															<td>{{ $file['file_nama'] }}</td>
+															<td>{{ $file['file_nomor'] ?? '-' }}</td>
+															<td>{{ $file['file_tahun'] ?? '-' }}</td>
+															<td>
+                                                                <?php if ($file['file_save']) : ?> 
+                                                                    <a target="_blank" href="{{ config('app.openfileimg') }}/{{ $id_emp }}/files/{{ $file['file_save'] }}">[Unduh File]</a>
+                                                                <?php else : ?>
+                                                                    [File tidak tersedia]
+                                                                <?php endif ?>
+                                                            </td>
+														</tr>
+														@endforeach
+													</tbody>
+												</table>
+											</div>
+											@endif
+											<a href="/portal/kepegawaian/data pegawai"><button type="button" class="btn btn-default pull-right m-b-20 m-t-10"> Kembali </button></a>
+										</section>
+
+										<section id="section-underline-8">
 											<form class="form-horizontal" method="POST" action="/portal/kepegawaian/form/ubahstatuspegawai" data-toggle="validator" enctype="multipart/form-data">
 											@csrf
 												<div class="col-md-12">

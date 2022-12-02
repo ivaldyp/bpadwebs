@@ -260,6 +260,11 @@ class KepegawaianController extends Controller
 					->orderBy('tgl_sk', 'desc')
 					->get();
 
+        $emp_files = Emp_files::
+                    where('sts', 1)
+                    ->where('noid', $id_emp)
+                    ->orderBy('file_nama')
+                    ->get();
 
 		$statuses = Glo_org_statusemp::get();
 
@@ -302,6 +307,7 @@ class KepegawaianController extends Controller
 				->with('emp_non', $emp_non)
 				->with('emp_kel', $emp_kel)
 				->with('emp_huk', $emp_huk)
+				->with('emp_files', $emp_files)
 				->with('statuses', $statuses)
 				->with('idgroups', $idgroups)
 				->with('pendidikans', $pendidikans)
