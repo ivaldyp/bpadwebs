@@ -18,6 +18,7 @@ use App\Traits\SessionCheckNotif;
 use App\Emp_data;
 use App\Models11\Emp_data as Emp_data_11;
 use App\Emp_dik;
+use App\Emp_files;
 use App\Models11\Emp_dik as Emp_dik_11;
 use App\Emp_gol;
 use App\Models11\Emp_gol as Emp_gol_11;
@@ -365,6 +366,12 @@ class KepegawaianController extends Controller
 					->orderBy('tgl_sk', 'desc')
 					->get();
 
+        $emp_files = Emp_files::
+                    where('sts', 1)
+					->where('noid', $id_emp)
+					->orderBy('file_nama')
+					->get();
+
         $statuses = Glo_org_statusemp::get();
 
 		$idgroups = Sec_access::
@@ -406,6 +413,7 @@ class KepegawaianController extends Controller
 				->with('emp_non', $emp_non)
 				->with('emp_kel', $emp_kel)
 				->with('emp_huk', $emp_huk)
+				->with('emp_files', $emp_files)
 				->with('statuses', $statuses)
 				->with('idgroups', $idgroups)
 				->with('pendidikans', $pendidikans)
