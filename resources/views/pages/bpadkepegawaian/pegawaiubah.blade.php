@@ -75,7 +75,7 @@
 											<li><a href="#section-underline-2" class=""><span>Keluarga</span></a></li>
 											<li><a href="#section-underline-3" class=""><span>Pendidikan</span></a></li>
 											<li><a href="#section-underline-4" class=""><span>Golongan</span></a></li>
-											<li><a href="#section-underline-5" class=""><span>Jabatan</span></a></li>
+											<li><a href="#section-underline-5" class=""><span>Unit Kerja</span></a></li>
 											<li><a href="#section-underline-6" class=""><span>Hukuman Disiplin</span></a></li>
 											<li><a href="#section-underline-7" class=""><span>Berkas Lainnya</span></a></li>
 											<li><a href="#section-underline-8" class=""><span>Status</span></a></li>
@@ -83,7 +83,9 @@
 									</nav>
 									<div class="content-wrap">
 										<section id="section-underline-1">
-										<form class="form-horizontal" method="POST" action="/portal/kepegawaian/form/ubahpegawai" data-toggle="validator" enctype="multipart/form-data">
+                                        <h2><b>IDENTITAS</b></h2>
+										
+                                        <form class="form-horizontal" method="POST" action="/portal/kepegawaian/form/ubahpegawai" data-toggle="validator" enctype="multipart/form-data">
 										@csrf
 											<div class="col-md-12">
 												<input type="hidden" name="id_emp" value="{{ $id_emp }}">
@@ -394,6 +396,7 @@
 											</form>
 										</section>
 										<section id="section-underline-2">
+                                            <h2><b>KELUARGA</b></h2>
 
 											@if(count($emp_kel) > 0)
 											<div class="table-responsive">
@@ -689,6 +692,7 @@
 										</div>
 										
 										<section id="section-underline-4">
+                                            <h2><b>GOLONGAN</b></h2>
 											<button class="btn btn-info m-b-20" type="button" data-toggle="modal" data-target="#modal-insert-gol">Tambah</button>
 
 											@if(count($emp_gol) > 0)
@@ -916,8 +920,8 @@
 											</div>
 										</div>
 										<section id="section-underline-5">
+                                            <h2><b>UNIT KERJA</b></h2>
 											<button class="btn btn-info m-b-20" type="button" data-toggle="modal" data-target="#modal-insert-jab">Tambah</button>
-
 
 											@if(count($emp_jab) > 0)
 											<div class="table-responsive">
@@ -1217,7 +1221,7 @@
 											</div>
 										</div>
 										<section id="section-underline-6">
-
+                                            <h2><b>HUKUMAN DISIPLIN</b></h2>
 											@if(count($emp_huk) > 0)
 											<div class="table-responsive">
 												<table class="table table-hover table-bordered">
@@ -1317,6 +1321,7 @@
 										</section>
 
 										<section id="section-underline-8">
+                                            <h2><b>STATUS PEGAWAI</b></h2>
 											<form class="form-horizontal" method="POST" action="/portal/kepegawaian/form/ubahstatuspegawai" data-toggle="validator" enctype="multipart/form-data">
 											@csrf
 												<div class="col-md-12">

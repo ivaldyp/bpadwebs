@@ -83,7 +83,9 @@
 									</nav>
 									<div class="content-wrap">
 										<section id="section-underline-1">
-										<form class="form-horizontal">
+                                        <h2><b>IDENTITAS</b></h2>
+										
+                                        <form class="form-horizontal">
 										@csrf
 											<div class="col-md-12">
 												<input type="hidden" name="id_emp" value="{{ $id_emp }}">
@@ -625,7 +627,9 @@
 										</section>
 
 										<section id="section-underline-8">
-											<form class="form-horizontal"   >
+                                            <h2><b>STATUS PEGAWAI</b></h2>
+											
+                                            <form class="form-horizontal">
 											@csrf
 												<div class="col-md-12">
 													<input type="hidden" name="id_emp" value="{{ $id_emp }}">
