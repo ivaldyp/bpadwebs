@@ -528,7 +528,7 @@
 										</section>
 										
 										<section id="section-underline-6">
-                                            <h2><b>UNIT KERJA</b></h2>
+                                            <h2><b>HUKUMAN DISIPLIN</b></h2>
 
 											@if(count($emp_huk) > 0)
 											<div class="table-responsive">
