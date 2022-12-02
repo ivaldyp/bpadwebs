@@ -84,6 +84,10 @@
 															<th>insert</th>
 															<th>update</th>
 															<th>delete</th>
+															<th>approve</th>
+															<th>print</th>
+															<th>download</th>
+															<th>internal</th>
 														</tr>
 													</thead>
 													<tbody>
@@ -96,6 +100,10 @@
 															<td><input type="checkbox" name="zadd[]" <?php if ($acc['zadd'] == 'y'): ?> checked <?php endif ?> value="{{ $acc['idgroup'] }}" ></td>
 															<td><input type="checkbox" name="zupd[]" <?php if ($acc['zupd'] == 'y'): ?> checked <?php endif ?> value="{{ $acc['idgroup'] }}" ></td>
 															<td><input type="checkbox" name="zdel[]" <?php if ($acc['zdel'] == 'y'): ?> checked <?php endif ?> value="{{ $acc['idgroup'] }}" ></td>
+															<td><input type="checkbox" name="zapr[]" <?php if ($acc['zapr'] == 'y'): ?> checked <?php endif ?> value="{{ $acc['idgroup'] }}" ></td>
+															<td><input type="checkbox" name="zprint[]" <?php if ($acc['zprint'] == 'y'): ?> checked <?php endif ?> value="{{ $acc['idgroup'] }}" ></td>
+															<td><input type="checkbox" name="zdwd[]" <?php if ($acc['zdwd'] == 'y'): ?> checked <?php endif ?> value="{{ $acc['idgroup'] }}" ></td>
+															<td><input type="checkbox" name="zint[]" <?php if ($acc['zint'] == 'y'): ?> checked <?php endif ?> value="{{ $acc['idgroup'] }}" ></td>
 														</tr>
 													@endforeach
 													</tbody>

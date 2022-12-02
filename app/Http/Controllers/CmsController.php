@@ -349,6 +349,10 @@ class CmsController extends Controller
 						'zadd' => null,
 						'zupd' => null,
 						'zdel' => null,
+						'zapr' => null,
+						'zprint' => null,
+						'zdwd' => null,
+						'zint' => null,
 					]);
 
 		if ($request->zviw) {
@@ -391,6 +395,52 @@ class CmsController extends Controller
 					->where('idgroup', $zdel)
 					->update([
 						'zdel' => 'y',
+					]);
+			}
+		}
+
+        // // // // // //
+
+        if ($request->zapr) {
+			foreach ($request->zapr as $zapr) {
+				Sec_access::
+					where('idtop', $idtop)
+					->where('idgroup', $zapr)
+					->update([
+						'zapr' => 'y',
+					]);
+			}
+		}
+
+		if ($request->zprint) {
+			foreach ($request->zprint as $zprint) {
+				Sec_access::
+					where('idtop', $idtop)
+					->where('idgroup', $zprint)
+					->update([
+						'zprint' => 'y',
+					]);
+			}
+		}
+
+		if ($request->zdwd) {
+			foreach ($request->zdwd as $zdwd) {
+				Sec_access::
+					where('idtop', $idtop)
+					->where('idgroup', $zdwd)
+					->update([
+						'zdwd' => 'y',
+					]);
+			}
+		}
+
+		if ($request->zint) {
+			foreach ($request->zint as $zint) {
+				Sec_access::
+					where('idtop', $idtop)
+					->where('idgroup', $zint)
+					->update([
+						'zint' => 'y',
 					]);
 			}
 		}
