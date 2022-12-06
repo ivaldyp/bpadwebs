@@ -3251,7 +3251,7 @@ class KepegawaianController extends Controller
                             WHEN tmt_sk_cpns is not null 
                                 THEN CONCAT(DATEDIFF(year, tmt_sk_cpns, GETDATE()), ' Tahun')
                             ELSE CONCAT(DATEDIFF(year, tgl_join, GETDATE()), ' Tahun')
-                        END as masa_kerja,
+                        END as masa_kerja
                     from bpaddtfake.dbo.emp_data as a
 					CROSS APPLY (SELECT TOP 1 tmt_gol,tmt_sk_gol,no_sk_gol,idgol,jns_kp,mk_thn,mk_bln,gambar,nm_pangkat FROM  bpaddtfake.dbo.emp_gol,bpaddtfake.dbo.glo_org_golongan WHERE a.id_emp = emp_gol.noid AND emp_gol.idgol=glo_org_golongan.gol AND emp_gol.sts='1' AND glo_org_golongan.sts='1' ORDER BY tmt_gol DESC) tbgol
 					CROSS APPLY (SELECT TOP 1 tmt_jab,idskpd,idunit,idlok,tmt_sk_jab,no_sk_jab,jns_jab,replace(idjab,'NA::','') as idjab,eselon,gambar FROM  bpaddtfake.dbo.emp_jab WHERE a.id_emp=emp_jab.noid AND emp_jab.sts='1' ORDER BY tmt_jab DESC) tbjab
