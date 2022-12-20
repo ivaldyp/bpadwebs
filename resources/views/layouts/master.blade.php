@@ -111,11 +111,20 @@
 							<li><a href="http://simaster.jakarta.go.id/internal.download/index.php?x=Moderator&y=B5B320392109ABC1986FDBF67DB15E71" target="_blank">Download</a></li>
 						</ul>
 					</li>
+                    <li class="has-dropdown"><a href="#">PPID</a>
+                        <ul class="dropdown" style="list-style: none; padding: 0;">
+                            <li><a href="{{ route('ppid.profil') }}" target="_blank">Profil PPID</a></li>
+                            <li><a href="#" target="_blank">Struktur PPID</a></li>
+                            <li><a href="#" target="_blank">Informasi Publik</a></li>
+                            <li><a href="#" target="_blank">Form Permohonan Informasi</a></li>
+                            <li><a href="#" target="_blank">Alur Permohonan Informasi</a></li>
+                            <li><a href="https://ppid.jakarta.go.id/" target="_blank">PPID Provinsi DKI Jakarta</a></li>
+                        </ul>
+                    </li>
 					<li class="has-dropdown"><a href="#">Lainnya</a>
 						<ul class="dropdown" style="list-style: none; padding: 0;">
 							<li><a href="http://bpad.jakarta.go.id/portal/ceksurat" target="_blank">Cek Surat</a></li>
 							<li><a href="https://webmail.bpadjakarta.id/" target="_blank">Webmail</a></li>
-							<li><a href="https://ppid.jakarta.go.id/" target="_blank">PPID</a></li>
 							<li><a href="https://aset.jakarta.go.id/brandgang/index.aspx?id=permohonan/" target="_blank">Permohonan Brandgang</a></li>
 							<li><a href="https://aset.jakarta.go.id/brandgang/index.aspx?id=monitoring/" target="_blank">Monitoring Brandgang</a></li>
 							<li><a href="{{ url('esiappe/masuk') }}">Absensi Online e-SIAPPE</a></li>

@@ -94,6 +94,16 @@ Route::group(['prefix' => 'content'], function () {
 	Route::get('/video/{id}', 'ContentController@video_open');
 });
 
+// ------------- BPAD PPID -------------
+
+Route::group(['prefix' => 'ppid'], function () {
+	Route::get('/profil', 'PpidController@profil')->name('ppid.profil');
+	Route::get('/struktur', 'PpidController@struktur')->name('ppid.struktur');
+	Route::get('/informasi-publik', 'PpidController@informasipublik')->name('ppid.informasipublik');
+	Route::get('/form', 'PpidController@form')->name('ppid.form');
+	Route::get('/infografis', 'PpidController@infografis')->name('ppid.infografis');
+});
+
 // ------------- BPAD DT --------------
 Route::group(['prefix' => 'notifikasi'], function () {
 	Route::get('/cek/{jenis}/{ids}', 'NotifikasiController@cek');
