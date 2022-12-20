@@ -138,7 +138,7 @@
 													<label class="col-md-2 control-label"> SK PNS </label>
 													<div class="col-md-2">
 														<?php if ($emp_data['sk_pns'] && $emp_data['sk_pns'] != '') : ?>
-                                                            <a target="_blank" href="{{ config('app.openfileimg') }}/{{ $emp_data['id_emp'] }}/skcpns/{{ $emp_data['sk_pns'] }}"><p>[Unduh SK PNS]</p></a>
+                                                            <a target="_blank" href="{{ config('app.openfileimg') }}/{{ $emp_data['id_emp'] }}/skpns/{{ $emp_data['sk_pns'] }}"><p>[Unduh SK PNS]</p></a>
                                                         <?php else : ?>
                                                             -
                                                         <?php endif ?>
