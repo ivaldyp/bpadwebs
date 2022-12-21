@@ -40,6 +40,13 @@ Route::get('/kkrekon/{selatan}', 'LandingController@kertaskerja');
 Route::get('/kkrekon/{seribu}', 'LandingController@kertaskerja');
 Route::get('/kkrekon/{provinsi}', 'LandingController@kertaskerja');
 
+Route::get('/kebijakan-dan-privasi', function () {
+    return view('pages.pnp');
+});
+Route::get('/syarat-dan-ketentuan', function () {
+    return view('pages.tnc');
+});
+
 // --------- BPAD LINK FORM PUBLIK-----------
 
 Route::group(['prefix' => 'form'], function () {
