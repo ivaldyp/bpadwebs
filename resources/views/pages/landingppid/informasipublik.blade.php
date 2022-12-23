@@ -26,7 +26,6 @@
                         <div class="panel">
                             <ul style="padding: 18px">
                                 <li><a target="_blank" href="https://drive.google.com/file/d/1Cs02OOps4bXc14JBLmmm08gmrlGnCHYx/view?usp=share_link">Laporan Keuangan BPAD Tahun 2021</a></li>
-                                <li><a target="_blank" href="#">Laporan Keuangan BPAD Tahun 2020</a></li>
                             </ul>
                        </div>
 
