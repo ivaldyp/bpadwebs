@@ -76,6 +76,11 @@
           border-right: #ccc 1px solid;
           border-bottom: #ccc 1px solid;
         }
+
+        .panel p,
+        .panel li {
+            padding: 18px;
+        }
     </style>
 
 </head>
