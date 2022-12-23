@@ -108,6 +108,7 @@ Route::group(['prefix' => 'ppid'], function () {
 	Route::get('/struktur', 'PpidController@struktur')->name('ppid.struktur');
 	Route::get('/informasi-publik', 'PpidController@informasipublik')->name('ppid.informasipublik');
 	Route::get('/form', 'PpidController@form')->name('ppid.form');
+	Route::post('/form', 'PpidController@saveform')->name('ppid.saveform');
 	Route::get('/infografis', 'PpidController@infografis')->name('ppid.infografis');
 });
 

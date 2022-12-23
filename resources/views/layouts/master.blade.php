@@ -35,12 +35,48 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-	<!--[if lt IE 9]>
-		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-		<![endif]-->
+    <style>
+        .accordion {
+          background-color: #eee;
+          color: #444;
+          cursor: pointer;
+          padding: 18px;
+          width: 100%;
+          border: none;
+          text-align: left;
+          outline: none;
+          font-size: 15px;
+          transition: 0.4s;
+          
+        }
+        
+        .active, .accordion:hover {
+          background-color: #ccc;
+        }
+        
+        .accordion:after {
+          content: '\002B';
+          color: #777;
+          font-weight: bold;
+          float: right;
+          margin-left: 5px;
+        }
+        
+        .active:after {
+          content: "\2212";
+        }
+        
+        .panel {
+          padding: 0 18px;
+          background-color: white;
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height 0.2s ease-out;
+          border-left: #ccc 1px solid;
+          border-right: #ccc 1px solid;
+          border-bottom: #ccc 1px solid;
+        }
+    </style>
 
 </head>
 
@@ -115,8 +151,8 @@
                         <ul class="dropdown" style="list-style: none; padding: 0;">
                             <li><a href="{{ route('ppid.profil') }}" target="_blank">Profil PPID</a></li>
                             <li><a href="#" target="_blank">Struktur PPID</a></li>
-                            <li><a href="#" target="_blank">Informasi Publik</a></li>
-                            <li><a href="#" target="_blank">Form Permohonan Informasi</a></li>
+                            <li><a href="{{ route('ppid.informasipublik') }}" target="_blank">Informasi Publik</a></li>
+                            <li><a href="{{ route('ppid.form') }}" target="_blank">Form Permohonan Informasi</a></li>
                             <li><a href="#" target="_blank">Alur Permohonan Informasi</a></li>
                             <li><a href="https://ppid.jakarta.go.id/" target="_blank">PPID Provinsi DKI Jakarta</a></li>
                         </ul>
