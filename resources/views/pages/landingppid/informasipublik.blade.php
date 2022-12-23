@@ -16,18 +16,43 @@
 		<!-- row -->
 		<div class="row">
 			<!-- MAIN -->
-			<main id="main" class="col-lg-12">
+			<main id="main" class="col-lg-8 col-lg-offset-2">
 				<!-- article -->
 				<div class="article">
 					<!-- article content -->
 					<div class="article-content">
 			            
+                        <button class="accordion"><span style="font-weight: bold;">Profil PPID</span></button>
+                        <div class="panel">
+                            <p><a target="_blank" href="https://bpad.jakarta.go.id/portal/ppid/profil">Halaman Profil PPID</a></p>
+                        </div>
+
+                        <button class="accordion"><span style="font-weight: bold;">Visi Misi</span></button>
+                        <div class="panel">
+                            <p><a target="_blank" href="https://bpad.jakarta.go.id/portal/profil/visimisi">Halaman Visi & Misi BPAD</a></p>
+                        </div>
+
+                        <button class="accordion"><span style="font-weight: bold;">Tugas & Fungsi</span></button>
+                        <div class="panel">
+                            <p><a target="_blank" href="https://bpad.jakarta.go.id/portal/profil/tupoksi">Halaman Tugas & Fungsi BPAD</a></p>
+                        </div>
+
+                        <button class="accordion"><span style="font-weight: bold;">Struktur Organisasi</span></button>
+                        <div class="panel">
+                            <p><a target="_blank" href="https://bpad.jakarta.go.id/portal/profil/struktur">Halaman Struktur Organisasi BPAD</a></p>
+                        </div>
+
+                        <button class="accordion"><span style="font-weight: bold;">Profil Pejabat</span></button>
+                        <div class="panel">
+                            <p><a target="_blank" href="https://bpad.jakarta.go.id/portal/profil/profilpejabat">Halaman Profil Pejabat BPAD</a></p>
+                        </div>
+
                         <button class="accordion"><span style="font-weight: bold;">Laporan Keuangan BPAD</span></button>
                         <div class="panel">
-                            <ul style="padding: 18px">
+                            <ul>
                                 <li><a target="_blank" href="https://drive.google.com/file/d/1Cs02OOps4bXc14JBLmmm08gmrlGnCHYx/view?usp=share_link">Laporan Keuangan BPAD Tahun 2021</a></li>
                             </ul>
-                       </div>
+                        </div>
 
 					</div>
 					<!-- /article content -->
