@@ -2835,9 +2835,11 @@ class DisposisiController extends Controller
         $alpnum = 0;
 
 		$ids = Auth::user()->id_emp;
+        $idunit = $_SESSION['user_data']['idunit'];
+        $id_kplunit = substr($idunit, 0, 6);
 
 		if ($ids) {
-            $ids = "id_emp like '".$ids."'";
+            $ids = "tbunit.kd_unit like '".$id_kplunit."'";
         } else {
             $ids = 'tbunit.kd_unit = 01';
         }
@@ -2972,7 +2974,8 @@ class DisposisiController extends Controller
                                     and YEAR(tgl) = '$tahunnow') $lanjutnow
 							,bpaddtfake.dbo.glo_skpd as b,bpaddtfake.dbo.glo_org_unitkerja as c,bpaddtfake.dbo.glo_org_lokasi as d 
                             WHERE tbjab.idskpd=b.skpd AND tbjab.idskpd+'::'+tbjab.idunit=c.kd_skpd+'::'+c.kd_unit AND tbjab.idskpd+'::'+tbjab.idlok=d.kd_skpd+'::'+d.kd_lok AND a.sts='1' AND b.sts='1' AND c.sts='1' AND d.sts='1' 
-							and tbunit.sao like '$nowunit%' and ked_emp = 'aktif'
+							--and tbunit.sao like '$nowunit%' and ked_emp = 'aktif'
+                            and tbunit.kd_unit like '$id_kplunit%' and ked_emp = 'aktif' and LEN(tbunit.kd_unit) > 6
 							order by idunit asc, nm_emp asc
 							") );
 		$data_stafs = json_decode(json_encode($data_stafs), true);
