@@ -1338,8 +1338,10 @@ class KepegawaianController extends Controller
 		$access = $this->checkAccess($_SESSION['user_data']['idgroup'], $thismenu['ids']);
 
 		$ids = Auth::user()->id_emp;
+        $idunit = $_SESSION['user_data']['idunit'];
+        $id_kplunit = substr($idunit, 0, 6);
 	
-		if ($ids) {
+		if (strlen($_SESSION['user_data']['idunit'] >= 6)) {
 			$data_self = DB::select( DB::raw("  
 								SELECT a.id_emp, a.nrk_emp, a.nip_emp, a.nm_emp, tbjab.idjab, tbjab.idunit, tbunit.child, tbunit.nm_unit, tbunit.notes, d.nm_lok, notread.notread, yesread.yesread, lanjut.lanjut from bpaddtfake.dbo.emp_data as a
 								CROSS APPLY (SELECT TOP 1 tmt_jab,idskpd,idunit,idlok,tmt_sk_jab,no_sk_jab,jns_jab,replace(idjab,'NA::','') as idjab,eselon,gambar FROM bpaddtfake.dbo.emp_jab WHERE a.id_emp=emp_jab.noid AND emp_jab.sts='1' ORDER BY tmt_jab DESC) tbjab
@@ -1357,7 +1359,7 @@ class KepegawaianController extends Controller
 									  where rd = 'S' and sts = 1
 									  and disp.to_pm = a.id_emp) lanjut
 								,bpaddtfake.dbo.glo_skpd as b,bpaddtfake.dbo.glo_org_unitkerja as c,bpaddtfake.dbo.glo_org_lokasi as d WHERE tbjab.idskpd=b.skpd AND tbjab.idskpd+'::'+tbjab.idunit=c.kd_skpd+'::'+c.kd_unit AND tbjab.idskpd+'::'+tbjab.idlok=d.kd_skpd+'::'+d.kd_lok AND a.sts='1' AND b.sts='1' AND c.sts='1' AND d.sts='1' 
-								and id_emp like '$ids'
+								and tbunit.kd_unit like '$id_kplunit'
 								") )[0];
 			$data_self = json_decode(json_encode($data_self), true);
 		} else {
@@ -1423,7 +1425,7 @@ class KepegawaianController extends Controller
 								  where rd = 'S' and sts = 1
 								  and disp.to_pm = a.id_emp) lanjut
 							,bpaddtfake.dbo.glo_skpd as b,bpaddtfake.dbo.glo_org_unitkerja as c,bpaddtfake.dbo.glo_org_lokasi as d WHERE tbjab.idskpd=b.skpd AND tbjab.idskpd+'::'+tbjab.idunit=c.kd_skpd+'::'+c.kd_unit AND tbjab.idskpd+'::'+tbjab.idlok=d.kd_skpd+'::'+d.kd_lok AND a.sts='1' AND b.sts='1' AND c.sts='1' AND d.sts='1' 
-							and tbunit.sao like '$nowunit%' and ked_emp = 'aktif'
+							and tbunit.kd_unit like '$id_kplunit%' and ked_emp = 'aktif' and LEN(tbunit.kd_unit) > 6
 							order by idunit asc, nm_emp asc
 							") );
 		$data_stafs = json_decode(json_encode($data_stafs), true);
