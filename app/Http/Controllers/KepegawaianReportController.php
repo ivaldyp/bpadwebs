@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-require '../../vendor/autoload.php';
+require '../vendor/autoload.php';
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\IOFactory;
