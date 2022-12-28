@@ -345,11 +345,11 @@
 				<div class="col-md-4 col-sm-6">
 					<div class="number">
 						<a target="_blank" href="{{ $produk_content[$i]['href'] }}">
-							<img src="{{ $produk_content[$i]['source'] }}" alt="{{ $produk_content[$i]['name'] }}" width="150" class="static">
+							<img src="{{ str_replace('public/', '', $produk_content[$i]['source']) }}" alt="{{ $produk_content[$i]['name'] }}" width="150" class="static">
 
 							<?php $i++; ?>
 
-							<img src="{{ $produk_content[$i]['source'] }}" alt="{{ $produk_content[$i]['name'] }}" width="150" class="active">
+							<img src="{{ str_replace('public/', '', $produk_content[$i]['source']) }}" alt="{{ $produk_content[$i]['name'] }}" width="150" class="active">
 						</a>
 						<!-- <i class="fa fa-smile-o"></i> -->
 						<h4>{{ $produk_content[$i]['name'] }}</h4>
