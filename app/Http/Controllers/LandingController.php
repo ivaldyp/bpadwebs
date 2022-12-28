@@ -48,7 +48,7 @@ class LandingController extends Controller
 		// // These must be at the top of your script, not inside a function
 
 		// // Load Composer's autoloader
-		// // require 'vendor/autoload.php';
+		// // require '../vendor/autoload.php';
 
 		// // Instantiation and passing `true` enables exceptions
 		// $mail = new PHPMailer(true);
