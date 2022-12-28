@@ -14,23 +14,23 @@
 	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
 	<title>BPAD DKI Jakarta</title>
-	<link rel="shortcut icon" type="image/x-icon" href="{{ ('/portal/public/img/photo/bpad-logo-00.png') }}" />
+	<link rel="shortcut icon" type="image/x-icon" href="{{ ('/portal/img/photo/bpad-logo-00.png') }}" />
 
 	<!-- Google font -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400%7CSource+Sans+Pro:700" rel="stylesheet">
 
 	<!-- Bootstrap -->
-	<link type="text/css" rel="stylesheet" href="{{ ('/portal/public/css/bootstrap.min.css') }}" />
+	<link type="text/css" rel="stylesheet" href="{{ ('/portal/css/bootstrap.min.css') }}" />
 
 	<!-- Owl Carousel -->
-	<link type="text/css" rel="stylesheet" href="{{ ('/portal/public/css/owl.carousel.css') }}" />
-	<link type="text/css" rel="stylesheet" href="{{ ('/portal/public/css/owl.theme.default.css') }}" />
+	<link type="text/css" rel="stylesheet" href="{{ ('/portal/css/owl.carousel.css') }}" />
+	<link type="text/css" rel="stylesheet" href="{{ ('/portal/css/owl.theme.default.css') }}" />
 
 	<!-- Font Awesome Icon -->
-	<link rel="stylesheet" href="{{ ('/portal/public/css/font-awesome.min.css') }}" />
+	<link rel="stylesheet" href="{{ ('/portal/css/font-awesome.min.css') }}" />
 
 	<!-- Custom stlylesheet -->
-	<link type="text/css" rel="stylesheet" href="{{ ('/portal/public/css/style.css') }}" />
+	<link type="text/css" rel="stylesheet" href="{{ ('/portal/css/style.css') }}" />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -94,7 +94,7 @@
 				<div class="navbar-header">
 					<!-- Logo -->
 					<div class="navbar-brand">
-						<a  href="{{ url('/') }}"><img src="/portal/public/img/photo/bpad-logo-04b.png32" alt="logo" height="85"></a>
+						<a  href="{{ url('/') }}"><img src="/portal/img/photo/bpad-logo-04b.png32" alt="logo" height="85"></a>
 					</div>
 					<!-- Logo -->
 
@@ -199,8 +199,8 @@
 				<div class="col-md-4">
 					<div class="footer">
 						<div class="footer-logo" style="margin-top: 20px">
-							<a href="https://bpad.jakarta.go.id/"><img style="padding: 0 10px;" src="{{ ('/portal/public/img/photo/plusjakartalogo2.png32') }}" alt="" height="35" width="auto"></a>
-							<a href="https://jamc.jakarta.go.id/"><img style="padding: 0 10px;" src="{{ ('/portal/public/img/photo/jamc_logo.png') }}" alt="" height="35" width="auto"></a>
+							<a href="https://bpad.jakarta.go.id/"><img style="padding: 0 10px;" src="{{ ('/portal/img/photo/plusjakartalogo2.png32') }}" alt="" height="35" width="auto"></a>
+							<a href="https://jamc.jakarta.go.id/"><img style="padding: 0 10px;" src="{{ ('/portal/img/photo/jamc_logo.png') }}" alt="" height="35" width="auto"></a>
 						</div>
 						<address>
 							<span style="font-weight: bold;">Gedung Dinas Teknis</span><br>
@@ -309,7 +309,7 @@
                             })();</script>
                             <noscript><a href="/" target="_blank"><img  src="//sstatic1.histats.com/0.gif?3757099&101" alt="" border="0"></a></noscript>
                             <!-- Histats.com  END  -->
-							<!-- <img src="{{ ('/portal/public/img/photo/plusjakartalogo2.png') }}" alt="" height="100"> -->
+							<!-- <img src="{{ ('/portal/img/photo/plusjakartalogo2.png') }}" alt="" height="100"> -->
 						</div>
 					</div>
 				</div>
@@ -321,15 +321,15 @@
 	<!-- /FOOTER -->
 
 	<!-- jQuery Plugins -->
-	<script src="{{ ('/portal/public/js/jquery.min.js') }}"></script>
-	<script src="{{ ('/portal/public/js/bootstrap.min.js') }}"></script>
-	<script src="{{ ('/portal/public/js/owl.carousel.min.js') }}"></script>
-	<script src="{{ ('/portal/public/js/jquery.stellar.min.js') }}"></script>
-	<script src="{{ ('/portal/public/js/main.js') }}"></script>
+	<script src="{{ ('/portal/js/jquery.min.js') }}"></script>
+	<script src="{{ ('/portal/js/bootstrap.min.js') }}"></script>
+	<script src="{{ ('/portal/js/owl.carousel.min.js') }}"></script>
+	<script src="{{ ('/portal/js/jquery.stellar.min.js') }}"></script>
+	<script src="{{ ('/portal/js/main.js') }}"></script>
 
 	<!-- <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'></script> -->
-	<script src="{{ ('/portal/public/js/jquery.zoom.js') }}"></script>
-	<script src="{{ ('/portal/public/js/jquery.copy-to-clipboard.js') }}"></script>
+	<script src="{{ ('/portal/js/jquery.zoom.js') }}"></script>
+	<script src="{{ ('/portal/js/jquery.copy-to-clipboard.js') }}"></script>
 	<script type="text/javascript">
 		$('.copyBtn').click(function(){
 		  	$(this).CopyToClipboard();

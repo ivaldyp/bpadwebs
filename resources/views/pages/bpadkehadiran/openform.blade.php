@@ -6,7 +6,7 @@
         <link
             rel="shortcut icon"
             type="image/x-icon"
-            href="{{ '/portal/public/img/photo/bpad-logo-00.png' }}"
+            href="{{ '/portal/img/photo/bpad-logo-00.png' }}"
         />
 
         <link
@@ -16,7 +16,7 @@
 
         
         <!-- page CSS -->
-        <link href="{{ ('/portal/public/ample/plugins/bower_components/custom-select/custom-select.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ ('/portal/ample/plugins/bower_components/custom-select/custom-select.css') }}" rel="stylesheet" type="text/css" />
     </head>
 
     <body style="background-color: #f7f7f7">
@@ -28,7 +28,7 @@
                 <div class="navbar-brand">
                     <a href="{{ url('/') }}"
                         ><img
-                            src="/portal/public/img/photo/bpad-logo-04b.png32"
+                            src="/portal/img/photo/bpad-logo-04b.png32"
                             alt="logo"
                             height="100"
                     /></a>
@@ -293,7 +293,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
         
-    	<script src="{{ ('/portal/public/ample/plugins/bower_components/custom-select/custom-select.min.js') }}" type="text/javascript"></script>
+    	<script src="{{ ('/portal/ample/plugins/bower_components/custom-select/custom-select.min.js') }}" type="text/javascript"></script>
         <script>
             $(function () {
 

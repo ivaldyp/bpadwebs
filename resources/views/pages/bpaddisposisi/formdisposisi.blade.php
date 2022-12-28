@@ -2,19 +2,19 @@
 
 @section('css')
 	<!-- Bootstrap Core CSS -->
-	<link href="{{ ('/portal/public/ample/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
-	<link href="{{ ('/portal/public/ample/plugins/bower_components/datatables/jquery.dataTables.min.css') }}" rel="stylesheet" type="text/css" />
+	<link href="{{ ('/portal/ample/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+	<link href="{{ ('/portal/ample/plugins/bower_components/datatables/jquery.dataTables.min.css') }}" rel="stylesheet" type="text/css" />
 	<link href="https://cdn.datatables.net/buttons/1.2.2/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
 	<!-- Menu CSS -->
-	<link href="{{ ('/portal/public/ample/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css') }}" rel="stylesheet">
+	<link href="{{ ('/portal/ample/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css') }}" rel="stylesheet">
 		<!-- animation CSS -->
-	<link href="{{ ('/portal/public/ample/css/animate.css') }}" rel="stylesheet">
+	<link href="{{ ('/portal/ample/css/animate.css') }}" rel="stylesheet">
 	<!-- Custom CSS -->
-	<link href="{{ ('/portal/public/ample/css/style.css') }}" rel="stylesheet">
+	<link href="{{ ('/portal/ample/css/style.css') }}" rel="stylesheet">
 	<!-- color CSS -->
-	<link href="{{ ('/portal/public/ample/css/colors/purple-dark.css') }}" id="theme" rel="stylesheet">
+	<link href="{{ ('/portal/ample/css/colors/purple-dark.css') }}" id="theme" rel="stylesheet">
 	<!-- Date picker plugins css -->
-	<link href="{{ ('/portal/public/ample/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css" />
+	<link href="{{ ('/portal/ample/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css" />
 
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -121,7 +121,7 @@
 								<div class="tab-content">
 									<div role="tabpanel" class="tab-pane fade " id="inbox">
 										<div class="table-responsive" style="overflow: visible;">
-											<table id="myTable" class="table table-hover table-striped" style="z-index: 99999;">
+											<table id="" class="myTable table table-hover table-striped" style="z-index: 99999;">
 												<thead>
 													<tr>
 														<th>No. Form</th>
@@ -249,7 +249,7 @@
 									</div>
 									<div role="tabpanel" class="tab-pane fade active in" id="surat">
 										<div class="table-responsive" style="overflow: visible;">
-											<table id="myTable2" class="table table-hover table-striped">
+											<table id="" class="myTable table table-hover table-striped">
 												<thead>
 													<tr>
 														<th>No. Form</th>
@@ -377,7 +377,7 @@
 									</div>
 									<div role="tabpanel" class="tab-pane fade" id="ppid">
 										<div class="table-responsive" style="overflow: visible;">
-											<table id="myTable2" class="table table-hover table-striped">
+											<table id="" class="myTable table table-hover table-striped">
 												<thead>
 													<tr>
 														<th>No. Form</th>
@@ -505,7 +505,7 @@
 									</div>
 									<div role="tabpanel" class="tab-pane fade" id="sent">
 										<div class="table-responsive" style="overflow: visible;">
-											<table id="myTable3" class="table table-hover table-striped">
+											<table id="" class="myTable table table-hover table-striped">
 												<thead>
 													<tr>
 														<th>No. Form</th>
@@ -662,26 +662,26 @@
 <!-- /////////////////////////////////////////////////////////////// -->
 
 @section('js')
-	<script src="{{ ('/portal/public/ample/plugins/bower_components/jquery/dist/jquery.min.js') }}"></script>
+	<script src="{{ ('/portal/ample/plugins/bower_components/jquery/dist/jquery.min.js') }}"></script>
 	<!-- Bootstrap Core JavaScript -->
-	<script src="{{ ('/portal/public/ample/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+	<script src="{{ ('/portal/ample/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 	<!-- Menu Plugin JavaScript -->
-	<script src="{{ ('/portal/public/ample/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js') }}"></script>
+	<script src="{{ ('/portal/ample/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js') }}"></script>
 	<!--slimscroll JavaScript -->
-	<script src="{{ ('/portal/public/ample/js/jquery.slimscroll.js') }}"></script>
+	<script src="{{ ('/portal/ample/js/jquery.slimscroll.js') }}"></script>
 	<!--Wave Effects -->
-	<script src="{{ ('/portal/public/ample/js/waves.js') }}"></script>
+	<script src="{{ ('/portal/ample/js/waves.js') }}"></script>
 	<!-- Custom Theme JavaScript -->
-	<script src="{{ ('/portal/public/ample/js/custom.min.js') }}"></script>
-	<script src="{{ ('/portal/public/ample/js/validator.js') }}"></script>
-	<script src="{{ ('/portal/public/ample/plugins/bower_components/datatables/jquery.dataTables.min.js') }}"></script>
+	<script src="{{ ('/portal/ample/js/custom.min.js') }}"></script>
+	<script src="{{ ('/portal/ample/js/validator.js') }}"></script>
+	<script src="{{ ('/portal/ample/plugins/bower_components/datatables/jquery.dataTables.min.js') }}"></script>
 	<!-- Date Picker Plugin JavaScript -->
-	<script src="{{ ('/portal/public/ample/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
-	<script src="{{ ('/portal/public/js/qrcode/qrcode.js') }}"></script>
+	<script src="{{ ('/portal/ample/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
+	<script src="{{ ('/portal/js/qrcode/qrcode.js') }}"></script>
 	<!-- JsPDF -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
 	<!-- JsBarcode & QR Code -->
-	<script src="{{ ('/portal/public/js/JsBarcode.all.js') }}"></script>
+	<script src="{{ ('/portal/js/JsBarcode.all.js') }}"></script>
 
 	<script>
 		$(function () {
@@ -845,17 +845,7 @@
 				}
 			});
 
-			$('#myTable').DataTable({
-				"ordering" : false,
-				"searching": false,
-			});
-
-			$('#myTable2').DataTable({
-				"ordering" : false,
-				"searching": false,
-			});
-
-			$('#myTable3').DataTable({
+			$('.myTable').DataTable({
 				"ordering" : false,
 				"searching": false,
 			});

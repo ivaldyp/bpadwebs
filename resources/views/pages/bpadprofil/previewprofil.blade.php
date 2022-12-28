@@ -2,8 +2,8 @@
 <html>
 <head>
 	<title></title>
-	<link href="/portal/public/ample/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-	<link href="/portal/public/ample/css/animate.css" rel="stylesheet">
+	<link href="/portal/ample/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/portal/ample/css/animate.css" rel="stylesheet">
 
 	<style type="text/css">
 
@@ -376,10 +376,10 @@
 	
 	
 
-	<script src="/portal/public/ample/plugins/bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="/portal/ample/plugins/bower_components/jquery/dist/jquery.min.js"></script>
 	<!-- Bootstrap Core JavaScript -->
-	<script src="/portal/public/ample/bootstrap/dist/js/bootstrap.min.js"></script>
-	<script src="/portal/public/ample/plugins/bower_components/datatables/jquery.dataTables.min.js"></script>
+	<script src="/portal/ample/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="/portal/ample/plugins/bower_components/datatables/jquery.dataTables.min.js"></script>
 	<script>
 		$(function () {
 			$('.myTable').DataTable({

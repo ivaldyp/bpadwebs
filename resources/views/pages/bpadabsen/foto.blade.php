@@ -25,7 +25,7 @@
     <div class="container" id="contain">
         <div class="row">
             <div class="navbar-brand">
-                <a  href="{{ url('/') }}"><img src="/portal/public/img/photo/bpad-logo-04b.png32" alt="logo" height="100"></a>
+                <a  href="{{ url('/') }}"><img src="/portal/img/photo/bpad-logo-04b.png32" alt="logo" height="100"></a>
             </div>
         </div>
         <div class="row" style="padding-top:50px">

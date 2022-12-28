@@ -99,7 +99,7 @@
 					<td>{{ date('d/M/Y', strtotime(str_replace('/', '-', $content['tanggal']))) }}</td>
 					<td style="word-wrap: break-word">https://{{ $url }}/portal/content/{{ $kat }}/{{ $content['ids'] }}</td>
 					<td style="word-wrap: break-word">
-						{{ ($content['tfile'] && $content['tfile'] != '' ) ? 'https://' . $url . '/portal/public/publicimg/images/cms/1.20.512/' . $content['idkat']. '/file/' . $content['tfile'] : '-' }}
+						{{ ($content['tfile'] && $content['tfile'] != '' ) ? 'https://' . $url . '/portal/publicimg/images/cms/1.20.512/' . $content['idkat']. '/file/' . $content['tfile'] : '-' }}
 					</td>
 				</tr>
 				@endforeach

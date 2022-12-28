@@ -2,19 +2,19 @@
 
 @section('css')
     <!-- Bootstrap Core CSS -->
-    <link href="{{ ('/portal/public/ample/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ ('/portal/public/ample/plugins/bower_components/datatables/jquery.dataTables.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ ('/portal/ample/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ ('/portal/ample/plugins/bower_components/datatables/jquery.dataTables.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="https://cdn.datatables.net/buttons/1.2.2/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
     <!-- Menu CSS -->
-    <link href="{{ ('/portal/public/ample/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css') }}" rel="stylesheet">
+    <link href="{{ ('/portal/ample/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css') }}" rel="stylesheet">
     <!-- animation CSS -->
-    <link href="{{ ('/portal/public/ample/css/animate.css') }}" rel="stylesheet">
+    <link href="{{ ('/portal/ample/css/animate.css') }}" rel="stylesheet">
     <!-- Custom CSS -->
-    <link href="{{ ('/portal/public/ample/css/style.css') }}" rel="stylesheet">
+    <link href="{{ ('/portal/ample/css/style.css') }}" rel="stylesheet">
     <!-- color CSS -->
-    <link href="{{ ('/portal/public/ample/css/colors/purple-dark.css') }}" id="theme" rel="stylesheet">
+    <link href="{{ ('/portal/ample/css/colors/purple-dark.css') }}" id="theme" rel="stylesheet">
     <!-- page CSS -->
-    <link href="{{ ('/portal/public/ample/plugins/bower_components/custom-select/custom-select.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ ('/portal/ample/plugins/bower_components/custom-select/custom-select.css') }}" rel="stylesheet" type="text/css" />
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -144,19 +144,19 @@
 
 @section('js')
     <!-- jQuery -->
-    <script src="{{ ('/portal/public/ample/plugins/bower_components/jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ ('/portal/ample/plugins/bower_components/jquery/dist/jquery.min.js') }}"></script>
     <!-- Bootstrap Core JavaScript -->
-    <script src="{{ ('/portal/public/ample/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <script src="{{ ('/portal/ample/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <!-- Menu Plugin JavaScript -->
-    <script src="{{ ('/portal/public/ample/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js') }}"></script>
+    <script src="{{ ('/portal/ample/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js') }}"></script>
     <!--slimscroll JavaScript -->
-    <script src="{{ ('/portal/public/ample/js/jquery.slimscroll.js') }}"></script>
+    <script src="{{ ('/portal/ample/js/jquery.slimscroll.js') }}"></script>
     <!--Wave Effects -->
-    <script src="{{ ('/portal/public/ample/js/waves.js') }}"></script>
+    <script src="{{ ('/portal/ample/js/waves.js') }}"></script>
     <!-- Custom Theme JavaScript -->
-    <script src="{{ ('/portal/public/ample/js/custom.min.js') }}"></script>
-    <script src="{{ ('/portal/public/ample/plugins/bower_components/custom-select/custom-select.min.js') }}" type="text/javascript"></script>
-    <script src="{{ ('/portal/public/ample/js/validator.js') }}"></script>
+    <script src="{{ ('/portal/ample/js/custom.min.js') }}"></script>
+    <script src="{{ ('/portal/ample/plugins/bower_components/custom-select/custom-select.min.js') }}" type="text/javascript"></script>
+    <script src="{{ ('/portal/ample/js/validator.js') }}"></script>
 
     <script>
         $(document).ready(function() {

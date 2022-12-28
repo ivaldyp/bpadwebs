@@ -22,22 +22,22 @@
 					<!-- article img -->
 					<div id="home-owl" class="owl-carousel owl-theme">
 						<div class="home-item" style="height: 600px">
-							<div class="section-bg" style="background-image: url('{{ ('/portal/public/img/profil/image-01-full.jpg') }}') ; background-size: contain; background-repeat: no-repeat;"></div>
+							<div class="section-bg" style="background-image: url('{{ ('/portal/img/profil/image-01-full.jpg') }}') ; background-size: contain; background-repeat: no-repeat;"></div>
 						</div>
 						<div class="home-item" style="height: 600px">
-							<div class="section-bg" style="background-image: url('{{ ('/portal/public/img/profil/image-02-full-2021-2.jpg') }}') ; background-size: contain; background-repeat: no-repeat;"></div>
+							<div class="section-bg" style="background-image: url('{{ ('/portal/img/profil/image-02-full-2021-2.jpg') }}') ; background-size: contain; background-repeat: no-repeat;"></div>
 						</div>
 						<div class="home-item" style="height: 600px">
-							<div class="section-bg" style="background-image: url('{{ ('/portal/public/img/profil/image-03-full.jpg') }}') ; background-size: contain; background-repeat: no-repeat;"></div>
+							<div class="section-bg" style="background-image: url('{{ ('/portal/img/profil/image-03-full.jpg') }}') ; background-size: contain; background-repeat: no-repeat;"></div>
 						</div>
 						<div class="home-item" style="height: 600px">
-							<div class="section-bg" style="background-image: url('{{ ('/portal/public/img/profil/image-04-full.jpg') }}') ; background-size: contain; background-repeat: no-repeat;"></div>
+							<div class="section-bg" style="background-image: url('{{ ('/portal/img/profil/image-04-full.jpg') }}') ; background-size: contain; background-repeat: no-repeat;"></div>
 						</div>
 						<div class="home-item" style="height: 600px">
-							<div class="section-bg" style="background-image: url('{{ ('/portal/public/img/profil/image-05-full.jpg') }}') ; background-size: contain; background-repeat: no-repeat;"></div>
+							<div class="section-bg" style="background-image: url('{{ ('/portal/img/profil/image-05-full.jpg') }}') ; background-size: contain; background-repeat: no-repeat;"></div>
 						</div>
 						<div class="home-item" style="height: 600px">
-							<div class="section-bg" style="background-image: url('{{ ('/portal/public/img/profil/image-06-full-2021-6.jpg') }}') ; background-size: contain; background-repeat: no-repeat;"></div>
+							<div class="section-bg" style="background-image: url('{{ ('/portal/img/profil/image-06-full-2021-6.jpg') }}') ; background-size: contain; background-repeat: no-repeat;"></div>
 						</div>
 					</div>
 					<!-- <div class="article-img">
@@ -77,21 +77,21 @@
 			            <br>
 
 			            <h2 class="article-title">Struktur Organisasi - BPAD</h2>
-			            <!-- <img id="img-overlay" src="{{ ('/portal/public/img/profil/organisasi.png') }}" style="width: 100%"> -->
+			            <!-- <img id="img-overlay" src="{{ ('/portal/img/profil/organisasi.png') }}" style="width: 100%"> -->
 			            <!-- <div id="overlay"></div> -->
 			            <span class='zoom' id='ex2'>
 							<!-- <svgs>       
 								<image href="https://mdn.mozillademos.org/files/6457/mdn_logo_only_color.png" height="200" width="200"/>
 							</svg> -->
-							<img src="{{ ('/portal/public/img/profil/organisasi.png') }}" width='100%' alt='Struktur Organisasi BPAD'/>
+							<img src="{{ ('/portal/img/profil/organisasi.png') }}" width='100%' alt='Struktur Organisasi BPAD'/>
 						</span>
 			            <br><br>
 
 			            <h2 class="article-title">Struktur Organisasi - Suku Badan</h2>
-			            <!-- <img id="img-overlay" src="{{ ('/portal/public/img/profil/organisasi.png') }}" style="width: 100%"> -->
+			            <!-- <img id="img-overlay" src="{{ ('/portal/img/profil/organisasi.png') }}" style="width: 100%"> -->
 			            <!-- <div id="overlay"></div> -->
 			            <span class='zoom' id='ex1'>
-							<img src="{{ ('/portal/public/img/profil/organisasi_suban.png') }}" width='100%' alt='Struktur Organisasi BPAD'/>
+							<img src="{{ ('/portal/img/profil/organisasi_suban.png') }}" width='100%' alt='Struktur Organisasi BPAD'/>
 						</span>
 			            <br><br>
 

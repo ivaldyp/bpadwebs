@@ -9,17 +9,17 @@
 
     <!-- <title>{{ config('app.name', 'Laravel') }}</title> -->
     <title>BPAD DKI Jakarta</title>
-    <link rel="shortcut icon" type="image/x-icon" href="{{ ('/portal/public/img/photo/bpad-logo-00.png') }}" />
+    <link rel="shortcut icon" type="image/x-icon" href="{{ ('/portal/img/photo/bpad-logo-00.png') }}" />
 
     <!-- Scripts -->
-    <script src="{{ ('/portal/public/js/app.js') }}" defer></script>
+    <script src="{{ ('/portal/js/app.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ ('/portal/public/css/app.css') }}" rel="stylesheet">
+    <link href="{{ ('/portal/css/app.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">

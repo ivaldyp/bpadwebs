@@ -8,23 +8,23 @@
 	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
 	<title>BPAD DKI Jakarta</title>
-	<link rel="shortcut icon" type="image/x-icon" href="{{ ('/portal/public/img/photo/bpad-logo-00.png') }}" />
+	<link rel="shortcut icon" type="image/x-icon" href="{{ ('/portal/img/photo/bpad-logo-00.png') }}" />
 
 	<!-- Google font -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400%7CSource+Sans+Pro:700" rel="stylesheet">
 
 	<!-- Bootstrap -->
-	<link type="text/css" rel="stylesheet" href="{{ ('/portal/public/css/bootstrap.min.css') }}" />
+	<link type="text/css" rel="stylesheet" href="{{ ('/portal/css/bootstrap.min.css') }}" />
 
 	<!-- Owl Carousel -->
-	<link type="text/css" rel="stylesheet" href="{{ ('/portal/public/css/owl.carousel.css') }}" />
-	<link type="text/css" rel="stylesheet" href="{{ ('/portal/public/css/owl.theme.default.css') }}" />
+	<link type="text/css" rel="stylesheet" href="{{ ('/portal/css/owl.carousel.css') }}" />
+	<link type="text/css" rel="stylesheet" href="{{ ('/portal/css/owl.theme.default.css') }}" />
 
 	<!-- Font Awesome Icon -->
-	<link rel="stylesheet" href="{{ ('/portal/public/css/font-awesome.min.css') }}" />
+	<link rel="stylesheet" href="{{ ('/portal/css/font-awesome.min.css') }}" />
 
 	<!-- Custom stlylesheet -->
-	<link type="text/css" rel="stylesheet" href="{{ ('/portal/public/css/style.css') }}" />
+	<link type="text/css" rel="stylesheet" href="{{ ('/portal/css/style.css') }}" />
 
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -44,7 +44,7 @@
 				<div class="navbar-header">
 					<!-- Logo -->
 					<div class="navbar-brand">
-						<a  href="{{ url('/') }}"><img src="{{ ('/portal/public/img/photo/bpad-logo-04b.png') }}" alt="logo" height="85"></a>
+						<a  href="{{ url('/') }}"><img src="{{ ('/portal/img/photo/bpad-logo-04b.png') }}" alt="logo" height="85"></a>
 					</div>
 					<!-- Logo -->
 
@@ -109,11 +109,11 @@
 	<!-- /FOOTER -->
 
 	<!-- jQuery Plugins -->
-	<script src="{{ ('/portal/public/js/jquery.min.js') }}"></script>
-	<script src="{{ ('/portal/public/js/bootstrap.min.js') }}"></script>
-	<script src="{{ ('/portal/public/js/owl.carousel.min.js') }}"></script>
-	<script src="{{ ('/portal/public/js/jquery.stellar.min.js') }}"></script>
-	<script src="{{ ('/portal/public/js/main.js') }}"></script>
+	<script src="{{ ('/portal/js/jquery.min.js') }}"></script>
+	<script src="{{ ('/portal/js/bootstrap.min.js') }}"></script>
+	<script src="{{ ('/portal/js/owl.carousel.min.js') }}"></script>
+	<script src="{{ ('/portal/js/jquery.stellar.min.js') }}"></script>
+	<script src="{{ ('/portal/js/main.js') }}"></script>
 
 </body>
 

@@ -6,7 +6,7 @@
         <link
             rel="shortcut icon"
             type="image/x-icon"
-            href="{{ '/portal/public/img/photo/bpad-logo-00.png' }}"
+            href="{{ '/portal/img/photo/bpad-logo-00.png' }}"
         />
 
         <link
@@ -30,7 +30,7 @@
                 <div class="navbar-brand">
                     <a href="{{ url('/') }}"
                         ><img
-                            src="/portal/public/img/photo/bpad-logo-04b.png32"
+                            src="/portal/img/photo/bpad-logo-04b.png32"
                             alt="logo"
                             height="100"
                     /></a>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>e-SIAPPE</title>
-    <link rel="shortcut icon" type="image/x-icon" href="{{ ('/portal/public/img/photo/bpad-logo-00.png') }}" />
+    <link rel="shortcut icon" type="image/x-icon" href="{{ ('/portal/img/photo/bpad-logo-00.png') }}" />
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     
@@ -26,7 +26,7 @@
     <div class="container" id="contain">
         <div class="row">
             <div class="navbar-brand">
-                <a  href="{{ url('/') }}"><img src="/portal/public/img/photo/bpad-logo-04b.png32" alt="logo" height="100"></a>
+                <a  href="{{ url('/') }}"><img src="/portal/img/photo/bpad-logo-04b.png32" alt="logo" height="100"></a>
             </div>
         </div>
         <div class="row" style="padding-top:50px">

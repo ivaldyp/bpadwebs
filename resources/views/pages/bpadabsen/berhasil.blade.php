@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>e-SIAPPE</title>
-        <link rel="shortcut icon" type="image/x-icon" href="{{ ('/portal/public/img/photo/bpad-logo-00.png') }}" />
+        <link rel="shortcut icon" type="image/x-icon" href="{{ ('/portal/img/photo/bpad-logo-00.png') }}" />
     </head>
     <body>
         <h1>FOTO BERHASIL TERSIMPAN</h1><br><br>

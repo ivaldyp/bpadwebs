@@ -22,20 +22,20 @@
 					<!-- article content -->
 					<div class="article-content">   
                         <h2 class="article-title">Struktur Organisasi - BPAD</h2>   
-			            <!-- <img id="img-overlay" src="{{ ('/portal/public/img/profil/organisasi.png') }}" style="width: 100%"> -->
+			            <!-- <img id="img-overlay" src="{{ ('/portal/img/profil/organisasi.png') }}" style="width: 100%"> -->
 			            <!-- <div id="overlay"></div> -->
 			            <span class='zoom' id='ex2'>
 							<!-- <svgs>       
 								<image href="https://mdn.mozillademos.org/files/6457/mdn_logo_only_color.png" height="200" width="200"/>
 							</svg> -->
-							<img src="{{ ('/portal/public/img/profil/organisasi.png') }}" width='100%' alt='Struktur Organisasi BPAD'/>
+							<img src="{{ ('/portal/img/profil/organisasi.png') }}" width='100%' alt='Struktur Organisasi BPAD'/>
 						</span>
 			            <br><br>          
                         <h2 class="article-title">Struktur Organisasi - Suku Badan</h2>
-			            <!-- <img id="img-overlay" src="{{ ('/portal/public/img/profil/organisasi.png') }}" style="width: 100%"> -->
+			            <!-- <img id="img-overlay" src="{{ ('/portal/img/profil/organisasi.png') }}" style="width: 100%"> -->
 			            <!-- <div id="overlay"></div> -->
 			            <span class='zoom' id='ex1'>
-							<img src="{{ ('/portal/public/img/profil/organisasi_suban.png') }}" width='100%' alt='Struktur Organisasi BPAD'/>
+							<img src="{{ ('/portal/img/profil/organisasi_suban.png') }}" width='100%' alt='Struktur Organisasi BPAD'/>
 						</span>
 					</div>
 					<!-- /article content -->

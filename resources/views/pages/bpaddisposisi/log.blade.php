@@ -1,8 +1,8 @@
 <!-- Bootstrap Core CSS -->
-<link href="{{ ('/portal/public/ample/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+<link href="{{ ('/portal/ample/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
 
 <!-- Custom CSS -->
-<link href="{{ ('/portal/public/ample/css/style.css') }}" rel="stylesheet">
+<link href="{{ ('/portal/ample/css/style.css') }}" rel="stylesheet">
 
 <div class="container jumbotron">
 	<div class="col-md-6">
