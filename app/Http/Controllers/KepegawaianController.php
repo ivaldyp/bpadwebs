@@ -1359,7 +1359,7 @@ class KepegawaianController extends Controller
 									  where rd = 'S' and sts = 1
 									  and disp.to_pm = a.id_emp) lanjut
 								,bpaddtfake.dbo.glo_skpd as b,bpaddtfake.dbo.glo_org_unitkerja as c,bpaddtfake.dbo.glo_org_lokasi as d WHERE tbjab.idskpd=b.skpd AND tbjab.idskpd+'::'+tbjab.idunit=c.kd_skpd+'::'+c.kd_unit AND tbjab.idskpd+'::'+tbjab.idlok=d.kd_skpd+'::'+d.kd_lok AND a.sts='1' AND b.sts='1' AND c.sts='1' AND d.sts='1' 
-								and tbunit.kd_unit like '$id_kplunit'
+								and tbunit.kd_unit like '$id_kplunit' and ked_emp = 'aktif'
 								") )[0];
 			$data_self = json_decode(json_encode($data_self), true);
 		} else {
@@ -1408,6 +1408,11 @@ class KepegawaianController extends Controller
 		}
 
 		$nowunit = $data_self['idunit'];
+        if(strlen($_SESSION['user_data']['idunit'] >= 6)) {
+            $lenkdunit = 'and LEN(tbunit.kd_unit) > 6';
+        } else {
+            $lenkdunit = '';
+        }
 
 		$data_stafs = DB::select( DB::raw("  SELECT a.id_emp, a.nrk_emp, a.nip_emp, a.nm_emp, tbjab.idjab, tbjab.idunit, tbunit.child, tbunit.nm_unit, tbunit.notes, d.nm_lok, notread.notread, yesread.yesread, lanjut.lanjut from bpaddtfake.dbo.emp_data as a
 							CROSS APPLY (SELECT TOP 1 tmt_jab,idskpd,idunit,idlok,tmt_sk_jab,no_sk_jab,jns_jab,replace(idjab,'NA::','') as idjab,eselon,gambar FROM bpaddtfake.dbo.emp_jab WHERE a.id_emp=emp_jab.noid AND emp_jab.sts='1' ORDER BY tmt_jab DESC) tbjab
@@ -1425,7 +1430,7 @@ class KepegawaianController extends Controller
 								  where rd = 'S' and sts = 1
 								  and disp.to_pm = a.id_emp) lanjut
 							,bpaddtfake.dbo.glo_skpd as b,bpaddtfake.dbo.glo_org_unitkerja as c,bpaddtfake.dbo.glo_org_lokasi as d WHERE tbjab.idskpd=b.skpd AND tbjab.idskpd+'::'+tbjab.idunit=c.kd_skpd+'::'+c.kd_unit AND tbjab.idskpd+'::'+tbjab.idlok=d.kd_skpd+'::'+d.kd_lok AND a.sts='1' AND b.sts='1' AND c.sts='1' AND d.sts='1' 
-							and tbunit.kd_unit like '$id_kplunit%' and ked_emp = 'aktif' and LEN(tbunit.kd_unit) > 6
+							and tbunit.kd_unit like '$id_kplunit%' and ked_emp = 'aktif' $lenkdunit
 							order by idunit asc, nm_emp asc
 							") );
 		$data_stafs = json_decode(json_encode($data_stafs), true);
@@ -1449,212 +1454,6 @@ class KepegawaianController extends Controller
 				->with('access', $access)
 				->with('result', $result);
 
-		if (strlen($data_self['idunit']) == 10) {
-			// kalo dia staf
-			$result = '';
-
-			$result .= '<tr>
-							<td>'.(is_null($data_self['nrk_emp']) || $data_self['nrk_emp'] == '' ? '-' : $data_self['nrk_emp'] ).'</td>
-							<td>'.ucwords(strtolower($data_self['nm_emp'])).'</td>
-							<td>'.ucwords(strtolower($data_self['nm_unit'])).'</td>
-						';
-
-			$belum = json_decode(json_encode(DB::select( DB::raw("
-						SELECT Count(id_emp) as belum
-						FROM bpaddtfake.dbo.v_disposisi
-						where id_emp like '".$ids."'
-						and rd = 'N'
-					"))[0]), true);
-
-			$baca = json_decode(json_encode(DB::select( DB::raw("
-						SELECT Count(id_emp) as baca
-						FROM bpaddtfake.dbo.v_disposisi
-						where id_emp like '".$ids."'
-						and rd = 'Y'
-					"))[0]), true);
-
-			$balas = json_decode(json_encode(DB::select( DB::raw("
-						SELECT Count(id_emp) as balas
-						FROM bpaddtfake.dbo.v_disposisi
-						where id_emp like '".$ids."'
-						and rd = 'S'
-					"))[0]), true);
-
-			$total = $belum['belum'] + $baca['baca'] + $balas['balas'];
-			
-			$result .= '	<td '. ($belum['belum'] > 0 ? 'class="text-danger"' : '') .'>'.$belum['belum'].'</td>
-								<td>'.$baca['baca'].'</td>
-								<td>'.$balas['balas'].'</td>
-								<td><b>'.$total.'</b></td>
-							</tr>';
-
-		} elseif (strlen($data_self['idunit']) == 2) {
-			// kalo dia kepala badan
-			$result = '<tr>
-							<td>'.(is_null($data_self['nrk_emp']) || $data_self['nrk_emp'] == '' ? '-' : $data_self['nrk_emp'] ).'</td>
-							<td>'.ucwords(strtolower($data_self['nm_emp'])).'</td>
-							<td>'.ucwords(strtolower($data_self['nm_unit'])).'</td>
-						';
-
-			$belum = json_decode(json_encode(DB::select( DB::raw("
-						SELECT Count(id_emp) as belum
-						FROM bpaddtfake.dbo.v_disposisi
-						where id_emp like '".$data_self['id_emp']."'
-						and rd = 'N'
-					"))[0]), true);
-
-			$baca = json_decode(json_encode(DB::select( DB::raw("
-						SELECT Count(id_emp) as baca
-						FROM bpaddtfake.dbo.v_disposisi
-						where id_emp like '".$data_self['id_emp']."'
-						and rd = 'Y'
-					"))[0]), true);
-
-			$balas = json_decode(json_encode(DB::select( DB::raw("
-						SELECT Count(id_emp) as balas
-						FROM bpaddtfake.dbo.v_disposisi
-						where id_emp like '".$data_self['id_emp']."'
-						and rd = 'S'
-					"))[0]), true);
-
-			$total = $belum['belum'] + $baca['baca'] + $balas['balas'];
-
-			$result .= '	<td '. ($belum['belum'] > 0 ? 'class="text-danger"' : '') .'>'.$belum['belum'].'</td>
-								<td>'.$baca['baca'].'</td>
-								<td>'.$balas['balas'].'</td>
-								<td><b>'.$total.'</b></td>
-							</tr>';
-
-			$idunit = $data_self['idunit'];
-			$querys = DB::select( DB::raw("  
-						SELECT id_emp, nrk_emp, nip_emp, nm_emp, a.idgroup, tgl_lahir, jnkel_emp, tgl_join, status_emp, tbjab.idjab, tbjab.idunit, tbunit.child, tbunit.nm_unit from bpaddtfake.dbo.emp_data as a
-						CROSS APPLY (SELECT TOP 1 tmt_jab,idskpd,idunit,idlok,tmt_sk_jab,no_sk_jab,jns_jab,replace(idjab,'NA::','') as idjab,eselon,gambar FROM bpaddtfake.dbo.emp_jab WHERE a.id_emp=emp_jab.noid AND emp_jab.sts='1' ORDER BY tmt_jab DESC) tbjab
-						CROSS APPLY (SELECT TOP 1 * FROM bpaddtfake.dbo.glo_org_unitkerja WHERE glo_org_unitkerja.kd_unit = tbjab.idunit) tbunit
-						,bpaddtfake.dbo.glo_skpd as b,bpaddtfake.dbo.glo_org_unitkerja as c,bpaddtfake.dbo.glo_org_lokasi as d WHERE tbjab.idskpd=b.skpd AND tbjab.idskpd+'::'+tbjab.idunit=c.kd_skpd+'::'+c.kd_unit AND tbjab.idskpd+'::'+tbjab.idlok=d.kd_skpd+'::'+d.kd_lok AND a.sts='1' AND b.sts='1' AND c.sts='1' AND d.sts='1' 
-						and tbunit.sao like '$idunit%' and ked_emp = 'aktif'
-						order by tbunit.kd_unit") );
-			$querys = json_decode(json_encode($querys), true);
-
-			foreach ($querys as $key => $query) {
-				$result .= '<tr>
-								<td>'.(is_null($query['nrk_emp']) || $query['nrk_emp'] == '' ? '-' : $query['nrk_emp'] ).'</td>
-								<td>'.ucwords(strtolower($query['nm_emp'])).'</td>
-								<td>'.ucwords(strtolower($query['nm_unit'])).'</td>
-							';
-
-				$belum = json_decode(json_encode(DB::select( DB::raw("
-							SELECT Count(id_emp) as belum
-							FROM bpaddtfake.dbo.v_disposisi
-							where id_emp like '".$query['id_emp']."'
-							and rd = 'N'
-						"))[0]), true);
-
-				$baca = json_decode(json_encode(DB::select( DB::raw("
-							SELECT Count(id_emp) as baca
-							FROM bpaddtfake.dbo.v_disposisi
-							where id_emp like '".$query['id_emp']."'
-							and rd = 'Y'
-						"))[0]), true);
-
-				$balas = json_decode(json_encode(DB::select( DB::raw("
-							SELECT Count(id_emp) as balas
-							FROM bpaddtfake.dbo.v_disposisi
-							where id_emp like '".$query['id_emp']."'
-							and rd = 'S'
-						"))[0]), true);
-
-				$total = $belum['belum'] + $baca['baca'] + $balas['balas'];
-				
-				$result .= '	<td '. ($belum['belum'] > 0 ? 'class="text-danger"' : '') .'>'.$belum['belum'].'</td>
-								<td>'.$baca['baca'].'</td>
-								<td>'.$balas['balas'].'</td>
-								<td><b>'.$total.'</b></td>
-							</tr>';
-			}
-		} else {
-			// kalo dia atasan biasa
-			$result = '<tr>
-							<td>'.(is_null($data_self['nrk_emp']) || $data_self['nrk_emp'] == '' ? '-' : $data_self['nrk_emp'] ).'</td>
-							<td>'.ucwords(strtolower($data_self['nm_emp'])).'</td>
-							<td>'.ucwords(strtolower($data_self['nm_unit'])).'</td>
-						';
-
-			$belum = json_decode(json_encode(DB::select( DB::raw("
-						SELECT Count(id_emp) as belum
-						FROM bpaddtfake.dbo.v_disposisi
-						where id_emp like '".$ids."'
-						and rd = 'N'
-					"))[0]), true);
-
-			$baca = json_decode(json_encode(DB::select( DB::raw("
-						SELECT Count(id_emp) as baca
-						FROM bpaddtfake.dbo.v_disposisi
-						where id_emp like '".$ids."'
-						and rd = 'Y'
-					"))[0]), true);
-
-			$balas = json_decode(json_encode(DB::select( DB::raw("
-						SELECT Count(id_emp) as balas
-						FROM bpaddtfake.dbo.v_disposisi
-						where id_emp like '".$ids."'
-						and rd = 'S'
-					"))[0]), true);
-
-			$total = $belum['belum'] + $baca['baca'] + $balas['balas'];
-
-			$result .= '	<td '. ($belum['belum'] > 0 ? 'class="text-danger"' : '') .'>'.$belum['belum'].'</td>
-								<td>'.$baca['baca'].'</td>
-								<td>'.$balas['balas'].'</td>
-								<td><b>'.$total.'</b></td>
-							</tr>';
-
-			$idunit = $data_self['idunit'];
-			$querys = DB::select( DB::raw("  
-						SELECT id_emp, nrk_emp, nip_emp, nm_emp, a.idgroup, tgl_lahir, jnkel_emp, tgl_join, status_emp, tbjab.idjab, tbjab.idunit, tbunit.child, tbunit.nm_unit from bpaddtfake.dbo.emp_data as a
-						CROSS APPLY (SELECT TOP 1 tmt_jab,idskpd,idunit,idlok,tmt_sk_jab,no_sk_jab,jns_jab,replace(idjab,'NA::','') as idjab,eselon,gambar FROM bpaddtfake.dbo.emp_jab WHERE a.id_emp=emp_jab.noid AND emp_jab.sts='1' ORDER BY tmt_jab DESC) tbjab
-						CROSS APPLY (SELECT TOP 1 * FROM bpaddtfake.dbo.glo_org_unitkerja WHERE glo_org_unitkerja.kd_unit = tbjab.idunit) tbunit
-						,bpaddtfake.dbo.glo_skpd as b,bpaddtfake.dbo.glo_org_unitkerja as c,bpaddtfake.dbo.glo_org_lokasi as d WHERE tbjab.idskpd=b.skpd AND tbjab.idskpd+'::'+tbjab.idunit=c.kd_skpd+'::'+c.kd_unit AND tbjab.idskpd+'::'+tbjab.idlok=d.kd_skpd+'::'+d.kd_lok AND a.sts='1' AND b.sts='1' AND c.sts='1' AND d.sts='1' 
-						and tbunit.sao like '$idunit%' and ked_emp = 'aktif'
-						order by tbunit.kd_unit") );
-			$querys = json_decode(json_encode($querys), true);
-
-			foreach ($querys as $key => $query) {
-				$result .= '<tr>
-								<td>'.(is_null($query['nrk_emp']) || $query['nrk_emp'] == '' ? '-' : $query['nrk_emp'] ).'</td>
-								<td>'.ucwords(strtolower($query['nm_emp'])).'</td>
-								<td>'.ucwords(strtolower($query['nm_unit'])).'</td>
-							';
-
-				$belum = json_decode(json_encode(DB::select( DB::raw("
-							SELECT Count(id_emp) as belum
-							FROM bpaddtfake.dbo.v_disposisi
-							where id_emp like '".$query['id_emp']."'
-							and rd = 'N'
-						"))[0]), true);
-
-				$baca = json_decode(json_encode(DB::select( DB::raw("
-							SELECT Count(id_emp) as baca
-							FROM bpaddtfake.dbo.v_disposisi
-							where id_emp like '".$query['id_emp']."'
-							and rd = 'Y'
-						"))[0]), true);
-
-				$balas = json_decode(json_encode(DB::select( DB::raw("
-							SELECT Count(id_emp) as balas
-							FROM bpaddtfake.dbo.v_disposisi
-							where id_emp like '".$query['id_emp']."'
-							and rd = 'S'
-						"))[0]), true);
-
-				$total = $belum['belum'] + $baca['baca'] + $balas['balas'];
-				
-				$result .= '	<td '. ($belum['belum'] > 0 ? 'class="text-danger"' : '') .'>'.$belum['belum'].'</td>
-								<td>'.$baca['baca'].'</td>
-								<td>'.$balas['balas'].'</td>
-								<td><b>'.$total.'</b></td>
-							</tr>';
-			}
-		}	
 	}
 
 	public function suratkeluar(Request $request)
