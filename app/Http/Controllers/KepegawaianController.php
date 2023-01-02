@@ -1430,7 +1430,7 @@ class KepegawaianController extends Controller
 								  where rd = 'S' and sts = 1
 								  and disp.to_pm = a.id_emp) lanjut
 							,bpaddtfake.dbo.glo_skpd as b,bpaddtfake.dbo.glo_org_unitkerja as c,bpaddtfake.dbo.glo_org_lokasi as d WHERE tbjab.idskpd=b.skpd AND tbjab.idskpd+'::'+tbjab.idunit=c.kd_skpd+'::'+c.kd_unit AND tbjab.idskpd+'::'+tbjab.idlok=d.kd_skpd+'::'+d.kd_lok AND a.sts='1' AND b.sts='1' AND c.sts='1' AND d.sts='1' 
-							and tbunit.kd_unit like '$id_kplunit%' and ked_emp = 'aktif' $lenkdunit
+							and tbunit.sao like '$id_kplunit%' and ked_emp = 'aktif' $lenkdunit
 							order by idunit asc, nm_emp asc
 							") );
 		$data_stafs = json_decode(json_encode($data_stafs), true);
