@@ -1339,7 +1339,11 @@ class KepegawaianController extends Controller
 
 		$ids = Auth::user()->id_emp;
         $idunit = $_SESSION['user_data']['idunit'];
-        $id_kplunit = substr($idunit, 0, 6);
+        if (strlen($_SESSION['user_data']['idunit'] >= 6)) {
+            $id_kplunit = substr($idunit, 0, 6);
+        } else {
+            $id_kplunit = '01';
+        }
 	
 		if (strlen($_SESSION['user_data']['idunit'] >= 6)) {
 			$data_self = DB::select( DB::raw("  
