@@ -2836,7 +2836,11 @@ class DisposisiController extends Controller
 
 		$ids = Auth::user()->id_emp;
         $idunit = $_SESSION['user_data']['idunit'];
-        $id_kplunit = substr($idunit, 0, 6);
+        if (strlen($_SESSION['user_data']['idunit'] >= 6)) {
+            $id_kplunit = substr($idunit, 0, 6);
+        } else {
+            $id_kplunit = '01';
+        }
 
 		if ($ids) {
             $ids = "tbunit.kd_unit like '".$id_kplunit."'";
@@ -2938,6 +2942,11 @@ class DisposisiController extends Controller
 		$nowrow++;
 
 		$nowunit = $data_self['idunit'];
+        if(strlen($_SESSION['user_data']['idunit'] >= 6)) {
+            $lenkdunit = 'and LEN(tbunit.kd_unit) > 6';
+        } else {
+            $lenkdunit = '';
+        }
 
 		$data_stafs = DB::select( DB::raw("  
                             SELECT a.id_emp, a.nrk_emp, a.nip_emp, a.nm_emp, tbjab.idjab, tbjab.idunit, tbunit.child, tbunit.nm_unit, tbunit.kd_unit, tbunit.notes, d.nm_lok, tbunit.nm_bidang,
@@ -2975,7 +2984,7 @@ class DisposisiController extends Controller
 							,bpaddtfake.dbo.glo_skpd as b,bpaddtfake.dbo.glo_org_unitkerja as c,bpaddtfake.dbo.glo_org_lokasi as d 
                             WHERE tbjab.idskpd=b.skpd AND tbjab.idskpd+'::'+tbjab.idunit=c.kd_skpd+'::'+c.kd_unit AND tbjab.idskpd+'::'+tbjab.idlok=d.kd_skpd+'::'+d.kd_lok AND a.sts='1' AND b.sts='1' AND c.sts='1' AND d.sts='1' 
 							--and tbunit.sao like '$nowunit%' and ked_emp = 'aktif'
-                            and tbunit.kd_unit like '$id_kplunit%' and ked_emp = 'aktif' and LEN(tbunit.kd_unit) > 6
+                            and tbunit.kd_unit like '$id_kplunit%' and ked_emp = 'aktif' $lenkdunit
 							order by idunit asc, nm_emp asc
 							") );
 		$data_stafs = json_decode(json_encode($data_stafs), true);
