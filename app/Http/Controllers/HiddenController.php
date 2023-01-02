@@ -54,11 +54,30 @@ class HiddenController extends Controller
 		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
 		$access = $this->checkAccess($_SESSION['user_data']['idgroup'], $thismenu['ids']);
 
-        $refs = Mobile_absen_ref::where('active', 1)->orderBy('createdate', 'desc')->get();
+        $refs = Mobile_absen_ref::where('sts', 1)
+                ->orderBy('active', 'desc')
+                ->orderBy('start_datetime', 'desc')
+                ->get();
 
         return view('pages.bpadhidden.qrabsensetup')
         ->with('access', $access)
         ->with('refs', $refs);
+    }
+
+    public function formupdateactive(Request $request)
+    {
+        $sts = $request->sts;
+        $longtext = $request->longtext;
+
+        Mobile_absen_ref::
+        where('longtext', $longtext)
+        ->update([
+            'active' => $sts,
+        ]);
+
+        return redirect('/qrabsen/setup')
+				->with('message', "Berhasil mengubah status aktif absensi")
+				->with('msg_num', 1);
     }
 
     public function forminsertqrabsen(Request $request)

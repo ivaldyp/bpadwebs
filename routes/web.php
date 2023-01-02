@@ -404,6 +404,8 @@ Route::group(['prefix' => 'qrabsen'], function () {
 	Route::get('/getpegawaitidakabsen', 'PublicController@getpegawaitidakabsen');
 	Route::get('/detail', 'PublicController@qrabsendetail');
 	Route::get('/setpegawai', 'HiddenController@qrabsensetpegawai');
+
+	Route::get('/form/ubahactive', 'HiddenController@formupdateactive');
 	Route::post('/form/ubahstshadir', 'HiddenController@formuptdatestsabsen');
 	Route::post('/form/tambahabsen', 'HiddenController@forminsertqrabsen');
 	Route::post('/form/ubahabsen', 'HiddenController@formupdateqrabsen');

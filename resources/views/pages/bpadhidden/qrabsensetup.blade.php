@@ -100,6 +100,7 @@
 													<th>QR</th>
                                                     @if($access['zdel'] == 'y')
                                                     <th>Excel</th>
+                                                    <th>Active</th>
                                                     @endif
                                                     @if($access['zupd'] == 'y')
 													<th>Set Pegawai</th>
@@ -127,6 +128,17 @@
                                                     @if($access['zdel'] == 'y')
                                                     <td class="ver-align-mid hor-align-mid">
                                                         <a href="{{ url('/qrabsen/excelraw?qr=') }}{{ $ref['longtext'] }}"><button type="submit" class="btn">Excel RAW</button></a>
+                                                    </td>
+                                                    <td class="ver-align-mid ">
+                                                        @if($ref['active'] == 1)
+                                                        <a href="{{ url('/qrabsen/form/ubahactive?sts=0&longtext=') }}{{ $ref['longtext'] }}">
+                                                            <button class="btn btn-success btn-outline btn-circle m-r-5 hor-align-mid"><i class="fa fa-check"></i></button>
+                                                        </a>
+                                                        @else
+                                                        <a href="{{ url('/qrabsen/form/ubahactive?sts=1&longtext=') }}{{ $ref['longtext'] }}">
+                                                            <button class="btn btn-danger btn-outline btn-circle m-r-5 hor-align-mid"><i class="fa fa-close"></i></button>
+                                                        </a>
+                                                        @endif
                                                     </td>
                                                     @endif
                                                     @if($access['zupd'] == 'y')
