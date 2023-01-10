@@ -119,10 +119,14 @@ Route::group(['prefix' => 'notifikasi'], function () {
 });
 
 Route::group(['prefix' => 'booking'], function () {
+    // --setup--
 	Route::get('/manageruang', 'BookingController@manageruang');
 	Route::post('form/tambahruang', 'BookingController@forminsertruang');
 	Route::post('form/ubahruang', 'BookingController@formupdateruang');
 	Route::post('form/hapusruang', 'BookingController@formdeleteruang');
+	Route::get('/managepagu', 'BookingController@managepagu');
+	Route::post('form/ubahpagu', 'BookingController@formupdatepagu');
+    // --/setup--
 
 	Route::get('pinjam', 'BookingController@formpinjam');
 	Route::post('lihat', 'BookingController@lihatpinjam');
