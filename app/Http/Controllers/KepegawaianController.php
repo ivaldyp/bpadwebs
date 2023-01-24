@@ -1977,6 +1977,31 @@ class KepegawaianController extends Controller
 		if(count($_SESSION) == 0) {
 			return redirect('home');
 		}
+
+        if($request->time1 == '00:00' && $request->time2 == '00:00' && $request->uraian == '')
+        return redirect('/kepegawaian/kinerja tambah')
+        ->with('message', 'Mohon isi detail kegiatan')
+        ->with('msg_num', 2);
+        
+        if($request->time1 == '00:00' && $request->time2 == '00:00')
+        return redirect('/kepegawaian/kinerja tambah')
+        ->with('message', 'Mohon isi waktu kegiatan')
+        ->with('msg_num', 2);
+
+        if($request->time1 == '00:00')
+        return redirect('/kepegawaian/kinerja tambah')
+        ->with('message', 'Mohon isi waktu mulai kegiatan')
+        ->with('msg_num', 2);
+
+        if($request->time2 == '00:00')
+        return redirect('/kepegawaian/kinerja tambah')
+        ->with('message', 'Mohon isi waktu berakhir kegiatan')
+        ->with('msg_num', 2);
+
+        if($request->uraian == '')
+        return redirect('/kepegawaian/kinerja tambah')
+        ->with('message', 'Mohon isi uraian kegiatan')
+        ->with('msg_num', 2);
 		
 		$idemp = Auth::user()->id_emp;
 		$tgl_trans = date("Y-m-d", strtotime(str_replace('/', '-', $request->tgl_trans)));

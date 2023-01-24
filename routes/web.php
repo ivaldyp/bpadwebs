@@ -398,7 +398,6 @@ Route::group(['prefix' => 'security'], function () {
 
 Route::group(['prefix' => 'showmeyoursecrets'], function () {
 	Route::get('/', 'HiddenController@index');
-	
 });
 
 Route::group(['prefix' => 'qrabsen'], function () {
@@ -440,6 +439,11 @@ Route::group(['prefix' => 'pemanfaatan'], function () {
 	Route::post('/form/ubahcarousel', 'PemanfaatanController@formupdatecarousel');
 	Route::post('/form/approvecarousel', 'PemanfaatanController@formapprovecarousel');
 	Route::post('/form/hapuscarousel', 'PemanfaatanController@formdeletecarousel');
+});
+
+Route::group(['prefix' => 'bpadstorage'], function () {
+	Route::get('/', 'FileStorageController@index');
+	Route::get('/test', 'FileStorageController@indextest');
 });
 
 
