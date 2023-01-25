@@ -146,20 +146,21 @@
 					</li>
                     <li class="has-dropdown"><a href="#">PPID</a>
                         <ul class="dropdown" style="list-style: none; padding: 0;">
-                            <li><a href="{{ route('ppid.profil') }}" target="_blank">Profil PPID</a></li>
-                            <li><a href="#" target="_blank">Struktur PPID</a></li>
-                            <li><a href="{{ route('ppid.informasipublik') }}" target="_blank">Informasi Publik</a></li>
-                            <li><a href="{{ route('ppid.form') }}" target="_blank">Form Permohonan Informasi</a></li>
-                            <li><a href="#" target="_blank">Alur Permohonan Informasi</a></li>
-                            <li><a href="https://ppid.jakarta.go.id/" target="_blank">PPID Provinsi DKI Jakarta</a></li>
+                            <li><a href="{{ route('ppid.profil') }}">Profil PPID</a></li>
+                            <li><a href="#">Struktur PPID</a></li>
+                            <li><a href="{{ route('ppid.informasipublik') }}">Informasi Publik</a></li>
+                            <li><a href="{{ route('ppid.form') }}">Form Permohonan Informasi</a></li>
+                            <li><a href="#">Alur Permohonan Informasi</a></li>
+                            <li><a href="https://ppid.jakarta.go.id/">PPID Provinsi DKI Jakarta</a></li>
                         </ul>
                     </li>
 					<li class="has-dropdown"><a href="#">Lainnya</a>
 						<ul class="dropdown" style="list-style: none; padding: 0;">
-							<li><a href="http://bpad.jakarta.go.id/portal/ceksurat" target="_blank">Cek Surat</a></li>
-							<li><a href="https://webmail.bpadjakarta.id/" target="_blank">Webmail</a></li>
-							<li><a href="https://aset.jakarta.go.id/brandgang/index.aspx?id=permohonan/" target="_blank">Permohonan Brandgang</a></li>
-							<li><a href="https://aset.jakarta.go.id/brandgang/index.aspx?id=monitoring/" target="_blank">Monitoring Brandgang</a></li>
+							<li><a href="http://bpad.jakarta.go.id/portal/ceksurat">Cek Surat</a></li>
+							<li><a href="https://webmail.bpadjakarta.id/">Webmail</a></li>
+							{{-- <li><a href="https://aset.jakarta.go.id/brandgang/index.aspx?id=permohonan/">Permohonan Brandgang</a></li> --}}
+							<li><a href="{{ url('brandgang-permohonan') }}">Permohonan Brandgang</a></li>
+							<li><a href="https://aset.jakarta.go.id/brandgang/index.aspx?id=monitoring/">Monitoring Brandgang</a></li>
 							<li><a href="{{ url('esiappe/masuk') }}">Absensi Online e-SIAPPE</a></li>
 						</ul>
 					</li>	
