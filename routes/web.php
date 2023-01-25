@@ -46,6 +46,9 @@ Route::get('/kebijakan-dan-privasi', function () {
 Route::get('/syarat-dan-ketentuan', function () {
     return view('pages.tnc');
 });
+Route::get('/brandgang-permohonan', function () {
+    return view('pages.brandgang-permohonan');
+});
 
 // --------- BPAD LINK FORM PUBLIK-----------
 
