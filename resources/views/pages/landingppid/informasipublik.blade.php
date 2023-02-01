@@ -42,6 +42,14 @@
                             <p><a target="_blank" href="https://bpad.jakarta.go.id/portal/profil/struktur">Halaman Struktur Organisasi BPAD</a></p>
                         </div>
 
+                        <button class="accordion"><span style="font-weight: bold;">Surat Keputusan Penetapan PPID BPAD</span></button>
+                        <div class="panel">
+                            <ul>
+                                <li><a target="_blank" href="https://bpad.jakarta.go.id/portal/publicfile/produkhukum/SK%20PPID%20Tahun%202023.pdf">Unduh SK PPID BPAD Tahun 2023</a></li>
+                                <li><a target="_blank" href="https://bpad.jakarta.go.id/portal/publicfile/produkhukum/SK%20PPID%20Tahun%202022.pdf">Unduh SK PPID BPAD Tahun 2022</a></li>
+                            </ul>
+                        </div>
+                        
                         <button class="accordion"><span style="font-weight: bold;">Profil Pejabat</span></button>
                         <div class="panel">
                             <p><a target="_blank" href="https://bpad.jakarta.go.id/portal/profil/profilpejabat">Halaman Profil Pejabat BPAD</a></p>
