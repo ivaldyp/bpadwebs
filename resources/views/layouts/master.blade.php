@@ -141,7 +141,6 @@
 							<li><a href="{{ url('content/berita') }}">Berita</a></li>
 							<li><a href="{{ url('content/foto') }}">Foto</a></li>
 							<li><a href="{{ url('content/video') }}">Video</a></li>
-							<li><a href="http://simaster.jakarta.go.id/internal.download/index.php?x=Moderator&y=B5B320392109ABC1986FDBF67DB15E71" target="_blank">Download</a></li>
 						</ul>
 					</li>
                     <li class="has-dropdown"><a href="#">PPID</a>
@@ -157,7 +156,6 @@
 					<li class="has-dropdown"><a href="#">Lainnya</a>
 						<ul class="dropdown" style="list-style: none; padding: 0;">
 							<li><a href="http://bpad.jakarta.go.id/portal/ceksurat">Cek Surat</a></li>
-							<li><a href="https://webmail.bpadjakarta.id/">Webmail</a></li>
 							{{-- <li><a href="https://aset.jakarta.go.id/brandgang/index.aspx?id=permohonan/">Permohonan Brandgang</a></li> --}}
 							<li><a href="{{ url('brandgang-permohonan') }}">Permohonan Brandgang</a></li>
 							<li><a href="https://aset.jakarta.go.id/brandgang/index.aspx?id=monitoring/">Monitoring Brandgang</a></li>
