@@ -151,7 +151,11 @@
 									</div>
 									@endif
 								</div>
-								<div class="row">
+								<div class="row m-t-30">
+                                    <blockquote style="color: red;">
+                                        Apabila ingin menghapus konten berita / foto, harap menghubungi PIC Humas BPAD<br>
+                                        Aditya - 0813-1412-3416
+                                    </blockquote>
 									<div class="table-responsive">
 										<table class="myTable table table-hover">
 											<thead>
@@ -233,7 +237,7 @@
 																	<button type="submit" class="btn btn-info btn-update"><i class="ti-pencil-alt"></i></button>
 																	
 																@endif
-																@if($access['zdel'] == 'y')
+																@if($access['zdel'] == 'y' && $flagapprove == 1)
 																	<button type="button" class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-delete" data-ids="{{ $content['ids'] }}" data-judul="{{ $content['judul'] }}" data-idkat="{{ $content['idkat'] }}"><i class="fa fa-trash"></i></button>
 																@endif
 															</form>
