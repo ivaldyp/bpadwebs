@@ -26,9 +26,21 @@
                             <br><br>
                             Ketentuan pemanfaatan bekas tanah brandgang yang tidak berfungsi lagi sebagai tanah brandgang diatur dalam <b>Peraturan Gubernur Nomor 38 Tahun 2013</b> tentang Perubahan Atas Keputusan Gubernur Nomor 125 Tahun 2002 tentang Ketentuan Pemanfaatan Bekas Tanah Brandgang Yang Tidak Berfungsi Lagi Sebagai Tanah Brandgang.
                             <br><br>
-                            Tahapan Pemindahtanganan Bekas Tanah Brandgang, sebagai berikut:
+                            Tahapan Pemindahtanganan Bekas Tanah Brandgang, adalah sebagai berikut:
                             <br><br>
                             <img src="{{ asset('img/brandgang/permohonan-brandgang.png') }}" width="100%">
+                            <br><br>
+                            Tahapan Pemindahtanganan Bekas Tanah Brandgang juga dapat dilihat melalui video dibawah ini:
+                            <br><br>
+                            <div class="col-md-12" style="display: flex;
+                            justify-content: space-between;">
+                                <iframe src="https://www.youtube.com/embed/fJXS0WTZ0Ao" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                <iframe src="https://www.youtube.com/embed/E59s3W_BH5M" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                <!-- <div class="col-md-6">
+                                </div>
+                                <div class="col-md-6">
+                                </div> -->
+                            </div>
                             <br><br>
                             Form permohonan brandgang dapat mulai diisi melalui tombol dibawah ini
                         </p>
