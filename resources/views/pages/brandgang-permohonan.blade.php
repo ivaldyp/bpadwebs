@@ -16,7 +16,7 @@
 		<!-- row -->
 		<div class="row">
 			<!-- MAIN -->
-			<main id="main" class="col-md-10 col-md-offset-1">
+			<main id="main" class="col-md-12">
 				<!-- article -->
 				<div class="article">
 					<!-- article content -->
@@ -30,16 +30,16 @@
                             <br><br>
                             <img src="{{ asset('img/brandgang/permohonan-brandgang.png') }}" width="100%">
                             <br><br>
-                            Tahapan Pemindahtanganan Bekas Tanah Brandgang juga dapat dilihat melalui video dibawah ini:
+                            Tahapan Permohonan dan Monitoring Pemindahtanganan Bekas Tanah Brandgang juga dapat dilihat melalui video dibawah ini:
                             <br><br>
                             <div class="col-md-12" style="display: flex;
-                            justify-content: space-between;">
-                                <iframe src="https://www.youtube.com/embed/fJXS0WTZ0Ao" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                                <iframe src="https://www.youtube.com/embed/E59s3W_BH5M" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                                <!-- <div class="col-md-6">
+                            justify-content:space-between;">
+                                <div class="col-md-6">
+                                    <iframe width="100%" height="350" src="https://www.youtube.com/embed/fJXS0WTZ0Ao" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                                 </div>
                                 <div class="col-md-6">
-                                </div> -->
+                                    <iframe width="100%" height="350" src="https://www.youtube.com/embed/E59s3W_BH5M" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                </div>
                             </div>
                             <br><br>
                             Form permohonan brandgang dapat mulai diisi melalui tombol dibawah ini
