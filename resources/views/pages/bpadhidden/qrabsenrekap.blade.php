@@ -284,16 +284,16 @@
                 "paging": false,
             });
 
-            timeout = setTimeout(function() {
-                location.reload();
-            }, 7500);
+            // timeout = setTimeout(function() {
+            //     location.reload();
+            // }, 7500);
 
-            $(this).click(function() {
-                clearTimeout(timeout);
-                timeout = setTimeout(function() {
-                    location.reload();
-                }, 7500);
-            });
+            // $(this).click(function() {
+            //     clearTimeout(timeout);
+            //     timeout = setTimeout(function() {
+            //         location.reload();
+            //     }, 7500);
+            // });
 		});
 	</script>
 @endsection
