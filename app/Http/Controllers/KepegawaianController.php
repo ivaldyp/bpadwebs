@@ -674,10 +674,10 @@ class KepegawaianController extends Controller
 				} else {
 					$idlok = Glo_org_lokasi::where('new_kd_lok', '0')->first(['kd_lok']);
 				}
-			}
-		} else {
-			$idlok = ['kd_lok' => '00'];
-		}
+			} else {
+                $idlok = ['kd_lok' => '00'];
+            }
+		} 
 
 		$splitidunit = explode("::", $request->idunit);
 		$idunit = $splitidunit[0];
