@@ -149,7 +149,7 @@
                             <li><a href="#">Struktur PPID</a></li>
                             <li><a href="{{ route('ppid.informasipublik') }}">Informasi Publik</a></li>
                             <li><a href="{{ route('ppid.form') }}">Form Permohonan Informasi</a></li>
-                            <li><a href="{{ ('/portal/img/ppid/Alur Permohonan Info PPID.jpg') }}" target="_blank">Alur Permohonan Informasi</a></li>
+                            <li><a href="{{ route('ppid.infografis') }}">Alur Permohonan Informasi</a></li>
                             <li><a href="https://ppid.jakarta.go.id/">PPID Provinsi DKI Jakarta</a></li>
                         </ul>
                     </li>

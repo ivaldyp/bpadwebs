@@ -19,6 +19,11 @@ class PpidController extends Controller
         return view('pages.landingppid.form');
     }
 
+    public function infografis(Request $request)
+    {
+        return view('pages.landingppid.infografis');
+    }
+
     public function informasipublik(Request $request)
     {
         return view('pages.landingppid.informasipublik');
