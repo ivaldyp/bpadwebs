@@ -62,6 +62,11 @@
                             </ul>
                         </div>
 
+                        <button class="accordion"><span style="font-weight: bold;">Rencana Kerja dan Anggaran</span></button>
+                        <div class="panel">
+                            <p><a target="_blank" href="https://publik.bapedadki.net/ringkasan_skpd/981/home">Tahun Anggaran 2023</a></p>
+                        </div>
+
 					</div>
 					<!-- /article content -->
 				</div>					
