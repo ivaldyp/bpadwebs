@@ -41,18 +41,15 @@
                         <div class="panel">
                             <p><a target="_blank" href="https://bpad.jakarta.go.id/portal/profil/struktur">Halaman Struktur Organisasi BPAD</a></p>
                         </div>
-
-                        <button class="accordion"><span style="font-weight: bold;">Surat Keputusan Penetapan PPID BPAD</span></button>
-                        <div class="panel">
-                            <ul>
-                                <li><a target="_blank" href="https://bpad.jakarta.go.id/portal/publicfile/produkhukum/SK%20PPID%20Tahun%202023.pdf">Unduh SK PPID BPAD Tahun 2023</a></li>
-                                <li><a target="_blank" href="https://bpad.jakarta.go.id/portal/publicfile/produkhukum/SK%20PPID%20Tahun%202022.pdf">Unduh SK PPID BPAD Tahun 2022</a></li>
-                            </ul>
-                        </div>
                         
                         <button class="accordion"><span style="font-weight: bold;">Profil Pejabat</span></button>
                         <div class="panel">
                             <p><a target="_blank" href="https://bpad.jakarta.go.id/portal/profil/profilpejabat">Halaman Profil Pejabat BPAD</a></p>
+                        </div>
+
+                        <button class="accordion"><span style="font-weight: bold;">Daftar Pegawai BPAD</span></button>
+                        <div class="panel">
+                            <p><a target="_blank" href="https://drive.google.com/file/d/1LG7lHx2BER_3-L8kknXBTFczkF_tPrGN/view?usp=share_link">Unduh Daftar Pegawai BPAD</a></p>
                         </div>
 
                         <button class="accordion"><span style="font-weight: bold;">Laporan Keuangan BPAD</span></button>
@@ -65,6 +62,14 @@
                         <button class="accordion"><span style="font-weight: bold;">Rencana Kerja dan Anggaran</span></button>
                         <div class="panel">
                             <p><a target="_blank" href="https://publik.bapedadki.net/ringkasan_skpd/981/home">Tahun Anggaran 2023</a></p>
+                        </div>
+                        
+                        <button class="accordion"><span style="font-weight: bold;">Surat Keputusan Penetapan PPID BPAD</span></button>
+                        <div class="panel">
+                            <ul>
+                                <li><a target="_blank" href="https://bpad.jakarta.go.id/portal/publicfile/produkhukum/SK%20PPID%20Tahun%202023.pdf">Unduh SK PPID BPAD Tahun 2023</a></li>
+                                <li><a target="_blank" href="https://bpad.jakarta.go.id/portal/publicfile/produkhukum/SK%20PPID%20Tahun%202022.pdf">Unduh SK PPID BPAD Tahun 2022</a></li>
+                            </ul>
                         </div>
 
 					</div>
