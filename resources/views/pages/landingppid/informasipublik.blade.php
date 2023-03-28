@@ -93,6 +93,16 @@
                             </ul>
                         </div>
 
+                        <!-- 51 -->
+                        <button class="accordion"><span style="font-weight: bold;">Media Sosial BPAD</span></button>
+                        <div class="panel">
+                            <ul>
+                                <li><a target="_blank" href="https://twitter.com/BPAD_Jakarta">Twitter BPAD</a></li>
+                                <li><a target="_blank" href="https://www.instagram.com/bpad_jakarta/">Instagram BPAD</a></li>
+                                <li><a target="_blank" href="https://www.youtube.com/@asetbpad">Youtube BPAD</a></li>
+                            </ul>
+                        </div>
+
 					</div>
 					<!-- /article content -->
 				</div>					
