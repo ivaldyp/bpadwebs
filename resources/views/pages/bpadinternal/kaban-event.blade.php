@@ -135,7 +135,7 @@
                                                         @endif 
                                                     </td>
                                                     <td class="ver-align-mid">{{ $event['location'] }}</td>
-                                                    <td class="ver-align-mid">{{ $event['info'] }}</td>
+                                                    <td class="ver-align-mid">{!! $event['info'] !!}</td>
                                                     @if($access['zupd'] == 'y' || $access['zdel'] == 'y')
                                                     <td class="ver-align-mid">
                                                         <form method="POST" action="/portal/internal/form/hapus-agenda-kaban">
@@ -204,7 +204,7 @@
                                 <div class="col-lg-10">
                                     <select class=" select2 select2-multiple" multiple="multiple" name="id_unit[]" id="id_unit" required data-error="Pilih salah satu" autocomplete="off">
                                         @foreach($units as $unit)
-                                            <option value="{{ $unit['kd_unit'] }}"> {{ $unit['kd_unit'] }} - {{ $unit['notes'] }}
+                                            <option value="{{ $unit['kd_unit'] }}"> {{ $unit['kd_unit'] }} - {{ $unit['nm_unit'] }}
                                                 @if(strlen($unit['kd_unit'] > 4) && substr($unit['kd_unit'], 4, 2) == '51')
                                                     <span style="font-weight: bold;">[JAKARTA PUSAT]</span>
                                                 @elseif(strlen($unit['kd_unit'] > 4) && substr($unit['kd_unit'], 4, 2) == '52')
