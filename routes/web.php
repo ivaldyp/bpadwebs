@@ -303,6 +303,10 @@ Route::group(['prefix' => 'internal'], function () {
 	Route::post('/form/tambahkehadiran', 'InternalController@forminsertkehadiran');
 	Route::get('/kehadiran ubah', 'InternalController@kehadiranubah');
 	Route::post('/form/hapuskehadiran', 'InternalController@formdeletekehadiran');
+
+    Route::get('/agenda-kaban', 'InternalController@agendakabanall');
+    Route::post('/form/tambah-agenda-kaban', 'InternalController@forminsertagendakaban');
+    Route::post('/form/hapus-agenda-kaban', 'InternalController@formdeleteagendakaban');
 });
 
 Route::group(['prefix' => 'kepegawaian'], function () {

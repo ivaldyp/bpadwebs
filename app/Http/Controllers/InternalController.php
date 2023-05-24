@@ -20,10 +20,12 @@ use PHPMailer\PHPMailer\Exception;
 
 use App\Agenda_tb;
 use App\Berita_tb;
+use App\Dta_kaban_event;
 use App\Emp_data;
 use App\Glo_arsip_kategori;
 use App\Glo_tujuan_kehadiran;
 use App\Glo_profile_skpd;
+use App\Glo_org_unitkerja;
 use App\Help;
 use App\Internal_arsip;
 use App\Internal_info;
@@ -1378,4 +1380,92 @@ class InternalController extends Controller
 	}
 
 	// ========== </FORM KEHADIRAN> ========== //
+
+    // ========== <AGENDA KABAN> ========== //
+    
+    public function agendakabanall(Request $request)
+    {
+        if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+        //$this->checkSessionTime();
+		$currentpath = str_replace("%20", " ", $_SERVER['REQUEST_URI']);
+		$currentpath = explode("?", $currentpath)[0];
+		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
+		$access = $this->checkAccess($_SESSION['user_data']['idgroup'], $thismenu['ids']);
+
+        $units = Glo_org_unitkerja::
+                    where('sts', 1)
+                    ->whereRaw('LEN(kd_unit) = 6')
+                    ->orderBy('kd_unit')
+                    ->get();
+
+        $events = Dta_kaban_event::where('sts', 1)
+                    ->orderBy('datetime', 'desc')
+                    ->get();
+
+        return view('pages.bpadinternal.kaban-event')
+        ->with('access', $access)
+        ->with('units', $units)
+        ->with('events', $events);
+    }
+
+    public function forminsertagendakaban(Request $request)
+    {
+        if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+
+        $event_idunit = "";
+        $event_nmunit = "";
+        foreach($request->id_unit as $key => $idunit) {
+            $result = Glo_org_unitkerja::where('kd_unit', $idunit)->where('sts', 1)->first();
+            $event_idunit .= $result['kd_unit'];
+            $event_nmunit .= $result['nm_unit'];
+            if (!($key === array_key_last($request->id_unit))) {
+                $event_idunit .= "::";
+                $event_nmunit .= "::";
+            }
+        }
+        
+        $datetime = date('Y-m-d', strtotime(str_replace('/', '-', $request->date))) . " " . date('H:i', strtotime($request->time));
+
+		$insertagendakaban = [
+			'sts'           => 1,
+			'input_date'    => date('Y-m-d H:i:s'),
+			'datetime'      => $datetime,
+			'event_name'    => $request->event_name,
+			'event_number'  => $request->event_number,
+			'event_from'    => $request->event_from,
+			'id_unit'       => $event_idunit,
+			'nm_unit'       => $event_nmunit,
+			'location'      => $request->location,
+			'info'          => $request->info,
+		];
+
+		Dta_kaban_event::insert($insertagendakaban);
+
+		return redirect('/internal/agenda-kaban')
+				->with('message', 'Agenda baru berhasil dibuat')
+				->with('msg_num', 1);
+    }
+
+    public function formdeleteagendakaban(Request $request)
+    {
+        if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+
+        Dta_kaban_event::
+        where('ids', $request->ids)
+        ->update([
+            'sts' => 0,
+        ]);
+
+        return redirect('/internal/agenda-kaban')
+				->with('message', 'Agenda tersebut berhasil dihapus')
+				->with('msg_num', 1);
+    }
+
+    // ========== </AGENDA KABAN> ========== //
 }
