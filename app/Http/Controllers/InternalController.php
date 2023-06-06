@@ -20,7 +20,6 @@ use PHPMailer\PHPMailer\Exception;
 
 use App\Agenda_tb;
 use App\Berita_tb;
-use App\Dta_kaban_event;
 use App\Emp_data;
 use App\Glo_arsip_kategori;
 use App\Glo_tujuan_kehadiran;
@@ -32,6 +31,8 @@ use App\Internal_info;
 use App\Internal_kehadiran;
 use App\Internal_responsehadir;
 use App\Sec_menu;
+
+use App\Models11\Dta_kaban_event;
 
 session_start();
 
