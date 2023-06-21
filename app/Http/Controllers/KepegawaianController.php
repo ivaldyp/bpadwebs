@@ -95,7 +95,10 @@ class KepegawaianController extends Controller
 		}
 		$_SESSION['notifs'] = $notifs;
 
-		$units = Glo_org_unitkerja::orderBy('kd_unit')->get();
+		$units = Glo_org_unitkerja::
+                where('sts', 1)
+                ->orderBy('kd_unit')
+                ->get();
 
 		if (is_null($request->kednow)) {
 			$kednow = 'AKTIF';
@@ -185,7 +188,10 @@ class KepegawaianController extends Controller
 
 		$kedudukans = Glo_org_kedemp::get();
 
-		$units = glo_org_unitkerja::orderBy('kd_unit', 'asc')->get();
+		$units = glo_org_unitkerja::
+                where('sts', 1)    
+                ->orderBy('kd_unit', 'asc')
+                ->get();
 
 		return view('pages.bpadkepegawaian.pegawaitambah')
 				->with('id_emp', $id_emp)
@@ -292,7 +298,10 @@ class KepegawaianController extends Controller
 
 		$kedudukans = Glo_org_kedemp::get();
 
-		$units = glo_org_unitkerja::orderBy('kd_unit', 'asc')->get();
+        $units = glo_org_unitkerja::
+                    where('sts', 1)    
+                    ->orderBy('kd_unit', 'asc')
+                    ->get();
 
 		$keluargas = Glo_kel::orderBy('urut')->get();
 
@@ -404,7 +413,10 @@ class KepegawaianController extends Controller
 
 		$kedudukans = Glo_org_kedemp::get();
 
-		$units = glo_org_unitkerja::orderBy('kd_unit', 'asc')->get();
+        $units = glo_org_unitkerja::
+                    where('sts', 1)    
+                    ->orderBy('kd_unit', 'asc')
+                    ->get();
 
 		$keluargas = Glo_kel::orderBy('urut')->get();
 
@@ -1475,7 +1487,9 @@ class KepegawaianController extends Controller
 		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
 		$access = $this->checkAccess($_SESSION['user_data']['idgroup'], $thismenu['ids']);
 
-		$units = glo_org_unitkerja::whereRaw('LEN(kd_unit) = 6')
+		$units = glo_org_unitkerja::
+                whereRaw('LEN(kd_unit) = 6')
+                ->where('sts', 1)
 				->orderBy('kd_unit')
 				->get();
 
@@ -1525,6 +1539,7 @@ class KepegawaianController extends Controller
 		}
 
 		$units = glo_org_unitkerja::whereRaw('LEN(kd_unit) = 6')
+                ->where('sts', 1)
 				->orderBy('kd_unit')
 				->get();
 
@@ -1551,7 +1566,9 @@ class KepegawaianController extends Controller
 		}
 		//$this->checkSessionTime();
 
-		$units = glo_org_unitkerja::whereRaw('LEN(kd_unit) = 6')
+		$units = glo_org_unitkerja::
+                whereRaw('LEN(kd_unit) = 6')
+                ->where('sts, 1')
 				->orderBy('kd_unit')
 				->get();
 
