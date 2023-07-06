@@ -26,13 +26,13 @@
 			<div class="col-md-4 col-md-offset-4">
                 <div class="number number-modal" data-toggle="modal" data-target="#modal-es" data-kd_unit="{{ $es2['kd_unit'] }}">
                     <img src="{{ config('app.openfileimgdefault') }}" style="width: 65%" alt="img">
-                    {{-- @if( file_exists(config('app.savefileimgpejabat') . "\\" . $es2['kd_unit'] . ".jpg") ) 
+                    @if( file_exists(config('app.savefileimgpejabat') . "\\" . $es2['kd_unit'] . ".jpg") ) 
                     <img src="{{ config('app.openfileimgpejabat') }}{{  $es2['kd_unit'] }}.jpg" style="width: 75%" alt="img" class="thumb-lg img-circle">
                     @elseif(file_exists(config('app.savefileimg') . "\\" . $es2['id_emp'] . "\\profil\\" . $es2['foto']))
                     <img src="{{ config('app.openfileimg') }}/{{ $es2['id_emp'] }}/profil/{{ $es2['foto'] }}" style="width: 65%" alt="img">
                     @else
                     <img src="{{ config('app.openfileimgdefault') }}" style="width: 65%" alt="img">
-                    @endif --}}
+                    @endif
                     <!-- <i class="fa fa-smile-o"></i> -->
                     <h4>{{ strtoupper($es2['nm_emp']) }} <br> <span class="text-muted">{{ $es2['notes'] }}</span> </h4>
                     <!-- <span>eDokumen</span> -->
