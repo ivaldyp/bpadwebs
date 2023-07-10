@@ -25,8 +25,8 @@
             <!-- section title -->
 			<div class="col-md-4 col-md-offset-4">
                 <div class="number number-modal" data-toggle="modal" data-target="#modal-es" data-kd_unit="{{ $es2['kd_unit'] }}">
-                    @if( file_exists(config('app.savefileimgpejabat') . "\\" . $es2['kd_unit'] . ".jpg") ) 
-                    <img src="{{ config('app.openfileimgpejabat') }}{{  $es2['kd_unit'] }}.jpg" style="width: 75%" alt="img" class="thumb-lg img-circle">
+                    @if( file_exists(config('app.savefileimg') . "\\" . $es2['id_emp'] . "\\pejabat\\" . $es2['foto_pejabat']) ) 
+                    <img src="{{ config('app.openfileimg') }}/{{ $es2['id_emp'] }}/pejabat/{{ $es2['foto_pejabat'] }}" style="width: 75%" alt="img" class="thumb-lg img-circle">
                     @elseif(file_exists(config('app.savefileimg') . "\\" . $es2['id_emp'] . "\\profil\\" . $es2['foto']))
                     <img src="{{ config('app.openfileimg') }}/{{ $es2['id_emp'] }}/profil/{{ $es2['foto'] }}" style="width: 65%" alt="img">
                     @else
@@ -60,8 +60,8 @@
                 @endif
                 <div class="col-md-3">
                     <div class="number number-modal" data-toggle="modal" data-target="#modal-es" data-kd_unit="{{ $data['kd_unit'] }}">
-                        @if( file_exists(config('app.savefileimgpejabat') . "\\" . $data['kd_unit'] . ".jpg") ) 
-                        <img src="{{ config('app.openfileimgpejabat') }}{{  $data['kd_unit'] }}.jpg" style="width: 75%" alt="img" class="thumb-lg img-circle">
+                        @if( file_exists(config('app.savefileimg') . "\\" . $data['id_emp'] . "\\pejabat\\" . $data['foto_pejabat']) ) 
+                        <img src="{{ config('app.openfileimg') }}/{{ $data['id_emp'] }}/pejabat/{{ $data['foto_pejabat'] }}" style="width: 75%" alt="img" class="thumb-lg img-circle">
                         @elseif(file_exists(config('app.savefileimg') . "\\" . $data['id_emp'] . "\\profil\\" . $data['foto']))
                         <img src="{{ config('app.openfileimg') }}/{{ $data['id_emp'] }}/profil/{{ $data['foto'] }}" style="width: 65%" alt="img">
                         @else
@@ -110,8 +110,8 @@
                 
                 <div class="col-md-2">
                     <div class="number number-modal" data-toggle="modal" data-target="#modal-es" data-kd_unit="{{ $data['kd_unit'] }}"> 
-                        @if( file_exists(config('app.savefileimgpejabat') . "\\" . $data['kd_unit'] . ".jpg") ) 
-                        <img src="{{ config('app.openfileimgpejabat') }}{{  $data['kd_unit'] }}.jpg" style="width: 75%" alt="img" class="thumb-lg img-circle">
+                        @if( file_exists(config('app.savefileimg') . "\\" . $data['id_emp'] . "\\pejabat\\" . $data['foto_pejabat']) ) 
+                        <img src="{{ config('app.openfileimg') }}/{{ $data['id_emp'] }}/pejabat/{{ $data['foto_pejabat'] }}" style="width: 75%" alt="img" class="thumb-lg img-circle">
                         @elseif(file_exists(config('app.savefileimg') . "\\" . $data['id_emp'] . "\\profil\\" . $data['foto']))
                         <img src="{{ config('app.openfileimg') }}/{{ $data['id_emp'] }}/profil/{{ $data['foto'] }}" style="width: 65%" alt="img">
                         @else
