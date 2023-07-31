@@ -1839,8 +1839,8 @@ class ProfilController extends Controller
 		if (isset($request->filefiles)) {
 			$file = $request->filefiles;
 
-			if ($file->getSize() > 555555) {
-				return redirect('/profil/pegawai')->with('message', 'Ukuran file terlalu besar (Maksimal 500KB)');     
+			if ($file->getSize() > 1111111) {
+				return redirect('/profil/pegawai')->with('message', 'Ukuran file terlalu besar (Maksimal 1MB)');     
 			}
 
 			if (strtolower($file->getClientOriginalExtension()) != "png" && strtolower($file->getClientOriginalExtension()) != "jpg" && strtolower($file->getClientOriginalExtension()) != "jpeg" && strtolower($file->getClientOriginalExtension()) != "pdf") {
