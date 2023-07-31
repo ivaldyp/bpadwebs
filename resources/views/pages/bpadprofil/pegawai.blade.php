@@ -2548,7 +2548,7 @@
 								</div>
 
                                 <div class="form-group ">
-									<label for="filefiles" class="col-lg-2 control-label"> Upload File <br> <span style="font-size: 12px; color:red">Size Max 500KB <br>File PDF / JPG / JPEG / PNG</span> </label>
+									<label for="filefiles" class="col-lg-2 control-label"> Upload File <br> <span style="font-size: 12px; color:red">Size Max 1MB <br>File PDF / JPG / JPEG / PNG</span> </label>
 									<div class="col-lg-8">
 										<input type="file" class="form-control" id="modal_insert_file_files" name="filefiles">
 									</div>
@@ -2597,7 +2597,7 @@
 								</div>
 
                                 <div class="form-group ">
-									<label for="filefiles" class="col-lg-2 control-label"> Upload File <br> <span style="font-size: 12px; color:red">Size Max 500KB</span> </label>
+									<label for="filefiles" class="col-lg-2 control-label"> Upload File <br> <span style="font-size: 12px; color:red">Size Max 1MB</span> </label>
 									<div class="col-lg-8">
 										<input type="file" class="form-control" id="modal_update_file_files" name="filefiles">
 									</div>
