@@ -1770,19 +1770,6 @@ class ProfilController extends Controller
 		$id_emp = $_SESSION['user_data']['id_emp'];
 		$filefiles = '';
 
-		$insert_emp_files = [
-				// BERKAS LAIN
-				'sts'       => 1,
-				'tgl'       => date('Y-m-d H:i:s'),
-				'uname'     => (Auth::user()->usname ? Auth::user()->usname : Auth::user()->id_emp),
-				'noid'      => $id_emp,
-				'file_nama'   => $request->file_nama,
-				'file_nomor'   => $request->file_nomor,
-				'file_tahun'   => $request->file_tahun,
-			];
-
-		$nowid = Emp_files::insertGetId($insert_emp_files);
-
 		// (IDENTITAS) cek dan set variabel untuk file foto pegawai
 		if (isset($request->filefiles)) {
 			
@@ -1796,7 +1783,7 @@ class ProfilController extends Controller
 				return redirect('/profil/pegawai')->with('message', 'File yang diunggah harus berbentuk PDF / JPG / JPEG / PNG');     
 			}
 
-			$filefiles .= $nowid . "_" . $id_emp . ".". $file->getClientOriginalExtension();
+			$filefiles .= date('Ymdhis') . "_" . $id_emp . ".". $file->getClientOriginalExtension();
 
 			$tujuan_upload = config('app.savefileimg');
 			$tujuan_upload .= "\\" . $id_emp . "\\files\\";
@@ -1812,6 +1799,19 @@ class ProfilController extends Controller
 			$filefiles = '';
 		}
 
+        $insert_emp_files = [
+            // BERKAS LAIN
+            'sts'       => 1,
+            'tgl'       => date('Y-m-d H:i:s'),
+            'uname'     => (Auth::user()->usname ? Auth::user()->usname : Auth::user()->id_emp),
+            'noid'      => $id_emp,
+            'file_nama'   => $request->file_nama,
+            'file_nomor'   => $request->file_nomor,
+            'file_tahun'   => $request->file_tahun,
+        ];
+
+        $nowid = Emp_files::insertGetId($insert_emp_files);
+
 		if ($filefiles != '') {
 			Emp_files::where('noid', $id_emp)
 			->where('ids', $nowid)
@@ -1819,7 +1819,6 @@ class ProfilController extends Controller
 				'file_save' => $filefiles,
 			]);
 		}
-		
 
 		return redirect('/profil/pegawai')
 					->with('message', 'Data Berkas Lainnya berhasil ditambah')
@@ -1847,7 +1846,7 @@ class ProfilController extends Controller
 				return redirect('/profil/pegawai')->with('message', 'File yang diunggah harus berbentuk PDF / JPG / JPEG / PNG');     
 			}
 
-			$filefiles .= $request->ids . "_" . $id_emp . ".". $file->getClientOriginalExtension();
+			$filefiles .= date('Ymdhis') . "_" . $id_emp . ".". $file->getClientOriginalExtension();
 
 			$tujuan_upload = config('app.savefileimg');
 			$tujuan_upload .= "\\" . $id_emp . "\\files\\";
