@@ -74,6 +74,7 @@
                         <button class="accordion"><span style="font-weight: bold;">Laporan Keuangan BPAD</span></button>
                         <div class="panel">
                             <ul>
+                                <li><a target="_blank" href="https://drive.google.com/file/d/1AQb2L-eSnTztauITrReqx2XPY7rz-Bv6/view?usp=sharing">Laporan Keuangan BPAD Tahun 2022</a></li>
                                 <li><a target="_blank" href="https://drive.google.com/file/d/1Cs02OOps4bXc14JBLmmm08gmrlGnCHYx/view?usp=share_link">Laporan Keuangan BPAD Tahun 2021</a></li>
                             </ul>
                         </div>
