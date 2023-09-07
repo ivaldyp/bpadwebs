@@ -2649,7 +2649,7 @@ class KepegawaianController extends Controller
 		if($esecheck == '23') {
 			$employees = DB::select( DB::raw("  
 						SELECT id_emp, 
-                        -- email_emp, 
+                        email_emp, 
                         nrk_emp, nip_emp, gelar_dpn, gelar_blk, nm_emp, sk_cpns, sk_pns, karpeg, nik_emp, a.idgroup as idgroup, alamat_emp, status_nikah, gol_darah, idagama, tlp_emp, tempat_lahir, tgl_lahir, jnkel_emp, tgl_join, status_emp, nm_bank, cb_bank, an_bank, nr_bank, no_taspen, npwp, no_askes, no_jamsos, 
 						tbjab.idjab, tbjab.idunit, tbjab.tmt_jab, tbjab.no_sk_jab, tbjab.tmt_sk_jab, tbjab.gambar as jabgambar, 
                         CASE
@@ -2676,7 +2676,7 @@ class KepegawaianController extends Controller
 		} else {
 			$employees = DB::select( DB::raw("  
 						SELECT id_emp, 
-                        -- email_emp, 
+                        email_emp, 
                         nrk_emp, nip_emp, gelar_dpn, gelar_blk, nm_emp, sk_cpns, sk_pns, karpeg, nik_emp, a.idgroup as idgroup, alamat_emp, status_nikah, gol_darah, idagama, tlp_emp, tempat_lahir, tgl_lahir, jnkel_emp, tgl_join, status_emp, nm_bank, cb_bank, an_bank, nr_bank, no_taspen, npwp, no_askes, no_jamsos, 
 						tbjab.idjab, tbjab.idunit, tbjab.tmt_jab, tbjab.no_sk_jab, tbjab.tmt_sk_jab, tbjab.gambar as jabgambar, 
                         CASE
@@ -2756,7 +2756,7 @@ class KepegawaianController extends Controller
 		$sheet->setCellValue($alphabet[$alpnum].'5', 'TEMPAT LAHIR'); $alpnum++;
 		$sheet->setCellValue($alphabet[$alpnum].'5', 'TGL LAHIR'); $alpnum++;
 		$sheet->setCellValue($alphabet[$alpnum].'5', 'ALAMAT'); $alpnum++;
-		// $sheet->setCellValue($alphabet[$alpnum].'5', 'EMAIL'); $alpnum++;
+		$sheet->setCellValue($alphabet[$alpnum].'5', 'EMAIL'); $alpnum++;
         $sheet->setCellValue($alphabet[$alpnum].'5', 'TELP'); $alpnum++;
 		$sheet->setCellValue($alphabet[$alpnum].'5', 'AGAMA'); $alpnum++;
 		$sheet->setCellValue($alphabet[$alpnum].'5', 'JNS KELAMIN'); $alpnum++;
@@ -2881,10 +2881,10 @@ class KepegawaianController extends Controller
 				$sheet->getStyle($alphabet[$alpnum].$nowrow)->applyFromArray($colorArrayEmpty);
 			}
 			$sheet->setCellValue($alphabet[$alpnum].$nowrow, $employee['alamat_emp'] && $employee['alamat_emp'] != '' && $employee['alamat_emp'] != '-' ? $employee['alamat_emp'] : '#EMPTY'); $alpnum++;
-			// if(is_null($employee['email_emp']) || $employee['email_emp'] == '') {
-			// 	$sheet->getStyle($alphabet[$alpnum].$nowrow)->applyFromArray($colorArrayEmpty);
-			// }
-			// $sheet->setCellValue($alphabet[$alpnum].$nowrow, $employee['email_emp'] && $employee['email_emp'] != '' && $employee['email_emp'] != '-' ? $employee['email_emp'] : '#EMPTY'); $alpnum++;
+			if(is_null($employee['email_emp']) || $employee['email_emp'] == '') {
+				$sheet->getStyle($alphabet[$alpnum].$nowrow)->applyFromArray($colorArrayEmpty);
+			}
+			$sheet->setCellValue($alphabet[$alpnum].$nowrow, $employee['email_emp'] && $employee['email_emp'] != '' && $employee['email_emp'] != '-' ? $employee['email_emp'] : '#EMPTY'); $alpnum++;
 			if(is_null($employee['tlp_emp']) || $employee['tlp_emp'] == '') {
 				$sheet->getStyle($alphabet[$alpnum].$nowrow)->applyFromArray($colorArrayEmpty);
 			}
