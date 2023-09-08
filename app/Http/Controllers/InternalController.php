@@ -33,6 +33,7 @@ use App\Internal_responsehadir;
 use App\Sec_menu;
 
 use App\Models11\Dta_kaban_event;
+use App\Models11\Dta_kaban_event_qr;
 
 session_start();
 
@@ -1395,20 +1396,72 @@ class InternalController extends Controller
 		$thismenu = Sec_menu::where('urlnew', $currentpath)->first('ids');
 		$access = $this->checkAccess($_SESSION['user_data']['idgroup'], $thismenu['ids']);
 
+        if ($request->yearnow) {
+			$yearnow = (int)$request->yearnow;
+		} else {
+			$yearnow = (int)date('Y');
+		}
+
+		// if ($request->monthnow) {
+		// 	$monthnow = (int)$request->monthnow;
+		// } else {
+		// 	$monthnow = (int)date('m');
+		// }
+
+        $distinctyear = DB::connection('server12')->table('bpadmaster.dbo.glo_periode_rekon')
+                    ->selectRaw('DISTINCT(tahun)')
+                    ->orderBy('tahun', 'desc')
+                    ->get();    
+
         $units = Glo_org_unitkerja::
                     where('sts', 1)
                     ->whereRaw('LEN(kd_unit) = 6')
                     ->orderBy('kd_unit')
                     ->get();
 
-        $events = Dta_kaban_event::where('sts', 1)
-                    ->orderBy('datetime', 'desc')
-                    ->get();
+        $today = date('Y-m-d');
+
+        $events_today = DB::connection('server12')->table('bpadmobile.dbo.dta_kaban_event AS agenda')->select([
+                            'agenda.*',
+                            'qr.*',
+                        ])
+                        ->LeftJoin('bpadmobile.dbo.dta_kaban_event_qr AS qr', 'agenda.ids', '=', 'qr.id_agenda')
+                        ->where('agenda.sts', 1)
+                        ->whereDate('agenda.datetime', "=", $today)
+                        ->orderBy('agenda.datetime', 'desc')
+                        ->get();
+        $events_today = json_decode(json_encode($events_today), true);
+
+        $events_besok = DB::connection('server12')->table('bpadmobile.dbo.dta_kaban_event AS agenda')->select([
+                            'agenda.*',
+                            'qr.*',
+                        ])
+                        ->LeftJoin('bpadmobile.dbo.dta_kaban_event_qr AS qr', 'agenda.ids', '=', 'qr.id_agenda')
+                        ->where('agenda.sts', 1)
+                        ->whereDate('agenda.datetime', ">", $today)
+                        ->orderBy('agenda.datetime', 'desc')
+                        ->get();
+        $events_besok = json_decode(json_encode($events_besok), true);
+
+        $events_kemarin = DB::connection('server12')->table('bpadmobile.dbo.dta_kaban_event AS agenda')->select([
+                            'agenda.*',
+                            'qr.*',
+                        ])
+                        ->LeftJoin('bpadmobile.dbo.dta_kaban_event_qr AS qr', 'agenda.ids', '=', 'qr.id_agenda')
+                        ->where('agenda.sts', 1)
+                        ->whereDate('agenda.datetime', "<", $today)
+                        ->orderBy('agenda.datetime', 'desc')
+                        ->get();
+        $events_kemarin = json_decode(json_encode($events_kemarin), true);
 
         return view('pages.bpadinternal.kaban-event')
         ->with('access', $access)
         ->with('units', $units)
-        ->with('events', $events);
+	    ->with('yearnow', $yearnow)
+	    ->with('distinctyear', $distinctyear)
+        ->with('events_today', $events_today)
+        ->with('events_besok', $events_besok)
+        ->with('events_kemarin', $events_kemarin);
     }
 
     public function forminsertagendakaban(Request $request)
@@ -1463,8 +1516,47 @@ class InternalController extends Controller
             'sts' => 0,
         ]);
 
+        Dta_kaban_event_qr::
+        where('id_agenda', $request->ids)
+        ->delete();
+
         return redirect('/internal/agenda-kaban')
 				->with('message', 'Agenda tersebut berhasil dihapus')
+				->with('msg_num', 1);
+    }
+
+    public function formgenerateagendakaban(Request $request)
+    {
+        if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+
+        $getagenda = Dta_kaban_event::where('ids', $request->ids)->first();
+
+        $seed = str_split('abcdefghijklmnopqrstuvwxyz'
+                        .'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+                        .'0123456789!@#$%^&*()'); // and any other characters
+                shuffle($seed); // probably optional since array_is randomized; this may be redundant
+                $rand = '';
+                foreach (array_rand($seed, 16) as $k) $rand .= $seed[$k];
+
+        $longtext = date('m', strtotime($getagenda['datetime'])) . date('d', strtotime($getagenda['datetime'])) . $rand . "absen" . date('Y', strtotime($getagenda['datetime']));
+        
+        $insertqragenda = [
+			'longtext'          => $longtext,
+			'nama_kegiatan'     => $getagenda['event_name'],
+			'start_datetime'    => $getagenda['datetime'],
+			'end_datetime'      => date('Y-m-d', strtotime($getagenda['datetime'])) . " 23:59",
+			'createdate'        => date('Y-m-d H:i:s'),
+			'active'            => 1,
+			'sts'            => 1,
+			'id_agenda'         => $getagenda['ids'],
+		];
+
+        Dta_kaban_event_qr::insert($insertqragenda);
+
+        return redirect('/internal/agenda-kaban')
+				->with('message', 'QR Code untuk agenda tersebut berhasil dibuat')
 				->with('msg_num', 1);
     }
 

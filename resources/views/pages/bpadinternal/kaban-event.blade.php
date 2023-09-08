@@ -83,6 +83,18 @@
 						<div class="panel-heading">Agenda Kepala Badan BPAD</div>
 						<div class="panel-wrapper collapse in">
 							<div class="panel-body">
+                                <div class="row" style="margin-bottom: 10px">
+									<form method="GET" action="/portal/internal/agenda-kaban">
+										<div class=" col-md-2">
+											<?php date_default_timezone_set('Asia/Jakarta'); ?>
+											<select class="form-control" name="yearnow" id="yearnow" onchange="this.form.submit()">
+												@foreach($distinctyear as $key => $year)
+												<option <?php if ($yearnow == $year->tahun): ?> selected <?php endif ?> value="{{ $year->tahun }}">{{ $year->tahun }}</option>
+												@endforeach
+											</select>
+										</div>
+									</form>
+								</div>
                                 @if ($access['zadd'] == 'y')
                                 <div class="row " style="margin-bottom: 10px">
 									<div class="col-md-2">
@@ -90,67 +102,231 @@
 									</div>
 								</div>
                                 @endif
-								<div class="row">
-									<div class="table-responsive">
-										<table class="myTable table table-hover table-striped table-compact">
-											<thead>
-												<tr>
-													<th>No</th>
-													<th>Waktu</th>
-													<th>Kegiatan</th>
-													<th>No Surat</th>
-													<th>Asal Surat</th>
-													<th>Unit Tujuan</th>
-													<th>Lokasi</th>
-													<th>Ket</th>
-                                                    @if($access['zupd'] == 'y' || $access['zdel'] == 'y')
-													<th>Action</th>
-                                                    @endif
-												</tr>
-											</thead>
-											<tbody>
-                                                @foreach($events as $key => $event)
-                                                <tr>
-                                                    <td class="ver-align-mid">{{ $key+1 }}</td>
-                                                    <td class="ver-align-mid">
-                                                        {{ $event['datetime'] ? date('d-M-Y', strtotime($event['datetime'])) : '-'  }}
-                                                        <br>
-                                                        {{ $event['datetime'] ? date('H:i', strtotime($event['datetime'])) : '-'  }}
-                                                    </td>
-                                                    <td class="ver-align-mid">{{ $event['event_name'] }}</td>
-                                                    <td class="ver-align-mid">{{ $event['event_number'] }}</td>
-                                                    <td class="ver-align-mid">{{ $event['event_from'] }}</td>
-                                                    <td class="ver-align-mid">
-                                                        @php 
-                                                            $arr_unit = explode("::", $event['nm_unit']);
-                                                        @endphp
-                                                        @if(count($arr_unit) > 1)
-                                                            <ol style="padding-left: 20px;">
-                                                            @foreach($arr_unit as $unit)
-                                                                <li>{{ $unit }}</li>
-                                                            @endforeach
-                                                            </ol>
-                                                        @elseif(count($arr_unit) == 1)
-                                                            {{ $arr_unit[0] }}
-                                                        @endif 
-                                                    </td>
-                                                    <td class="ver-align-mid">{{ $event['location'] }}</td>
-                                                    <td class="ver-align-mid">{!! $event['info'] !!}</td>
-                                                    @if($access['zupd'] == 'y' || $access['zdel'] == 'y')
-                                                    <td class="ver-align-mid">
-                                                        <form method="POST" action="/portal/internal/form/hapus-agenda-kaban">
-                                                            @csrf
-                                                            <input type="hidden" name="ids" value="{{ $event['ids'] }}">
-                                                            <button type="button" class="sa-warning btn btn-danger"><i class="fa fa-trash"></i> Delete</button>
-                                                        </form>
-                                                    </td>
-                                                    @endif
-                                                </tr>
-                                                @endforeach
-											</tbody>
-										</table>
-									</div>
-								</div>
+
+                                <ul class="nav customtab nav-tabs" role="tablist" style="margin-bottom: 30px;">
+                                    <li role="presentation" class=""><a href="#kemarin" aria-controls="kemarin" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs"><i class="ti-email"></i></span> <span class="hidden-xs">Sudah Lewat ({{ count($events_kemarin) }})</span></a></li>
+                                    <li role="presentation" class="active"><a href="#today" aria-controls="today" role="tab" data-toggle="tab" aria-expanded="true"><span class="visible-xs"><i class="ti-home"></i></span><span class="hidden-xs">Agenda Hari Ini ({{ count($events_today) }})</span></a></li>
+                                    <li role="presentation" class=""><a href="#besok" aria-controls="besok" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs"><i class="ti-user"></i></span> <span class="hidden-xs">Akan Datang ({{ count($events_besok) }})</span></a></li>
+                                </ul>
+
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane active" id="today">
+                                        <div class="row">
+                                            <div class="table-responsive">
+                                                <table class="myTable table table-hover table-striped table-compact">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>No</th>
+                                                            <th>Waktu</th>
+                                                            <th>Kegiatan</th>
+                                                            <th>No Surat</th>
+                                                            <th>Asal Surat</th>
+                                                            <th>Unit Tujuan</th>
+                                                            <th>Lokasi</th>
+                                                            <th>Ket</th>
+                                                            @if($access['zupd'] == 'y' || $access['zdel'] == 'y')
+                                                            <th>Action</th>
+                                                            @endif
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach($events_today as $key => $event)
+                                                        <tr>
+                                                            <td class="ver-align-mid">{{ $key+1 }}</td>
+                                                            <td class="ver-align-mid">
+                                                                {{ $event['datetime'] ? date('d-M-Y', strtotime($event['datetime'])) : '-'  }}
+                                                                <br>
+                                                                {{ $event['datetime'] ? date('H:i', strtotime($event['datetime'])) : '-'  }}
+                                                            </td>
+                                                            <td class="ver-align-mid">{{ $event['event_name'] }}</td>
+                                                            <td class="ver-align-mid">{{ $event['event_number'] }}</td>
+                                                            <td class="ver-align-mid">{{ $event['event_from'] }}</td>
+                                                            <td class="ver-align-mid">
+                                                                @php 
+                                                                    $arr_unit = explode("::", $event['nm_unit']);
+                                                                @endphp
+                                                                @if(count($arr_unit) > 1)
+                                                                    <ol style="padding-left: 20px;">
+                                                                    @foreach($arr_unit as $unit)
+                                                                        <li>{{ $unit }}</li>
+                                                                    @endforeach
+                                                                    </ol>
+                                                                @elseif(count($arr_unit) == 1)
+                                                                    {{ $arr_unit[0] }}
+                                                                @endif 
+                                                            </td>
+                                                            <td class="ver-align-mid">{{ $event['location'] }}</td>
+                                                            <td class="ver-align-mid">{!! $event['info'] !!}</td>
+                                                            @if($access['zupd'] == 'y' || $access['zdel'] == 'y')
+                                                            <td class="ver-align-mid">
+                                                                @if(is_null($event['longtext']))
+                                                                <form method="POST" action="/portal/internal/form/generate-agenda-kaban">
+                                                                    @csrf
+                                                                    <input type="hidden" name="ids" value="{{ $event['ids'] }}">
+                                                                    <button type="submit" style="margin-bottom: 10px;" class="btn btn-info"><i class="fa fa-qrcode"></i> Generate QRCode</button>
+                                                                </form>
+                                                                @else
+                                                                <button class="btn btn-success btn-qr" style="margin-bottom: 10px" data-toggle="modal" data-target="#modal-qr" data-kegiatan="{{ $event['event_name'] }}" data-longtext="{{ $event['longtext'] }}">Lihat QRCode</button>
+                                                                @endif
+                                                                <form method="POST" action="/portal/internal/form/hapus-agenda-kaban">
+                                                                    @csrf
+                                                                    <input type="hidden" name="ids" value="{{ $event['ids'] }}">
+                                                                    <button type="button" class="sa-warning btn btn-danger"><i class="fa fa-trash"></i> Delete</button>
+                                                                </form>
+                                                            </td>
+                                                            @endif
+                                                        </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="kemarin">
+                                        <div class="row">
+                                            <div class="table-responsive">
+                                                <table class="myTable table table-hover table-striped table-compact">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>No</th>
+                                                            <th>Waktu</th>
+                                                            <th>Kegiatan</th>
+                                                            <th>No Surat</th>
+                                                            <th>Asal Surat</th>
+                                                            <th>Unit Tujuan</th>
+                                                            <th>Lokasi</th>
+                                                            <th>Ket</th>
+                                                            @if($access['zupd'] == 'y' || $access['zdel'] == 'y')
+                                                            <th>Action</th>
+                                                            @endif
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach($events_kemarin as $key => $event)
+                                                        <tr>
+                                                            <td class="ver-align-mid">{{ $key+1 }}</td>
+                                                            <td class="ver-align-mid">
+                                                                {{ $event['datetime'] ? date('d-M-Y', strtotime($event['datetime'])) : '-'  }}
+                                                                <br>
+                                                                {{ $event['datetime'] ? date('H:i', strtotime($event['datetime'])) : '-'  }}
+                                                            </td>
+                                                            <td class="ver-align-mid">{{ $event['event_name'] }}</td>
+                                                            <td class="ver-align-mid">{{ $event['event_number'] }}</td>
+                                                            <td class="ver-align-mid">{{ $event['event_from'] }}</td>
+                                                            <td class="ver-align-mid">
+                                                                @php 
+                                                                    $arr_unit = explode("::", $event['nm_unit']);
+                                                                @endphp
+                                                                @if(count($arr_unit) > 1)
+                                                                    <ol style="padding-left: 20px;">
+                                                                    @foreach($arr_unit as $unit)
+                                                                        <li>{{ $unit }}</li>
+                                                                    @endforeach
+                                                                    </ol>
+                                                                @elseif(count($arr_unit) == 1)
+                                                                    {{ $arr_unit[0] }}
+                                                                @endif 
+                                                            </td>
+                                                            <td class="ver-align-mid">{{ $event['location'] }}</td>
+                                                            <td class="ver-align-mid">{!! $event['info'] !!}</td>
+                                                            @if($access['zupd'] == 'y' || $access['zdel'] == 'y')
+                                                            <td class="ver-align-mid">
+                                                                @if(is_null($event['longtext']))
+                                                                <form method="POST" action="/portal/internal/form/generate-agenda-kaban">
+                                                                    @csrf
+                                                                    <input type="hidden" name="ids" value="{{ $event['ids'] }}">
+                                                                    <button type="submit" style="margin-bottom: 10px;" class="btn btn-info"><i class="fa fa-qrcode"></i> Generate QRCode</button>
+                                                                </form>
+                                                                @else
+                                                                <button class="btn btn-success btn-qr" style="margin-bottom: 10px" data-toggle="modal" data-target="#modal-qr" data-kegiatan="{{ $event['event_name'] }}" data-longtext="{{ $event['longtext'] }}">Lihat QRCode</button>
+                                                                @endif
+                                                                <form method="POST" action="/portal/internal/form/hapus-agenda-kaban">
+                                                                    @csrf
+                                                                    <input type="hidden" name="ids" value="{{ $event['ids'] }}">
+                                                                    <button type="button" class="sa-warning btn btn-danger"><i class="fa fa-trash"></i> Delete</button>
+                                                                </form>
+                                                            </td>
+                                                            @endif
+                                                        </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="besok">
+                                        <div class="row">
+                                            <div class="table-responsive">
+                                                <table class="myTable table table-hover table-striped table-compact">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>No</th>
+                                                            <th>Waktu</th>
+                                                            <th>Kegiatan</th>
+                                                            <th>No Surat</th>
+                                                            <th>Asal Surat</th>
+                                                            <th>Unit Tujuan</th>
+                                                            <th>Lokasi</th>
+                                                            <th>Ket</th>
+                                                            @if($access['zupd'] == 'y' || $access['zdel'] == 'y')
+                                                            <th>Action</th>
+                                                            @endif
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach($events_besok as $key => $event)
+                                                        <tr>
+                                                            <td class="ver-align-mid">{{ $key+1 }}</td>
+                                                            <td class="ver-align-mid">
+                                                                {{ $event['datetime'] ? date('d-M-Y', strtotime($event['datetime'])) : '-'  }}
+                                                                <br>
+                                                                {{ $event['datetime'] ? date('H:i', strtotime($event['datetime'])) : '-'  }}
+                                                            </td>
+                                                            <td class="ver-align-mid">{{ $event['event_name'] }}</td>
+                                                            <td class="ver-align-mid">{{ $event['event_number'] }}</td>
+                                                            <td class="ver-align-mid">{{ $event['event_from'] }}</td>
+                                                            <td class="ver-align-mid">
+                                                                @php 
+                                                                    $arr_unit = explode("::", $event['nm_unit']);
+                                                                @endphp
+                                                                @if(count($arr_unit) > 1)
+                                                                    <ol style="padding-left: 20px;">
+                                                                    @foreach($arr_unit as $unit)
+                                                                        <li>{{ $unit }}</li>
+                                                                    @endforeach
+                                                                    </ol>
+                                                                @elseif(count($arr_unit) == 1)
+                                                                    {{ $arr_unit[0] }}
+                                                                @endif 
+                                                            </td>
+                                                            <td class="ver-align-mid">{{ $event['location'] }}</td>
+                                                            <td class="ver-align-mid">{!! $event['info'] !!}</td>
+                                                            @if($access['zupd'] == 'y' || $access['zdel'] == 'y')
+                                                            <td class="ver-align-mid">
+                                                                @if(is_null($event['longtext']))
+                                                                <form method="POST" action="/portal/internal/form/generate-agenda-kaban">
+                                                                    @csrf
+                                                                    <input type="hidden" name="ids" value="{{ $event['ids'] }}">
+                                                                    <button type="submit" style="margin-bottom: 10px;" class="btn btn-info"><i class="fa fa-qrcode"></i> Generate QRCode</button>
+                                                                </form>
+                                                                @else
+                                                                <button class="btn btn-success btn-qr" style="margin-bottom: 10px" data-toggle="modal" data-target="#modal-qr" data-kegiatan="{{ $event['event_name'] }}" data-longtext="{{ $event['longtext'] }}">Lihat QRCode</button>
+                                                                @endif
+                                                                <form method="POST" action="/portal/internal/form/hapus-agenda-kaban">
+                                                                    @csrf
+                                                                    <input type="hidden" name="ids" value="{{ $event['ids'] }}">
+                                                                    <button type="button" style="margin-bottom: 10px;" class="sa-warning btn btn-danger"><i class="fa fa-trash"></i> Delete</button>
+                                                                </form>
+                                                            </td>
+                                                            @endif
+                                                        </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 							</div>
 						</div>
 					</div>
@@ -254,6 +430,18 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="modal-qr">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <b><h4 id="qr-title" class="modal-title"></h4></b>
+                    </div>
+                    <div class="modal-body">
+                        <div style="text-align: center !important;" id="qrcode"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
 	</div>
 @endsection
 
@@ -280,13 +468,28 @@
 	<script src="{{ ('/portal/ample/js/custom.min.js') }}"></script>
 	<script src="{{ ('/portal/ample/plugins/bower_components/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ ('/portal/ample/plugins/bower_components/custom-select/custom-select.min.js') }}" type="text/javascript"></script>
+    <!-- QRCODE -->
+    <script src="{{ ('/portal/js/jquery-qrcode/jquery-qrcode-master/jquery.qrcode.min.js') }}"></script>
 
 	<script>
 		$(function () {
             $(".select2").select2({
-				allowClear: true,
-			});
+                allowClear: true,
+            });
 
+            $('.btn-qr').on('click', function () {
+				var $el = $(this);      
+				$("#qr-title").empty();
+                $("#qr-title").text($el.data('kegiatan'));
+
+                $("#qrcode").empty();
+                jQuery('#qrcode').qrcode({
+                    width: 500,
+                    height: 500,
+                    text: $el.data('longtext'),
+                });
+			});
+            
             jQuery('.datepicker-autoclose').datepicker({
                 autoclose: true
 				, todayHighlight: true

@@ -307,6 +307,7 @@ Route::group(['prefix' => 'internal'], function () {
     Route::get('/agenda-kaban', 'InternalController@agendakabanall');
     Route::post('/form/tambah-agenda-kaban', 'InternalController@forminsertagendakaban');
     Route::post('/form/hapus-agenda-kaban', 'InternalController@formdeleteagendakaban');
+    Route::post('/form/generate-agenda-kaban', 'InternalController@formgenerateagendakaban');
 });
 
 Route::group(['prefix' => 'kepegawaian'], function () {
@@ -420,6 +421,7 @@ Route::group(['prefix' => 'qrabsen'], function () {
 	Route::post('/form/tambahabsen', 'HiddenController@forminsertqrabsen');
 	Route::post('/form/ubahabsen', 'HiddenController@formupdateqrabsen');
 	Route::post('/form/hapusabsen', 'HiddenController@formdeleteqrabsen');
+	Route::get('/form/newqrabsen', 'HiddenController@formnewqrabsen');
 });
 
 Route::group(['prefix' => 'faq'], function () {

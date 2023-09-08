@@ -84,6 +84,51 @@
                         <div class="panel">
                             <p><a target="_blank" href="https://publik.bapedadki.net/ringkasan_skpd/981/home">Tahun Anggaran 2023</a></p>
                         </div>
+
+                        <!-- 12 -->
+                        <button class="accordion"><span style="font-weight: bold;">LHKPN / LHKASN</span></button>
+                        <div class="panel">
+                            <p><a target="_blank" href="https://ppid.jakarta.go.id/lhkpn">Lihat LHKPN / LHKASN</a></p>
+                        </div>
+                        
+                        <!-- 13 -->
+                        <button class="accordion"><span style="font-weight: bold;">Ringkasan Permohonan Informasi Publik</span></button>
+                        <div class="panel">
+                            <ul>
+                                <li><a target="_blank" href="https://drive.google.com/file/d/1KeGGkVrRrkcFqtT7rS9ssMFrTtDtvH-f/view?usp=sharing">Rekap Permohonan Informasi Publik Tahun 2022</a></li>
+                                <li><a target="_blank" href="https://drive.google.com/file/d/13VthBwruVGG-88rCSnX7uY6DXHTlCL2_/view?usp=sharing">Rekap Permohonan Informasi Publik Tahun 2021</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- 14 -->
+                        <button class="accordion"><span style="font-weight: bold;">Tata Cara Permohonan Informasi Publik</span></button>
+                        <div class="panel">
+                            <p><a target="_blank" href="https://bpad.jakarta.go.id/portal/ppid/infografis">Lihat Tata Cara Permohonan</a></p>
+                        </div>
+
+                        <!-- 15 -->
+                        <button class="accordion"><span style="font-weight: bold;">Tata Cara Pengaduan Penyalahgunaan Wewenang Pejabat BPAD</span></button>
+                        <div class="panel">
+                            <p><a target="_blank" href="https://sipadu.jakarta.go.id/site/panduan-pengguna">Lihat Tata Cara Pengaduan</a></p>
+                        </div>
+
+                        <!-- 16 -->
+                        <button class="accordion"><span style="font-weight: bold;">Informasi Pengadaan Barang dan Jasa Badan Publik</span></button>
+                        <div class="panel">
+                            <p><a target="_blank" href="https://lpse.jakarta.go.id/">Lihat Informasi Pengadaan Barang dan Jasa</a></p>
+                        </div>
+
+                        <!-- 17 -->
+                        <button class="accordion"><span style="font-weight: bold;">Informasi Regulasi yang Sedang Diproses dan Telah Disahkan</span></button>
+                        <div class="panel">
+                            <p><a target="_blank" href="https://jdih.jakarta.go.id/">Lihat Informasi Regulasi</a></p>
+                        </div>
+
+                        <!-- 18 -->
+                        <button class="accordion"><span style="font-weight: bold;">Informasi Ancaman Bencana dan Ancaman Ketertiban Umum</span></button>
+                        <div class="panel">
+                            <p><a target="_blank" href="https://bpbd.jakarta.go.id/">Lihat Informasi Ancaman</a></p>
+                        </div>
                         
                         <!-- 32 -->
                         <button class="accordion"><span style="font-weight: bold;">Surat Keputusan Penetapan PPID BPAD</span></button>
