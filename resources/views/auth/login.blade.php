@@ -75,6 +75,16 @@
     </div>
 </div>
 
+<div id="modal-detail" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <img src="{{ ('/portal/img/popup-image/notif-update-email.jpeg') }}" width="100%">
+            </div>
+        </div>
+    </div>
+</div>
+
 <?php  
     use App\Internal_info;
     use Illuminate\Support\Facades\DB;

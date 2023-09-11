@@ -78,5 +78,15 @@
             @yield('content')
         </main>
     </div>
+
+    <!-- jQuery -->
+	<script src="{{ ('/portal/ample/plugins/bower_components/jquery/dist/jquery.min.js') }}"></script>
+	<!-- Bootstrap Core JavaScript -->
+	<script src="{{ ('/portal/ample/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript">
+        $(window).on('load', function() {
+            $('#modal-detail').modal('show');
+        });
+    </script>
 </body>
 </html>
