@@ -76,7 +76,7 @@
 </div>
 
 <div id="modal-detail" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-body">
                 <img src="{{ ('/portal/img/popup-image/notif-update-email.jpeg') }}" width="100%">
