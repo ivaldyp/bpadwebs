@@ -127,7 +127,34 @@
                         <!-- 18 -->
                         <button class="accordion"><span style="font-weight: bold;">Informasi Ancaman Bencana dan Ancaman Ketertiban Umum</span></button>
                         <div class="panel">
-                            <p><a target="_blank" href="https://bpbd.jakarta.go.id/">Lihat Informasi Ancaman</a></p>
+                            <p><a target="_blank" href="https://bpbd.jakarta.go.id/">Lihat Informasi Bencana</a></p>
+                        </div>
+                        
+                        <!-- 25 -->
+                        <button class="accordion"><span style="font-weight: bold;">Data Aset</span></button>
+                        <div class="panel">
+                            <ul>
+                                <li><a target="_blank" href="https://drive.google.com/drive/folders/1PeeHzbBTTTo5kT0HcLW0R_87KTJqPMMA?usp=sharing">Data Aset BPAD Tahun 2022</a></li>
+                                <li><a target="_blank" href="https://drive.google.com/drive/folders/1rb39mxY4M2KpWUapd1KeBYkF6nhNc9oZ?usp=sharing">Data Aset BPAD Tahun 2021</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- 26 -->
+                        <button class="accordion"><span style="font-weight: bold;">Rencana Strategis BPAD</span></button>
+                        <div class="panel">
+                            <p><a target="_blank" href="https://drive.google.com/drive/folders/1Loy2h8QYnKNwJX5SdRn-HdG-fUFbCNaj?usp=sharing">Lihat Renstra BPAD</a></p>
+                        </div>
+
+                        <!-- 30 -->
+                        <button class="accordion"><span style="font-weight: bold;">Informasi Daftar Penelitian dan Hasil Peneliatan</span></button>
+                        <div class="panel">
+                            <p><a target="_blank" href="https://drdjakarta.id/">Lihat Informasi Penelitian</a></p>
+                        </div>
+
+                        <!-- 31 -->
+                        <button class="accordion"><span style="font-weight: bold;">Portal Pengaduan Warga</span></button>
+                        <div class="panel">
+                            <p><a target="_blank" href="https://crm.jakarta.go.id/portal/">Lihat Portal Pengaduan</a></p>
                         </div>
                         
                         <!-- 32 -->
@@ -139,12 +166,49 @@
                             </ul>
                         </div>
 
+                        <!-- 34 -->
+                        <button class="accordion"><span style="font-weight: bold;">Standar Layanan Operasional (SOP) Layanan Informasi Publik</span></button>
+                        <div class="panel">
+                            <p><a target="_blank" href="https://ppid.jakarta.go.id/sop-ppid">Lihat SOP Layanan Informasi Publik</a></p>
+                        </div>
+
+                        <!-- 38 -->
+                        <button class="accordion"><span style="font-weight: bold;">Standar Layanan Operasional (SOP) Daftar Informasi Dikecualikan</span></button>
+                        <div class="panel">
+                            <p><a target="_blank" href="https://ppid.jakarta.go.id/assets/home/document/Pengujian-Konsekuensi-Informasi-Publik.pdf">Lihat SOP Daftar Informasi Dikecualikan</a></p>
+                        </div>
+
+                        <!-- 40 -->
+                        <button class="accordion"><span style="font-weight: bold;">Hasil Putusan Sidang Ajudikasi Komisi Informasi Provinsi DKI Jakarta</span></button>
+                        <div class="panel">
+                            <p><a target="_blank" href="https://kip.jakarta.go.id/putusan_sidang">Lihat Hasil Putusan Sidang</a></p>
+                        </div>
+
+                        <!-- 41 -->
+                        <button class="accordion"><span style="font-weight: bold;">Standar Biaya dalam Layanan Informasi</span></button>
+                        <div class="panel">
+                            <p><a target="_blank" href="https://ppid.jakarta.go.id/waktu-biaya-layanan">Lihat Standar Biaya Pelayanan Informasi</a></p>
+                        </div>
+
+                        <!-- 42 -->
+                        <button class="accordion"><span style="font-weight: bold;">Website/Situs/Portal Resmi dan Terintegrasi ke jakarta.go.id</span></button>
+                        <div class="panel">
+                            <p><a target="_blank" href="https://bpad.jakarta.go.id/">Lihat Website</a></p>
+                        </div>
+
+                        <!-- 48 -->
+                        <button class="accordion"><span style="font-weight: bold;">Alur Permohonan Informasi Publik</span></button>
+                        <div class="panel">
+                            <p><a target="_blank" href="https://ppid.jakarta.go.id/prosedur-pelayanan-informasi">Lihat Alur Permohonan Informasi Publik</a></p>
+                        </div>
+                        
                         <!-- 51 -->
                         <button class="accordion"><span style="font-weight: bold;">Media Sosial BPAD</span></button>
                         <div class="panel">
                             <ul>
                                 <li><a target="_blank" href="https://twitter.com/BPAD_Jakarta">Twitter BPAD</a></li>
                                 <li><a target="_blank" href="https://www.instagram.com/bpad_jakarta/">Instagram BPAD</a></li>
+                                <li><a target="_blank" href="https://www.facebook.com/BPADJakarta">Facebook BPAD</a></li>
                                 <li><a target="_blank" href="https://www.youtube.com/@asetbpad">Youtube BPAD</a></li>
                             </ul>
                         </div>
