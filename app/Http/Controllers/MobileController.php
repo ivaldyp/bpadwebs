@@ -117,6 +117,7 @@ class MobileController extends Controller
 		
 		$client = new Client();
 		$res = $client->request('GET', $url, [
+            'priority' => 'high',
 			'headers' => [
 				'Content-Type' => 'application/x-www-form-urlencoded',
 			],
@@ -125,6 +126,10 @@ class MobileController extends Controller
 				"message" => $thisnotif['isi'],
 				"image" => $imgurl,	
 				"data" => [
+                    "url" => $imgurl,	
+                    "judul" => $thisnotif['judul'],	
+                    "editor" => "BPAD",	
+                    "tgl_create" => date('Y-m-d H:i'),	
 					"type" => $type,
 					"ids" => $thisnotif['ids'],
 				],
