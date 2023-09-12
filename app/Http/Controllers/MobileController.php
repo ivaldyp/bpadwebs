@@ -101,7 +101,7 @@ class MobileController extends Controller
 
 		$thisnotif = Mob_pushnotif::where('ids', $request->ids)->first();
 
-		// NOTIFIKASI BROADCAST kalau ada DISPOSISI BARU 
+		// NOTIFIKASI BROADCAST kalau ada NOTIFIKASI BARU 
 		$url = "http://10.15.38.80/mobileaset/notif/bulk"; //release
 		// $url = "http://10.15.38.82/mobileasetstaging/notif/bulk"; //staging
 		
@@ -113,7 +113,7 @@ class MobileController extends Controller
 			'form_params' => [
 				"title" => $thisnotif['judul'],
 				"message" => $thisnotif['isi'],
-				"image" => "https://bpad.jakarta.go.id/portal/public/publicimg/mobilenotif/".$thisnotif['img'],	
+				"image" => "https://bpad.jakarta.go.id/portal/publicimg/mobilenotif/".$thisnotif['img'],	
 				"data" => [
 					"type" => "blast",
 					"ids" => $thisnotif['ids'],
