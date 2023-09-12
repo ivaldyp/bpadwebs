@@ -109,7 +109,7 @@ class MobileController extends Controller
 
         if(env('APP_ENV') == 'local') {
             $url = "http://10.15.38.82/mobileaset/notif/bulk"; //staging
-            $imgurl = $thisnotif['img'] == '' ? '' : "localhost/portal/publicimg/mobilenotif/".$thisnotif['img'];
+            $imgurl = $thisnotif['img'] == '' ? '' : "https://bpad.jakarta.go.id/portal/publicimg/mobilenotif/m_notif_20230912122523.jpeg";
         } else {
             $url = "http://10.15.38.80/mobileaset/notif/bulk"; //release
             $imgurl = $thisnotif['img'] == '' ? '' : "https://bpad.jakarta.go.id/portal/publicimg/mobilenotif/".$thisnotif['img'];
