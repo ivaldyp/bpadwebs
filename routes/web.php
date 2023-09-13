@@ -308,6 +308,7 @@ Route::group(['prefix' => 'internal'], function () {
     Route::post('/form/tambah-agenda-kaban', 'InternalController@forminsertagendakaban');
     Route::post('/form/hapus-agenda-kaban', 'InternalController@formdeleteagendakaban');
     Route::post('/form/generate-agenda-kaban', 'InternalController@formgenerateagendakaban');
+    Route::get('/form/export-excel-agenda-bpad', 'InternalController@exportexcelagendabpad');
 });
 
 Route::group(['prefix' => 'kepegawaian'], function () {

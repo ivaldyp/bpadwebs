@@ -104,9 +104,9 @@
                                 @endif
 
                                 <ul class="nav customtab nav-tabs" role="tablist" style="margin-bottom: 30px;">
-                                    <li role="presentation" class=""><a href="#kemarin" aria-controls="kemarin" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs"><i class="ti-email"></i></span> <span class="hidden-xs">Sudah Lewat ({{ count($events_kemarin) }})</span></a></li>
-                                    <li role="presentation" class="active"><a href="#today" aria-controls="today" role="tab" data-toggle="tab" aria-expanded="true"><span class="visible-xs"><i class="ti-home"></i></span><span class="hidden-xs">Agenda Hari Ini ({{ count($events_today) }})</span></a></li>
-                                    <li role="presentation" class=""><a href="#besok" aria-controls="besok" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs"><i class="ti-user"></i></span> <span class="hidden-xs">Akan Datang ({{ count($events_besok) }})</span></a></li>
+                                    <li role="presentation" class=""><a href="#kemarin" aria-controls="kemarin" role="tab" data-toggle="tab" aria-expanded="false"> Sudah Lewat ({{ count($events_kemarin) }})</a></li>
+                                    <li role="presentation" class="active"><a href="#today" aria-controls="today" role="tab" data-toggle="tab" aria-expanded="true">Agenda Hari Ini ({{ count($events_today) }})</a></li>
+                                    <li role="presentation" class=""><a href="#besok" aria-controls="besok" role="tab" data-toggle="tab" aria-expanded="false"> Akan Datang ({{ count($events_besok) }})</a></li>
                                 </ul>
                                 
                                 <div class="tab-content">
@@ -195,6 +195,7 @@
                                                             <th>Lokasi</th>
                                                             <th>Keterangan</th>
                                                             @if($access['zupd'] == 'y' || $access['zdel'] == 'y')
+                                                            <th>Laporan</th>
                                                             <th>Action</th>
                                                             @endif
                                                         </tr>
@@ -226,6 +227,12 @@
                                                             <td class="ver-align-mid">{{ $event['location'] }}</td>
                                                             <td class="ver-align-mid">{!! $event['info'] !!}</td>
                                                             @if($access['zupd'] == 'y' || $access['zdel'] == 'y')
+                                                            <td class="ver-align-mid">
+                                                                <form method="GET" action="/portal/internal/form/export-excel-agenda-bpad">
+                                                                    <input type="hidden" name="longtext" value="{{ $event['longtext'] }}">
+                                                                    <button type="submit" style="margin-bottom: 10px;" class="btn btn-primary"><i class="fa fa-file-excel-o"></i> Excel</button>
+                                                                </form>
+                                                            </td>
                                                             <td class="ver-align-mid">
                                                                 @if(is_null($event['longtext']))
                                                                 <form method="POST" action="/portal/internal/form/generate-agenda-kaban">

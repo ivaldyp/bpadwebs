@@ -34,6 +34,8 @@ use App\Sec_menu;
 
 use App\Models11\Dta_kaban_event;
 use App\Models11\Dta_kaban_event_qr;
+use App\Models11\Dta_kaban_event_save;
+use App\Models11\Dta_kaban_event_staging;
 
 session_start();
 
@@ -1561,6 +1563,21 @@ class InternalController extends Controller
         return redirect('/internal/agenda-kaban')
 				->with('message', 'QR Code untuk agenda tersebut berhasil dibuat')
 				->with('msg_num', 1);
+    }
+
+    public function exportexcelagendabpad (Request $request)
+    {
+        if(count($_SESSION) == 0) {
+			return redirect('home');
+		}
+        $longtext = $request->longtext;
+        $getref = Dta_kaban_event_qr::where('longtext', 'LIKE', $longtext . '%')->first();
+        $tableClass = env('APP_ENV') == 'local' ? Dta_kaban_event_staging::class : Dta_kaban_event_save::class;
+        $getrekapabsen = $tableClass::where('kegiatan', $longtext)->get();
+
+        return view('pages.bpadinternal.kaban-event-excel')
+                ->with('getref', $getref)
+                ->with('getrekapabsen', $getrekapabsen);
     }
 
     // ========== </AGENDA KABAN> ========== //
