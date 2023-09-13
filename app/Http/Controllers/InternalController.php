@@ -1428,6 +1428,7 @@ class InternalController extends Controller
                         ->LeftJoin('bpadmobile.dbo.dta_kaban_event_qr AS qr', 'agenda.ids', '=', 'qr.id_agenda')
                         ->where('agenda.sts', 1)
                         ->whereDate('agenda.datetime', "=", $today)
+                        ->whereRaw('YEAR(agenda.datetime) = '.$yearnow)
                         ->orderBy('agenda.datetime', 'desc')
                         ->get();
         $events_today = json_decode(json_encode($events_today), true);
@@ -1439,7 +1440,8 @@ class InternalController extends Controller
                         ->LeftJoin('bpadmobile.dbo.dta_kaban_event_qr AS qr', 'agenda.ids', '=', 'qr.id_agenda')
                         ->where('agenda.sts', 1)
                         ->whereDate('agenda.datetime', ">", $today)
-                        ->orderBy('agenda.datetime', 'desc')
+                        ->whereRaw('YEAR(agenda.datetime) = '.$yearnow)
+                        ->orderBy('agenda.datetime', 'asc')
                         ->get();
         $events_besok = json_decode(json_encode($events_besok), true);
 
@@ -1450,6 +1452,7 @@ class InternalController extends Controller
                         ->LeftJoin('bpadmobile.dbo.dta_kaban_event_qr AS qr', 'agenda.ids', '=', 'qr.id_agenda')
                         ->where('agenda.sts', 1)
                         ->whereDate('agenda.datetime', "<", $today)
+                        ->whereRaw('YEAR(agenda.datetime) = '.$yearnow)
                         ->orderBy('agenda.datetime', 'desc')
                         ->get();
         $events_kemarin = json_decode(json_encode($events_kemarin), true);

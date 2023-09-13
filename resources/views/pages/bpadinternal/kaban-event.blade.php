@@ -108,7 +108,7 @@
                                     <li role="presentation" class="active"><a href="#today" aria-controls="today" role="tab" data-toggle="tab" aria-expanded="true"><span class="visible-xs"><i class="ti-home"></i></span><span class="hidden-xs">Agenda Hari Ini ({{ count($events_today) }})</span></a></li>
                                     <li role="presentation" class=""><a href="#besok" aria-controls="besok" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs"><i class="ti-user"></i></span> <span class="hidden-xs">Akan Datang ({{ count($events_besok) }})</span></a></li>
                                 </ul>
-
+                                
                                 <div class="tab-content">
                                     <div role="tabpanel" class="tab-pane active" id="today">
                                         <div class="row">
@@ -123,7 +123,7 @@
                                                             <th>Asal Surat</th>
                                                             <th>Unit Tujuan</th>
                                                             <th>Lokasi</th>
-                                                            <th>Ket</th>
+                                                            <th>Keterangan</th>
                                                             @if($access['zupd'] == 'y' || $access['zdel'] == 'y')
                                                             <th>Action</th>
                                                             @endif
@@ -134,9 +134,7 @@
                                                         <tr>
                                                             <td class="ver-align-mid">{{ $key+1 }}</td>
                                                             <td class="ver-align-mid">
-                                                                {{ $event['datetime'] ? date('d-M-Y', strtotime($event['datetime'])) : '-'  }}
-                                                                <br>
-                                                                {{ $event['datetime'] ? date('H:i', strtotime($event['datetime'])) : '-'  }}
+                                                                {{ $event['datetime'] ? date('d-M-Y', strtotime($event['datetime'])) : '-'  }} {{ $event['datetime'] ? date('H:i', strtotime($event['datetime'])) : '-'  }}
                                                             </td>
                                                             <td class="ver-align-mid">{{ $event['event_name'] }}</td>
                                                             <td class="ver-align-mid">{{ $event['event_number'] }}</td>
@@ -195,7 +193,7 @@
                                                             <th>Asal Surat</th>
                                                             <th>Unit Tujuan</th>
                                                             <th>Lokasi</th>
-                                                            <th>Ket</th>
+                                                            <th>Keterangan</th>
                                                             @if($access['zupd'] == 'y' || $access['zdel'] == 'y')
                                                             <th>Action</th>
                                                             @endif
@@ -206,9 +204,7 @@
                                                         <tr>
                                                             <td class="ver-align-mid">{{ $key+1 }}</td>
                                                             <td class="ver-align-mid">
-                                                                {{ $event['datetime'] ? date('d-M-Y', strtotime($event['datetime'])) : '-'  }}
-                                                                <br>
-                                                                {{ $event['datetime'] ? date('H:i', strtotime($event['datetime'])) : '-'  }}
+                                                                {{ $event['datetime'] ? date('d-M-Y', strtotime($event['datetime'])) : '-'  }} {{ $event['datetime'] ? date('H:i', strtotime($event['datetime'])) : '-'  }}
                                                             </td>
                                                             <td class="ver-align-mid">{{ $event['event_name'] }}</td>
                                                             <td class="ver-align-mid">{{ $event['event_number'] }}</td>
@@ -267,7 +263,7 @@
                                                             <th>Asal Surat</th>
                                                             <th>Unit Tujuan</th>
                                                             <th>Lokasi</th>
-                                                            <th>Ket</th>
+                                                            <th>Keterangan</th>
                                                             @if($access['zupd'] == 'y' || $access['zdel'] == 'y')
                                                             <th>Action</th>
                                                             @endif
@@ -278,9 +274,7 @@
                                                         <tr>
                                                             <td class="ver-align-mid">{{ $key+1 }}</td>
                                                             <td class="ver-align-mid">
-                                                                {{ $event['datetime'] ? date('d-M-Y', strtotime($event['datetime'])) : '-'  }}
-                                                                <br>
-                                                                {{ $event['datetime'] ? date('H:i', strtotime($event['datetime'])) : '-'  }}
+                                                                {{ $event['datetime'] ? date('d-M-Y', strtotime($event['datetime'])) : '-'  }} {{ $event['datetime'] ? date('H:i', strtotime($event['datetime'])) : '-'  }}
                                                             </td>
                                                             <td class="ver-align-mid">{{ $event['event_name'] }}</td>
                                                             <td class="ver-align-mid">{{ $event['event_number'] }}</td>
@@ -470,6 +464,14 @@
     <script src="{{ ('/portal/ample/plugins/bower_components/custom-select/custom-select.min.js') }}" type="text/javascript"></script>
     <!-- QRCODE -->
     <script src="{{ ('/portal/js/jquery-qrcode/jquery-qrcode-master/jquery.qrcode.min.js') }}"></script>
+    <!-- start - This is for export functionality only -->
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
 
 	<script>
 		$(function () {
@@ -502,7 +504,32 @@
                 console.log(this.value);
             });
 
-			$('.myTable').DataTable();
+			$('.myTable').DataTable({
+                dom: 'Bfrtip'
+                // , buttons: [
+                //     'copy', 'csv', 'excel', 'pdf', 'print'
+                // ]
+                ,buttons: [
+                    {
+                        extend: 'copyHtml5',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+                        }
+                    },
+                ]
+            });
 		});
 	</script>
 @endsection
