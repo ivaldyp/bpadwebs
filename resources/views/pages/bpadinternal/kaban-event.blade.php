@@ -97,7 +97,27 @@
 											<select class="form-control" name="unitnow" id="unitnow" onchange="this.form.submit()">
 												<option <?php if ($unitnow == NULL) : ?> selected <?php endif ?> value="01">-- SEMUA --</option>
                                                 @foreach($units as $unit)
-												<option <?php if ($unitnow == $unit['kd_unit']): ?> selected <?php endif ?> value="{{ $unit['kd_unit'] }}">{{ $unit['kd_unit'] }}</option>
+												<option <?php if ($unitnow == $unit['kd_unit']): ?> selected <?php endif ?> value="{{ $unit['kd_unit'] }}">{{ $unit['kd_unit'] }} - {{ $unit['nm_unit'] }} 
+                                                    @if ( strlen($unit['kd_unit'] > 2) && substr($unit['kd_unit'], 4, 2) == '51' )
+															[JAKARTA PUSAT]
+														@elseif ( strlen($unit['kd_unit'] > 2) && substr($unit['kd_unit'], 4, 2) == '52' )
+															[JAKARTA UTARA]
+														@elseif ( strlen($unit['kd_unit'] > 2) && substr($unit['kd_unit'], 4, 2) == '53' )
+															[JAKARTA BARAT]
+														@elseif ( strlen($unit['kd_unit'] > 2) && substr($unit['kd_unit'], 4, 2) == '54' )
+															[JAKARTA SELATAN]
+														@elseif ( strlen($unit['kd_unit'] > 2) && substr($unit['kd_unit'], 4, 2) == '55' )
+															[JAKARTA TIMUR]
+														@elseif ( strlen($unit['kd_unit'] > 2) && substr($unit['kd_unit'], 4, 2) == '56' )
+															[KEPULAUAN SERIBU]
+														@elseif ( strlen($unit['kd_unit'] > 2) && substr($unit['kd_unit'], 4, 2) == '06' )
+															[PPBD]
+														@elseif ( strlen($unit['kd_unit'] > 2) && substr($unit['kd_unit'], 4, 2) == '07' )
+															[PUSDATIN ASET]
+														@elseif ( strlen($unit['kd_unit'] > 2) && substr($unit['kd_unit'], 4, 2) == '08' )
+															[UPMA]
+														@endif
+                                                </option>
                                                 @endforeach
 											</select>
 										</div>
