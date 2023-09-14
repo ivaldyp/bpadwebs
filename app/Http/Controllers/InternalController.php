@@ -1404,6 +1404,12 @@ class InternalController extends Controller
 			$yearnow = (int)date('Y');
 		}
 
+        if ($request->unitnow) {
+			$unitnow = $request->unitnow;
+		} else {
+			$unitnow = '01';
+		}
+
 		// if ($request->monthnow) {
 		// 	$monthnow = (int)$request->monthnow;
 		// } else {
@@ -1431,10 +1437,8 @@ class InternalController extends Controller
                         ->where('agenda.sts', 1)
                         ->whereDate('agenda.datetime', "=", $today)
                         ->whereRaw('YEAR(agenda.datetime) = '.$yearnow)
-                        ->orderBy('agenda.datetime', 'desc')
-                        ->get();
-        $events_today = json_decode(json_encode($events_today), true);
-
+                        ->orderBy('agenda.datetime', 'desc');
+        
         $events_besok = DB::connection('server12')->table('bpadmobile.dbo.dta_kaban_event AS agenda')->select([
                             'agenda.*',
                             'qr.*',
@@ -1443,9 +1447,7 @@ class InternalController extends Controller
                         ->where('agenda.sts', 1)
                         ->whereDate('agenda.datetime', ">", $today)
                         ->whereRaw('YEAR(agenda.datetime) = '.$yearnow)
-                        ->orderBy('agenda.datetime', 'asc')
-                        ->get();
-        $events_besok = json_decode(json_encode($events_besok), true);
+                        ->orderBy('agenda.datetime', 'asc');
 
         $events_kemarin = DB::connection('server12')->table('bpadmobile.dbo.dta_kaban_event AS agenda')->select([
                             'agenda.*',
@@ -1455,14 +1457,27 @@ class InternalController extends Controller
                         ->where('agenda.sts', 1)
                         ->whereDate('agenda.datetime', "<", $today)
                         ->whereRaw('YEAR(agenda.datetime) = '.$yearnow)
-                        ->orderBy('agenda.datetime', 'desc')
-                        ->get();
+                        ->orderBy('agenda.datetime', 'desc');
+                        
+
+        if($request->unitnow) {
+            $events_today = $events_today->where('agenda.id_unit', 'like', '%'.$unitnow.'%');
+            $events_besok = $events_besok->where('agenda.id_unit', 'like', '%'.$unitnow.'%');
+            $events_kemarin = $events_kemarin->where('agenda.id_unit', 'like', '%'.$unitnow.'%');
+        }
+
+        $events_today = $events_today->get();
+        $events_today = json_decode(json_encode($events_today), true);
+        $events_besok = $events_besok->get();
+        $events_besok = json_decode(json_encode($events_besok), true);
+        $events_kemarin = $events_kemarin->get();
         $events_kemarin = json_decode(json_encode($events_kemarin), true);
 
         return view('pages.bpadinternal.kaban-event')
         ->with('access', $access)
         ->with('units', $units)
 	    ->with('yearnow', $yearnow)
+	    ->with('unitnow', $unitnow)
 	    ->with('distinctyear', $distinctyear)
         ->with('events_today', $events_today)
         ->with('events_besok', $events_besok)

@@ -93,7 +93,15 @@
 												@endforeach
 											</select>
 										</div>
-									</form>
+										<div class=" col-md-2">
+											<select class="form-control" name="unitnow" id="unitnow" onchange="this.form.submit()">
+												<option <?php if ($unitnow == NULL) : ?> selected <?php endif ?> value="01">-- SEMUA --</option>
+                                                @foreach($units as $unit)
+												<option <?php if ($unitnow == $unit['kd_unit']): ?> selected <?php endif ?> value="{{ $unit['kd_unit'] }}">{{ $unit['kd_unit'] }}</option>
+                                                @endforeach
+											</select>
+										</div>
+                                    </form>
 								</div>
                                 @if ($access['zadd'] == 'y')
                                 <div class="row " style="margin-bottom: 10px">
