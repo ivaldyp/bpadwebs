@@ -153,6 +153,7 @@
                                                             <th>Lokasi</th>
                                                             <th>Keterangan</th>
                                                             @if($access['zupd'] == 'y' || $access['zdel'] == 'y')
+                                                            <th>Laporan</th>
                                                             <th>Action</th>
                                                             @endif
                                                         </tr>
@@ -184,6 +185,12 @@
                                                             <td class="ver-align-mid">{{ $event['location'] }}</td>
                                                             <td class="ver-align-mid">{!! $event['info'] !!}</td>
                                                             @if($access['zupd'] == 'y' || $access['zdel'] == 'y')
+                                                            <td class="ver-align-mid">
+                                                                <form method="GET" action="/portal/internal/form/export-excel-agenda-bpad">
+                                                                    <input type="hidden" name="longtext" value="{{ $event['longtext'] }}">
+                                                                    <button type="submit" style="margin-bottom: 10px;" class="btn btn-primary"><i class="fa fa-file-excel-o"></i> Excel</button>
+                                                                </form>
+                                                            </td>
                                                             <td class="ver-align-mid">
                                                                 @if(is_null($event['longtext']))
                                                                 <form method="POST" action="/portal/internal/form/generate-agenda-kaban">
@@ -300,6 +307,7 @@
                                                             <th>Lokasi</th>
                                                             <th>Keterangan</th>
                                                             @if($access['zupd'] == 'y' || $access['zdel'] == 'y')
+                                                            <th>Laporan</th>
                                                             <th>Action</th>
                                                             @endif
                                                         </tr>
@@ -331,6 +339,12 @@
                                                             <td class="ver-align-mid">{{ $event['location'] }}</td>
                                                             <td class="ver-align-mid">{!! $event['info'] !!}</td>
                                                             @if($access['zupd'] == 'y' || $access['zdel'] == 'y')
+                                                            <td class="ver-align-mid">
+                                                                <form method="GET" action="/portal/internal/form/export-excel-agenda-bpad">
+                                                                    <input type="hidden" name="longtext" value="{{ $event['longtext'] }}">
+                                                                    <button type="submit" style="margin-bottom: 10px;" class="btn btn-primary"><i class="fa fa-file-excel-o"></i> Excel</button>
+                                                                </form>
+                                                            </td>
                                                             <td class="ver-align-mid">
                                                                 @if(is_null($event['longtext']))
                                                                 <form method="POST" action="/portal/internal/form/generate-agenda-kaban">
