@@ -382,7 +382,7 @@
                     <form method="POST" action="{{ url('/internal/form/tambah-agenda-kaban') }}" class="form-horizontal" data-toggle="validator">
                     @csrf
                         <div class="modal-header">
-                            <h4 class="modal-title"><b>Tambah Agenda Kepala Badan BPAD</b></h4>
+                            <h4 class="modal-title"><b>Tambah Kegiatan</b></h4>
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
