@@ -1560,7 +1560,7 @@ class InternalController extends Controller
                 $rand = '';
                 foreach (array_rand($seed, 16) as $k) $rand .= $seed[$k];
 
-        $longtext = date('m', strtotime($getagenda['datetime'])) . date('d', strtotime($getagenda['datetime'])) . $rand . "absen" . date('Y', strtotime($getagenda['datetime']));
+        $longtext = date('m', strtotime($getagenda['datetime'])) . date('d', strtotime($getagenda['datetime'])) . $rand . "absenapelbpad" . date('Y', strtotime($getagenda['datetime']));
         
         $insertqragenda = [
 			'longtext'          => $longtext,
