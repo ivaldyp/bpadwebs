@@ -182,7 +182,7 @@
                 } else {
                     $(' #div-body-es ').append(
                         "<h3>Sejarah Singkat</h3>"+
-                        "<p>"+historypejabat+"</p>"
+                        "<p>"+data.sejarah_pejabat+"</p>"
                     );
                 }
             }).fail(function( res, exception ) {
