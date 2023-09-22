@@ -24,7 +24,7 @@
             </div>
             <!-- section title -->
 			<div class="col-md-4 col-md-offset-4">
-                <div class="number number-modal" data-toggle="modal" data-target="#modal-es" data-kd_unit="{{ $es2['kd_unit'] }}">
+                <div class="number number-modal" data-toggle="modal" data-target="#modal-es" data-kd_unit="{{ $es2['id_emp'] }}">
                     @if( file_exists(config('app.savefileimg') . "\\" . $es2['id_emp'] . "\\pejabat\\" . $es2['foto_pejabat']) ) 
                     <img src="{{ config('app.openfileimg') }}/{{ $es2['id_emp'] }}/pejabat/{{ $es2['foto_pejabat'] }}" style="width: 75%" alt="img" class="thumb-lg img-circle">
                     @elseif(file_exists(config('app.savefileimg') . "\\" . $es2['id_emp'] . "\\profil\\" . $es2['foto']))
@@ -59,7 +59,7 @@
                 <div class="row">
                 @endif
                 <div class="col-md-3">
-                    <div class="number number-modal" data-toggle="modal" data-target="#modal-es" data-kd_unit="{{ $data['kd_unit'] }}">
+                    <div class="number number-modal" data-toggle="modal" data-target="#modal-es" data-kd_unit="{{ $data['id_emp'] }}">
                         @if( file_exists(config('app.savefileimg') . "\\" . $data['id_emp'] . "\\pejabat\\" . $data['foto_pejabat']) ) 
                         <img src="{{ config('app.openfileimg') }}/{{ $data['id_emp'] }}/pejabat/{{ $data['foto_pejabat'] }}" style="width: 75%" alt="img" class="thumb-lg img-circle">
                         @elseif(file_exists(config('app.savefileimg') . "\\" . $data['id_emp'] . "\\profil\\" . $data['foto']))
@@ -109,7 +109,7 @@
                 @endif
                 
                 <div class="col-md-2">
-                    <div class="number number-modal" data-toggle="modal" data-target="#modal-es" data-kd_unit="{{ $data['kd_unit'] }}"> 
+                    <div class="number number-modal" data-toggle="modal" data-target="#modal-es" data-kd_unit="{{ $data['id_emp'] }}"> 
                         @if( file_exists(config('app.savefileimg') . "\\" . $data['id_emp'] . "\\pejabat\\" . $data['foto_pejabat']) ) 
                         <img src="{{ config('app.openfileimg') }}/{{ $data['id_emp'] }}/pejabat/{{ $data['foto_pejabat'] }}" style="width: 75%" alt="img" class="thumb-lg img-circle">
                         @elseif(file_exists(config('app.savefileimg') . "\\" . $data['id_emp'] . "\\profil\\" . $data['foto']))
@@ -178,7 +178,7 @@
                 );
                 $(' #div-body-es ').append(
                     "<h3>Sejarah Singkat</h3>"+
-                    "<p>"+data.unit_history+"</p>"
+                    "<p>"+data.sejarah_pejabat+"</p>"
                 );
             }).fail(function( res, exception ) {
                 $(' #div-header-es ').empty();
