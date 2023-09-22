@@ -168,6 +168,7 @@
                     kd_unit : kd_unit,
                 },
             }).done(function( data ) {
+                var historypejabat = data.sejarah_pejabat
                 $(' #div-header-es ').empty();
                 $(' #div-body-es ').empty();
                 
@@ -176,9 +177,13 @@
                     "<h4 class='modal-title'>"+data.nm_emp+"</h4><br>"+
                     "<span class='text-muted'>"+ data.nm_bidang + " - " + (data.notes).toUpperCase()+"</span>"
                 );
+
+                if(data.sejarah_pejabat == null) {
+                    historypejabat = '';
+                }
                 $(' #div-body-es ').append(
                     "<h3>Sejarah Singkat</h3>"+
-                    "<p>"+data.sejarah_pejabat+"</p>"
+                    "<p>"+historypejabat+"</p>"
                 );
             }).fail(function( res, exception ) {
                 $(' #div-header-es ').empty();
