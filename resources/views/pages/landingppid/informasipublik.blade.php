@@ -21,6 +21,23 @@
 				<div class="article">
 					<!-- article content -->
 					<div class="article-content">
+
+                        <!-- ?? -->
+                        <button class="accordion"><span style="font-weight: bold;">Maklumat Pelayanan Informasi Publik PPID Pemprov DKI Jakarta</span></button>
+                        <div class="panel">
+                            <p style="font-weight: bold;">KAMI BERUPAYA MEMBERIKAN PELAYANAN INFORMASI PUBLIK DAN BERKOMITMEN UNTUK :</p>
+                            <ol>
+                                <li>Memberikan pelayanan informasi yang prima berdasarkan Undang-Undang No 14 Tahun 2008 tentang Keterbukaan Informasi Publik dan juga turut mewujudkan misi Pemerintah Provinsi DKI Jakarta yang berorientasi pada pelayanan publik;</li>
+                                <li>Memberikan kemudahan kepada publik dalam mendapatkan informasi yang diperlukan dengan murah dan sederhana;</li>
+                                <li>Menyediakan dan memberikan informasi publik yang dikuasai secara akurat, benar dan tidak menyesatkan;</li>
+                                <li>Menyediakan daftar informasi publik untuk informasi yang wajib disediakan dan diumumkan;</li>
+                                <li>Bertindak proaktif dalam memenuhi kebutuhan informasi masyarakat serta menjamin seluruh informasi publik dan fasilitas pelayanan sesuai dengan ketentuan yang berlaku;</li>
+                                <li>Menyiapkan ruang dan fasilitas yang nyaman dan tertata baik;</li>
+                                <li>Bersikap adil, tidak diskriminatif dan berperilaku sopan santun dalam memberikan layanan informasi publik;</li>
+                                <li>Menyiapkan petugas informasi yang berdedikasi dan siap melayani;</li>
+                                <li>Tidak melakukan pungutan biaya yang tidak sesuai dengan ketentuan peraturan perundangan dalam memberikan layanan informasi publik.</li>
+                            </ol>
+                        </div>
 			            
                         <!-- 1 -->
                         <button class="accordion"><span style="font-weight: bold;">Profil PPID</span></button>
@@ -104,6 +121,22 @@
                         <button class="accordion"><span style="font-weight: bold;">Tata Cara Permohonan Informasi Publik</span></button>
                         <div class="panel">
                             <p><a target="_blank" href="https://bpad.jakarta.go.id/portal/ppid/infografis">Lihat Tata Cara Permohonan</a></p>
+                        </div>
+
+                        <!-- ?? -->
+                        <button class="accordion"><span style="font-weight: bold;">Daftar Informasi Publik (DIP)</span></button>
+                        <div class="panel">
+                            <ul>
+                                <li><a target="_blank" href="https://drive.google.com/drive/folders/1kDBlFSwgROXgHdwiSLWtci6CnZ2hd85Z?usp=sharing">DIP Tahun 2023</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- ?? -->
+                        <button class="accordion"><span style="font-weight: bold;">Daftar Informasi Dikecualikan (DIK)</span></button>
+                        <div class="panel">
+                            <ul>
+                                <li><a target="_blank" href="https://drive.google.com/drive/folders/1O4vQj8scmfrt-M4zBnfLbYRuynz6WpTa?usp=sharing">DIK Tahun 2022</a></li>
+                            </ul>
                         </div>
 
                         <!-- 15 -->
