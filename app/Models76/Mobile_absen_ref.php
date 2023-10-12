@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Mobile_absen_ref extends Model
 {
-    protected $connection = 'server76';
+    protected $connection = 'server12';
 	protected $table = "bpaddtfake.dbo.mobile_absen_refff";
 	public $timestamps = false;
 }
