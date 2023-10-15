@@ -132,14 +132,14 @@ class HiddenController extends Controller
         if(Auth::user()->usname && $_SESSION['user_data']['deskripsi_user'] && strlen($_SESSION['user_data']['deskripsi_user']) == 6 && is_numeric($_SESSION['user_data']['deskripsi_user'])){
             $param = $_SESSION['user_data']['deskripsi_user'];
             $pegawais = 
-            DB::connection('server76')->select( 
+            DB::connection('server12')->select( 
                 DB::raw(
                 "exec bpaddtfake.dbo.proc_getallpegawai_withfilter_bidang_not_istidakwajibapel @Idunit = '".$param."'"
                 )
             );
         } else {
             $pegawais = 
-            DB::connection('server76')->select( 
+            DB::connection('server12')->select( 
                 DB::raw(
                 "exec bpaddtfake.dbo.proc_getallpegawai_not_istidakwajibapel", 
                 )

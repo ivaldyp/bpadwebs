@@ -71,7 +71,7 @@ class PublicController extends Controller
         }
 
         $getrekapabsen = 
-        DB::connection('server76')->select( 
+        DB::connection('server12')->select( 
             DB::raw(
                 "
                 SELECT 
@@ -217,7 +217,7 @@ class PublicController extends Controller
         }
 
 		$query = 
-        DB::connection('server76')->select( 
+        DB::connection('server12')->select( 
             DB::raw("
                 SELECT
                     a.id_emp,
@@ -301,7 +301,7 @@ class PublicController extends Controller
         }
 
         $totalemps = Emp_data::count();
-        $emps = DB::connection('server76')->select( DB::raw("
+        $emps = DB::connection('server12')->select( DB::raw("
         SELECT 
             a.id_emp, 
             a.nip_emp, 

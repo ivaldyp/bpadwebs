@@ -1428,6 +1428,19 @@ class InternalController extends Controller
                     ->get();
 
         $today = date('Y-m-d');
+        
+        $pegawais = DB::connection('server12')->select( DB::raw("
+		select id_emp, nm_emp, nrk_emp, nip_emp, tbunit.kd_unit, tbunit.nm_unit, tbunit.nm_bidang
+		from bpaddtfake.dbo.emp_data a
+		join bpaddtfake.dbo.emp_jab tbjab on tbjab.ids = (SELECT TOP 1 ids FROM bpaddtfake.dbo.emp_jab WHERE emp_jab.noid = a.id_emp and emp_jab.sts='1' ORDER BY tmt_jab DESC)
+		join bpaddtfake.dbo.glo_org_unitkerja tbunit on tbunit.kd_unit = (SELECT TOP 1 idunit FROM bpaddtfake.dbo.glo_org_unitkerja where tbunit.kd_unit = tbjab.idunit)
+		where a.ked_emp = 'AKTIF'
+		and a.sts = 1
+		and a.id_emp = tbjab.noid
+		and tbjab.sts = 1
+		and tbunit.sao like '01%'
+		order by nm_emp") );
+		$pegawais = json_decode(json_encode($pegawais), true);
 
         $events_today = DB::connection('server12')->table('bpadmobile.dbo.dta_kaban_event AS agenda')->select([
                             'agenda.*',
@@ -1482,6 +1495,21 @@ class InternalController extends Controller
         ->with('events_today', $events_today)
         ->with('events_besok', $events_besok)
         ->with('events_kemarin', $events_kemarin);
+    }
+
+    public function getagendakaban(Request $request)
+    {
+        $event = DB::connection('server12')->table('bpadmobile.dbo.dta_kaban_event AS agenda')->select([
+                            'agenda.*',
+                            'qr.*',
+                        ])
+                        ->LeftJoin('bpadmobile.dbo.dta_kaban_event_qr AS qr', 'agenda.ids', '=', 'qr.id_agenda')
+                        ->where('agenda.sts', 1)
+                        ->where('agenda.ids', $request->ids)
+                        ->first();
+        $event = json_decode(json_encode($event), true);
+
+        return $event;
     }
 
     public function forminsertagendakaban(Request $request)
