@@ -1416,7 +1416,7 @@ class InternalController extends Controller
 		// 	$monthnow = (int)date('m');
 		// }
 
-        $distinctyear = DB::connection('server12')->table('bpadmaster.dbo.glo_periode_rekon')
+        $distinctyear = DB::connection('server12')->table('bpadmobile.dbo.glo_periode_rekon')
                     ->selectRaw('DISTINCT(tahun)')
                     ->orderBy('tahun', 'desc')
                     ->get();    
