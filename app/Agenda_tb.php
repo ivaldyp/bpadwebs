@@ -8,7 +8,7 @@ class Agenda_tb extends Model
 {
     protected $connection = 'sqlsrv2';
     // protected $primaryKey = "ids"; 
-    protected $table = "agenda_tb";
+    protected $table = "bpaddtfake.dbo.agenda_tb";
 
     public $timestamps = false;
     // public $incrementing = false;
