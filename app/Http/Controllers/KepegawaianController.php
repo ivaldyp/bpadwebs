@@ -2438,7 +2438,6 @@ class KepegawaianController extends Controller
 					SELECT *
 					from bpaddtfake.dbo.v_kinerja
 					where idemp = '$now_id'
-					and stat $now_valid
 					and YEAR(tgl_trans) = $now_year
 					and MONTH(tgl_trans) = $now_month
 					ORDER BY tgl_trans, time1, time2
