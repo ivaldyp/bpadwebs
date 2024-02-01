@@ -326,13 +326,7 @@
 	<script src="{{ ('/portal/ample/plugins/bower_components/datatables/jquery.dataTables.min.js') }}"></script>
     
 
-    <script>
-        $('.myTable').DataTable({
-            "paging":   false,
-            "ordering": false,
-            "info":     false,
-        });
-        
+    <script>       
         $('#lainnya').attr('disabled', true);
 
         $('.clockpicker').clockpicker({
@@ -344,6 +338,12 @@
             autoclose: true
             , todayHighlight: true
             , format: 'dd/mm/yyyy'
+        });
+
+        $('.myTable').DataTable({
+            "paging":   false,
+            "ordering": false,
+            "info":     false,
         });
 
         $('#jns_hadir').on('change', function() {
