@@ -8,7 +8,7 @@ class Disposisi_tes extends Model
 {
     protected $connection = 'sqlsrv2';
 	// protected $primaryKey = "ids"; 
-	protected $table = "disposisi_tes";
+	protected $table = "bpaddtfake.dbo.disposisi_tes";
 	
 	// public $incrementing = 'false';
 	public $timestamps = false;

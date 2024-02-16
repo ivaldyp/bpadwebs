@@ -8,7 +8,7 @@ class Internal_info extends Model
 {
     protected $connection = 'sqlsrv2';
     // protected $primaryKey = "ids"; 
-    protected $table = "internal_info";
+    protected $table = "bpaddtfake.dbo.internal_info";
 
     public $timestamps = false;
     // public $incrementing = false;

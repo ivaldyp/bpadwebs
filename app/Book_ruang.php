@@ -8,7 +8,7 @@ class Book_ruang extends Model
 {
     protected $connection = 'sqlsrv2';
     // protected $primaryKey = "ids"; 
-    protected $table = "book_ruang";
+    protected $table = "bpaddtfake.dbo.book_ruang";
 
     public $timestamps = false;
     // public $incrementing = false;

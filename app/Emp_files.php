@@ -8,7 +8,7 @@ class Emp_files extends Model
 {
     protected $connection = 'sqlsrv2';
     // protected $primaryKey = "id_emp"; 
-    protected $table = "emp_files";
+    protected $table = "bpaddtfake.dbo.emp_files";
     
     public $incrementing = 'false';
     public $timestamps = false;

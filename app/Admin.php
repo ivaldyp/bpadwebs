@@ -12,7 +12,7 @@ class Admin extends Authenticatable
     //protected $guard = 'logins';
 
     protected $connection = 'sqlsrv2';
-    protected $table = 'sec_logins';
+    protected $table = 'bpaddtfake.dbo.sec_logins';
     protected $primaryKey = 'usname';
     public $incrementing = false;
     // protected $keyType = 'string';

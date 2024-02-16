@@ -8,7 +8,7 @@ class Sec_access extends Model
 {
     protected $connection = 'sqlsrv2';
     protected $primaryKey = null; 
-    protected $table = "sec_access";
+    protected $table = "bpaddtfake.dbo.sec_access";
     public $timestamps = false;
     
     public function belongAccessToMenu()

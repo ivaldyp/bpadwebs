@@ -8,7 +8,7 @@ class Emp_kel extends Model
 {
     protected $connection = 'sqlsrv2';
     // protected $primaryKey = "id_emp"; 
-    protected $table = "emp_kel";
+    protected $table = "bpaddtfake.dbo.emp_kel";
     
     public $incrementing = 'false';
     public $timestamps = false;

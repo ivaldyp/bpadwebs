@@ -8,7 +8,7 @@ class Glo_huk extends Model
 {
     protected $connection = 'sqlsrv2';
     // protected $primaryKey = "id_emp"; 
-    protected $table = "glo_huk";
+    protected $table = "bpaddtfake.dbo.glo_huk";
     
     public $incrementing = 'false';
     public $timestamps = false;

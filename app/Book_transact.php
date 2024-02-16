@@ -8,7 +8,7 @@ class Book_transact extends Model
 {
     protected $connection = 'sqlsrv2';
     // protected $primaryKey = "ids"; 
-    protected $table = "book_transact";
+    protected $table = "bpaddtfake.dbo.book_transact";
 
     public $timestamps = false;
     // public $incrementing = false;

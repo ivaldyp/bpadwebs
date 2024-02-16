@@ -8,7 +8,7 @@ class Content_tb extends Model
 {
 	protected $connection = 'sqlsrv2';
     // protected $primaryKey = "ids"; 
-    protected $table = "fr_disposisi";
+    protected $table = "bpaddtfake.dbo.fr_disposisi";
 
     public $timestamps = false;
     // public $incrementing = false;

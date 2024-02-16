@@ -8,7 +8,7 @@ class Berita_tb extends Model
 {
     protected $connection = 'sqlsrv2';
     // protected $primaryKey = "ids"; 
-    protected $table = "berita_tb";
+    protected $table = "bpaddtfake.dbo.berita_tb";
 
     public $timestamps = false;
     // public $incrementing = false;
