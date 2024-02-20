@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-require '../vendor/autoload.php';
+// require '../vendor/autoload.php';
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
