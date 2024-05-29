@@ -532,12 +532,12 @@ class KepegawaianController extends Controller
 
 		$filefoto = '';
 
-		$cekangkapenting = Emp_data::where('id_emp', $request->id_emp)
+		$cekangkapenting = Emp_data::where('id_emp', $new_id_emp)
 									->where('ked_emp', 'aktif')
 									->where('sts', 1)
 									->first(['nik_emp', 'nrk_emp', 'nip_emp']);
 
-		if ($request->nip_emp && $request->nip_emp != '' && $request->nip_emp != $cekangkapenting['nip_emp']) {
+		if ($request->nip_emp && $request->nip_emp != '') {
 			$ceknip = Emp_data::
 						where('nip_emp', $request->nip_emp)
 						->where('ked_emp', 'aktif')
@@ -551,7 +551,7 @@ class KepegawaianController extends Controller
 			return redirect('/kepegawaian/tambah%20pegawai')->with('message', 'NIP harus terdiri dari 18 digit');
 		}
 			
-		if ($request->nrk_emp && $request->nrk_emp != '' && $request->nrk_emp != $cekangkapenting['nrk_emp']) {
+		if ($request->nrk_emp && $request->nrk_emp != '') {
 			$ceknrk = Emp_data::
 						where('nrk_emp', $request->nrk_emp)
 						->where('ked_emp', 'aktif')
@@ -565,7 +565,7 @@ class KepegawaianController extends Controller
 			return redirect('/kepegawaian/tambah%20pegawai')->with('message', 'NRK harus terdiri dari 6 digit');
 		}
 
-		if ($request->nik_emp && $request->nik_emp != '' && $request->nik_emp != $cekangkapenting['nik_emp']) {
+		if ($request->nik_emp && $request->nik_emp != '') {
 			$ceknrk = Emp_data::
 						where('nik_emp', $request->nik_emp)
 						->where('ked_emp', 'aktif')
