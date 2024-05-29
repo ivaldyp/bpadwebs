@@ -1059,24 +1059,24 @@ class DisposisiController extends Controller
 										->first();
 
 					// NOTIFIKASI BROADCAST kalau ada DISPOSISI BARU 
-					$url = "http://10.15.38.80/mobileaset/notif/send"; //release
+					// $url = "http://10.15.38.80/mobileaset/notif/send"; //release
 					// $url = "http://10.15.38.82/mobileasetstaging/notif/send"; //staging
 					
-					$client = new Client();
-					$res = $client->request('GET', $url, [
-						'headers' => [
-							'Content-Type' => 'application/x-www-form-urlencoded',
-						],
-						'form_params' => [
-							"id_emp" => $findidemp['id_emp'],
-							"title" => "Disposisi",
-							"message" => "Anda baru saja mendapatkan disposisi baru!! Segera cek aplikasi anda",
-							"data" => [
-								"type" => "disposisi",
-								"ids" => $getlastinsertid['ids'],
-							],
-						],
-					]);
+					// $client = new Client();
+					// $res = $client->request('GET', $url, [
+					// 	'headers' => [
+					// 		'Content-Type' => 'application/x-www-form-urlencoded',
+					// 	],
+					// 	'form_params' => [
+					// 		"id_emp" => $findidemp['id_emp'],
+					// 		"title" => "Disposisi",
+					// 		"message" => "Anda baru saja mendapatkan disposisi baru!! Segera cek aplikasi anda",
+					// 		"data" => [
+					// 			"type" => "disposisi",
+					// 			"ids" => $getlastinsertid['ids'],
+					// 		],
+					// 	],
+					// ]);
 
 					sleep(2);
 				}
@@ -1128,6 +1128,92 @@ class DisposisiController extends Controller
 		}
 		// $this->checksession(); //$this->checkSessionTime();
 
+		$splitmaxform = explode(".", $request->no_form);
+		$nowdisposisi = Fr_disposisi::where('ids', $request->ids)->first();
+		$filedispo = $nowdisposisi['nm_file'];
+        $diryear = date('Y',strtotime($request->tgl_masuk_master));
+
+        if (isset($request->btnSimpanFile)) {
+            if (isset($request->nm_file)) {
+                $file = $request->nm_file;
+                $filedispo = '';
+                if (count($file) == 1) {
+                    
+                    if ($file[0]->getSize() > 52222222) {
+                        return redirect('/disposisi/ubah disposisi?ids='.$request->ids)
+                            ->with('message', 'Ukuran file terlalu besar') 
+                            ->with('signdate', $request->signdate)
+                            ->with('msg_num', 2);
+                    } 
+    
+                    // if ($filedispo != '') {
+                    //     $filedispo .= '::';
+                    // }
+    
+                    $filenow = 'disp';
+                    $filenow .= (int) date('HIs');
+                    $filenow .= ($splitmaxform[3]);
+                    $filenow .= ".". $file[0]->getClientOriginalExtension();
+    
+                    $tujuan_upload = config('app.savefiledisposisi');
+                    $tujuan_upload .= "\\" . $diryear;
+                    $tujuan_upload .= "\\" . $request->no_form;
+    
+                    $filedispo .= $filenow;
+    
+                    $file[0]->move($tujuan_upload, $filenow);
+                } else {
+                    // if ($filedispo != '') {
+                    //     $filedispo .= '::';
+                    // }
+    
+                    foreach ($file as $key => $data) {
+    
+                        if ($data->getSize() > 52222222) {
+                            return redirect('/disposisi/ubah disposisi?ids='.$request->ids)
+                                ->with('message', 'Ukuran file terlalu besar') 
+                                ->with('signdate', $request->signdate)
+                                ->with('msg_num', 2);   
+                        } 
+    
+                        $filenow = 'disp';
+                        $filenow .= (int) date('HIs') + $key;
+                        $filenow .= ($splitmaxform[3]);
+                        $filenow .= ".". $data->getClientOriginalExtension();
+    
+                        $tujuan_upload = config('app.savefiledisposisi');
+                        $tujuan_upload .= "\\" . $diryear;
+                        $tujuan_upload .= "\\" . $request->no_form;
+                        $data->move($tujuan_upload, $filenow);
+    
+                        // if ($key != count($file) - 1) {
+                        // 	$filedispo .= $filenow . "::";
+                        // } else {
+                        // 	$filedispo .= $filenow;
+                        // }
+                    
+                        if ($key != 0) {
+                            $filedispo .= "::";
+                        } 
+                        $filedispo .= $filenow;
+    
+                    }
+                }
+                Fr_disposisi::where('ids', $request->ids)
+                ->update([
+                    'nm_file' => $filedispo,
+                ]);	
+            }
+
+            $splitsigndate = explode("::", $request->signdate);
+			$yearnow = $splitsigndate[0];
+			$signnow = $splitsigndate[1];
+			$monthnow = $splitsigndate[2];
+            return redirect('/disposisi/formdisposisi?yearnow='.$yearnow.'&signnow='.$signnow.'&monthnow='.$monthnow)
+					->with('message', 'Disposisi berhasil dikirim')
+					->with('msg_num', 1);
+		}
+
 		if (isset($request->jabatans) && isset($request->stafs)) {
 			return redirect('/disposisi/ubah disposisi?ids='.$request->ids)
 					->with('message', 'Tidak boleh memilih jabatan & staf bersamaan')
@@ -1174,12 +1260,6 @@ class DisposisiController extends Controller
 					->with('msg_num', 2);
 		}
 
-		$splitmaxform = explode(".", $request->no_form);
-
-		$nowdisposisi = Fr_disposisi::where('ids', $request->ids)->first();
-		$filedispo = $nowdisposisi['nm_file'];
-
-		$diryear = date('Y',strtotime($request->tgl_masuk_master));
 		if (isset($request->nm_file)) {
 			$file = $request->nm_file;
 			if (count($file) == 1) {
@@ -1369,24 +1449,24 @@ class DisposisiController extends Controller
 										->first();
 
 					// NOTIFIKASI BROADCAST kalau ada DISPOSISI BARU 
-					$url = "http://10.15.38.80/mobileaset/notif/send"; //release
+					// $url = "http://10.15.38.80/mobileaset/notif/send"; //release
 					// $url = "http://10.15.38.82/mobileasetstaging/notif/send"; //staging
 					
-					$client = new Client();
-					$res = $client->request('GET', $url, [
-						'headers' => [
-							'Content-Type' => 'application/x-www-form-urlencoded',
-						],
-						'form_params' => [
-							"id_emp" => $findidemp['id_emp'],
-							"title" => "Disposisi",
-							"message" => "Anda baru saja mendapatkan disposisi baru!! Segera cek aplikasi anda",
-							"data" => [
-								"type" => "disposisi",
-								"ids" => $getlastinsertid['ids'],
-							],
-						],
-					]);
+					// $client = new Client();
+					// $res = $client->request('GET', $url, [
+					// 	'headers' => [
+					// 		'Content-Type' => 'application/x-www-form-urlencoded',
+					// 	],
+					// 	'form_params' => [
+					// 		"id_emp" => $findidemp['id_emp'],
+					// 		"title" => "Disposisi",
+					// 		"message" => "Anda baru saja mendapatkan disposisi baru!! Segera cek aplikasi anda",
+					// 		"data" => [
+					// 			"type" => "disposisi",
+					// 			"ids" => $getlastinsertid['ids'],
+					// 		],
+					// 	],
+					// ]);
 
 					sleep(2);
 				}
@@ -2562,26 +2642,26 @@ class DisposisiController extends Controller
 											->first();
 
 						// NOTIFIKASI BROADCAST kalau ada DISPOSISI BARU 
-						$url = "http://10.15.38.80/mobileaset/notif/send"; //release
+						// $url = "http://10.15.38.80/mobileaset/notif/send"; //release
 						// $url = "http://10.15.38.82/mobileasetstaging/notif/send"; //staging
 						
-						$client = new Client();
-						$res = $client->request('GET', $url, [
-							'headers' => [
-								'Content-Type' => 'application/x-www-form-urlencoded',
-							],
-							'form_params' => [
-								"id_emp" => $findidjabatan[0]['id_emp'],
-								"title" => "Disposisi",
-								"message" => "Anda baru saja mendapatkan disposisi baru!! Segera cek aplikasi anda sekarang.",
-								"data" => [
-									"type" => "disposisi",
-									"ids" => $getlastinsertid['ids'],
-								],
-							],
-						]);
+						// $client = new Client();
+						// $res = $client->request('GET', $url, [
+						// 	'headers' => [
+						// 		'Content-Type' => 'application/x-www-form-urlencoded',
+						// 	],
+						// 	'form_params' => [
+						// 		"id_emp" => $findidjabatan[0]['id_emp'],
+						// 		"title" => "Disposisi",
+						// 		"message" => "Anda baru saja mendapatkan disposisi baru!! Segera cek aplikasi anda sekarang.",
+						// 		"data" => [
+						// 			"type" => "disposisi",
+						// 			"ids" => $getlastinsertid['ids'],
+						// 		],
+						// 	],
+						// ]);
 
-						sleep(2);
+						// sleep(2);
 					}
 				}
 			}
@@ -2650,26 +2730,26 @@ class DisposisiController extends Controller
 											->first();
 
 						// NOTIFIKASI BROADCAST kalau ada DISPOSISI BARU 
-						$url = "http://10.15.38.80/mobileaset/notif/send"; //release
+						// $url = "http://10.15.38.80/mobileaset/notif/send"; //release
 						// $url = "http://10.15.38.82/mobileasetstaging/notif/send"; //staging
 						
-						$client = new Client();
-						$res = $client->request('GET', $url, [
-							'headers' => [
-								'Content-Type' => 'application/x-www-form-urlencoded',
-							],
-							'form_params' => [
-								"id_emp" => $findidstaf[0]['id_emp'],
-								"title" => "Disposisi",
-								"message" => "Anda baru saja mendapatkan disposisi baru!! Segera cek aplikasi anda",
-								"data" => [
-									"type" => "disposisi",
-									"ids" => $getlastinsertid['ids'],
-								],
-							],
-						]);
+						// $client = new Client();
+						// $res = $client->request('GET', $url, [
+						// 	'headers' => [
+						// 		'Content-Type' => 'application/x-www-form-urlencoded',
+						// 	],
+						// 	'form_params' => [
+						// 		"id_emp" => $findidstaf[0]['id_emp'],
+						// 		"title" => "Disposisi",
+						// 		"message" => "Anda baru saja mendapatkan disposisi baru!! Segera cek aplikasi anda",
+						// 		"data" => [
+						// 			"type" => "disposisi",
+						// 			"ids" => $getlastinsertid['ids'],
+						// 		],
+						// 	],
+						// ]);
 
-						sleep(2);
+						// sleep(2);
 					}
 				}
 			}
