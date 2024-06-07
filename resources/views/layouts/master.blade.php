@@ -356,6 +356,12 @@
 			});
 		});
 	</script>
+
+    <script type="text/javascript">
+        $(window).on('load', function() {
+            $('#modal-detail').modal('show');
+        });
+    </script>
 </body>
 
 </html>

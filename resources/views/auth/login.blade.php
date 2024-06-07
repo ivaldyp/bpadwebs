@@ -75,7 +75,7 @@
     </div>
 </div>
 
-<div id="modal-detail" class="modal fade" role="dialog">
+{{-- <div id="modal-detail" class="modal fade" role="dialog">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-body">
@@ -83,7 +83,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 
 <?php  
     use App\Internal_info;

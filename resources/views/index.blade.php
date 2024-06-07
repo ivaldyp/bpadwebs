@@ -312,6 +312,16 @@
 	</div>
 	<!-- /HOME OWL -->
 
+    <div id="modal-detail" class="modal fade" role="dialog">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-body">
+					<img src="{{ ('/portal/img/popup-image/pengumuman-koreksi-jangka-waktu-reklame.jpeg') }}" width="100%">
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<hr>
 
     {{-- @include('pages.landingcomponent.produk') --}}
